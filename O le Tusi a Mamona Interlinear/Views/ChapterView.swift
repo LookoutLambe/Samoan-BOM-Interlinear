@@ -1,45 +1,65 @@
 import SwiftUI
+#if canImport(UIKit)
+import UIKit
+#elseif canImport(AppKit)
+import AppKit
+#endif
 
-/// The reading view. Hosts a paged `TabView` so the user can flip between
-/// chapters like in the Gospel Library app. Rather than materializing every
-/// chapter at once (240+ heavy interlinear pages, which swamps the pager and
-/// kills swiping), it keeps a lightweight sliding window of just the previous,
-/// current, and next chapters, re-centered whenever `currentRef` changes. A
+/// The reading view. Lets the user flip between chapters like in the Gospel
+/// Library app. Instead of a paged `TabView` (which materializes every child
+/// eagerly — 240+ heavy interlinear pages — and choked swiping), it uses a
+/// horizontal paging `ScrollView` over a `LazyHStack`, so only the visible and
+/// immediately-adjacent chapters are ever built, and nothing is rebuilt during
+/// the swipe. `scrolledRef` tracks the settled page and drives the title. A
 /// fixed bottom `ReaderControlBar` switches display modes (Interlinear / Samoa
 /// / Tutusa).
 struct ChapterView: View {
     @Environment(ScriptureLibrary.self) private var library
     @Environment(AppSettings.self) private var settings
-    @State private var currentRef: ChapterRef
+    @State private var scrolledRef: ChapterRef?
     @State private var showFontSize = false
     @State private var noteEditorTarget: NoteEditorTarget?
+    @State private var selection = WordSelectionModel()
+
+    private let initialRef: ChapterRef
 
     init(ref: ChapterRef) {
-        self._currentRef = State(initialValue: ref)
-    }
-
-    /// The 3-page sliding window `[previous, current, next]`. Ends are trimmed
-    /// at the first/last chapter of the whole Book of Mormon. `currentRef` is
-    /// both the window's center and the `TabView` selection, so swiping to an
-    /// adjacent page updates the selection, which re-centers the window here.
-    private var windowRefs: [ChapterRef] {
-        var refs: [ChapterRef] = []
-        if let prev = library.previousChapter(before: currentRef) { refs.append(prev) }
-        refs.append(currentRef)
-        if let next = library.nextChapter(after: currentRef) { refs.append(next) }
-        return refs
+        self.initialRef = ref
+        self._scrolledRef = State(initialValue: ref)
     }
 
     var body: some View {
-        TabView(selection: $currentRef) {
-            ForEach(windowRefs, id: \.self) { ref in
-                ChapterPageView(ref: ref, noteEditorTarget: $noteEditorTarget)
-                    .tag(ref)
+        // The reading pager and the bottom banner are laid out as siblings in a
+        // VStack (rather than the pager full-bleeding with the control bar added
+        // as a `safeAreaInset`). This way the `GeometryReader` reports the exact
+        // reading region — the space between the navigation bar and the control
+        // bar — and each page is sized to it, so no verse line can slip behind
+        // either banner.
+        VStack(spacing: 0) {
+            GeometryReader { geo in
+                ScrollView(.horizontal) {
+                    LazyHStack(spacing: 0) {
+                        ForEach(library.allChapterRefs, id: \.self) { ref in
+                            ChapterPageView(ref: ref, noteEditorTarget: $noteEditorTarget)
+                                .frame(width: geo.size.width, height: geo.size.height)
+                        }
+                    }
+                    .scrollTargetLayout()
+                }
+                .scrollTargetBehavior(.paging)
+                .scrollPosition(id: $scrolledRef)
+                .scrollIndicators(.hidden)
             }
+
+            VStack(spacing: 0) {
+                if !selection.isEmpty {
+                    WordActionBar(noteEditorTarget: $noteEditorTarget)
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                }
+                ReaderControlBar()
+            }
+            .animation(.easeInOut(duration: 0.2), value: selection.isEmpty)
         }
-        #if os(iOS)
-        .tabViewStyle(.page(indexDisplayMode: .never))
-        #endif
         .background(Theme.pageBg.ignoresSafeArea())
         .environment(\.scriptureFontScale, settings.fontScale)
         .navigationTitle(navTitle)
@@ -62,9 +82,6 @@ struct ChapterView: View {
             }
         }
         .libraryToolbar()
-        .safeAreaInset(edge: .bottom, spacing: 0) {
-            ReaderControlBar()
-        }
         .sheet(isPresented: $showFontSize) {
             FontSizeSheet()
         }
@@ -75,11 +92,16 @@ struct ChapterView: View {
                 samoanPreview: target.samoanPreview
             )
         }
+        // Injected as the outermost modifier so both the scroll content *and*
+        // the bottom `safeAreaInset` word-action bar are descendants that can
+        // read the selection model.
+        .environment(selection)
     }
 
     private var navTitle: String {
-        guard let book = library.book(id: currentRef.bookId) else { return "" }
-        return "\(book.nameEn) \(currentRef.chapterNum)"
+        let ref = scrolledRef ?? initialRef
+        guard let book = library.book(id: ref.bookId) else { return "" }
+        return "\(book.nameEn) \(ref.chapterNum)"
     }
 }
 
@@ -182,7 +204,7 @@ private struct VerseRow: View {
     @Environment(\.scriptureFontScale) private var scale
     @Environment(ScriptureLibrary.self) private var library
     @Environment(HighlightStore.self) private var highlights
-    @Environment(NoteStore.self) private var notes
+    @Environment(WordSelectionModel.self) private var selection
     let book: Book
     let chapter: Chapter
     let verse: Verse
@@ -192,12 +214,10 @@ private struct VerseRow: View {
     private var verseKey: String {
         "\(book.id)|\(chapter.num)|\(verse.num)"
     }
-    private var highlightColor: HighlightColor? {
-        highlights.color(for: verseKey)
-    }
-    private var hasNote: Bool {
-        notes.hasNote(for: verseKey)
-    }
+
+    /// A highlight saved against the whole verse (as opposed to a single word).
+    private var verseHighlight: HighlightColor? { highlights.color(for: verseKey) }
+    private var verseSelected: Bool { selection.isVerseSelected(verseKey) }
 
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
@@ -206,24 +226,25 @@ private struct VerseRow: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 4)
-        .background(highlightColor?.tint ?? Theme.rowAlt)
-        .contextMenu { verseMenu }
+        .background(Theme.rowAlt)
+    }
+
+    /// Selecting a whole verse. Tapping the number toggles it in every mode.
+    private func toggleVerse() {
+        selection.toggleVerse(verseKey: verseKey, text: verse.samoanText)
     }
 
     @ViewBuilder
     private var verseNumberColumn: some View {
-        VStack(spacing: 4) {
-            Text("\(verse.num)")
-                .font(SerifFont.tnr(size: 17 * scale, weight: .bold))
-                .foregroundStyle(Theme.verseNum)
-            if hasNote {
-                Image(systemName: "note.text")
-                    .font(.system(size: 11 * scale, weight: .medium))
-                    .foregroundStyle(Theme.accent)
-            }
-        }
-        .frame(width: 32 * scale, alignment: .center)
-        .padding(.top, 8)
+        Text("\(verse.num)")
+            .font(SerifFont.tnr(size: 17 * scale, weight: .bold))
+            .foregroundStyle(Theme.verseNum)
+            .frame(width: 32 * scale, alignment: .center)
+            .padding(.top, 8)
+            .contentShape(Rectangle())
+            .onTapGesture(perform: toggleVerse)
+            .accessibilityAddTraits(.isButton)
+            .accessibilityLabel("Faailoga le fuaiupu atoa")
     }
 
     @ViewBuilder
@@ -242,14 +263,24 @@ private struct VerseRow: View {
         FlowLayout(horizontalSpacing: 6, verticalSpacing: 6) {
             ForEach(groupIdiomSpans(verse.words)) { item in
                 switch item {
-                case .single(_, let pair):
-                    WordUnitView(pair: pair)
-                case .span(_, let samoanWords, let englishGloss):
-                    IdiomSpanView(samoanWords: samoanWords, englishGloss: englishGloss)
+                case .single(let idx, let pair):
+                    WordUnitView(
+                        pair: pair,
+                        wordKey: "\(verseKey)|\(idx)",
+                        verseKey: verseKey
+                    )
+                case .span(let idx, let samoanWords, let englishGloss):
+                    IdiomSpanView(
+                        samoanWords: samoanWords,
+                        englishGloss: englishGloss,
+                        wordKey: "\(verseKey)|\(idx)",
+                        verseKey: verseKey
+                    )
                 }
             }
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+        .verseHighlight(color: verseHighlight, selected: verseSelected)
     }
 
     private var samoanOnlyContent: some View {
@@ -259,6 +290,9 @@ private struct VerseRow: View {
             .lineSpacing(4)
             .frame(maxWidth: .infinity, alignment: .leading)
             .padding(.top, 6)
+            .verseHighlight(color: verseHighlight, selected: verseSelected)
+            .contentShape(Rectangle())
+            .onTapGesture(perform: toggleVerse)
     }
 
     private var dualContent: some View {
@@ -268,6 +302,9 @@ private struct VerseRow: View {
                 .foregroundStyle(Theme.hwInk)
                 .lineSpacing(3)
                 .frame(maxWidth: .infinity, alignment: .leading)
+                .verseHighlight(color: verseHighlight, selected: verseSelected)
+                .contentShape(Rectangle())
+                .onTapGesture(perform: toggleVerse)
             Rectangle()
                 .fill(Theme.rule)
                 .frame(width: 1)
@@ -283,38 +320,160 @@ private struct VerseRow: View {
         }
         .padding(.top, 6)
     }
+}
 
-    @ViewBuilder
-    private var verseMenu: some View {
-        Section("Faailoga") {
+/// Background tint + selection ring for a whole-verse highlight, applied to the
+/// Samoan portion of a verse in any reader mode.
+private struct VerseHighlightBackground: ViewModifier {
+    let color: HighlightColor?
+    let selected: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal, 6)
+            .padding(.vertical, 4)
+            .background {
+                if let color {
+                    RoundedRectangle(cornerRadius: 6, style: .continuous)
+                        .fill(color.tint)
+                }
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 6, style: .continuous)
+                    .strokeBorder(Theme.accent, lineWidth: selected ? 2 : 0)
+            }
+    }
+}
+
+private extension View {
+    func verseHighlight(color: HighlightColor?, selected: Bool) -> some View {
+        modifier(VerseHighlightBackground(color: color, selected: selected))
+    }
+}
+
+// MARK: - Word selection action bar
+
+/// The contextual toolbar that slides up while one or more Samoan words are
+/// selected. Offers the five highlight colors, an eraser, a note button, and
+/// copy — each applied to the current selection. Modeled on the Gospel Library
+/// / Standard Works word-selection toolbar.
+private struct WordActionBar: View {
+    @Environment(HighlightStore.self) private var highlights
+    @Environment(WordSelectionModel.self) private var selection
+    @Environment(ScriptureLibrary.self) private var library
+    @Binding var noteEditorTarget: NoteEditorTarget?
+
+    var body: some View {
+        HStack(spacing: 12) {
             ForEach(HighlightColor.allCases, id: \.self) { c in
                 Button {
-                    highlights.set(highlightColor == c ? nil : c, for: verseKey)
+                    applyColor(c)
                 } label: {
-                    Label(c.label, systemImage: highlightColor == c ? "checkmark.circle.fill" : "circle.fill")
-                        .foregroundStyle(c.tint)
+                    Circle()
+                        .fill(c.tint)
+                        .frame(width: 28, height: 28)
+                        .overlay(Circle().strokeBorder(.white.opacity(0.5), lineWidth: 1))
                 }
+                .buttonStyle(.plain)
+                .accessibilityLabel(c.label)
             }
-            if highlightColor != nil {
-                Button(role: .destructive) {
-                    highlights.set(nil, for: verseKey)
-                } label: {
-                    Label("Aveese le Faailoga", systemImage: "xmark.circle")
-                }
-            }
-        }
-        Section("Manatu") {
+
             Button {
-                noteEditorTarget = NoteEditorTarget(
-                    verseKey: verseKey,
-                    referenceLabel: "\(book.nameSm) \(chapter.num):\(verse.num)",
-                    samoanPreview: verse.samoanText
-                )
+                applyColor(nil)
             } label: {
-                Label(hasNote ? "Faasa\u{2019}o le Manatu" : "Faaopoopo se Manatu", systemImage: "square.and.pencil")
+                Image(systemName: "eraser")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundStyle(Theme.headerText)
+                    .frame(width: 28, height: 28)
+                    .overlay(Circle().strokeBorder(.white.opacity(0.4), lineWidth: 1))
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Aveese le Faailoga")
+
+            Divider().frame(height: 24).overlay(.white.opacity(0.3))
+
+            Button(action: openNote) {
+                Image(systemName: "square.and.pencil")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.headerText)
+            }
+            .accessibilityLabel("Manatu")
+
+            Button(action: copySelection) {
+                Image(systemName: "doc.on.doc")
+                    .font(.system(size: 16, weight: .semibold))
+                    .foregroundStyle(Theme.headerText)
+            }
+            .accessibilityLabel("Kopi")
+
+            Spacer(minLength: 0)
+
+            Button {
+                selection.clear()
+            } label: {
+                Image(systemName: "xmark")
+                    .font(.system(size: 15, weight: .bold))
+                    .foregroundStyle(Theme.headerText)
+            }
+            .accessibilityLabel("Faaleaoga")
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .frame(maxWidth: .infinity)
+        .background(Theme.headerBg)
+    }
+
+    private func applyColor(_ color: HighlightColor?) {
+        if let verseKey = selection.wholeVerseKey {
+            highlights.set(color, for: verseKey)
+        } else {
+            for key in selection.selected {
+                highlights.set(color, for: key)
             }
         }
+        selection.clear()
     }
+
+    private func copySelection() {
+        let text = selection.isWholeVerse ? selection.wholeVerseText : selection.joinedText
+        copyToPasteboard(text)
+        selection.clear()
+    }
+
+    private func openNote() {
+        if let verseKey = selection.wholeVerseKey {
+            noteEditorTarget = NoteEditorTarget(
+                verseKey: verseKey,
+                referenceLabel: referenceLabel(for: verseKey),
+                samoanPreview: selection.wholeVerseText
+            )
+            selection.clear()
+            return
+        }
+        guard let anchor = selection.anchorKey, let vk = selection.verseKey else { return }
+        noteEditorTarget = NoteEditorTarget(
+            verseKey: anchor,
+            referenceLabel: referenceLabel(for: vk),
+            samoanPreview: selection.joinedText
+        )
+        selection.clear()
+    }
+
+    private func referenceLabel(for verseKey: String) -> String {
+        let parts = verseKey.split(separator: "|")
+        guard parts.count == 3, let book = library.book(id: String(parts[0])) else { return "" }
+        return "\(book.nameSm) \(parts[1]):\(parts[2])"
+    }
+}
+
+/// Cross-platform clipboard write.
+private func copyToPasteboard(_ text: String) {
+    #if canImport(UIKit)
+    UIPasteboard.general.string = text
+    #elseif canImport(AppKit)
+    NSPasteboard.general.clearContents()
+    NSPasteboard.general.setString(text, forType: .string)
+    #endif
 }
 
 // MARK: - Reader control bar (footer)

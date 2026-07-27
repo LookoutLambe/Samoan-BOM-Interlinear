@@ -3,28 +3,83 @@ import SwiftUI
 /// One interlinear word-unit: Samoan surface form stacked above its English gloss.
 /// Honors `\.scriptureFontScale` so the user's reader-size preference applies.
 /// If the gloss is empty (not yet curated), the bottom row collapses cleanly.
+///
+/// Tappable: tapping toggles the word in the reader's selection, which the
+/// bottom action bar then highlights or annotates. A saved highlight tints the
+/// word; a saved note shows a small dot.
 struct WordUnitView: View {
     @Environment(\.scriptureFontScale) private var scale
+    @Environment(HighlightStore.self) private var highlights
+    @Environment(NoteStore.self) private var notes
+    @Environment(WordSelectionModel.self) private var selection
     let pair: WordPair
+    let wordKey: String
+    let verseKey: String
 
     var body: some View {
-        VStack(alignment: .center, spacing: 2) {
-            Text(pair.sm)
-                .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
-                .foregroundStyle(Theme.hwInk)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            if !pair.en.isEmpty {
-                Text(pair.en)
-                    .font(SerifFont.tnr(size: 12 * scale, italic: true))
-                    .foregroundStyle(Theme.glossInk)
+        Button {
+            selection.toggle(key: wordKey, text: pair.sm, verseKey: verseKey)
+        } label: {
+            VStack(alignment: .center, spacing: 2) {
+                Text(pair.sm)
+                    .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
+                    .foregroundStyle(Theme.hwInk)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: 120 * scale)
+                if !pair.en.isEmpty {
+                    Text(pair.en)
+                        .font(SerifFont.tnr(size: 12 * scale, italic: true))
+                        .foregroundStyle(Theme.glossInk)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: 120 * scale)
+                }
             }
+            .wordUnitDecoration(
+                highlight: highlights.color(for: wordKey),
+                selected: selection.isSelected(wordKey),
+                hasNote: notes.hasNote(for: wordKey)
+            )
+            .contentShape(Rectangle())
         }
-        .padding(.horizontal, 4)
-        .padding(.vertical, 2)
+        .buttonStyle(.plain)
+    }
+}
+
+/// Shared background/selection/note chrome for a tappable word-unit.
+struct WordUnitDecoration: ViewModifier {
+    let highlight: HighlightColor?
+    let selected: Bool
+    let hasNote: Bool
+
+    func body(content: Content) -> some View {
+        content
+            .padding(.horizontal, 4)
+            .padding(.vertical, 2)
+            .background {
+                if let highlight {
+                    RoundedRectangle(cornerRadius: 4, style: .continuous)
+                        .fill(highlight.tint)
+                }
+            }
+            .overlay {
+                RoundedRectangle(cornerRadius: 4, style: .continuous)
+                    .strokeBorder(Theme.accent, lineWidth: selected ? 2 : 0)
+            }
+            .overlay(alignment: .topTrailing) {
+                if hasNote {
+                    Circle()
+                        .fill(Theme.accent)
+                        .frame(width: 6, height: 6)
+                        .offset(x: -1, y: 1)
+                }
+            }
+    }
+}
+
+extension View {
+    func wordUnitDecoration(highlight: HighlightColor?, selected: Bool, hasNote: Bool) -> some View {
+        modifier(WordUnitDecoration(highlight: highlight, selected: selected, hasNote: hasNote))
     }
 }
 
@@ -34,26 +89,42 @@ struct WordUnitView: View {
 /// isn't fragmented with `·` cells.
 struct IdiomSpanView: View {
     @Environment(\.scriptureFontScale) private var scale
+    @Environment(HighlightStore.self) private var highlights
+    @Environment(NoteStore.self) private var notes
+    @Environment(WordSelectionModel.self) private var selection
     let samoanWords: [String]
     let englishGloss: String
+    let wordKey: String
+    let verseKey: String
+
+    private var joined: String { samoanWords.joined(separator: " ") }
 
     var body: some View {
-        VStack(alignment: .center, spacing: 2) {
-            Text(samoanWords.joined(separator: " "))
-                .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
-                .foregroundStyle(Theme.hwInk)
-                .multilineTextAlignment(.center)
-                .fixedSize(horizontal: false, vertical: true)
-            if !englishGloss.isEmpty {
-                Text(englishGloss)
-                    .font(SerifFont.tnr(size: 12 * scale, italic: true))
-                    .foregroundStyle(Theme.glossInk)
+        Button {
+            selection.toggle(key: wordKey, text: joined, verseKey: verseKey)
+        } label: {
+            VStack(alignment: .center, spacing: 2) {
+                Text(joined)
+                    .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
+                    .foregroundStyle(Theme.hwInk)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
+                if !englishGloss.isEmpty {
+                    Text(englishGloss)
+                        .font(SerifFont.tnr(size: 12 * scale, italic: true))
+                        .foregroundStyle(Theme.glossInk)
+                        .multilineTextAlignment(.center)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
             }
+            .wordUnitDecoration(
+                highlight: highlights.color(for: wordKey),
+                selected: selection.isSelected(wordKey),
+                hasNote: notes.hasNote(for: wordKey)
+            )
+            .contentShape(Rectangle())
         }
-        .padding(.horizontal, 4)
-        .padding(.vertical, 2)
+        .buttonStyle(.plain)
     }
 }
 

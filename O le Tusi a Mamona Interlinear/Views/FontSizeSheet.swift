@@ -19,12 +19,12 @@ struct FontSizeSheet: View {
 
                 VStack(spacing: 8) {
                     FlowLayout(horizontalSpacing: 6, verticalSpacing: 6) {
-                        WordUnitView(pair: WordPair(sm: "O", en: "·"))
-                        WordUnitView(pair: WordPair(sm: "a\u{2019}u,", en: "I"))
-                        WordUnitView(pair: WordPair(sm: "o", en: "·"))
-                        WordUnitView(pair: WordPair(sm: "Nifae,", en: "Nephi"))
-                        WordUnitView(pair: WordPair(sm: "na", en: "·"))
-                        WordUnitView(pair: WordPair(sm: "fanaua", en: "was born"))
+                        SampleWordUnit(sm: "O", en: "·")
+                        SampleWordUnit(sm: "a\u{2019}u,", en: "I")
+                        SampleWordUnit(sm: "o", en: "·")
+                        SampleWordUnit(sm: "Nifae,", en: "Nephi")
+                        SampleWordUnit(sm: "na", en: "·")
+                        SampleWordUnit(sm: "fanaua", en: "was born")
                     }
                     .environment(\.scriptureFontScale, settings.fontScale)
                     .frame(maxWidth: .infinity, alignment: .center)
@@ -88,5 +88,27 @@ struct FontSizeSheet: View {
         }
         .presentationDetents([.medium])
         .presentationDragIndicator(.visible)
+    }
+}
+
+/// A non-interactive interlinear word-unit used only for the font-size preview.
+private struct SampleWordUnit: View {
+    @Environment(\.scriptureFontScale) private var scale
+    let sm: String
+    let en: String
+
+    var body: some View {
+        VStack(alignment: .center, spacing: 2) {
+            Text(sm)
+                .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
+                .foregroundStyle(Theme.hwInk)
+            if !en.isEmpty {
+                Text(en)
+                    .font(SerifFont.tnr(size: 12 * scale, italic: true))
+                    .foregroundStyle(Theme.glossInk)
+            }
+        }
+        .padding(.horizontal, 4)
+        .padding(.vertical, 2)
     }
 }

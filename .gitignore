@@ -1,0 +1,34 @@
+# macOS
+.DS_Store
+
+# Xcode — build output & user state
+build/
+DerivedData/
+*.xcuserstate
+**/xcuserdata/
+*.xcscmblueprint
+*.xccheckout
+*.moved-aside
+*.hmap
+*.ipa
+*.dSYM
+*.dSYM.zip
+
+# Swift Package Manager
+.build/
+.swiftpm/xcode/package.xcworkspace/contents.xcworkspacedata
+Packages/
+Package.resolved
+
+# Built product (Xcode Products group)
+Products/
+*.app
+
+# Python tooling (gloss builders / PDF generator)
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Generated artifacts
+*.pdf
