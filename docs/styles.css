@@ -316,22 +316,26 @@ body.no-gloss .unit .en { display: none; }
 .verse.hl { border-radius: .25rem; }
 .verse.selected { box-shadow: inset 0 0 0 2px var(--accent); border-radius: .25rem; }
 
-/* Note marker — a small gold dot, as in the app's WordUnitDecoration. */
-.unit.has-note, .verse.has-note { position: relative; }
-
-.unit.has-note::after,
-.verse.has-note::after {
-  content: '';
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
+/* Margin notepad — an annotated verse shows a notepad in the right gutter,
+   the way the Church's own reader marks a noted verse. Hidden unless the row
+   carries a note, but always in the DOM so the gutter width never shifts. */
+.note-marker {
+  flex: none;
+  align-self: flex-start;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-top: .375rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  visibility: hidden;
 }
 
-.verse.has-note::after { top: .375rem; right: .375rem; }
+.verse.has-note .note-marker { visibility: visible; }
+.note-marker svg { width: 100%; height: 100%; display: block; }
+.note-marker:hover { color: var(--accent-light); }
 
 /* ---------- selection toolbar ---------- */
 

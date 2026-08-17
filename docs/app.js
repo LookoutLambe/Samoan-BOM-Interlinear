@@ -352,6 +352,7 @@
         refreshSelectionUI();
       });
       row.append(p);
+      row.append(noteMarker(verseKey, prose));
       return row;
     }
 
@@ -366,13 +367,38 @@
       cols.append(el('div', 'dual-rule'));
       cols.append(el('p', 'prose en-col', verse.en || '—'));
       row.append(cols);
+      row.append(noteMarker(verseKey, prose));
       return row;
     }
 
     const flow = el('div', 'flow');
     for (const item of groupIdiomSpans(verse.w)) flow.append(renderUnit(item, verseKey));
     row.append(flow);
+    row.append(noteMarker(verseKey, prose));
     return row;
+  }
+
+  /* The margin notepad, as on the Church's own reader: an annotated verse gets
+     a notepad in the right gutter, and clicking it reopens the note. Always
+     rendered; CSS reveals it only when the row carries a note. */
+  function noteMarker(verseKey, preview) {
+    const btn = el('button', 'note-marker');
+    btn.setAttribute('aria-label', `Manatu — ${referenceLabel(verseKey)}`);
+    btn.title = 'Manatu';
+    btn.innerHTML =
+      '<svg viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path d="M5 3h11l3 3v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" ' +
+      'fill="currentColor" opacity=".18"/>' +
+      '<path d="M5 3h11l3 3v15a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z" ' +
+      'fill="none" stroke="currentColor" stroke-width="1.6"/>' +
+      '<path d="M15.5 3.2V6.5h3.3M7.5 11h9M7.5 14.5h9M7.5 18h5.5" ' +
+      'fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>' +
+      '</svg>';
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      openNote(verseKey, preview);
+    });
+    return btn;
   }
 
   /* The chapter title block from BookHeader: Samoan book name, English name,
@@ -765,13 +791,15 @@
     return `${book ? book.nameSm : bookId} ${chapter}:${verse}`;
   }
 
-  function openNote() {
-    const verseKey = selection.anchorVerseKey;
+  /* `verseKey` is passed when opening from a margin marker; otherwise the note
+     belongs to whatever is currently selected. */
+  function openNote(verseKey, preview) {
+    if (!verseKey) verseKey = selection.anchorVerseKey;
     if (!verseKey) return;
     const existing = state.notes[verseKey] || '';
 
     $('note-ref').textContent = referenceLabel(verseKey);
-    $('note-preview').textContent = selectionText();
+    $('note-preview').textContent = preview || selectionText();
     $('note-text').value = existing;
     $('btn-note-delete').hidden = !existing;
     $('note-sheet').hidden = false;
