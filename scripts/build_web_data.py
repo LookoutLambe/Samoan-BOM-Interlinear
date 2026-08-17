@@ -15,6 +15,7 @@ Usage:  python3 scripts/build_web_data.py
 
 from __future__ import annotations
 
+import hashlib
 import json
 import re
 import shutil
@@ -180,7 +181,33 @@ def main() -> None:
         "icons/icon-512.png",
         "icons/maskable-512.png",
     ]
-    write(ROOT / "docs" / "assets.json", {"shell": shell, "data": assets})
+    # Stamp a content-derived version into the service worker.
+    #
+    # A service worker is only reinstalled when its own bytes change, and this
+    # one is cache-first — so a fixed version string would pin every returning
+    # reader to the build they first loaded, no matter how many times the site
+    # is redeployed. Hashing the published payload means the version moves
+    # exactly when the content does, and never on a no-op rebuild.
+    digest = hashlib.sha256()
+    for rel in shell + assets:
+        path = ROOT / "docs" / rel
+        if path.is_file():
+            digest.update(rel.encode("utf-8"))
+            digest.update(path.read_bytes())
+    version = digest.hexdigest()[:12]
+
+    write(ROOT / "docs" / "assets.json", {"version": version, "shell": shell, "data": assets})
+
+    sw_path = ROOT / "docs" / "sw.js"
+    sw_src = sw_path.read_text(encoding="utf-8")
+    stamped, count = re.subn(
+        r"const VERSION = '[^']*';", f"const VERSION = '{version}';", sw_src, count=1
+    )
+    if count != 1:
+        raise SystemExit("build_web_data: no VERSION line to stamp in sw.js")
+    if stamped != sw_src:
+        sw_path.write_text(stamped, encoding="utf-8")
+    print(f"version    {version}")
 
     chapters = sum(len(b["chapters"]) for b in index_books)
     print(f"books      {len(index_books)}")

@@ -6,9 +6,18 @@
  * sockets at once, and progress is posted back to the page.
  */
 
-const VERSION = 'bom-v1';
-const CACHE = `${VERSION}`;
+// Stamped by scripts/build_web_data.py from a hash of the published files, so
+// a redeploy always produces a new cache and never strands readers on an old
+// build. Do not edit by hand.
+const VERSION = '7f69ebb1a1b1';
+const CACHE = `bom-${VERSION}`;
 const BATCH = 12;
+
+// The shell changes between deploys; the corpus does not, within a version.
+// Shell files go network-first so a reader picks up a new build immediately,
+// falling back to cache when offline. Everything else stays cache-first.
+const SHELL = /\/(index\.html|app\.js|styles\.css|manifest\.webmanifest|assets\.json)$/;
+const isShell = (url) => SHELL.test(url.pathname) || url.pathname.endsWith('/');
 
 self.addEventListener('install', (event) => {
   event.waitUntil(self.skipWaiting());
@@ -63,30 +72,41 @@ async function precacheAll() {
   await post({ type: 'precache-done', total: urls.length });
 }
 
-/* Cache-first: the corpus is immutable between deploys, and offline reading is
-   the point. A new VERSION on deploy drops the old cache wholesale. */
 self.addEventListener('fetch', (event) => {
   const { request } = event;
   if (request.method !== 'GET') return;
-  if (new URL(request.url).origin !== location.origin) return;
+  const url = new URL(request.url);
+  if (url.origin !== location.origin) return;
 
   event.respondWith(
     (async () => {
-      const hit = await caches.match(request, { ignoreSearch: true });
+      const cache = await caches.open(CACHE);
+
+      // Shell: network-first, so a redeploy is picked up on the next load
+      // rather than waiting for the cache to be invalidated.
+      if (isShell(url) || request.mode === 'navigate') {
+        try {
+          const res = await fetch(request);
+          if (res.ok) cache.put(request, res.clone());
+          return res;
+        } catch {
+          const hit =
+            (await cache.match(request, { ignoreSearch: true })) ||
+            (await cache.match(new URL('index.html', self.registration.scope).href));
+          if (hit) return hit;
+          return new Response('Offline', { status: 503, statusText: 'Offline' });
+        }
+      }
+
+      // Corpus and icons: cache-first — immutable within a version, and this
+      // is what makes offline reading fast.
+      const hit = await cache.match(request, { ignoreSearch: true });
       if (hit) return hit;
       try {
         const res = await fetch(request);
-        if (res.ok) {
-          const cache = await caches.open(CACHE);
-          cache.put(request, res.clone());
-        }
+        if (res.ok) cache.put(request, res.clone());
         return res;
       } catch {
-        // Navigations fall back to the shell so deep links work offline.
-        if (request.mode === 'navigate') {
-          const shell = await caches.match(new URL('index.html', self.registration.scope).href);
-          if (shell) return shell;
-        }
         return new Response('Offline', { status: 503, statusText: 'Offline' });
       }
     })()
