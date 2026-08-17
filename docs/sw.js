@@ -86,7 +86,16 @@ self.addEventListener('fetch', (event) => {
       // rather than waiting for the cache to be invalidated.
       if (isShell(url) || request.mode === 'navigate') {
         try {
-          const res = await fetch(request);
+          // `cache: 'no-cache'` revalidates with the server instead of trusting
+          // the HTTP cache. GitHub Pages sends max-age=600 on HTML, so a plain
+          // fetch here can hand back the previous build's index.html for ten
+          // minutes after a deploy — which is exactly the staleness this
+          // network-first branch exists to prevent. Revalidation is a 304 when
+          // nothing changed, so the cost is a header round-trip.
+          const res = await fetch(request.url, {
+            cache: 'no-cache',
+            credentials: 'same-origin',
+          });
           if (res.ok) cache.put(request, res.clone());
           return res;
         } catch {
