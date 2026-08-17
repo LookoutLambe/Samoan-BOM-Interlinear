@@ -88,6 +88,9 @@ def main() -> None:
     colophons = load("bom_colophons.json")["colophons"]
     frontmatter = load("bom_frontmatter.json")["sections"]
     diacritics = load("bom_diacritics.json")
+    # Official English, keyed by the book's English name — "1 Nephi|1|1".
+    # Needed for the dual (Tutusa) reading mode.
+    english = load("bom_english.json")
 
     # Rebuild from scratch so chapters dropped upstream don't linger as stale
     # files that the service worker would keep serving.
@@ -96,6 +99,7 @@ def main() -> None:
 
     assets: list[str] = []
     index_books = []
+    missing_english: list[str] = []
     total = 0
 
     for book in books:
@@ -109,7 +113,16 @@ def main() -> None:
                 # The override layer carries the curated glosses; bom_books.json
                 # only has the Samoan surface forms with empty `en` fields.
                 words = overrides.get(vkey) or verse["words"]
-                verses.append({"n": verse["num"], "w": words})
+                entry = {"n": verse["num"], "w": words}
+                # Samoan prose for the samoan/dual modes, and the official
+                # English for the dual column.
+                entry["sm"] = " ".join(w["sm"] for w in words)
+                official = english.get(f"{book['nameEn']}|{num}|{verse['num']}")
+                if official:
+                    entry["en"] = official
+                else:
+                    missing_english.append(vkey)
+                verses.append(entry)
 
             payload = {"book": bid, "num": num, "verses": verses}
             if ckey in headings:
@@ -175,6 +188,11 @@ def main() -> None:
     print(f"front      {len(frontmatter)}")
     print(f"data size  {total / 1_048_576:.1f} MB across {len(assets)} files")
     print(f"disclaimer {len(disclaimer['gloss'])} gloss pairs, verbatim from {BOOKLIST.name}")
+    if missing_english:
+        print(f"WARNING    {len(missing_english)} verses have no official English "
+              f"(dual mode will show —); first: {missing_english[:3]}")
+    else:
+        print("english    every verse matched")
 
 
 if __name__ == "__main__":

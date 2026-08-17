@@ -102,6 +102,20 @@ html, body {
 .chrome-btn:hover { background: var(--header-hover); }
 .chrome-btn:active { background: var(--header-hover); }
 
+/* Circular back affordance, as in the app's navigation bar. */
+.chrome-btn.round {
+  width: 2.25rem;
+  padding: 0;
+  border-radius: 50%;
+  background: var(--header-hover);
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+/* "Aa" — the second A is set smaller, matching the app's type-size glyph. */
+#btn-settings { font-size: 1.2rem; letter-spacing: -.02em; }
+#btn-settings small { font-size: .78em; }
+
 /* ---------- reading surface ---------- */
 
 main {
@@ -127,6 +141,53 @@ main {
   text-transform: uppercase;
 }
 
+/* Chapter title block — mirrors BookHeader in ChapterView.swift */
+.book-header {
+  padding: 1rem 0;
+  margin-bottom: .5rem;
+  border-bottom: 2px solid var(--rule);
+  text-align: center;
+}
+
+.book-header p { margin: 0; }
+
+.bh-sm {
+  margin: 0;
+  color: var(--header-bg);
+  font-size: calc(2.125rem * var(--scale));
+  font-weight: 700;
+  letter-spacing: .035em;
+}
+
+.bh-en {
+  color: var(--ink-light);
+  font-size: calc(1.063rem * var(--scale));
+  letter-spacing: .06em;
+  padding-bottom: .25rem;
+}
+
+.bh-orn {
+  color: var(--accent);
+  font-size: calc(1.063rem * var(--scale));
+  letter-spacing: .5em;
+  padding: .25rem 0 .5rem;
+}
+
+.bh-ch-sm {
+  color: var(--ink);
+  font-size: calc(1.5rem * var(--scale));
+  font-weight: 700;
+  letter-spacing: .06em;
+}
+
+.bh-ch-en {
+  margin-top: .125rem;
+  color: var(--accent);
+  font-size: calc(.875rem * var(--scale));
+  letter-spacing: .09em;
+  text-transform: uppercase;
+}
+
 .heading, .colophon {
   margin: 0 0 1.25rem;
   padding: .75rem .9rem;
@@ -142,22 +203,67 @@ main {
   font-style: italic;
 }
 
+/* One verse row: number column + mode-dependent content (VerseView). */
 .verse {
   display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: .1rem .35rem;
-  padding: .5rem .25rem;
+  align-items: flex-start;
+  gap: .75rem;
+  padding: .625rem .25rem;
+  background: var(--row-alt);
   border-bottom: 1px solid var(--rule-light);
 }
 
 .verse-num {
-  align-self: flex-start;
-  min-width: 1.4rem;
-  padding-top: .15rem;
+  flex: none;
+  width: calc(2rem * var(--scale));
+  padding-top: .5rem;
   color: var(--verse-num);
-  font-size: calc(.8rem * var(--scale));
+  font-size: calc(1.063rem * var(--scale));
   font-weight: 700;
+  text-align: center;
+}
+
+/* Interlinear: word units flow and wrap. */
+.flow {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: .375rem;
+}
+
+/* Samoan-only and dual modes render prose rather than stacked cells. */
+.prose {
+  flex: 1;
+  margin: 0;
+  padding-top: .375rem;
+  color: var(--hw-ink);
+  line-height: 1.55;
+}
+
+.mode-samoan .prose { font-size: calc(1.188rem * var(--scale)); }
+
+.dual-cols {
+  display: flex;
+  flex: 1;
+  align-items: flex-start;
+  gap: .875rem;
+}
+
+.dual-cols .prose { font-size: calc(1.063rem * var(--scale)); }
+
+.dual-rule {
+  flex: none;
+  align-self: stretch;
+  width: 1px;
+  background: var(--rule);
+}
+
+/* Side-by-side is unreadable on a narrow phone; stack it instead. */
+@media (max-width: 34rem) {
+  .dual-cols { flex-direction: column; gap: .5rem; }
+  .dual-rule { width: 100%; height: 1px; }
+  .dual-cols .en-col { font-style: italic; color: var(--gloss-ink); }
 }
 
 /* One interlinear cell: Samoan stacked over its gloss. Mirrors WordUnitView. */
@@ -344,9 +450,9 @@ body.no-gloss .unit .en { display: none; }
 .result .snip { display: block; margin-top: .15rem; font-size: .92rem; }
 .result mark { background: var(--accent-light); color: var(--ink); }
 
-/* ---------- pager ---------- */
+/* ---------- reader mode bar (footer) ---------- */
 
-.pager {
+.modebar {
   position: fixed;
   right: 0;
   bottom: 0;
@@ -354,27 +460,59 @@ body.no-gloss .unit .en { display: none; }
   z-index: 20;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: .5rem;
-  padding: .5rem .75rem;
-  padding-bottom: calc(.5rem + env(safe-area-inset-bottom));
+  justify-content: center;
+  gap: .625rem;
+  padding: .5rem 1rem .625rem;
+  padding-bottom: calc(.625rem + env(safe-area-inset-bottom));
   background: var(--header-bg);
-  color: var(--header-text);
 }
 
-.pager-btn {
-  padding: .45rem .8rem;
+.mode-btn {
+  padding: .438rem .875rem;
   border: 1px solid var(--button-border);
-  border-radius: .4rem;
+  border-radius: .25rem;
   background: transparent;
-  color: var(--header-text);
+  color: var(--accent);
   font-family: var(--serif);
-  font-size: .9rem;
+  font-size: .875rem;
+  font-weight: 600;
   cursor: pointer;
 }
 
-.pager-btn:disabled { opacity: .35; cursor: default; }
-#pager-label { font-size: .85rem; }
+.mode-btn.active {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: var(--header-bg);
+}
+
+/* ---------- chapter-to-chapter navigation ---------- */
+
+.chapter-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: .75rem;
+  margin-top: 1.5rem;
+}
+
+.nav-spacer { flex: 1; }
+
+.nav-btn {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  gap: .125rem;
+  padding: .625rem .875rem;
+  border: 1px solid var(--rule);
+  border-radius: .375rem;
+  background: var(--row-alt);
+  color: var(--ink);
+  font-family: var(--serif);
+  cursor: pointer;
+}
+
+.nav-btn.next { text-align: right; }
+.nav-dir { color: var(--accent); font-size: .688rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
+.nav-ref { font-size: .938rem; }
 
 /* ---------- misc ---------- */
 

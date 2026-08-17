@@ -14,6 +14,14 @@
   const $ = (id) => document.getElementById(id);
 
   const view = $('view');
+
+  /* The app's three reader modes (ReaderMode in AppSettings.swift). */
+  const MODES = [
+    { id: 'interlinear', label: 'Interlinear' },
+    { id: 'samoan', label: 'Samoa' },
+    { id: 'dual', label: 'Tutusa' },
+  ];
+
   const state = {
     index: null,
     diacritics: null,
@@ -37,7 +45,7 @@
     return {
       scale: typeof s.scale === 'number' ? s.scale : 1,
       diacritics: !!s.diacritics,
-      gloss: s.gloss !== false,
+      mode: MODES.some((m) => m.id === s.mode) ? s.mode : 'interlinear',
     };
   }
 
@@ -48,10 +56,27 @@
 
   function applySettings() {
     document.documentElement.style.setProperty('--scale', state.settings.scale);
-    document.body.classList.toggle('no-gloss', !state.settings.gloss);
     $('font-scale').value = state.settings.scale;
     $('toggle-diacritics').checked = state.settings.diacritics;
-    $('toggle-gloss').checked = state.settings.gloss;
+  }
+
+  /* The footer mode bar. Active pill = gold fill with navy text, inactive =
+     outlined gold on navy, matching ReaderControlBar. */
+  function buildModeBar() {
+    const bar = $('modebar');
+    bar.replaceChildren();
+    for (const mode of MODES) {
+      const btn = el('button', 'mode-btn', mode.label);
+      btn.classList.toggle('active', state.settings.mode === mode.id);
+      btn.addEventListener('click', () => {
+        if (state.settings.mode === mode.id) return;
+        state.settings.mode = mode.id;
+        saveSettings();
+        buildModeBar();
+        route();
+      });
+      bar.append(btn);
+    }
   }
 
   // ------------------------------------------------------------------ diacritics
@@ -177,26 +202,106 @@
     return unit;
   }
 
+  /* Samoan prose for the samoan/dual modes. Marked per token with the same
+     wordKey the interlinear mode uses, so a context-dependent exception
+     resolves identically in every mode (see VerseView.displaySamoanText). */
+  function samoanProse(verse, verseKey) {
+    if (!state.settings.diacritics) {
+      return verse.sm || verse.w.map((w) => w.sm).join(' ');
+    }
+    return verse.w.map((w, i) => markedSamoan(w.sm, `${verseKey}|${i}`)).join(' ');
+  }
+
   function renderVerse(verse, bookId, num) {
     const verseKey = `${bookId}|${num}|${verse.n}`;
-    const row = el('div', 'verse');
+    const row = el('div', `verse mode-${state.settings.mode}`);
     row.append(el('span', 'verse-num', String(verse.n)));
-    for (const item of groupIdiomSpans(verse.w)) row.append(renderUnit(item, verseKey));
+
+    if (state.settings.mode === 'samoan') {
+      row.append(el('p', 'prose', samoanProse(verse, verseKey)));
+      return row;
+    }
+
+    if (state.settings.mode === 'dual') {
+      const cols = el('div', 'dual-cols');
+      cols.append(el('p', 'prose sm-col', samoanProse(verse, verseKey)));
+      cols.append(el('div', 'dual-rule'));
+      cols.append(el('p', 'prose en-col', verse.en || '—'));
+      row.append(cols);
+      return row;
+    }
+
+    const flow = el('div', 'flow');
+    for (const item of groupIdiomSpans(verse.w)) flow.append(renderUnit(item, verseKey));
+    row.append(flow);
     return row;
   }
 
-  /* Headings and colophons carry their own interlinear word arrays, so they
-     render through the same pipeline as verses — just without a verse number. */
+  /* The chapter title block from BookHeader: Samoan book name, English name,
+     the ❧ ❧ ❧ ornament, then Mataupu N over CHAPTER N. */
+  function bookHeader(book, num) {
+    const head = el('div', 'book-header');
+    head.append(el('h2', 'bh-sm', book.nameSm));
+    head.append(el('p', 'bh-en', book.nameEn));
+    head.append(el('p', 'bh-orn', '❧ ❧ ❧'));
+    head.append(el('p', 'bh-ch-sm', `Mataupu ${num}`));
+    head.append(el('p', 'bh-ch-en', `Chapter ${num}`));
+    return head;
+  }
+
+  /* Headings and colophons carry their own interlinear word arrays and follow
+     the same three-mode branching as verses (ChapterHeadingView.content). */
   function renderBlock(block, className, keyPrefix) {
-    const wrap = el('div', className);
-    const line = el('div', 'verse');
-    line.style.borderBottom = 'none';
-    for (const item of groupIdiomSpans(block.words || [])) {
-      line.append(renderUnit(item, keyPrefix));
+    const wrap = el('div', `${className} mode-${state.settings.mode}`);
+    const mode = state.settings.mode;
+
+    if (mode === 'samoan') {
+      wrap.append(el('p', 'prose', block.sm || ''));
+      return wrap;
     }
-    wrap.append(line);
-    if (block.en) wrap.append(el('p', 'en', block.en));
+    if (mode === 'dual') {
+      const cols = el('div', 'dual-cols');
+      cols.append(el('p', 'prose sm-col', block.sm || ''));
+      cols.append(el('div', 'dual-rule'));
+      cols.append(el('p', 'prose en-col', block.en || '—'));
+      wrap.append(cols);
+      return wrap;
+    }
+
+    const words = block.words || [];
+    if (!words.length) {
+      wrap.append(el('p', 'prose', block.sm || ''));
+      return wrap;
+    }
+    const flow = el('div', 'flow');
+    for (const item of groupIdiomSpans(words)) flow.append(renderUnit(item, keyPrefix));
+    wrap.append(flow);
     return wrap;
+  }
+
+  /* Chapter-to-chapter navigation. The app relies on its library sheet for
+     this; on the web a pair of links at the end of the text keeps sequential
+     reading possible without adding chrome the app doesn't have. */
+  function chapterNav(book, num) {
+    const all = flatChapters();
+    const at = all.findIndex((c) => c.id === book.id && c.num === num);
+    const nav = el('nav', 'chapter-nav');
+
+    const make = (target, label, cls) => {
+      if (!target) return el('span', 'nav-spacer');
+      const b = bookById(target.id);
+      const btn = el('button', `nav-btn ${cls}`);
+      btn.append(el('span', 'nav-dir', label));
+      btn.append(el('span', 'nav-ref', `${b.nameSm} ${target.num}`));
+      btn.addEventListener('click', () => {
+        location.hash = `#/b/${target.id}/${target.num}`;
+      });
+      return btn;
+    };
+
+    nav.append(make(all[at - 1], '‹ Mu’a', 'prev'));
+    nav.append(make(all[at + 1], 'Sosoo ›', 'next'));
+    return nav;
   }
 
   /* The notice required by the Standard Scripture License Agreement, in the same
@@ -302,8 +407,7 @@
     document.title = `${book.nameSm} ${num} — O le Tusi a Mamona`;
 
     const frag = document.createDocumentFragment();
-    frag.append(el('h2', 'book-title', book.nameSm));
-    frag.append(el('p', 'chapter-num', `Mataupu ${num}`));
+    frag.append(bookHeader(book, num));
 
     if (chapter.colophon) {
       frag.append(renderBlock(chapter.colophon, 'colophon', `${bookId}|${num}|colophon`));
@@ -312,10 +416,11 @@
       frag.append(renderBlock(chapter.heading, 'heading', `${bookId}|${num}|heading`));
     }
     for (const verse of chapter.verses) frag.append(renderVerse(verse, bookId, num));
+    frag.append(chapterNav(book, num));
 
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
-    updatePager(book, num);
+    $('modebar').hidden = false;
     localStorage.setItem('bom.last', `#/b/${bookId}/${num}`);
   }
 
@@ -336,7 +441,7 @@
     if (section.en) frag.append(el('div', 'front-body en', section.en));
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
-    $('pager').hidden = true;
+    $('modebar').hidden = true;
   }
 
   /* Matches BookListView: the cover is the way in, a continue-reading button
@@ -345,7 +450,7 @@
   function showHome() {
     $('title').textContent = 'O le Tusi a Mamona';
     document.title = 'O le Tusi a Mamona — Interlinear';
-    $('pager').hidden = true;
+    $('modebar').hidden = true;
 
     const frag = document.createDocumentFragment();
     const home = el('div', 'home');
@@ -365,20 +470,6 @@
       for (const num of book.chapters) out.push({ id: book.id, num });
     }
     return out;
-  }
-
-  function updatePager(book, num) {
-    const all = flatChapters();
-    const at = all.findIndex((c) => c.id === book.id && c.num === num);
-    const prev = all[at - 1];
-    const next = all[at + 1];
-
-    $('pager').hidden = false;
-    $('pager-label').textContent = `${book.nameSm} ${num}`;
-    $('btn-prev').disabled = !prev;
-    $('btn-next').disabled = !next;
-    $('btn-prev').onclick = () => prev && (location.hash = `#/b/${prev.id}/${prev.num}`);
-    $('btn-next').onclick = () => next && (location.hash = `#/b/${next.id}/${next.num}`);
   }
 
   // ----------------------------------------------------------------- drawer
@@ -576,10 +667,6 @@
       state.settings.scale = Number(e.target.value);
       saveSettings();
     });
-    $('toggle-gloss').addEventListener('change', (e) => {
-      state.settings.gloss = e.target.checked;
-      saveSettings();
-    });
     $('toggle-diacritics').addEventListener('change', async (e) => {
       state.settings.diacritics = e.target.checked;
       if (state.settings.diacritics && !state.diacritics) {
@@ -634,6 +721,7 @@
     }
 
     buildDrawer();
+    buildModeBar();
     // No auto-resume to the last chapter: the app opens on its landing page, and
     // that page carries the license notice. Returning readers get there in one
     // tap via the continue button instead.

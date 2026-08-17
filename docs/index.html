@@ -16,20 +16,17 @@
 <body>
 
 <header class="chrome">
-  <button id="btn-back" class="chrome-btn" hidden aria-label="Back">‹</button>
-  <button id="btn-library" class="chrome-btn" aria-label="Library">☰</button>
+  <button id="btn-back" class="chrome-btn round" hidden aria-label="Back">&#8249;</button>
   <h1 id="title">O le Tusi a Mamona</h1>
-  <button id="btn-search" class="chrome-btn" aria-label="Search">⌕</button>
-  <button id="btn-settings" class="chrome-btn" aria-label="Display settings">Aa</button>
+  <button id="btn-search" class="chrome-btn" aria-label="Search">&#9906;</button>
+  <button id="btn-library" class="chrome-btn" aria-label="Library">&#9776;</button>
+  <button id="btn-settings" class="chrome-btn" aria-label="Display settings">A<small>A</small></button>
 </header>
 
 <main id="view" tabindex="-1"></main>
 
-<nav id="pager" class="pager" hidden>
-  <button id="btn-prev" class="pager-btn">‹ Mu&#39;a</button>
-  <span id="pager-label"></span>
-  <button id="btn-next" class="pager-btn">Sosoo ›</button>
-</nav>
+<!-- Reader mode bar, mirroring ReaderControlBar in the app -->
+<nav id="modebar" class="modebar" hidden aria-label="Reader mode"></nav>
 
 <!-- Library drawer -->
 <div id="drawer-scrim" class="scrim" hidden></div>
@@ -52,10 +49,6 @@
     <label class="row">
       <span>Fa&#39;ailoga leo <small>(diacritics)</small></span>
       <input id="toggle-diacritics" type="checkbox">
-    </label>
-    <label class="row">
-      <span>Fa&#39;aliliuga fa&#39;aPeretania <small>(gloss)</small></span>
-      <input id="toggle-gloss" type="checkbox" checked>
     </label>
     <div class="row offline-row">
       <span>Fa&#39;aaogaina e aunoa ma le initaneti</span>
