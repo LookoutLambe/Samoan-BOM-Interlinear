@@ -1,0 +1,141 @@
+# Samoan diacritic restoration — type-level table
+#
+# The published Samoan scriptures use the older unmarked orthography, so the
+# bundled text carries almost no macrons (ā ē ī ō ū) or glottal stops. This
+# table restores them, one WORD TYPE at a time, so the app can offer a marked
+# reading register for learners without altering the official text.
+#
+# FORMAT   form <TAB> marked <TAB> note
+#   form   = normalized lowercase core (no leading/trailing punctuation)
+#   marked = the same word with diacritics restored
+#   note   = optional; prefix "?" if the entry still needs a native check
+#
+# Rows where marked == form are "reviewed, no change needed" — they record that
+# a human looked at the word, which is why they're worth keeping.
+#
+# GLOTTAL STOP is written U+2019 (’) to match the existing text, which already
+# spells a’u / o’u / lo’u that way. Do not introduce U+02BB (ʻ) here.
+#
+# WORD-INITIAL GLOTTALS ARE NOT WRITTEN in this edition — only intra-word ones.
+# So `ou` stays `ou` (never ’ou), `outou` stays `outou`, `aua` stays `aua`; but
+# `aai` becomes `a’ai`, marking the intra-word glottal while leaving the initial
+# one bare. This matches the source, which marks a’u / lo’u / o’u and nothing
+# word-initial. Consequence: lexical pairs distinguished only by an initial
+# glottal (au "current" vs ’au "company") are simply not distinguished here.
+#
+# Ordered by corpus frequency, most common first. Coverage after each batch is
+# reported by scripts/build_diacritics.py.
+#
+# ---- reviewed: changed ------------------------------------------------------
+latou	lātou	3pl pronoun
+sa	sā	past/durative TAM marker
+oo	o’o	to reach, arrive
+alii	ali’i	lord, chief
+faauta	fa’auta	behold
+foi	fo’i	also, likewise
+matou	mātou	1pl exclusive pronoun
+tatou	tātou	1pl inclusive pronoun
+faapea	fa’apea	thus, so
+nuu	nu’u	village, land, people
+vaai	va’ai	to see, look
+tuu	tu’u	to place, leave, allow
+faatasi	fa’atasi	together
+aai	a’ai	city
+toatele	to’atele	many (of persons)
+faasaga	fa’asaga	to turn toward, face
+atalii	atali’i	son
+fanau	fānau	children; to be born
+#
+# ---- reviewed: no change needed --------------------------------------------
+o	o	possessive/presentative particle
+le	le	singular article
+i	i	preposition
+ma	ma	and, with
+e	e	agentive/TAM particle
+ia	ia	pronoun / particle
+ona	ona	his/her; because
+ua	ua	perfective TAM
+a	a	possessive particle
+ai	ai	anaphoric particle
+te	te	TAM particle
+atu	atu	directional particle (away)
+se	se	non-specific article
+ina	ina	subordinator
+ou	ou	1sg pronoun — never ’ou; word-initial glottals unwritten
+outou	outou	2pl — word-initial glottal unwritten
+oe	oe	2sg — word-initial glottal unwritten
+aua	aua	do not — word-initial glottal unwritten
+au	au	word-initial glottal unwritten, so au/’au aren't distinguished
+mea	mea	thing, place
+lea	lea	this, that
+na	na	past TAM; that
+tagata	tagata	person, people
+lenei	lenei	this
+lava	lava	intensifier
+uma	uma	all
+atua	Atua	God
+tele	tele	great, many
+fai	fai	to do, say
+lo	lo	possessive
+lona	lona	his, her
+laueleele	laueleele	land, earth
+mafai	mafai	to be able
+ioe	ioe	yea, yes
+ae	ae	but
+luga	luga	above, upon
+faia	faia	done, made
+nei	nei	now, these
+mo	mo	for
+pe	pe	whether, or
+toe	toe	again
+iloa	iloa	to know, see
+totonu	totonu	inside, among
+upu	upu	word
+uso	uso	brother
+maua	maua	to obtain, find
+tusa	tusa	equal, concerning
+ni	ni	non-specific plural article
+ese	ese	different, strange
+tasi	tasi	one
+agaga	agaga	spirit
+aso	aso	day
+ala	ala	way, path
+tupu	tupu	to happen; king
+taimi	taimi	time
+fetalai	fetalai	to speak (respectful)
+uiga	uiga	meaning, manner
+pei	pei	like, as
+afai	afai	if
+loto	loto	heart, desire
+leai	leai	no, none
+luma	luma	front, before
+tatau	tatau	ought, must
+nifae	Nifae	Nephi
+avea	avea	to become
+tausaga	tausaga	year
+isi	isi	other
+lena	lena	that
+sili	sili	most, chief
+ana	ana	his, her
+talitonu	talitonu	to believe
+tautala	tautala	to speak
+keriso	Keriso	Christ
+ifo	ifo	downward; to bow
+alu	alu	to go
+ea	ea	interrogative particle
+lalolagi	lalolagi	world
+mana	mana	power
+atoa	atoa	whole, complete
+#
+# ---- needs a native check (left unmarked on purpose) -----------------------
+#   These are genuinely ambiguous or I'm not confident enough to assert a form.
+#   Fill in the middle column and move the row up when you've checked it.
+# Remaining questions are all about MACRONS, not glottals — the glottal
+# convention is settled above.
+# mai	?	from/come vs ma’i (sick) — intra-word, so still needs per-verse exceptions
+# po	?	pō (night) vs po (or) — context-dependent
+# la	?	lā (sun; 3du) vs la — context-dependent
+# amata	?	amata vs āmata
+# paia	?	paia vs pāia (holy)
+# salamo	?	salamo vs salamō (repent)
+# lamana	?	Lamanā already marked in source — verify it's right

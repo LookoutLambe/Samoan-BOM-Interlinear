@@ -7,15 +7,18 @@ struct ContentView: View {
         @Bindable var nav = nav
         NavigationStack(path: $nav.path) {
             BookListView()
-                .navigationDestination(for: Book.self) { book in
-                    ChapterListView(book: book)
-                }
                 .navigationDestination(for: ChapterRef.self) { ref in
-                    ChapterView(ref: ref)
+                    ReaderView(item: .chapter(ref))
+                }
+                .navigationDestination(for: FrontMatterRef.self) { ref in
+                    ReaderView(item: .front(ref.id))
                 }
         }
         .sheet(isPresented: $nav.libraryOpen) {
             LibraryDrawer()
+        }
+        .sheet(isPresented: $nav.searchOpen) {
+            SearchView()
         }
     }
 }

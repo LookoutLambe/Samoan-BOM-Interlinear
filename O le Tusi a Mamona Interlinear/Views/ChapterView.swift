@@ -5,27 +5,30 @@ import UIKit
 import AppKit
 #endif
 
-/// The reading view. Lets the user flip between chapters like in the Gospel
-/// Library app. Instead of a paged `TabView` (which materializes every child
-/// eagerly — 240+ heavy interlinear pages — and choked swiping), it uses a
-/// horizontal paging `ScrollView` over a `LazyHStack`, so only the visible and
-/// immediately-adjacent chapters are ever built, and nothing is rebuilt during
-/// the swipe. `scrolledRef` tracks the settled page and drives the title. A
+/// The reading view. One continuous horizontal pager over the whole book —
+/// every front-matter section followed by every chapter — so the user can flip
+/// like the Gospel Library app and swipe straight from the last front-matter
+/// page into 1 Nephi 1. Instead of a paged `TabView` (which materializes every
+/// child eagerly — 240+ heavy interlinear pages — and choked swiping), it uses
+/// a horizontal paging `ScrollView` over a `LazyHStack`, so only the visible
+/// and immediately-adjacent pages are ever built, and nothing is rebuilt during
+/// the swipe. `scrolledItem` tracks the settled page and drives the title. A
 /// fixed bottom `ReaderControlBar` switches display modes (Interlinear / Samoa
 /// / Tutusa).
-struct ChapterView: View {
+struct ReaderView: View {
     @Environment(ScriptureLibrary.self) private var library
     @Environment(AppSettings.self) private var settings
-    @State private var scrolledRef: ChapterRef?
+    @State private var scrolledItem: ReadingItem?
+    @State private var didInitialScroll = false
     @State private var showFontSize = false
     @State private var noteEditorTarget: NoteEditorTarget?
     @State private var selection = WordSelectionModel()
 
-    private let initialRef: ChapterRef
+    private let initialItem: ReadingItem
 
-    init(ref: ChapterRef) {
-        self.initialRef = ref
-        self._scrolledRef = State(initialValue: ref)
+    init(item: ReadingItem) {
+        self.initialItem = item
+        self._scrolledItem = State(initialValue: item)
     }
 
     var body: some View {
@@ -37,18 +40,41 @@ struct ChapterView: View {
         // either banner.
         VStack(spacing: 0) {
             GeometryReader { geo in
-                ScrollView(.horizontal) {
-                    LazyHStack(spacing: 0) {
-                        ForEach(library.allChapterRefs, id: \.self) { ref in
-                            ChapterPageView(ref: ref, noteEditorTarget: $noteEditorTarget)
-                                .frame(width: geo.size.width, height: geo.size.height)
+                ScrollViewReader { proxy in
+                    ScrollView(.horizontal) {
+                        LazyHStack(spacing: 0) {
+                            ForEach(library.allReadingItems) { item in
+                                page(for: item)
+                                    .frame(width: geo.size.width, height: geo.size.height)
+                                    .id(item.id)
+                            }
+                        }
+                        .scrollTargetLayout()
+                    }
+                    .scrollTargetBehavior(.paging)
+                    .scrollPosition(id: $scrolledItem)
+                    .scrollIndicators(.hidden)
+                    // A LazyHStack won't honor an initial `scrollPosition` that
+                    // points at a not-yet-built page (e.g. a chapter after the 6
+                    // front-matter pages), so it parks on page 0. Jump explicitly
+                    // once the geometry has a real width — `initial: true` fires
+                    // on appear, and again if width resolves from 0 afterward.
+                    .onChange(of: geo.size.width, initial: true) { _, width in
+                        guard width > 0, !didInitialScroll else { return }
+                        didInitialScroll = true
+                        proxy.scrollTo(initialItem.id, anchor: .center)
+                    }
+                    .onChange(of: scrolledItem, initial: true) { _, item in
+                        // Remember the furthest chapter reached for the landing
+                        // page's "Continue reading" shortcut.
+                        if case .chapter(let ref)? = item,
+                           let order = library.allChapterRefs.firstIndex(of: ref) {
+                            settings.noteChapterRead(
+                                bookId: ref.bookId, chapter: ref.chapterNum, order: order
+                            )
                         }
                     }
-                    .scrollTargetLayout()
                 }
-                .scrollTargetBehavior(.paging)
-                .scrollPosition(id: $scrolledRef)
-                .scrollIndicators(.hidden)
             }
 
             VStack(spacing: 0) {
@@ -62,6 +88,7 @@ struct ChapterView: View {
         }
         .background(Theme.pageBg.ignoresSafeArea())
         .environment(\.scriptureFontScale, settings.fontScale)
+        .environment(\.scriptureShowDiacritics, settings.showDiacritics)
         .navigationTitle(navTitle)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
@@ -70,15 +97,10 @@ struct ChapterView: View {
         .toolbarColorScheme(.dark, for: .navigationBar)
         #endif
         .toolbar {
-            ToolbarItem(placement: .primaryAction) {
-                Button {
-                    showFontSize = true
-                } label: {
-                    Image(systemName: "textformat.size")
-                        .font(.title3.weight(.semibold))
-                        .foregroundStyle(Theme.headerText)
-                        .accessibilityLabel("Lapo\u{2019}a o le Tusitusiga")
-                }
+            if #available(iOS 26.0, macOS 26.0, visionOS 26.0, *) {
+                fontSizeItem.sharedBackgroundVisibility(.hidden)
+            } else {
+                fontSizeItem
             }
         }
         .libraryToolbar()
@@ -98,10 +120,41 @@ struct ChapterView: View {
         .environment(selection)
     }
 
+    private var fontSizeItem: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Button {
+                showFontSize = true
+            } label: {
+                Image(systemName: "textformat.size")
+                    .font(.title3.weight(.semibold))
+                    .foregroundStyle(Theme.headerText)
+                    .accessibilityLabel("Lapo\u{2019}a o le Tusitusiga")
+            }
+        }
+    }
+
+    @ViewBuilder
+    private func page(for item: ReadingItem) -> some View {
+        switch item {
+        case .front(let id):
+            if let section = library.frontMatterSection(id: id) {
+                FrontMatterPage(section: section, mode: settings.readerMode)
+            } else {
+                ContentUnavailableView("E lē maua", systemImage: "questionmark.folder")
+            }
+        case .chapter(let ref):
+            ChapterPageView(ref: ref, noteEditorTarget: $noteEditorTarget)
+        }
+    }
+
     private var navTitle: String {
-        let ref = scrolledRef ?? initialRef
-        guard let book = library.book(id: ref.bookId) else { return "" }
-        return "\(book.nameEn) \(ref.chapterNum)"
+        switch scrolledItem ?? initialItem {
+        case .front(let id):
+            return library.frontMatterSection(id: id)?.titleEn ?? ""
+        case .chapter(let ref):
+            guard let book = library.book(id: ref.bookId) else { return "" }
+            return "\(book.nameEn) \(ref.chapterNum)"
+        }
     }
 }
 
@@ -119,36 +172,70 @@ struct NoteEditorTarget: Identifiable, Hashable {
 struct ChapterPageView: View {
     @Environment(ScriptureLibrary.self) private var library
     @Environment(AppSettings.self) private var settings
+    @Environment(Navigator.self) private var nav
     let ref: ChapterRef
     @Binding var noteEditorTarget: NoteEditorTarget?
+
+    /// The verse currently flashing to draw the eye after a jump-to-verse. Set
+    /// when a matching `Navigator.verseTarget` is consumed, then cleared after a
+    /// beat so the highlight fades on its own.
+    @State private var flashVerse: Int?
 
     var body: some View {
         if let book = library.book(id: ref.bookId),
            let chapter = book.chapters.first(where: { $0.num == ref.chapterNum }) {
-            ScrollView {
-                VStack(alignment: .center, spacing: 0) {
-                    BookHeader(book: book, chapter: chapter)
-                    VStack(spacing: 0) {
-                        ForEach(chapter.verses) { verse in
-                            VerseRow(
-                                book: book,
-                                chapter: chapter,
-                                verse: verse,
-                                mode: settings.readerMode,
-                                noteEditorTarget: $noteEditorTarget
-                            )
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(alignment: .center, spacing: 0) {
+                        BookHeader(book: book, chapter: chapter)
+                        ColophonView(book: book, chapter: chapter, mode: settings.readerMode)
+                        ChapterHeadingView(book: book, chapter: chapter, mode: settings.readerMode)
+                        VStack(spacing: 0) {
+                            ForEach(chapter.verses) { verse in
+                                VerseRow(
+                                    book: book,
+                                    chapter: chapter,
+                                    verse: verse,
+                                    mode: settings.readerMode,
+                                    flashing: flashVerse == verse.num,
+                                    noteEditorTarget: $noteEditorTarget
+                                )
+                                .id("verse-\(verse.num)")
+                            }
                         }
                     }
+                    .frame(maxWidth: 900, alignment: .center)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 16)
+                    .padding(.bottom, 24)
+                    .frame(maxWidth: .infinity, alignment: .center)
                 }
-                .frame(maxWidth: 900, alignment: .center)
-                .padding(.horizontal, 20)
-                .padding(.top, 16)
-                .padding(.bottom, 24)
-                .frame(maxWidth: .infinity, alignment: .center)
+                .background(Theme.pageBg)
+                // Handle a jump-to-verse both when this page first appears (the
+                // search-result case: target is set before the page is built)
+                // and when the target changes while the page is already showing.
+                .onAppear { consumeVerseTarget(proxy) }
+                .onChange(of: nav.verseTarget) { consumeVerseTarget(proxy) }
             }
-            .background(Theme.pageBg)
         } else {
             ContentUnavailableView("E lē maua le Mataupu", systemImage: "questionmark.folder")
+        }
+    }
+
+    /// If a pending verse target names this chapter, scroll to it and flash it,
+    /// then clear the request so it fires once.
+    private func consumeVerseTarget(_ proxy: ScrollViewProxy) {
+        guard let target = nav.verseTarget, target.ref == ref else { return }
+        nav.verseTarget = nil
+        Task { @MainActor in
+            // Let the horizontal pager settle on this chapter before scrolling.
+            try? await Task.sleep(nanoseconds: 350_000_000)
+            withAnimation(.easeInOut(duration: 0.35)) {
+                proxy.scrollTo("verse-\(target.verse)", anchor: .top)
+            }
+            withAnimation(.easeInOut(duration: 0.25)) { flashVerse = target.verse }
+            try? await Task.sleep(nanoseconds: 1_600_000_000)
+            withAnimation(.easeOut(duration: 0.6)) { flashVerse = nil }
         }
     }
 }
@@ -198,10 +285,175 @@ private struct BookHeader: View {
     }
 }
 
+// MARK: - Record-keeper colophon (mode-aware)
+
+/// The sub-record preface (colophon) shown above the chapter summary on the
+/// chapter where it appears — e.g. "The commandments of Alma to his son
+/// Helaman. Comprising chapters 36 and 37." Centered and italic to read as an
+/// editorial preface, distinct from the chapter summary below it.
+private struct ColophonView: View {
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(\.scriptureFontScale) private var scale
+    let book: Book
+    let chapter: Chapter
+    let mode: ReaderMode
+
+    var body: some View {
+        if let colophon = library.colophon(bookId: book.id, chapter: chapter.num) {
+            content(colophon)
+                .padding(.horizontal, 14)
+                .padding(.top, 6)
+                .padding(.bottom, 10)
+                .frame(maxWidth: .infinity)
+                .overlay(alignment: .bottom) {
+                    Rectangle().fill(Theme.rule.opacity(0.5)).frame(height: 1)
+                        .padding(.horizontal, 48)
+                }
+                .padding(.bottom, 8)
+        }
+    }
+
+    @ViewBuilder
+    private func content(_ colophon: HeadingSection) -> some View {
+        switch mode {
+        case .interlinear:
+            if let words = colophon.words, !words.isEmpty {
+                FlowLayout(horizontalSpacing: 6, verticalSpacing: 4) {
+                    ForEach(groupIdiomSpans(words)) { item in
+                        switch item {
+                        case .single(_, let pair):
+                            HeadingCell(sm: pair.sm, en: pair.en)
+                        case .span(_, let samoanWords, let gloss):
+                            HeadingCell(sm: samoanWords.joined(separator: " "), en: gloss)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .center)
+            } else {
+                prose(colophon.sm)
+            }
+        case .samoan:
+            prose(colophon.sm)
+        case .dual:
+            VStack(spacing: 4) {
+                prose(colophon.sm)
+                Text(colophon.en)
+                    .font(SerifFont.tnr(size: 13 * scale, italic: true))
+                    .foregroundStyle(Theme.inkLight)
+                    .multilineTextAlignment(.center)
+            }
+        }
+    }
+
+    private func prose(_ text: String) -> some View {
+        Text(text)
+            .font(SerifFont.tnr(size: 14 * scale, italic: true))
+            .foregroundStyle(Theme.inkLight)
+            .multilineTextAlignment(.center)
+            .frame(maxWidth: .infinity)
+    }
+}
+
+// MARK: - Chapter heading / summary (mode-aware)
+
+/// The editorial chapter summary shown above verse 1. Follows the active
+/// reader mode: interlinear (Samoan stacked over gloss), Samoan-only, or dual
+/// Samoan | English. Renders nothing when no heading has been curated yet.
+private struct ChapterHeadingView: View {
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(\.scriptureFontScale) private var scale
+    let book: Book
+    let chapter: Chapter
+    let mode: ReaderMode
+
+    var body: some View {
+        if let heading = library.heading(bookId: book.id, chapter: chapter.num) {
+            content(heading)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .background(Theme.rowAlt)
+                .overlay(alignment: .bottom) {
+                    Rectangle().fill(Theme.rule).frame(height: 1)
+                }
+                .padding(.bottom, 10)
+        }
+    }
+
+    @ViewBuilder
+    private func content(_ heading: HeadingSection) -> some View {
+        switch mode {
+        case .interlinear:
+            if let words = heading.words, !words.isEmpty {
+                FlowLayout(horizontalSpacing: 6, verticalSpacing: 4) {
+                    ForEach(groupIdiomSpans(words)) { item in
+                        switch item {
+                        case .single(_, let pair):
+                            HeadingCell(sm: pair.sm, en: pair.en)
+                        case .span(_, let samoanWords, let gloss):
+                            HeadingCell(sm: samoanWords.joined(separator: " "), en: gloss)
+                        }
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            } else {
+                samoanProse(heading.sm)
+            }
+        case .samoan:
+            samoanProse(heading.sm)
+        case .dual:
+            HStack(alignment: .top, spacing: 14) {
+                samoanProse(heading.sm)
+                Rectangle().fill(Theme.rule).frame(width: 1)
+                Text(heading.en)
+                    .font(SerifFont.tnr(size: 15 * scale, italic: true))
+                    .foregroundStyle(Theme.hwInk)
+                    .lineSpacing(3)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+    }
+
+    private func samoanProse(_ text: String) -> some View {
+        Text(text)
+            .font(SerifFont.tnr(size: 16 * scale, italic: true))
+            .foregroundStyle(Theme.hwInk)
+            .lineSpacing(3)
+            .frame(maxWidth: .infinity, alignment: .leading)
+    }
+}
+
+/// A static (non-interactive) interlinear cell for chapter headings: the Samoan
+/// surface form stacked over its English gloss. Headings are editorial, so
+/// unlike verse words these are not selectable/highlightable.
+private struct HeadingCell: View {
+    @Environment(\.scriptureFontScale) private var scale
+    let sm: String
+    let en: String
+
+    var body: some View {
+        VStack(alignment: .center, spacing: 1) {
+            Text(sm)
+                .font(SerifFont.tnr(size: 17 * scale, weight: .medium))
+                .foregroundStyle(Theme.hwInk)
+                .multilineTextAlignment(.center)
+                .fixedSize(horizontal: false, vertical: true)
+            if !en.isEmpty {
+                Text(en)
+                    .font(SerifFont.tnr(size: 10 * scale, italic: true))
+                    .foregroundStyle(Theme.glossInk)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
+            }
+        }
+    }
+}
+
 // MARK: - Verse row (mode-aware)
 
 private struct VerseRow: View {
     @Environment(\.scriptureFontScale) private var scale
+    @Environment(\.scriptureShowDiacritics) private var showDiacritics
     @Environment(ScriptureLibrary.self) private var library
     @Environment(HighlightStore.self) private var highlights
     @Environment(WordSelectionModel.self) private var selection
@@ -209,6 +461,8 @@ private struct VerseRow: View {
     let chapter: Chapter
     let verse: Verse
     let mode: ReaderMode
+    /// Briefly tints the row to draw the eye after a jump-to-verse.
+    var flashing: Bool = false
     @Binding var noteEditorTarget: NoteEditorTarget?
 
     private var verseKey: String {
@@ -219,6 +473,19 @@ private struct VerseRow: View {
     private var verseHighlight: HighlightColor? { highlights.color(for: verseKey) }
     private var verseSelected: Bool { selection.isVerseSelected(verseKey) }
 
+    /// Prose Samoan for the Samoan-only and dual modes. Marked per token using
+    /// the same `wordKey` the interlinear mode uses, so a context-dependent
+    /// exception resolves identically in all three modes.
+    ///
+    /// Share and selection deliberately keep `verse.samoanText` — what leaves
+    /// the app stays in the published orthography.
+    private var displaySamoanText: String {
+        guard showDiacritics else { return verse.samoanText }
+        return verse.words.enumerated()
+            .map { library.markedSamoan($1.sm, wordKey: "\(verseKey)|\($0)") }
+            .joined(separator: " ")
+    }
+
     var body: some View {
         HStack(alignment: .top, spacing: 12) {
             verseNumberColumn
@@ -226,7 +493,14 @@ private struct VerseRow: View {
         }
         .padding(.vertical, 10)
         .padding(.horizontal, 4)
-        .background(Theme.rowAlt)
+        .background {
+            // The flash tint sits over the row color but behind the text, so a
+            // jumped-to verse briefly glows without hurting legibility.
+            Theme.rowAlt
+            if flashing {
+                Theme.accent.opacity(0.22)
+            }
+        }
     }
 
     /// Selecting a whole verse. Tapping the number toggles it in every mode.
@@ -274,7 +548,8 @@ private struct VerseRow: View {
                         samoanWords: samoanWords,
                         englishGloss: englishGloss,
                         wordKey: "\(verseKey)|\(idx)",
-                        verseKey: verseKey
+                        verseKey: verseKey,
+                        startIndex: idx
                     )
                 }
             }
@@ -284,7 +559,7 @@ private struct VerseRow: View {
     }
 
     private var samoanOnlyContent: some View {
-        Text(verse.samoanText)
+        Text(displaySamoanText)
             .font(SerifFont.tnr(size: 19 * scale))
             .foregroundStyle(Theme.hwInk)
             .lineSpacing(4)
@@ -297,7 +572,7 @@ private struct VerseRow: View {
 
     private var dualContent: some View {
         HStack(alignment: .top, spacing: 14) {
-            Text(verse.samoanText)
+            Text(displaySamoanText)
                 .font(SerifFont.tnr(size: 17 * scale))
                 .foregroundStyle(Theme.hwInk)
                 .lineSpacing(3)
@@ -406,6 +681,13 @@ private struct WordActionBar: View {
             }
             .accessibilityLabel("Kopi")
 
+            ShareLink(item: shareText) {
+                Image(systemName: "square.and.arrow.up")
+                    .font(.system(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.headerText)
+            }
+            .accessibilityLabel("Fa\u{2019}asoa")
+
             Spacer(minLength: 0)
 
             Button {
@@ -463,6 +745,33 @@ private struct WordActionBar: View {
         let parts = verseKey.split(separator: "|")
         guard parts.count == 3, let book = library.book(id: String(parts[0])) else { return "" }
         return "\(book.nameSm) \(parts[1]):\(parts[2])"
+    }
+
+    /// The text placed on the share sheet: the reference and Samoan text, plus
+    /// the official English when a whole verse is selected.
+    private var shareText: String {
+        if let verseKey = selection.wholeVerseKey {
+            var parts = [referenceLabel(for: verseKey), selection.wholeVerseText]
+            if let en = englishText(for: verseKey), !en.isEmpty {
+                parts.append(en)
+            }
+            return parts.joined(separator: "\n\n")
+        }
+        if let verseKey = selection.verseKey {
+            return "\(referenceLabel(for: verseKey))\n\n\(selection.joinedText)"
+        }
+        return selection.joinedText
+    }
+
+    private func englishText(for verseKey: String) -> String? {
+        let parts = verseKey.split(separator: "|")
+        guard parts.count == 3,
+              let book = library.book(id: String(parts[0])),
+              let chapter = Int(parts[1]),
+              let verse = Int(parts[2]) else { return nil }
+        return library.englishText(for: ScriptureKey(
+            bookEn: book.nameEn, chapter: chapter, verse: verse
+        ))
     }
 }
 

@@ -19,14 +19,17 @@ struct FontSizeSheet: View {
 
                 VStack(spacing: 8) {
                     FlowLayout(horizontalSpacing: 6, verticalSpacing: 6) {
-                        SampleWordUnit(sm: "O", en: "·")
-                        SampleWordUnit(sm: "a\u{2019}u,", en: "I")
-                        SampleWordUnit(sm: "o", en: "·")
-                        SampleWordUnit(sm: "Nifae,", en: "Nephi")
-                        SampleWordUnit(sm: "na", en: "·")
-                        SampleWordUnit(sm: "fanaua", en: "was born")
+                        // Chosen so the pronunciation-marks toggle visibly changes
+                        // four of the six words: sa/oo/faauta/alii.
+                        SampleWordUnit(sm: "Ma", en: "·")
+                        SampleWordUnit(sm: "sa", en: "·")
+                        SampleWordUnit(sm: "oo", en: "it came to pass")
+                        SampleWordUnit(sm: "faauta,", en: "behold")
+                        SampleWordUnit(sm: "le", en: "·")
+                        SampleWordUnit(sm: "alii", en: "Lord")
                     }
                     .environment(\.scriptureFontScale, settings.fontScale)
+                    .environment(\.scriptureShowDiacritics, settings.showDiacritics)
                     .frame(maxWidth: .infinity, alignment: .center)
                     .padding(.vertical, 18)
                     .padding(.horizontal, 12)
@@ -71,6 +74,21 @@ struct FontSizeSheet: View {
                     .font(SerifFont.tnr(size: 14, italic: true))
                     .foregroundStyle(Theme.inkLight)
 
+                VStack(alignment: .leading, spacing: 4) {
+                    Toggle(isOn: $settings.showDiacritics) {
+                        Text("Fa\u{2019}ailoga leo")
+                            .font(SerifFont.tnr(size: 16))
+                            .foregroundStyle(Theme.headerBg)
+                    }
+                    .tint(Theme.accent)
+
+                    Text("Show macrons and glottal stops \u{00B7} fa\u{2019}aali fa\u{2019}ailoga leo")
+                        .font(SerifFont.tnr(size: 12, italic: true))
+                        .foregroundStyle(Theme.inkLight)
+                        .fixedSize(horizontal: false, vertical: true)
+                }
+                .padding(.horizontal, 16)
+
                 Button("Toe Faafoi") { settings.fontScale = 1.0 }
                     .font(SerifFont.tnr(size: 15))
                     .foregroundStyle(Theme.accent)
@@ -94,12 +112,14 @@ struct FontSizeSheet: View {
 /// A non-interactive interlinear word-unit used only for the font-size preview.
 private struct SampleWordUnit: View {
     @Environment(\.scriptureFontScale) private var scale
+    @Environment(\.scriptureShowDiacritics) private var showDiacritics
+    @Environment(ScriptureLibrary.self) private var library
     let sm: String
     let en: String
 
     var body: some View {
         VStack(alignment: .center, spacing: 2) {
-            Text(sm)
+            Text(showDiacritics ? library.markedSamoan(sm) : sm)
                 .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
                 .foregroundStyle(Theme.hwInk)
             if !en.isEmpty {

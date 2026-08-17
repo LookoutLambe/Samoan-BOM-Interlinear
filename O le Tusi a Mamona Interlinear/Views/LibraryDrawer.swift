@@ -16,13 +16,24 @@ struct LibraryDrawer: View {
                 VStack(spacing: 0) {
                     drawerHeader
                     LazyVStack(spacing: 0) {
+                        let front = library.frontMatter()
+                        if !front.isEmpty {
+                            sectionLabel("Faatomuaga · Front Matter")
+                            ForEach(front) { section in
+                                frontMatterRow(section)
+                                Divider().background(Theme.rule.opacity(0.5))
+                            }
+                            sectionLabel("Tusi · Books")
+                        }
                         ForEach(library.books) { book in
                             bookRow(book)
                             Divider().background(Theme.rule.opacity(0.5))
                         }
                     }
                     .padding(.horizontal, 12)
-                    .padding(.bottom, 24)
+
+                    privacyLink
+                        .padding(.bottom, 24)
                 }
             }
             .background(Theme.pageBg)
@@ -55,6 +66,56 @@ struct LibraryDrawer: View {
         .padding(.top, 12)
         .padding(.bottom, 18)
         .frame(maxWidth: .infinity)
+    }
+
+    /// A reachable-in-app link to the hosted privacy policy — App Store
+    /// reviewers like to see it available inside the app, not only in metadata.
+    private var privacyLink: some View {
+        Link(destination: URL(string: "https://lookoutlambe.github.io/tusi-a-mamona-privacy/")!) {
+            HStack(spacing: 6) {
+                Image(systemName: "lock.shield")
+                    .font(.footnote.weight(.semibold))
+                Text("Faiga fa\u{2019}alilolilo \u{00B7} Privacy Policy")
+                    .font(SerifFont.tnr(size: 13))
+            }
+            .foregroundStyle(Theme.accent)
+            .frame(maxWidth: .infinity, alignment: .center)
+            .padding(.top, 20)
+            .padding(.bottom, 4)
+            .contentShape(Rectangle())
+        }
+    }
+
+    private func sectionLabel(_ text: String) -> some View {
+        Text(text)
+            .font(SerifFont.tnr(size: 12, weight: .semibold))
+            .foregroundStyle(Theme.accent)
+            .tracking(1.2)
+            .textCase(.uppercase)
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.horizontal, 6)
+            .padding(.top, 16)
+            .padding(.bottom, 6)
+    }
+
+    private func frontMatterRow(_ section: FrontMatterSection) -> some View {
+        Button {
+            nav.openFrontMatter(id: section.id)
+        } label: {
+            VStack(alignment: .leading, spacing: 2) {
+                Text(section.titleSm)
+                    .font(SerifFont.tnr(size: 17, weight: .semibold))
+                    .foregroundStyle(Theme.ink)
+                Text(section.titleEn)
+                    .font(SerifFont.tnr(size: 12, italic: true))
+                    .foregroundStyle(Theme.inkLight)
+            }
+            .frame(maxWidth: .infinity, alignment: .leading)
+            .padding(.vertical, 12)
+            .padding(.horizontal, 6)
+            .contentShape(Rectangle())
+        }
+        .buttonStyle(.plain)
     }
 
     private func bookRow(_ book: Book) -> some View {

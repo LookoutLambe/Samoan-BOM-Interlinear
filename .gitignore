@@ -32,3 +32,9 @@ venv/
 
 # Generated artifacts
 *.pdf
+
+# Local scratch / staging
+_to_delete/
+
+# Privacy-policy site — tracked in its own repo
+samoan-privacy/

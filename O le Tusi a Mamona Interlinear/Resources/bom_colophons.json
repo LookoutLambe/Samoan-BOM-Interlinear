@@ -1,0 +1,4679 @@
+{
+ "version": 1,
+ "colophons": {
+  "mosiah|9": {
+   "en": "The Record of Zeniff—An account of his people, from the time they left the land of Zarahemla until the time they were delivered out of the hands of the Lamanites.",
+   "sm": "O le Talafaamaumau a Senifa—O se tala i lona nuu, mai le taimi na latou tuua ai le laueleele o Sara'emila seia oo mai i le taimi na laveaiina ai i latou mai lima o sa Lamanā.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Senifa—",
+     "en": "The Record of Zeniff—"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "nuu,",
+     "en": "of his people,"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taimi",
+     "en": "from the time"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "tuua",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "they left"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Sara'emila",
+     "en": "the land of Zarahemla"
+    },
+    {
+     "sm": "seia",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "until"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taimi",
+     "en": "the time"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "laveaiina",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "they were delivered"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "lima",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā.",
+     "en": "out of the hands of the Lamanites."
+    }
+   ]
+  },
+  "mosiah|23": {
+   "en": "An account of Alma and the people of the Lord, who were driven into the wilderness by the people of King Noah. Comprising chapters 23 and 24.",
+   "sm": "O se tala ia Alema ma tagata o le Alii, o ē na tutuli i le vao e le nuu o le Tupu o Noa. E aofia ai le mataupu 23 ma le 24.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "Alema",
+     "en": "An account of Alma"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Alii,",
+     "en": "and the people of the Lord,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ē",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "tutuli",
+     "en": "who were driven"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao",
+     "en": "into the wilderness"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "by the people"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Tupu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Noa.",
+     "en": "of King Noah."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "23",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "24.",
+     "en": "chapters 23 and 24."
+    }
+   ]
+  },
+  "alma|9": {
+   "en": "The words of Alma, and also the words of Amulek, which were declared unto the people who were in the land of Ammonihah. And also they are cast into prison, and delivered by the miraculous power of God which was in them, according to the record of Alma. Comprising chapters 9 through 14.",
+   "sm": "O upu a Alema, ma upu foi a Amoleka, ia sa alaga atu i tagata o e sa i le laueleele o Amonaea. Ma ua lafoina foi i la'ua i le falepuipui, ma lavea'iina e le mana faavavega o le Atua lea sa ia te i la'ua, e tusa ma le talafaamaumau a Alema. E aofia ai le mataupu 9 e oo atu i le 14.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "upu",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "The words of Alma,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "upu",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Amoleka,",
+     "en": "and also the words of Amulek,"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "alaga",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "which were declared"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "unto the people"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "who were"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Amonaea.",
+     "en": "in the land of Ammonihah."
+    },
+    {
+     "sm": "Ma",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lafoina",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "And also they are cast"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "la'ua",
+     "en": "the two of them"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "falepuipui,",
+     "en": "into prison,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lavea'iina",
+     "en": "and delivered"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mana",
+     "en": "·"
+    },
+    {
+     "sm": "faavavega",
+     "en": "by the miraculous power"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "of God"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "which was"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "la'ua,",
+     "en": "in them,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema.",
+     "en": "the record of Alma."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "9",
+     "en": "chapters 9"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "14.",
+     "en": "to 14."
+    }
+   ]
+  },
+  "alma|17": {
+   "en": "An account of the sons of Mosiah, who rejected their rights to the kingdom for the word of God, and went up to the land of Nephi to preach to the Lamanites; their sufferings and deliverance—according to the record of Alma. Comprising chapters 17 through 27.",
+   "sm": "O se tala i atalii o Mosaea, o e sa teena a latou aiā i le malo mo le afioga a le Atua, ma o a'e i le laueleele o Nifae e talai atu ia sa Lamanā; o o latou mafatiaga ma laveaiina—e tusa ma le talafaamaumau a Alema. E aofia ai le mataupu 17 e oo atu i le 27.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Mosaea,",
+     "en": "of the sons of Mosiah,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "teena",
+     "en": "who rejected"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "aiā",
+     "en": "their rights"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malo",
+     "en": "to the kingdom"
+    },
+    {
+     "sm": "mo",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afioga",
+     "en": "for the word"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "of God,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "a'e",
+     "en": "and went up"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "to the land of Nephi"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "talai",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "to preach"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā;",
+     "en": "to the Lamanites;"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "mafatiaga",
+     "en": "their sufferings"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "laveaiina—",
+     "en": "and deliverance—"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema.",
+     "en": "the record of Alma."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "17",
+     "en": "chapters 17"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "27.",
+     "en": "to 27."
+    }
+   ]
+  },
+  "alma|21": {
+   "en": "An account of the preaching of Aaron, and Muloki, and their brethren, to the Lamanites. Comprising chapters 21 through 25.",
+   "sm": "O se tala o le tala'iga a Arona, ma Muloki, ma o la'ua uso, i sa Lamanā. E aofia ai le mataupu 21 e oo atu i le 25.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tala'iga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Arona,",
+     "en": "of the preaching of Aaron,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "Muloki,",
+     "en": "and Muloki,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "la'ua",
+     "en": "·"
+    },
+    {
+     "sm": "uso,",
+     "en": "and their brethren,"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā.",
+     "en": "to the Lamanites."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "21",
+     "en": "chapters 21"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "25.",
+     "en": "to 25."
+    }
+   ]
+  },
+  "alma|36": {
+   "en": "The commandments of Alma to his son Helaman. Comprising chapters 36 and 37.",
+   "sm": "O poloaiga a Alema i lona atalii o Helamana. E aofia ai mataupu 36 ma le 37.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "poloaiga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema",
+     "en": "The commandments of Alma"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana.",
+     "en": "to his son Helaman."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "36",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "37.",
+     "en": "chapters 36 and 37."
+    }
+   ]
+  },
+  "alma|38": {
+   "en": "The commandments of Alma to his son Shiblon. Comprising chapter 38.",
+   "sm": "O poloaiga a Alema i lona atalii o Sepulona. E aofia ai le mataupu 38.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "poloaiga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema",
+     "en": "The commandments of Alma"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Sepulona.",
+     "en": "to his son Shiblon."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "38.",
+     "en": "chapter 38."
+    }
+   ]
+  },
+  "alma|39": {
+   "en": "The commandments of Alma to his son Corianton. Comprising chapters 39 through 42.",
+   "sm": "O poloaiga a Alema i lona atalii o Korianetona. E aofia ai mataupu 39 e oo atu i le 42.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "poloaiga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema",
+     "en": "The commandments of Alma"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Korianetona.",
+     "en": "to his son Corianton."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "39",
+     "en": "chapters 39"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "42.",
+     "en": "to 42."
+    }
+   ]
+  },
+  "alma|45": {
+   "en": "An account of the people of Nephi, and their wars and dissensions, in the days of Helaman, according to the record of Helaman, which he kept in his days. Comprising chapters 45 through 62.",
+   "sm": "O le tala i le nuu o Nifae, ma a latou taua ma a latou faatuiesega, i aso o Helamana, e tusa ai ma le talafaamaumau a Helamana, lea sa ia tausia i ona aso. E aofia ai mataupu 45 e oo atu i le 62.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "of the people of Nephi,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "taua",
+     "en": "and their wars"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "faatuiesega,",
+     "en": "and their dissensions,"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "in the days of Helaman,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "the record of Helaman,"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "tausia",
+     "en": "which he kept"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "aso.",
+     "en": "in his days."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "45",
+     "en": "chapters 45"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "62.",
+     "en": "to 62."
+    }
+   ]
+  },
+  "helaman|1": {
+   "en": "An account of the Nephites. Their wars and contentions, and their dissensions. And also the prophecies of many holy prophets, before the coming of Christ, according to the records of Helaman, who was the son of Helaman, and also according to the records of his sons, even down to the coming of Christ. And also many of the Lamanites are converted. An account of their conversion. An account of the righteousness of the Lamanites, and the wickedness and abominations of the Nephites, according to the record of Helaman and his sons, even down to the coming of Christ, which is called the book of Helaman, and so forth.",
+   "sm": "O se tala ia sa Nifaē. O a latou taua ma finauga, ma a latou faatuiesega. Ma valoaga foi a perofeta paia e toatele, ae lei afio mai Keriso, e tusa ma talafaamaumau a Helamana, o le atalii ia o Helamana, ma e tusa foi ma talafaamaumau a ona atalii, seia oo mai lava i le afio mai o Keriso. Ma e toatele foi sa Lamanā na liliu mai. O se tala i lo latou liliu mai. O se tala i le amiotonu o sa Lamanā ma le amioleaga ma mea inosia a sa Nifaē, e tusa ai ma le talafaamaumau a Helamana ma ona atalii, e oo mai lava i le afio mai o Keriso, lea ua ta'ua o le tusi a Helamana, ma isi mea.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Nifaē.",
+     "en": "of the Nephites."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "taua",
+     "en": "Their wars"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "finauga,",
+     "en": "and contentions,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "faatuiesega.",
+     "en": "and their dissensions."
+    },
+    {
+     "sm": "Ma",
+     "en": "·"
+    },
+    {
+     "sm": "valoaga",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "And also the prophecies"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "perofeta",
+     "en": "·"
+    },
+    {
+     "sm": "paia",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "toatele,",
+     "en": "of many holy prophets,"
+    },
+    {
+     "sm": "ae",
+     "en": "·"
+    },
+    {
+     "sm": "lei",
+     "en": "·"
+    },
+    {
+     "sm": "afio",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "Keriso,",
+     "en": "before Christ came,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "the records of Helaman,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "who was the son"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "of Helaman,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and also according to"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii,",
+     "en": "the records of his sons,"
+    },
+    {
+     "sm": "seia",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "even down"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afio",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "to the coming"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Keriso.",
+     "en": "of Christ."
+    },
+    {
+     "sm": "Ma",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "toatele",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "And also many"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā",
+     "en": "of the Lamanites"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "liliu",
+     "en": "·"
+    },
+    {
+     "sm": "mai.",
+     "en": "are converted."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lo",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "liliu",
+     "en": "·"
+    },
+    {
+     "sm": "mai.",
+     "en": "of their conversion."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "amiotonu",
+     "en": "of the righteousness"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā",
+     "en": "of the Lamanites"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "amioleaga",
+     "en": "and the wickedness"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "inosia",
+     "en": "and abominations"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Nifaē,",
+     "en": "of the Nephites,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana",
+     "en": "the record of Helaman"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii,",
+     "en": "and his sons,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "even down"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afio",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "to the coming"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Keriso,",
+     "en": "of Christ,"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "ta'ua",
+     "en": "which is called"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tusi",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "the book of Helaman,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "mea.",
+     "en": "and so forth."
+    }
+   ]
+  },
+  "1nephi|1": {
+   "en": "An account of Lehi and his wife Sariah, and his four sons, being called, (beginning at the eldest) Laman, Lemuel, Sam, and Nephi. The Lord warns Lehi to depart out of the land of Jerusalem, because he prophesieth unto the people concerning their iniquity and they seek to destroy his life. He taketh three days' journey into the wilderness with his family. Nephi taketh his brethren and returneth to the land of Jerusalem after the record of the Jews. The account of their sufferings. They take the daughters of Ishmael to wife. They take their families and depart into the wilderness. Their sufferings and afflictions in the wilderness. The course of their travels. They come to the large waters. Nephi's brethren rebel against him. He confoundeth them, and buildeth a ship. They call the name of the place Bountiful. They cross the large waters into the promised land, and so forth. This is according to the account of Nephi; or in other words, I, Nephi, wrote this record.",
+   "sm": "O se tala ia Liae ma lana ava o Sarai, ma ona atalii e toafa, e igoa (e amata mai i le ulumatua) ia Lamana, Lemuelu, Sama, ma Nifae. Ua lapataia Liae e le Alii ia alu ese atu mai le laueleele o Ierusalema, ona sa vavalo atu o ia i tagata e uiga i lo latou amioletonu ma ua latou saili ai e faaumatia lona ola. Ua malaga atu o ia i le vao i aso e tolu faatasi ma lona aiga. Ua ave e Nifae ona uso ma foi atu i le laueleele o Ierusalema ina ia maua mai le talafaamaumau o tagata Iutaia. O le tala i o latou mafatiaga. Ua latou ave afafine o Isamaeli ma faiavā i ai. Ua latou ave o latou aiga ma o ese atu i le vao. O o latou mafatiaga ma puapuaga i le vao. O le ala na ui ai la latou malaga. Ua latou tau atu i vai tetele. Ua fouvale uso o Nifae ia te ia. Ua ia faafememeaiina i laua, ma fausia se vaa. Ua latou faaigoaina le nofoaga o Nuumau. Ua latou sopo atu i vai tetele i le laueleele na folafolaina, ma isi mea. O lenei ua tusa ai ma le tala a Nifae; po o i ni isi upu, o a'u, o Nifae, na tusia lenei tala.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "Liae",
+     "en": "An account of Lehi"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lana",
+     "en": "·"
+    },
+    {
+     "sm": "ava",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Sarai,",
+     "en": "and his wife Sariah,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "toafa,",
+     "en": "and his four sons,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "igoa",
+     "en": "being called"
+    },
+    {
+     "sm": "(e",
+     "en": "·"
+    },
+    {
+     "sm": "amata",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ulumatua)",
+     "en": "(beginning at the eldest)"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "Lamana,",
+     "en": "·"
+    },
+    {
+     "sm": "Lemuelu,",
+     "en": "Laman, Lemuel,"
+    },
+    {
+     "sm": "Sama,",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae.",
+     "en": "Sam, and Nephi."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "lapataia",
+     "en": "·"
+    },
+    {
+     "sm": "Liae",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Alii",
+     "en": "The Lord warns Lehi"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "alu",
+     "en": "·"
+    },
+    {
+     "sm": "ese",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "to depart"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Ierusalema,",
+     "en": "out of the land of Jerusalem,"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "vavalo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "because he prophesied"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "unto the people"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "uiga",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "concerning"
+    },
+    {
+     "sm": "lo",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "amioletonu",
+     "en": "their iniquity"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "saili",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "and they sought"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "faaumatia",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "ola.",
+     "en": "to destroy his life."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "malaga",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "He journeys"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao",
+     "en": "into the wilderness"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tolu",
+     "en": "for three days"
+    },
+    {
+     "sm": "faatasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "aiga.",
+     "en": "with his family."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "ave",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "Nephi takes"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "uso",
+     "en": "his brethren"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "and returns"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Ierusalema",
+     "en": "to the land of Jerusalem"
+    },
+    {
+     "sm": "ina",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "maua",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "to obtain"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "·"
+    },
+    {
+     "sm": "Iutaia.",
+     "en": "the record of the Jews."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "The account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "mafatiaga.",
+     "en": "of their sufferings."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "ave",
+     "en": "They take"
+    },
+    {
+     "sm": "afafine",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Isamaeli",
+     "en": "the daughters of Ishmael"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "faiavā",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai.",
+     "en": "to wife."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "ave",
+     "en": "They take"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "aiga",
+     "en": "their families"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ese",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "and depart"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao.",
+     "en": "into the wilderness."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "mafatiaga",
+     "en": "Their sufferings"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "puapuaga",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao.",
+     "en": "and afflictions in the wilderness."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ala",
+     "en": "The course"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "ui",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "that went"
+    },
+    {
+     "sm": "la",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "malaga.",
+     "en": "of their travels."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "tau",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "They come"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "·"
+    },
+    {
+     "sm": "tetele.",
+     "en": "to the large waters."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fouvale",
+     "en": "·"
+    },
+    {
+     "sm": "uso",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "Nephi's brethren rebel"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "ia.",
+     "en": "against him."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "faafememeaiina",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "laua,",
+     "en": "He confounds them,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "fausia",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "vaa.",
+     "en": "and builds a ship."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoaina",
+     "en": "They name"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nofoaga",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nuumau.",
+     "en": "the place Bountiful."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "sopo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "They cross"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "·"
+    },
+    {
+     "sm": "tetele",
+     "en": "the large waters"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "folafolaina,",
+     "en": "into the promised land,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "mea.",
+     "en": "and so forth."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "lenei",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "This is according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae;",
+     "en": "the account of Nephi;"
+    },
+    {
+     "sm": "po",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "or in"
+    },
+    {
+     "sm": "ni",
+     "en": "·"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "upu,",
+     "en": "other words,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "a'u,",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "I, Nephi,"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "tusia",
+     "en": "·"
+    },
+    {
+     "sm": "lenei",
+     "en": "·"
+    },
+    {
+     "sm": "tala.",
+     "en": "wrote this record."
+    }
+   ]
+  },
+  "2nephi|1": {
+   "en": "An account of the death of Lehi. Nephi's brethren rebel against him. He is warned of the Lord to depart into the wilderness. His travels in the wilderness, and so forth.",
+   "sm": "O se tala i le maliu o Liae. Ua fouvale uso o Nifae ia te ia. Ua lapataia Nifae e le Alii ia alu ese atu i le vao. O ana malaga i le vao, ma isi mea faapena.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "maliu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Liae.",
+     "en": "of the death of Lehi."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fouvale",
+     "en": "·"
+    },
+    {
+     "sm": "uso",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "Nephi's brethren rebel"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "ia.",
+     "en": "against him."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "lapataia",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Alii",
+     "en": "Nephi is warned of the Lord"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "alu",
+     "en": "·"
+    },
+    {
+     "sm": "ese",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "to depart"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao.",
+     "en": "into the wilderness."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "ana",
+     "en": "·"
+    },
+    {
+     "sm": "malaga",
+     "en": "His travels"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao,",
+     "en": "in the wilderness,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "faapena.",
+     "en": "and so forth."
+    }
+   ]
+  },
+  "jacob|1": {
+   "en": "The words of his preaching unto his brethren. He confoundeth a man who seeketh to overthrow the doctrine of Christ. A few words concerning the history of the people of Nephi.",
+   "sm": "O upu o lana lauga i ona uso. Ua faafememea'iina e ia se alii na saili e lepeti le aoaoga faavae a Keriso. O nai upu itiiti e uiga i le talafaasolopito o le nuu o Nifae.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "upu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "lana",
+     "en": "·"
+    },
+    {
+     "sm": "lauga",
+     "en": "The words of his preaching"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "uso.",
+     "en": "unto his brethren."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faafememea'iina",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "He confounds"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "alii",
+     "en": "a man"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "saili",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "lepeti",
+     "en": "who sought to overthrow"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aoaoga",
+     "en": "·"
+    },
+    {
+     "sm": "faavae",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Keriso.",
+     "en": "the doctrine of Christ."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "nai",
+     "en": "·"
+    },
+    {
+     "sm": "upu",
+     "en": "·"
+    },
+    {
+     "sm": "itiiti",
+     "en": "A few words"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "uiga",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaasolopito",
+     "en": "concerning the history"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae.",
+     "en": "of the people of Nephi."
+    }
+   ]
+  },
+  "alma|1": {
+   "en": "The account of Alma, who was the son of Alma, the first and chief judge over the people of Nephi, and also the high priest over the Church. An account of the reign of the judges, and the wars and contentions among the people. And also an account of a war between the Nephites and the Lamanites, according to the record of Alma, the first and chief judge.",
+   "sm": "O le tala a Alema, o ia o le atalii o Alema, le uluai faamasino ma le faamasino sili i le nuu o Nifae, ma o le faitaulaga sili foi i le Ekalesia. O se tala o le nofoaiga a faamasino, ma taua ma finauga i totonu o le nuu. Ma o se tala foi o se taua i le va o sa Nifaē ma sa Lamanā, e tusa ma le talafaamaumau a Alema, o le uluai faamasino ma le faamasino sili.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "The account of Alma,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "who was the son"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "of Alma,"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "uluai",
+     "en": "·"
+    },
+    {
+     "sm": "faamasino",
+     "en": "the first judge"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faamasino",
+     "en": "·"
+    },
+    {
+     "sm": "sili",
+     "en": "and chief judge"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "over the people of Nephi,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faitaulaga",
+     "en": "·"
+    },
+    {
+     "sm": "sili",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "also the high priest"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Ekalesia.",
+     "en": "over the Church."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nofoaiga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "faamasino,",
+     "en": "of the reign of the judges,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "taua",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "finauga",
+     "en": "and the wars and contentions"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "totonu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu.",
+     "en": "among the people."
+    },
+    {
+     "sm": "Ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "And also an account"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "taua",
+     "en": "of a war"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "between"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Nifaē",
+     "en": "the Nephites"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā,",
+     "en": "and the Lamanites,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "according to"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "the record of Alma,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "uluai",
+     "en": "·"
+    },
+    {
+     "sm": "faamasino",
+     "en": "the first judge"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faamasino",
+     "en": "·"
+    },
+    {
+     "sm": "sili.",
+     "en": "and chief judge."
+    }
+   ]
+  },
+  "4nephi|1": {
+   "en": "An account of the people of Nephi, according to his record.",
+   "sm": "O se tala o le nuu o Nifae, e tusa ma lana talafaamaumau.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "tala",
+     "en": "An account"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "of the people of Nephi,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tusa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lana",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau.",
+     "en": "according to his record."
+    }
+   ]
+  },
+  "ether|1": {
+   "en": "The record of the Jaredites, taken from the twenty-four plates found by the people of Limhi in the days of King Mosiah.",
+   "sm": "O le talafaamaumau o sa Iaretō, na sii mai papatusi e luasefulu ma le fa ia na maua e tagata o Limae i aso le Tupu o Mosaea.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "talafaamaumau",
+     "en": "The record"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Iaretō,",
+     "en": "of the Jaredites,"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "sii",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "papatusi",
+     "en": "taken from the plates"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "luasefulu",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "fa",
+     "en": "twenty-four"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "maua",
+     "en": "found"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Limae",
+     "en": "by the people of Limhi"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "in the days"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Tupu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Mosaea.",
+     "en": "of King Mosiah."
+    }
+   ]
+  },
+  "3nephi|1": {
+   "en": "The Book of Nephi, the son of Nephi, who was the son of Helaman. And Helaman was the son of Helaman, who was the son of Alma, who was the son of Alma, being a descendant of Nephi who was the son of Lehi, who came out of Jerusalem in the first year of the reign of Zedekiah, the king of Judah.",
+   "sm": "O le Tusi a Nifae, o le atalii o Nifae, o le atalii ia o Helamana. Ma o Helamana o le atalii o Helamana, o le atalii ia o Alema, o le atalii ia o Alema, o se e tupuga mai ia Nifae o le atalii o Liae, o le na alu a'e mai Ierusalema i le tausaga muamua o le nofoaiga a Setekaia, le tupu o Iuta.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Tusi",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "The Book of Nephi,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "the son of Nephi,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "who was the son"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana.",
+     "en": "of Helaman."
+    },
+    {
+     "sm": "Ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana",
+     "en": "And Helaman"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana,",
+     "en": "was the son of Helaman,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "who was the son"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "of Alma,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "who was the son"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Alema,",
+     "en": "of Alma,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tupuga",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "being a descendant"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "of Nephi"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Liae,",
+     "en": "who was the son of Lehi,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "alu",
+     "en": "·"
+    },
+    {
+     "sm": "a'e",
+     "en": "who came out"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "Ierusalema",
+     "en": "of Jerusalem"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tausaga",
+     "en": "·"
+    },
+    {
+     "sm": "muamua",
+     "en": "in the first year"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nofoaiga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Setekaia,",
+     "en": "of the reign of Zedekiah,"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tupu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Iuta.",
+     "en": "the king of Judah."
+    }
+   ]
+  },
+  "helaman|7": {
+   "en": "The prophecy of Nephi, the son of Helaman—God threatens the people of Nephi that he will visit them in his anger, to their utter destruction except they repent of their wickedness. God smiteth the people of Nephi with pestilence; they repent and turn unto him. Samuel, a Lamanite, prophesies unto the Nephites. Comprising chapters 7 through 16.",
+   "sm": "O le valoaga a Nifae, le atalii o Helamana—Ua faamata'uina e le Atua le nuu o Nifae o le a ia asiasi mai ia te i latou i lona toasa, i le faaumatiaina atoa o i latou, vagana ai ua latou salamo ia latou amioleaga. Ua taia e le Atua le nuu o Nifae i le faama'i; ua latou salamo ma liliu mai ia te ia. O Samuelu, o se sa Lamanā, ua vavalo atu i tagata sa Nifaē. E aofia ai mataupu 7 e oo atu i le 16.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "valoaga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "The prophecy of Nephi,"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Helamana—",
+     "en": "the son of Helaman—"
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faamata'uina",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God threatens"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "the people of Nephi"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "asiasi",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "that he will visit"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "them"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "toasa,",
+     "en": "in his anger,"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faaumatiaina",
+     "en": "·"
+    },
+    {
+     "sm": "atoa",
+     "en": "to the utter destruction"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou,",
+     "en": "of them,"
+    },
+    {
+     "sm": "vagana",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "salamo",
+     "en": "except they repent"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "amioleaga.",
+     "en": "of their wickedness."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "taia",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God smites"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae",
+     "en": "the people of Nephi"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faama'i;",
+     "en": "with pestilence;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "salamo",
+     "en": "they repent"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "liliu",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "ia.",
+     "en": "and turn unto him."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "Samuelu,",
+     "en": "Samuel,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "se",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā,",
+     "en": "a Lamanite,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "vavalo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "prophesies"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Nifaē.",
+     "en": "unto the Nephites."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "7",
+     "en": "chapters 7"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "16.",
+     "en": "to 16."
+    }
+   ]
+  },
+  "helaman|13": {
+   "en": "The prophecy of Samuel, the Lamanite, to the Nephites. Comprising chapters 13 through 15.",
+   "sm": "O le valoaga a Samuelu, le sa Lamanā, ia sa Nifaē. E aofia ai mataupu 13 e oo atu i le 15.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "valoaga",
+     "en": "·"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Samuelu,",
+     "en": "The prophecy of Samuel,"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Lamanā,",
+     "en": "the Lamanite,"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "Nifaē.",
+     "en": "to the Nephites."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "13",
+     "en": "chapters 13"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "15.",
+     "en": "to 15."
+    }
+   ]
+  },
+  "3nephi|11": {
+   "en": "Jesus Christ did show himself unto the people of Nephi, as the multitude were gathered together in the land Bountiful, and did minister unto them; and on this wise did he show himself unto them. Comprising chapters 11 through 26.",
+   "sm": "Na faaali mai e Iesu Keriso o ia lava i le nuu o Nifae, ao faapotopoto faatasi le motu o tagata i le laueleele o Nuumau, ma sa ia auauna atu ia te i latou; ma sa faapenei ona ia faaali mai o ia lava ia te i latou. E aofia ai mataupu 11 e oo atu i le 26.",
+   "words": [
+    {
+     "sm": "Na",
+     "en": "·"
+    },
+    {
+     "sm": "faaali",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "Iesu",
+     "en": "·"
+    },
+    {
+     "sm": "Keriso",
+     "en": "Jesus Christ did show"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "himself"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "nuu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nifae,",
+     "en": "unto the people of Nephi,"
+    },
+    {
+     "sm": "ao",
+     "en": "·"
+    },
+    {
+     "sm": "faapotopoto",
+     "en": "·"
+    },
+    {
+     "sm": "faatasi",
+     "en": "as gathered together"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "motu",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "the multitude"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Nuumau,",
+     "en": "in the land Bountiful,"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "auauna",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "and did minister"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou;",
+     "en": "unto them;"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "faapenei",
+     "en": "and on this wise"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "faaali",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "did he show"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "himself"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou.",
+     "en": "unto them."
+    },
+    {
+     "sm": "E",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "11",
+     "en": "chapters 11"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "oo",
+     "en": "·"
+    },
+    {
+     "sm": "atu",
+     "en": "through"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "26.",
+     "en": "to 26."
+    }
+   ]
+  },
+  "moroni|9": {
+   "en": "The second epistle of Mormon to his son Moroni. Comprising chapter 9.",
+   "sm": "O le tusi lona lua a Mamona i lona atalii o Moronae. Ua aofia ai le mataupu lona 9.",
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tusi",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "lua",
+     "en": "The second epistle"
+    },
+    {
+     "sm": "a",
+     "en": "·"
+    },
+    {
+     "sm": "Mamona",
+     "en": "of Mormon"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "atalii",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "Moronae.",
+     "en": "to his son Moroni."
+    },
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "aofia",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "Comprising"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mataupu",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "·"
+    },
+    {
+     "sm": "9.",
+     "en": "chapter 9."
+    }
+   ]
+  }
+ }
+}

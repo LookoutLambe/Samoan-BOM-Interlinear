@@ -12,16 +12,24 @@ struct WordUnitView: View {
     @Environment(HighlightStore.self) private var highlights
     @Environment(NoteStore.self) private var notes
     @Environment(WordSelectionModel.self) private var selection
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(\.scriptureShowDiacritics) private var showDiacritics
     let pair: WordPair
     let wordKey: String
     let verseKey: String
+
+    /// The Samoan surface form as displayed — marked when the reader has asked
+    /// for pronunciation marks, otherwise the published spelling verbatim.
+    private var displaySm: String {
+        showDiacritics ? library.markedSamoan(pair.sm, wordKey: wordKey) : pair.sm
+    }
 
     var body: some View {
         Button {
             selection.toggle(key: wordKey, text: pair.sm, verseKey: verseKey)
         } label: {
             VStack(alignment: .center, spacing: 2) {
-                Text(pair.sm)
+                Text(displaySm)
                     .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
                     .foregroundStyle(Theme.hwInk)
                     .multilineTextAlignment(.center)
@@ -32,7 +40,6 @@ struct WordUnitView: View {
                         .foregroundStyle(Theme.glossInk)
                         .multilineTextAlignment(.center)
                         .fixedSize(horizontal: false, vertical: true)
-                        .frame(maxWidth: 120 * scale)
                 }
             }
             .wordUnitDecoration(
@@ -92,19 +99,35 @@ struct IdiomSpanView: View {
     @Environment(HighlightStore.self) private var highlights
     @Environment(NoteStore.self) private var notes
     @Environment(WordSelectionModel.self) private var selection
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(\.scriptureShowDiacritics) private var showDiacritics
     let samoanWords: [String]
     let englishGloss: String
     let wordKey: String
     let verseKey: String
+    /// Index of this span's first word within `verse.words`, so each token can be
+    /// addressed individually for the diacritics exceptions layer.
+    let startIndex: Int
 
     private var joined: String { samoanWords.joined(separator: " ") }
+
+    /// Marks each word in the span individually. `wordKey` identifies the span as
+    /// a whole, so per-token keys are rebuilt from `startIndex` — otherwise a
+    /// context-dependent word inside a span (causal `onā`) would miss its
+    /// exception, and most of those sit inside multi-token clusters.
+    private var displayJoined: String {
+        guard showDiacritics else { return joined }
+        return samoanWords.enumerated()
+            .map { library.markedSamoan($1, wordKey: "\(verseKey)|\(startIndex + $0)") }
+            .joined(separator: " ")
+    }
 
     var body: some View {
         Button {
             selection.toggle(key: wordKey, text: joined, verseKey: verseKey)
         } label: {
             VStack(alignment: .center, spacing: 2) {
-                Text(joined)
+                Text(displayJoined)
                     .font(SerifFont.tnr(size: 22 * scale, weight: .medium))
                     .foregroundStyle(Theme.hwInk)
                     .multilineTextAlignment(.center)
