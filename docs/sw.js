@@ -9,7 +9,7 @@
 // Stamped by scripts/build_web_data.py from a hash of the published files, so
 // a redeploy always produces a new cache and never strands readers on an old
 // build. Do not edit by hand.
-const VERSION = 'd33e36f9c373';
+const VERSION = '0c90b0d95212';
 const CACHE = `bom-${VERSION}`;
 const BATCH = 12;
 

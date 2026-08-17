@@ -25,8 +25,36 @@
 
 <main id="view" tabindex="-1"></main>
 
+<!-- Selection toolbar, mirroring WordActionBar in the app -->
+<div id="actionbar" class="actionbar" hidden role="toolbar" aria-label="Selection actions">
+  <div id="swatches" class="swatches"></div>
+  <button id="btn-erase" class="act-btn" aria-label="Aveese le Faailoga" title="Aveese le Faailoga">&#9013;</button>
+  <span class="act-div"></span>
+  <button id="btn-note" class="act-btn" aria-label="Manatu" title="Manatu">&#9998;</button>
+  <button id="btn-copy" class="act-btn" aria-label="Kopi" title="Kopi">&#10064;</button>
+  <span class="act-spacer"></span>
+  <button id="btn-clear-sel" class="act-btn" aria-label="Fa&#39;aleaoga" title="Fa&#39;aleaoga">&#10005;</button>
+</div>
+
 <!-- Reader mode bar, mirroring ReaderControlBar in the app -->
 <nav id="modebar" class="modebar" hidden aria-label="Reader mode"></nav>
+
+<!-- Per-verse note editor -->
+<div id="note-sheet" class="sheet" hidden>
+  <div class="sheet-inner">
+    <div class="sheet-head">
+      <span>Manatu</span>
+      <button id="btn-note-close" class="chrome-btn" aria-label="Close">&times;</button>
+    </div>
+    <p id="note-ref" class="note-ref"></p>
+    <p id="note-preview" class="note-preview"></p>
+    <textarea id="note-text" rows="7" placeholder="Tusi sau manatu&hellip;"></textarea>
+    <div class="note-actions">
+      <button id="btn-note-delete" class="note-delete" hidden>Tapeina le Manatu</button>
+      <button id="btn-note-save" class="note-save">Ua uma</button>
+    </div>
+  </div>
+</div>
 
 <!-- Library drawer -->
 <div id="drawer-scrim" class="scrim" hidden></div>

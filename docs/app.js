@@ -22,13 +22,97 @@
     { id: 'dual', label: 'Tutusa' },
   ];
 
+  /* Five highlight colors, matching HighlightColor in HighlightStore.swift. */
+  const COLORS = [
+    { id: 'yellow', tint: '#fff08c', label: 'Samasama' },
+    { id: 'pink', tint: '#ffc7d9', label: 'Piniki' },
+    { id: 'blue', tint: '#a8d9fc', label: 'Lanumoana' },
+    { id: 'green', tint: '#bdeba6', label: 'Lanumeamata' },
+    { id: 'purple', tint: '#d9bff2', label: 'Viole' },
+  ];
+
   const state = {
     index: null,
     diacritics: null,
     chapterCache: new Map(),
     settings: loadSettings(),
-    highlights: loadJSON('bom.highlights', {}),
+    // key -> color id. Keys are `bookId|chapter|verse|wordIndex` for a word
+    // and `bookId|chapter|verse` for a whole verse, as in the app.
+    highlights: loadJSON('bom.highlights.v1', {}),
+    notes: loadJSON('bom.notes.v1', {}),
   };
+
+  /* Which word-units are selected. Scoped to one verse: tapping a word in a
+     different verse starts fresh, and word- and verse-level selections never
+     coexist (WordSelectionModel.swift). */
+  const selection = {
+    words: new Set(),
+    texts: {},
+    verseKey: null,
+    wholeVerseKey: null,
+    wholeVerseText: '',
+
+    get isEmpty() {
+      return this.words.size === 0 && !this.wholeVerseKey;
+    },
+    get isWholeVerse() {
+      return !!this.wholeVerseKey;
+    },
+    /* Selected keys in reading order — they carry their word index. */
+    get sortedKeys() {
+      const idx = (k) => Number(k.split('|').pop()) || 0;
+      return [...this.words].sort((a, b) => idx(a) - idx(b));
+    },
+    get joinedText() {
+      return this.sortedKeys.map((k) => this.texts[k]).filter(Boolean).join(' ');
+    },
+    get anchorVerseKey() {
+      return this.wholeVerseKey || this.verseKey;
+    },
+
+    toggleWord(key, text, verseKey) {
+      this.wholeVerseKey = null;
+      this.wholeVerseText = '';
+      if (this.verseKey !== verseKey) {
+        this.words.clear();
+        this.texts = {};
+        this.verseKey = verseKey;
+      }
+      if (this.words.has(key)) {
+        this.words.delete(key);
+        delete this.texts[key];
+      } else {
+        this.words.add(key);
+        this.texts[key] = text;
+      }
+      if (!this.words.size) this.verseKey = null;
+    },
+
+    toggleVerse(verseKey, text) {
+      this.words.clear();
+      this.texts = {};
+      this.verseKey = null;
+      if (this.wholeVerseKey === verseKey) {
+        this.wholeVerseKey = null;
+        this.wholeVerseText = '';
+      } else {
+        this.wholeVerseKey = verseKey;
+        this.wholeVerseText = text;
+      }
+    },
+
+    clear() {
+      this.words.clear();
+      this.texts = {};
+      this.verseKey = null;
+      this.wholeVerseKey = null;
+      this.wholeVerseText = '';
+    },
+  };
+
+  const saveHighlights = () =>
+    localStorage.setItem('bom.highlights.v1', JSON.stringify(state.highlights));
+  const saveNotes = () => localStorage.setItem('bom.notes.v1', JSON.stringify(state.notes));
 
   // ---------------------------------------------------------------- settings
 
@@ -185,21 +269,56 @@
     unit.dataset.key = wordKey;
 
     const sm = el('span', 'sm');
-    sm.textContent = item.sm
+    const text = item.sm
       .map((word, offset) => displaySm(word, `${verseKey}|${item.index + offset}`))
       .join(' ');
+    sm.textContent = text;
     unit.append(sm);
 
     if (item.en) unit.append(el('span', 'en', item.en));
-    if (state.highlights[wordKey]) unit.classList.add('hl');
+    paintUnit(unit, wordKey);
 
+    // Tapping builds up a selection; the toolbar then acts on it. Highlighting
+    // is never applied by the tap itself, matching the app.
     unit.addEventListener('click', () => {
-      if (state.highlights[wordKey]) delete state.highlights[wordKey];
-      else state.highlights[wordKey] = 1;
-      unit.classList.toggle('hl');
-      localStorage.setItem('bom.highlights', JSON.stringify(state.highlights));
+      selection.toggleWord(wordKey, item.sm.join(' '), verseKey);
+      refreshSelectionUI();
     });
     return unit;
+  }
+
+  /* Highlight tint, selection ring and note dot for one word-unit. */
+  function paintUnit(unit, wordKey) {
+    const color = state.highlights[wordKey];
+    unit.classList.toggle('hl', !!color);
+    unit.dataset.hl = color || '';
+    unit.classList.toggle('selected', selection.words.has(wordKey));
+  }
+
+  /* Notes are stored per verse, so the marker belongs on the verse row — one
+     dot per annotated verse. Putting it on every word of the verse would stamp
+     a row of identical dots across the whole passage. */
+  function noteFor(verseKey) {
+    const text = state.notes[verseKey];
+    return text && text.trim() ? text : null;
+  }
+
+  /* Repaint highlight/selection state in place, without rebuilding the
+     chapter — a full re-render would lose scroll position mid-selection. */
+  function refreshSelectionUI() {
+    for (const unit of document.querySelectorAll('.unit')) {
+      paintUnit(unit, unit.dataset.key);
+    }
+    for (const row of document.querySelectorAll('.verse')) {
+      const key = row.dataset.key;
+      if (!key) continue;
+      const color = state.highlights[key];
+      row.classList.toggle('hl', !!color);
+      row.dataset.hl = color || '';
+      row.classList.toggle('selected', selection.wholeVerseKey === key);
+      row.classList.toggle('has-note', !!noteFor(key));
+    }
+    $('actionbar').hidden = selection.isEmpty;
   }
 
   /* Samoan prose for the samoan/dual modes. Marked per token with the same
@@ -214,17 +333,36 @@
 
   function renderVerse(verse, bookId, num) {
     const verseKey = `${bookId}|${num}|${verse.n}`;
+    const prose = samoanProse(verse, verseKey);
     const row = el('div', `verse mode-${state.settings.mode}`);
-    row.append(el('span', 'verse-num', String(verse.n)));
+    row.dataset.key = verseKey;
+
+    // Tapping the number selects the whole verse, in every mode.
+    const numCell = el('span', 'verse-num', String(verse.n));
+    numCell.addEventListener('click', () => {
+      selection.toggleVerse(verseKey, prose);
+      refreshSelectionUI();
+    });
+    row.append(numCell);
 
     if (state.settings.mode === 'samoan') {
-      row.append(el('p', 'prose', samoanProse(verse, verseKey)));
+      const p = el('p', 'prose', prose);
+      p.addEventListener('click', () => {
+        selection.toggleVerse(verseKey, prose);
+        refreshSelectionUI();
+      });
+      row.append(p);
       return row;
     }
 
     if (state.settings.mode === 'dual') {
       const cols = el('div', 'dual-cols');
-      cols.append(el('p', 'prose sm-col', samoanProse(verse, verseKey)));
+      const sm = el('p', 'prose sm-col', prose);
+      sm.addEventListener('click', () => {
+        selection.toggleVerse(verseKey, prose);
+        refreshSelectionUI();
+      });
+      cols.append(sm);
       cols.append(el('div', 'dual-rule'));
       cols.append(el('p', 'prose en-col', verse.en || '—'));
       row.append(cols);
@@ -421,6 +559,7 @@
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
     $('modebar').hidden = false;
+    refreshSelectionUI();
     localStorage.setItem('bom.last', `#/b/${bookId}/${num}`);
   }
 
@@ -442,6 +581,8 @@
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
     $('modebar').hidden = true;
+    selection.clear();
+    $('actionbar').hidden = true;
   }
 
   /* Matches BookListView: the cover is the way in, a continue-reading button
@@ -451,6 +592,8 @@
     $('title').textContent = 'O le Tusi a Mamona';
     document.title = 'O le Tusi a Mamona — Interlinear';
     $('modebar').hidden = true;
+    selection.clear();
+    $('actionbar').hidden = true;
 
     const frag = document.createDocumentFragment();
     const home = el('div', 'home');
@@ -596,6 +739,102 @@
     return btn;
   }
 
+  // ------------------------------------------------- selection toolbar + notes
+
+  /* Applies a color to the current selection, or clears it when `color` is
+     null (the eraser). Mirrors WordActionBar.applyColor. */
+  function applyColor(color) {
+    const keys = selection.isWholeVerse ? [selection.wholeVerseKey] : [...selection.words];
+    for (const key of keys) {
+      if (color) state.highlights[key] = color;
+      else delete state.highlights[key];
+    }
+    saveHighlights();
+    selection.clear();
+    refreshSelectionUI();
+  }
+
+  function selectionText() {
+    return selection.isWholeVerse ? selection.wholeVerseText : selection.joinedText;
+  }
+
+  /* Human reference for the note sheet — "1 Nifae 1:1". */
+  function referenceLabel(verseKey) {
+    const [bookId, chapter, verse] = verseKey.split('|');
+    const book = bookById(bookId);
+    return `${book ? book.nameSm : bookId} ${chapter}:${verse}`;
+  }
+
+  function openNote() {
+    const verseKey = selection.anchorVerseKey;
+    if (!verseKey) return;
+    const existing = state.notes[verseKey] || '';
+
+    $('note-ref').textContent = referenceLabel(verseKey);
+    $('note-preview').textContent = selectionText();
+    $('note-text').value = existing;
+    $('btn-note-delete').hidden = !existing;
+    $('note-sheet').hidden = false;
+    $('note-sheet').dataset.key = verseKey;
+    $('note-text').focus();
+  }
+
+  function saveNote() {
+    const verseKey = $('note-sheet').dataset.key;
+    const text = $('note-text').value;
+    if (text.trim()) state.notes[verseKey] = text;
+    else delete state.notes[verseKey];
+    saveNotes();
+    $('note-sheet').hidden = true;
+    selection.clear();
+    refreshSelectionUI();
+  }
+
+  function deleteNote() {
+    delete state.notes[$('note-sheet').dataset.key];
+    saveNotes();
+    $('note-sheet').hidden = true;
+    selection.clear();
+    refreshSelectionUI();
+  }
+
+  function buildSwatches() {
+    const wrap = $('swatches');
+    wrap.replaceChildren();
+    for (const c of COLORS) {
+      const btn = el('button', 'swatch');
+      btn.style.background = c.tint;
+      btn.title = c.label;
+      btn.setAttribute('aria-label', c.label);
+      btn.addEventListener('click', () => applyColor(c.id));
+      wrap.append(btn);
+    }
+  }
+
+  async function copySelection() {
+    const text = selectionText();
+    try {
+      await navigator.clipboard.writeText(text);
+    } catch {
+      // Clipboard API needs a secure context and permission; fall back to a
+      // hidden textarea so copy still works where it isn't available.
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.append(ta);
+      ta.select();
+      try {
+        document.execCommand('copy');
+      } catch {
+        /* nothing more to try */
+      }
+      ta.remove();
+    }
+    selection.clear();
+    refreshSelectionUI();
+  }
+
   // ------------------------------------------------------------------ router
 
   function route() {
@@ -647,6 +886,23 @@
   // -------------------------------------------------------------------- init
 
   function wireUI() {
+    buildSwatches();
+    $('btn-erase').addEventListener('click', () => applyColor(null));
+    $('btn-note').addEventListener('click', openNote);
+    $('btn-copy').addEventListener('click', copySelection);
+    $('btn-clear-sel').addEventListener('click', () => {
+      selection.clear();
+      refreshSelectionUI();
+    });
+    $('btn-note-save').addEventListener('click', saveNote);
+    $('btn-note-delete').addEventListener('click', deleteNote);
+    $('btn-note-close').addEventListener('click', () => {
+      $('note-sheet').hidden = true;
+    });
+    $('note-sheet').addEventListener('click', (e) => {
+      if (e.target === $('note-sheet')) $('note-sheet').hidden = true;
+    });
+
     $('btn-library').addEventListener('click', () => toggleDrawer(true));
     $('drawer-scrim').addEventListener('click', () => toggleDrawer(false));
     $('btn-back').addEventListener('click', () => {
