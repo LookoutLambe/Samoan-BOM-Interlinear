@@ -41,6 +41,26 @@ def write(path: Path, payload) -> int:
     return len(blob.encode("utf-8"))
 
 
+# Chapters whose official English is filed under the wrong chapter number in
+# bom_english.json. Mormon 1's verses are keyed as chapter 0 — every other book
+# and chapter lines up, and Mormon 2-9 are correct — so this is a data defect in
+# that one chapter rather than a different numbering convention. Recovering it
+# here keeps the dual mode readable; fixing bom_english.json itself would also
+# fix the iOS app, which does a plain keyed lookup with no fallback.
+CHAPTER_KEY_FIXUPS = {("Mormon", 1): 0}
+
+
+def english_for(english: dict, book_en: str, chapter: int, verse: int) -> str | None:
+    """Official English for a verse, tolerating the known mis-keyed chapter."""
+    hit = english.get(f"{book_en}|{chapter}|{verse}")
+    if hit:
+        return hit
+    alt = CHAPTER_KEY_FIXUPS.get((book_en, chapter))
+    if alt is not None:
+        return english.get(f"{book_en}|{alt}|{verse}")
+    return None
+
+
 def swift_unescape(text: str) -> str:
     r"""Resolve `\u{...}` escapes and the `\`-newline continuations Swift uses
     in multi-line string literals."""
@@ -118,7 +138,7 @@ def main() -> None:
                 # Samoan prose for the samoan/dual modes, and the official
                 # English for the dual column.
                 entry["sm"] = " ".join(w["sm"] for w in words)
-                official = english.get(f"{book['nameEn']}|{num}|{verse['num']}")
+                official = english_for(english, book["nameEn"], num, verse["num"])
                 if official:
                     entry["en"] = official
                 else:
