@@ -795,15 +795,15 @@ body.no-gloss .unit .en { display: none; }
 .disclaimer {
   width: 100%;
   margin-top: 2.25rem;
-  padding: .875rem 1.125rem;
+  padding: 1.25rem 1.125rem;
   border-bottom: 1px solid var(--rule);
   background: var(--row-alt);
 }
 
 .disclaimer-en, .disclaimer-sm {
   margin: 0;
-  color: var(--ink-light);
-  font-size: .656rem;
+  color: var(--ink);
+  font-size: calc(.9rem * var(--scale));
   line-height: 1.6;
   text-align: center;
 }
@@ -819,7 +819,7 @@ body.no-gloss .unit .en { display: none; }
 .disclaimer-gloss {
   display: flex;
   flex-wrap: wrap;
-  gap: .375rem .5rem;
+  gap: .5rem .625rem;
 }
 
 .gloss-cell {
@@ -832,14 +832,14 @@ body.no-gloss .unit .en { display: none; }
 
 .gloss-cell .sm {
   color: var(--hw-ink);
-  font-size: .75rem;
+  font-size: calc(1rem * var(--scale));
   font-weight: 500;
   line-height: 1.2;
 }
 
 .gloss-cell .en {
   color: var(--gloss-ink);
-  font-size: .5rem;
+  font-size: calc(.7rem * var(--scale));
   font-style: italic;
   line-height: 1.2;
 }
