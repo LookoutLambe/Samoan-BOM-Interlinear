@@ -843,3 +843,46 @@ body.no-gloss .unit .en { display: none; }
   font-style: italic;
   line-height: 1.2;
 }
+
+/* ---------- App Store button ---------- */
+
+.appstore {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .625rem;
+  width: min(100%, 20rem);
+  margin-top: .875rem;
+  padding: .625rem 1.25rem;
+  border: 1px solid var(--button-border);
+  border-radius: .5rem;
+  background: #000;
+  color: #fff;
+  text-decoration: none;
+}
+
+.appstore:hover { border-color: var(--accent); }
+
+.appstore-mark {
+  flex: none;
+  width: 1.625rem;
+  height: 1.625rem;
+}
+
+.appstore-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.2;
+}
+
+.appstore-main {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+
+.appstore-sub {
+  color: var(--accent);
+  font-size: .72rem;
+  font-style: italic;
+}

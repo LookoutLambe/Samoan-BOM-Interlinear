@@ -533,6 +533,34 @@
     return cover;
   }
 
+  /* Link to the iOS/iPadOS/macOS build on the App Store. An inline SVG mark
+     rather than the  glyph, which is a private-use character and renders as
+     tofu everywhere except Apple platforms — this button matters most to the
+     readers who are not on one yet. */
+  function appStoreButton() {
+    const link = document.createElement('a');
+    link.className = 'appstore';
+    link.href = 'https://apps.apple.com/us/app/o-le-tusi-a-m-a-interlinear/id6783359106';
+    link.target = '_blank';
+    link.rel = 'noopener';
+
+    link.innerHTML =
+      '<svg class="appstore-mark" viewBox="0 0 24 24" aria-hidden="true">' +
+      '<path fill="currentColor" d="M17.05 12.04c-.02-2.2 1.8-3.26 1.88-3.31-1.02-1.5-2.62-1.7-3.18-1.72' +
+      '-1.35-.14-2.64.79-3.33.79-.69 0-1.75-.77-2.87-.75-1.48.02-2.84.86-3.6 2.18-1.54 2.67-.39 6.62 1.1 8.79' +
+      '.73 1.06 1.6 2.25 2.74 2.21 1.1-.04 1.52-.71 2.85-.71 1.33 0 1.7.71 2.87.69 1.18-.02 1.93-1.08 2.65-2.14' +
+      '.83-1.22 1.18-2.41 1.2-2.47-.03-.01-2.3-.88-2.32-3.5z"/>' +
+      '<path fill="currentColor" d="M14.9 5.6c.6-.73 1.01-1.75.9-2.76-.87.04-1.92.58-2.55 1.31-.56.64-1.05 1.68' +
+      '-.92 2.67.97.08 1.96-.49 2.57-1.22z"/>' +
+      '</svg>';
+
+    const text = el('span', 'appstore-text');
+    text.append(el('span', 'appstore-main', 'Download the Apple App'));
+    text.append(el('span', 'appstore-sub', 'E Leai se Totogi \u00b7 Free of Charge'));
+    link.append(text);
+    return link;
+  }
+
   /* Resumes at the furthest chapter reached, or the first chapter if the reader
      hasn't started. Mirrors ContinueReadingButton. */
   function continueButton() {
@@ -625,6 +653,7 @@
     const home = el('div', 'home');
     home.append(bookCover());
     home.append(continueButton());
+    home.append(appStoreButton());
     home.append(disclaimer());
     frag.append(home);
     view.replaceChildren(frag);

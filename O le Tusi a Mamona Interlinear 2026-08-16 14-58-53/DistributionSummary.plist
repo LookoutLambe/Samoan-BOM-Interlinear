@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>O le Tusi a Mamona Interlinear.ipa</key>
+	<array>
+		<dict>
+			<key>architectures</key>
+			<array>
+				<string>arm64</string>
+			</array>
+			<key>buildNumber</key>
+			<string>21</string>
+			<key>certificate</key>
+			<dict>
+				<key>SHA1</key>
+				<string>50CEB28D3BD51F2CD44971F4FBC46391C1501B1A</string>
+				<key>dateExpires</key>
+				<string>5/9/27</string>
+				<key>type</key>
+				<string>Cloud Managed Apple Distribution</string>
+			</dict>
+			<key>entitlements</key>
+			<dict>
+				<key>application-identifier</key>
+				<string>SDYNP6YP57.Samoan-English-Interlinear.O-le-Tusi-a-Mamona-Interlinear</string>
+				<key>com.apple.developer.team-identifier</key>
+				<string>SDYNP6YP57</string>
+				<key>get-task-allow</key>
+				<false/>
+			</dict>
+			<key>name</key>
+			<string>O le Tusi a Mamona Interlinear.app</string>
+			<key>profile</key>
+			<dict>
+				<key>UUID</key>
+				<string>6043944d-0e0d-428b-b8d1-13dedf32caab</string>
+				<key>dateExpires</key>
+				<string>5/9/27</string>
+				<key>name</key>
+				<string>iOS Team Ad Hoc Provisioning Profile: Samoan-English-Interlinear.O-le-Tusi-a-Mamona-Interlinear</string>
+			</dict>
+			<key>team</key>
+			<dict>
+				<key>id</key>
+				<string>SDYNP6YP57</string>
+				<key>name</key>
+				<string>CHRISTOPHER JASON LAMBE</string>
+			</dict>
+			<key>versionNumber</key>
+			<string>1.0</string>
+		</dict>
+	</array>
+</dict>
+</plist>
