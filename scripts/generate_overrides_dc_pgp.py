@@ -48,6 +48,16 @@ HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
 import check_grammar as CG            # noqa: E402
 import samoan_grammar as SG           # noqa: E402
+import english_register as ER
+
+# The English side of the gloss -- register, morphology, vocabulary -- lives
+# in english_register so the checker and the grammar give the same answers.
+FUNCTION_ONLY = ER.FUNCTION_ONLY
+NEGATIONS = ER.PROTECTED
+_stems = ER.stems
+in_english = ER.in_english
+modernise = ER.modernise
+english_vocabulary = ER.vocabulary
 
 RES = HERE.parent / "O le Tusi a Mamona Interlinear" / "Resources"
 CONT = "·"
@@ -75,28 +85,6 @@ def build_inventory(verses: dict) -> dict[str, Counter]:
     return inv
 
 
-FUNCTION_ONLY = {
-    "i", "you", "we", "they", "he", "she", "it", "the", "a", "an", "of", "to",
-    "and", "or", "but", "in", "on", "at", "by", "for", "with", "that", "this",
-    "these", "those", "is", "are", "was", "were", "be", "shall", "will", "not",
-    "unto", "ye", "thou", "thee", "thy", "his", "her", "their", "my", "your",
-    "them", "him", "me", "us", "who", "which", "all", "from", "upon", "o",
-}
-
-
-def _stems(word: str) -> set[str]:
-    """Enough English morphology to match heart/hearts, see/saw is not tried."""
-    out = {word}
-    if word.endswith("ies") and len(word) > 4:
-        out.add(word[:-3] + "y")
-    if word.endswith("es") and len(word) > 3:
-        out.add(word[:-2])
-    if word.endswith("s") and not word.endswith("ss"):
-        out.add(word[:-1])
-    out.add(word + "s")
-    return out
-
-
 def vetoed(gloss: str, english: str) -> bool:
     """The canon's VETO: a gloss whose content words are nowhere in the verse.
 
@@ -111,14 +99,12 @@ def vetoed(gloss: str, english: str) -> bool:
     written because the unit had exactly one Book of Mormon reading and a
     single reading was trusted without asking.
     """
-    ew = set()
-    for w in content_words(english):
-        ew |= _stems(w)
+    ew = content_words(english)
     core = [w for w in re.findall(r"[a-z']+", gloss.lower())
             if w not in FUNCTION_ONLY]
     if not core:
         return False                      # function words are always allowed
-    return not any(w in ew for w in core)
+    return not any(in_english(w, ew) for w in core)
 
 
 # ── THE WORD LEXICON, DERIVED FROM THE CURATION ──────────────────────────────
@@ -147,7 +133,11 @@ def build_word_lexicon(verses: dict) -> dict[str, Counter]:
             if not toks:
                 continue
             open_toks = [t for t in toks if t not in SG.CLOSED_CLASS]
-            core = [w for w in re.findall(r"[a-z']+", en.lower())
+            # The dictionary is built modern. The Book of Mormon's curated
+            # glosses are KJV-register, so `cometh` and `comes` would sit in
+            # this lexicon as two different words for one Samoan verb, each
+            # with half the evidence. Modernising here merges them.
+            core = [w for w in re.findall(r"[a-z']+", ER.modernise(en).lower())
                     if w not in FUNCTION_ONLY]
             if len(open_toks) == 1 and len(core) == 1:
                 lex[open_toks[0]][core[0]] += 1
@@ -206,30 +196,135 @@ def frame_at(toks, i, inv, maxlen, lex=None):
     return 0, ""
 
 
+def align_number(gloss: str, english: str) -> str:
+    """Take the number from the verse, not from the Book of Mormon.
+
+    The inventory carries whatever number the source verse had. D&C 1:2 reads
+    "neither ear that shall not hear, neither heart that shall not be
+    penetrated" and was glossed "the ears" and "the hearts of", because that is
+    how the Book of Mormon used those words.
+
+    The canon veto did not catch it: it stems before comparing, so `ears`
+    matches `ear` and the gloss passes as "carried by the English". That test
+    is asking whether the WORD is right, and it should be, or a legitimate
+    plural would be refused. Number is a separate question, and the English of
+    this very verse answers it -- if the gloss says `ears` where the verse says
+    `ear` and never says `ears`, the verse wins.
+
+    Only ever swaps between the singular and plural of the SAME word. It cannot
+    change which word is used, so it cannot introduce a wrong reading.
+    """
+    ew = set(re.findall(r"[a-z']+", (english or "").lower()))
+    if not ew:
+        return gloss
+
+    def fix(m):
+        w = m.group(0)
+        low = w.lower()
+        if low in ew or low in FUNCTION_ONLY or ER.ARCHAIC.get(low, set()) & ew:
+            return w
+        for other in _stems(low) - {low}:
+            if other in ew:
+                # keep the original capitalisation
+                return other.capitalize() if w[:1].isupper() else other
+        return w
+
+    return re.sub(r"[A-Za-z']+", fix, gloss)
+
+
+HEAD_TRIMMABLE = {"with", "and", "or", "but", "of", "for", "by", "from",
+                  "upon", "at", "on", "in"}
+
+
+def trim_absent_tail(gloss: str, english: str) -> str:
+    """Drop leading and trailing function words the verse does not have.
+
+    A single remembered reading is used as it stands, which is right for the
+    word and can be wrong at the edges: `faatasi` is "together with" in the
+    Book of Mormon, and D&C 1:1 reads "listen together" with no "with"
+    anywhere. The scoring that would have caught it only runs when there is
+    more than one candidate to score.
+
+    Deliberately timid. Trailing only, function words only, and only when the
+    verse does not contain them -- so it can shorten a gloss but never change
+    which words it uses, and it stops at the first content word.
+    """
+    ew = set(re.findall(r"[a-z']+", (english or "").lower()))
+    if not ew:
+        return gloss
+    parts = gloss.split()
+
+    def absent(word: str) -> bool:
+        w = re.sub(r"[^a-z']", "", word.lower())
+        return bool(w) and (w in FUNCTION_ONLY and w not in NEGATIONS
+                            and not in_english(w, ew))
+
+    # BOTH ends, but not the same words at each. `ma outou` is "with you" in
+    # the Book of Mormon and D&C 1:1 reads "and ye that are upon the islands"
+    # -- `ma` is "and" there, and a gloss saying "with" asserts a relation the
+    # verse does not have. Dropping it leaves "you": less, but not wrong.
+    #
+    # The head is the RISKIER end and gets a narrower list. Trailing function
+    # words are prepositions and particles; LEADING ones are as often the
+    # auxiliary that carries the tense, and the general rule turned
+    # "shall not see" into "not see". Only relational words come off the front.
+    while len(parts) > 1 and absent(parts[-1]):
+        parts.pop()
+    while (len(parts) > 1 and absent(parts[0])
+           and re.sub(r"[^a-z']", "", parts[0].lower()) in HEAD_TRIMMABLE):
+        parts.pop(0)
+    return " ".join(parts)
+
+
 def choose(cands: Counter, english: str) -> tuple[str, str]:
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
         only = cands.most_common(1)[0][0]
         if vetoed(only, english):
             return "", "vetoed"
-        return only, "settled"
+        return trim_absent_tail(only, english), "settled"
     ew = content_words(english)
+    stem_ew = set()
+    for w in ew:
+        stem_ew |= _stems(w)
     scored = []
     for gloss, n in cands.items():
-        core = [w for w in re.findall(r"[a-z']+", gloss.lower())
+        words = re.findall(r"[a-z']+", gloss.lower())
+        core = [w for w in words
                 if w not in ("i", "you", "we", "they", "he", "she", "it", "the",
                              "a", "an", "of", "to", "and")]
-        if core and all(w in ew for w in core):
-            scored.append((n, gloss))
+        # the SAME test the scoring uses; when these two disagreed, a gloss
+        # could fail the gate on `you` while the verse said `ye` and be thrown
+        # away before it was ever scored
+        if not core or not all(in_english(w, ew) for w in core):
+            continue
+        # EVERY word counts, function words included. The old score looked only
+        # at content words, so `faatasi` -> "together with" beat "together" in a
+        # verse reading "listen together" and no "with" anywhere: the stray
+        # preposition was invisible to the test that was supposed to catch it.
+        present = sum(1 for w in words if in_english(w, ew))
+        absent = sum(1 for w in words if not in_english(w, ew))
+        # A RATIO, not a count. Counting rewarded length: `tagata uma` came out
+        # "all the people" over "all men" because three words of the English
+        # beat two, though both are entirely carried by it. The question is
+        # what fraction of the gloss the verse accounts for; how often the
+        # Book of Mormon chose it breaks the tie.
+        # a candidate that carries a negation the verse has outranks one that
+        # silently drops it, whatever the ratio says
+        neg = sum(1 for w in words if w in NEGATIONS and in_english(w, ew))
+        scored.append((present / max(1, present + absent), neg, n, gloss))
     if scored:
         scored.sort(reverse=True)
-        return scored[0][1], "canon"
+        # trim on this path too: the scoring picks the best of what the
+        # inventory offers, and the best may still carry a word the verse does
+        # not have, when every candidate does
+        return trim_absent_tail(scored[0][3], english), "canon"
     dom, n = cands.most_common(1)[0]
     if vetoed(dom, english):
         return "", "vetoed"
     total = sum(cands.values())
     if n / total >= 0.90:
-        return dom, "dominant"
+        return trim_absent_tail(dom, english), "dominant"
     return "", "undecided"
 
 
@@ -240,14 +335,24 @@ def main(argv: list[str] | None = None) -> int:
     a = ap.parse_args(argv)
 
     ov = json.loads((RES / "bom_overrides.json").read_text(encoding="utf-8"))
-    inv = build_inventory(ov["verses"])
-    lex = build_word_lexicon(ov["verses"])
+
+    # EVIDENCE IS CURATED VERSES ONLY. The inventory was being built from every
+    # verse in the file, and this script's own previous output is in that file:
+    # a gloss it guessed last run came back as evidence this run, outvoted the
+    # curation it was derived from, and the two runs disagreed with each other.
+    # A corpus can never be validated against itself. `generated` is the list
+    # of verses this script wrote, so the Book of Mormon's 42,538 hand-curated
+    # units are exactly what is left.
+    generated = set(ov.get("generated", []))
+    curated = {k: v for k, v in ov["verses"].items() if k not in generated}
+    inv = build_inventory(curated)
+    lex = build_word_lexicon(curated)
     maxlen = max(len(k.split()) for k in inv)
     english = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
     books = json.loads((RES / "bom_books.json").read_text(encoding="utf-8"))["books"]
 
-    already = set(ov.get("generated", []))
-    hand = set(ov["verses"]) - already
+    already = set(generated)
+    hand = set(curated)
     stats = Counter()
     made = 0
 
@@ -287,6 +392,12 @@ def main(argv: list[str] | None = None) -> int:
                     # verse's English take over.
                     gloss = SG.primary_gloss(key_sm)
                     if gloss:
+                        # A rule says what a form reads as EVERYWHERE, and the
+                        # verse still gets a say at the edges: `faatasi` was
+                        # "together with" in a verse reading "listen together"
+                        # because the grammar's answer went straight to the
+                        # page, skipping the finishing every other path gets.
+                        gloss = trim_absent_tail(gloss, en_text)
                         why = "grammar/" + src
                     elif key_sm in inv:
                         gloss, why = choose(inv[key_sm], en_text)
@@ -298,6 +409,7 @@ def main(argv: list[str] | None = None) -> int:
                         gloss, why = "", "no-gloss/" + src
                     stats["unit: " + why] += 1
                     if gloss:
+                        gloss = modernise(align_number(gloss, en_text))
                         for j in range(i, i + hit - 1):
                             out[j]["en"] = CONT
                         out[i + hit - 1]["en"] = gloss

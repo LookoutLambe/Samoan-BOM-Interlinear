@@ -93,7 +93,7 @@ SUBORDINATORS = {
 DISJUNCTIVE = {
     'pe':   'or, whether, if (polar question)',           #  866   806
     'po o': 'or, whether',                                #  400   385
-    'soo':  'any, whosoever, whatsoever',                 #  320    78
+    'soo':  'any, whoever, whatever',                 #  320    78
 }
 
 # ── ARTICLES: specificity, not definiteness ──────────────────────────────────
@@ -141,13 +141,13 @@ ERGATIVE = 'e'
 # to know that `taua` and `matou` are BOTH "we".
 PRONOUNS = {
     'a’u': ('1sg', 'I'),      'ou': ('1sg', 'I'),        'aʻu': ('1sg', 'I'),
-    'oe': ('2sg', 'thou'),    'e': ('2sg clitic', 'thou'),
+    'oe': ('2sg', 'you'),     'e': ('2sg clitic', 'you'),
     'ia': ('3sg', 'he/she'),  'na': ('3sg', 'he/she'),
     'maua': ('1du.excl', 'we two'),  'ma': ('1du.excl', 'we two'),
     'taua': ('1du.incl', 'we two'),  'ta': ('1du.incl', 'we two'),
-    'oulua': ('2du', 'ye two'),      'laua': ('3du', 'they two'),
+    'oulua': ('2du', 'you two'),      'laua': ('3du', 'they two'),
     'matou': ('1pl.excl', 'we'),     'tatou': ('1pl.incl', 'we'),
-    'outou': ('2pl', 'ye'),   'tou': ('2pl clitic', 'ye'),
+    'outou': ('2pl', 'you all'), 'tou': ('2pl clitic', 'you all'),
     'latou': ('3pl', 'they'),
 }
 
@@ -159,7 +159,7 @@ POSSESSIVE_CLASS = {
     'lana': ('A', '3sg', 'his/her'),   'lona': ('O', '3sg', 'his/her'),
     'laʻu': ('A', '1sg', 'my'),        'loʻu': ('O', '1sg', 'my'),
     'la’u': ('A', '1sg', 'my'),        'lo’u': ('O', '1sg', 'my'),
-    'lau':  ('A', '2sg', 'thy'),       'lou':  ('O', '2sg', 'thy'),
+    'lau':  ('A', '2sg', 'your'),      'lou':  ('O', '2sg', 'your'),
     'a':    ('A', '-', 'of'),          'o':    ('O', '-', 'of'),
 }
 
@@ -194,7 +194,9 @@ COMPARATIVE = {
     'e tusa':  'according to',                            #   623   600
     'e tusa ma': 'according to',
     'faapei':  'like, as though',                         #    24     3
-    'faatasi': 'together with',                           #   530   224
+    # bare `faatasi` is "together"; the "with" belongs to the `ma` that
+    # follows it, and is already carried by the 'faatasi ma' entry above.
+    'faatasi': 'together',                                #   530   224
 }
 
 # ── DEGREE AND ITERATIVE ─────────────────────────────────────────────────────
@@ -436,7 +438,7 @@ def _build_primary():
         for form, desc in table.items():
             _PRIMARY.setdefault(form, _first(desc))
     for form, (cls, person, shape) in POSSESSIVES.items():
-        eng = {'1sg': 'my', '2sg': 'thy', '3sg': 'his', '1pl.excl': 'our',
+        eng = {'1sg': 'my', '2sg': 'your', '3sg': 'his', '1pl.excl': 'our',
                '1pl.incl': 'our', '2pl': 'your', '3pl': 'their',
                '1du.excl': 'our', '1du.incl': 'our'}.get(person)
         if eng:
@@ -508,7 +510,7 @@ def normalise_glottal(text):
 # and the glosses are the ones the translator actually chose.
 RESPECTFUL = {
     # respectful          common      sense           (respectful n, common n)
-    'fetalai':   ('tautala', 'speak, saith'),          # 561 / 382
+    'fetalai':   ('tautala', 'speak, says'),          # 561 / 382
     'saunoa':    ('tautala', 'speak'),                 #   8 / 382
     'afio':      ('sau',     'come, go (of a chief)'), # 211 / 125
     'maliu':     ('oti',     'die, pass away'),        #  73 / 340

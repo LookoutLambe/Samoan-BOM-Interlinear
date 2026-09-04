@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    { "name": "samoan",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["/Users/chrislambe/Desktop/untitled folder/.claude/serve.js",
+                      "/Users/chrislambe/Desktop/O le Tusi a Mamona Interlinear/docs",
+                      "8643"],
+      "port": 8643 }
+  ]
+}
