@@ -562,6 +562,55 @@ def merge_punctuation(cands: Counter) -> Counter:
     return out
 
 
+# A PARTICLE IS NEVER JUST BLANK. The user's rule: it is "either continuations
+# of or part of the next". A blank says the tool does not know the word; for a
+# closed-class token that is false -- it knows the word belongs to a
+# neighbouring unit, and which neighbour follows from what kind of particle it
+# is.
+#
+# LEANS BACK: the enclitics and post-verbal particles, which attach to the word
+# in front of them. `ai` is the anaphoric -- `ma gatete tele ai` is "and
+# tremble exceedingly", one unit (the user: "put it with the tele"), and `ai`
+# alone was blank 1,987 times.
+#
+# LEANS FORWARD: the phrase heads and the tense markers, which stand in FRONT
+# of what they govern -- `o` heads the next phrase, `ua` marks the verb after
+# it. Those were the biggest blanks in the corpus: `o` 3,063, `e` 2,162,
+# `ua` 1,499, `i` 963.
+LEANS_BACK = {"ai", "lava", "uma", "foi", "fo’i", "atu", "mai", "ifo", "a’e",
+              "aʻe", "ane", "pea"}
+
+
+def attach_particles(out, toks):
+    """Make a blank particle a CONTINUATION of the unit it belongs to."""
+    n = len(out)
+
+    def glossed(k):
+        return bool(out[k]["en"]) and out[k]["en"] != CONT
+
+    for j in range(n):
+        if out[j]["en"]:
+            continue
+        tok = norm(out[j]["sm"])
+        back = tok in LEANS_BACK
+        fwd = (tok in SG.PHRASE_INITIAL or tok in SG.TAM
+               or tok in SG.PHRASE_LINKERS)
+        if not (back or fwd):
+            continue
+        if back:
+            k = j - 1
+            while k >= 0 and out[k]["en"] == CONT:
+                k -= 1
+            if k >= 0 and glossed(k):
+                out[j]["en"] = CONT
+        else:
+            k = j + 1
+            while k < n and not out[k]["en"]:
+                k += 1
+            if k < n and out[k]["en"]:
+                out[j]["en"] = CONT
+
+
 def unit_tense(key_sm: str):
     """The tense the marker at the head of this unit calls for, if any."""
     toks = key_sm.split()
@@ -862,6 +911,7 @@ def main(argv: list[str] | None = None) -> int:
                             out[j]["en"] = CONT
                         out[i + hit - 1]["en"] = gloss
                     i += hit
+                attach_particles(out, toks)
                 ov["verses"][key] = out
                 already.add(key)
                 made += 1
