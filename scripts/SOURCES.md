@@ -44,3 +44,53 @@ types are 71.6% of the text**. Samoan carries its grammar in particles, so a
 particle inventory is most of the corpus — which is why `samoan_grammar.py`
 covers the closed classes exhaustively and leaves the open vocabulary to the
 per-chapter curation that already exists.
+
+
+---
+
+# The Samoan Bible: there is no clean, current, non-copyrighted text
+
+Asked for a Samoan Old and New Testament that is **not copyrighted** and as
+up to date as possible. The honest finding, after checking every route:
+
+**Everything current is in copyright.** The Samoan Bible in print and in
+Gospel Library is *O le Tusi Paia*, the 1884 edition published by the **Bible
+Society in the South Pacific**, and the modern revisions are theirs. The
+Church's Samoan downloads page offers the Book of Mormon, Doctrine and
+Covenants and Pearl of Great Price as PDF/EPUB/MOBI but offers the Bible only
+in print and through Gospel Library — there is no file to take, and
+`/study/scriptures/ot/…` and `/nt/…` return 404 for `lang=smo`, so the site
+does not host it as web text either.
+
+**No machine-readable edition exists in the usual places.**
+- eBible.org's catalogue is 1,550 translations and **none of them are Samoan**.
+- No USFM/JSON Samoan Bible on the GitHub corpora (bibleapi, openenglishbible,
+  BibleNLP/ebible, christos-c/bible-corpus).
+- YouVersion carries two (SOV and a Roman Catholic edition); both are licensed,
+  not redistributable.
+
+**The public-domain editions are 19th-century scans, and the OCR is not
+usable as scripture.** Both are British and Foreign Bible Society printings on
+the Internet Archive:
+
+- 1887 — `archive.org/details/oletusipaiaolefe00bibl` (5.8 MB of OCR)
+- 1872 — `archive.org/details/oletusipaiaolef00lond` (6.9 MB of OCR)
+
+Both are set in **two columns with words hyphenated across the column break**,
+and the verse numbers interleave with the fragments, so a word is routinely
+split across a verse boundary — Genesis 1 has `pouli-` ending one line and
+`5 uli.` starting the next. On top of that the character damage is heavy and
+systematic: the 1872 scan reads `o` as `0` throughout (`0 le lagi`, `01a`,
+`n0`), plus `Pfaia`, `rfetu`, `Atga`, `spule`, `ya`; the 1887 gives `O 3e
+afiafi`, `af.afi`, `i ]e va`, `Uafaia`.
+
+**So the answer to "the most up-to-date one that is not copyrighted" is the
+1887 BFBS edition** — and taking it would be a reconstruction project, not a
+fetch: de-column, de-hyphenate across verse boundaries, repair the systematic
+substitutions, then verify chapter and verse counts against a known
+versification. Doable, and comparable to work already done on the Spanish
+corpus, but it is its own piece of work and its output would need auditing
+before anyone read it as scripture. Silent OCR errors in a scripture text are
+the one failure mode that cannot be accepted quietly.
+
+Not started. Recorded here so the next attempt does not re-derive it.

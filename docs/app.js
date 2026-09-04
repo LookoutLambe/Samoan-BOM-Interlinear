@@ -740,8 +740,29 @@
       body.append(btn);
     }
 
-    body.append(el('div', 'drawer-section', 'Tusi Paia \u00b7 Books'));
-    for (const book of state.index.books) {
+    /* Grouped by VOLUME. With the Doctrine and Covenants and the Pearl of
+       Great Price alongside the Book of Mormon this is 21 books, and a flat
+       list of 21 gives the reader no way to see that they are three separate
+       works. The volume labels come from index.json, so the reader does not
+       hold a second copy of them. */
+    const volumes = state.index.volumes
+      || [{ id: 'bom', nameSm: 'Tusi Paia', nameEn: 'Books' }];
+    for (const vol of volumes) {
+      const inVol = state.index.books.filter(
+        (b) => (b.volume || 'bom') === vol.id);
+      if (!inVol.length) continue;
+      const head = el('div', 'drawer-section');
+      head.append(document.createTextNode(vol.nameSm));
+      if (vol.nameEn && vol.nameEn !== vol.nameSm) {
+        head.append(document.createTextNode(' \u00b7 ' + vol.nameEn));
+      }
+      body.append(head);
+      buildVolume(body, inVol, here);
+    }
+  }
+
+  function buildVolume(body, books, here) {
+    for (const book of books) {
       const group = el('div', 'drawer-body-group');
       const btn = el('button', 'drawer-book');
       btn.append(document.createTextNode(book.nameSm));

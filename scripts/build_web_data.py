@@ -158,6 +158,10 @@ def main() -> None:
         index_books.append(
             {
                 "id": bid,
+                # The volume carries through to the reader so the library can
+                # group three volumes instead of listing 21 books flat. Books
+                # scraped before the volume field existed default to "bom".
+                "volume": book.get("volume", "bom"),
                 "nameSm": book["nameSm"],
                 "nameEn": book["nameEn"],
                 "chapters": [c["num"] for c in book["chapters"]],
@@ -179,6 +183,15 @@ def main() -> None:
     total += write(
         OUT / "index.json",
         {
+            # One label per volume, in reading order, so the reader does not
+            # hold a second copy of the volume names.
+            "volumes": [
+                {"id": "bom", "nameSm": "O le Tusi a Mamona", "nameEn": "Book of Mormon"},
+                {"id": "dc",  "nameSm": "Mataupu Faavae ma Feagaiga",
+                 "nameEn": "Doctrine and Covenants"},
+                {"id": "pgp", "nameSm": "Le Penina Silisili Ona Taua",
+                 "nameEn": "Pearl of Great Price"},
+            ],
             "books": index_books,
             "frontmatter": [
                 {"id": s["id"], "titleEn": s["titleEn"], "titleSm": s["titleSm"]}
