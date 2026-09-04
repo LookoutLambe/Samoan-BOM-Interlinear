@@ -987,6 +987,7 @@ def particle_readings(form):
 # agalelei` is "of the goodness", one unit, and barring it as "contains `le`"
 # broke every ordinary noun phrase in the corpus into dangling heads.
 PHRASE_LINKERS = {'o', 'a'}
+ARTICLE_HEADS = {'le', 'se', 'ni'}
 PHRASE_INITIAL = {'o', 'a', 'i', 'le', 'se', 'ma', 'mo', 'ni'}
 
 # Forms where one of those tokens is not the head it usually is. `po o` is one
@@ -1009,6 +1010,18 @@ def splits_a_phrase(unit):
         return False
     if toks[-1] in PHRASE_INITIAL:
         return True
+    # ONE ARTICLE TO A PHRASE. The head is not always `o` -- it can be `i le`,
+    # `a le`, or a bare `le`, and the user's point is that the `o` is often
+    # simply omitted. So the article itself marks the boundary: a SECOND
+    # `le`/`se`/`ni` inside a unit means a second noun phrase has begun.
+    #
+    # The corpus is emphatic about this. Of 111,683 curated units, 74.0% carry
+    # no article at all, 25.3% carry exactly one, and 0.8% carry two or more --
+    # and most of that 0.8% is already split by the linker rule below
+    # (`le afioga a le atua`, `le alii o le togāolive`).
+    if sum(1 for t in toks if t in ARTICLE_HEADS) > 1:
+        return True
+
     # a linker opens a new phrase -- unless a tense marker precedes it, where
     # `o` is the verb "go/come" and `na o mai ai` is one thing, "there came"
     return any(t in PHRASE_LINKERS and toks[i - 1] not in TAM
