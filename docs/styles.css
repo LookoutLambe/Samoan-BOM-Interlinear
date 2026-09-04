@@ -143,21 +143,6 @@ html, body {
 
 /* ---------- chrome ---------- */
 
-.chrome {
-  position: sticky;
-  top: 0;
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  gap: .25rem;
-  height: var(--chrome-h);
-  padding: 0 .5rem;
-  padding-top: env(safe-area-inset-top);
-  height: calc(var(--chrome-h) + env(safe-area-inset-top));
-  background: var(--header-bg);
-  color: var(--header-text);
-}
-
 .chrome h1 {
   flex: 1;
   margin: 0;
@@ -241,7 +226,11 @@ main {
 
 .bh-sm {
   margin: 0;
-  color: var(--header-bg);
+  /* INK, not the chrome colour. This was --header-bg, which is navy: it read
+     as a deep title on cream and happened to look deliberate, but --header-bg
+     follows the chrome, so in dark mode the book title rendered #101823 on a
+     #14120F page -- 1.05:1, invisible. Text on paper is ink. */
+  color: var(--ink);
   font-size: calc(2.125rem * var(--scale));
   font-weight: 700;
   letter-spacing: .035em;
@@ -483,7 +472,7 @@ body.no-gloss .unit .en { display: none; }
 
 .note-ref {
   margin: 0;
-  color: var(--header-bg);
+  color: var(--ink);
   font-size: 1.05rem;
   font-weight: 600;
 }
@@ -703,68 +692,25 @@ body.no-gloss .unit .en { display: none; }
 
 /* ---------- reader mode bar (footer) ---------- */
 
-/* The mode bar now lives INSIDE the dock, so it must not position itself:
-   fixed here left it anchored to the viewport while the dock sat above it,
-   and the two chrome bars stacked on top of each other. The dock owns the
-   position, the safe-area inset and the background; this owns the row. */
-.modebar {
-  position: static;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: .625rem;
-  padding: .5rem 1rem;
-  background: transparent;
-}
-
 .mode-btn {
-  min-height: 44px;
-  padding: .438rem .875rem;
-  border: 1px solid var(--button-border);
-  border-radius: .25rem;
+  min-width: 44px; min-height: 44px;
+  padding: 6px 16px;
+  border: 1px solid var(--accent-light);
+  border-radius: 3px;
   background: transparent;
-  color: var(--header-text);
+  color: var(--accent-light);
   font-family: var(--serif);
-  font-size: .875rem;
+  font-size: .855rem;
   font-weight: 600;
   cursor: pointer;
 }
 .mode-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
 
 .mode-btn.active {
+  background: var(--accent);
   border-color: var(--accent-light);
-  background: var(--accent-light);
   color: var(--header-bg);
 }
-
-/* ---------- chapter-to-chapter navigation ---------- */
-
-.chapter-nav {
-  display: flex;
-  justify-content: space-between;
-  gap: .75rem;
-  margin-top: 1.5rem;
-}
-
-.nav-spacer { flex: 1; }
-
-.nav-btn {
-  display: flex;
-  flex: 1;
-  flex-direction: column;
-  gap: .125rem;
-  padding: .625rem .875rem;
-  border: 1px solid var(--rule);
-  border-radius: .375rem;
-  background: var(--row-alt);
-  color: var(--ink);
-  font-family: var(--serif);
-  cursor: pointer;
-}
-
-.nav-btn.next { text-align: right; }
-.nav-dir { color: var(--accent); font-size: .688rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; }
-.nav-ref { font-size: .938rem; }
 
 /* ---------- misc ---------- */
 
@@ -989,58 +935,6 @@ body.no-gloss .unit .en { display: none; }
   font-style: italic;
 }
 
-/* ══════════════════════════════════════════════════════════════════════
-   THE READER DOCK (2026-09-04)
-
-   Chapter movement used to live in one place only: a prev/next pair at the
-   very END of the chapter. To read on you had to scroll past everything you
-   had just read, or go back out to the drawer and start again. Moving to the
-   next chapter is the single most frequent thing a reader does here, so it
-   belongs where the thumb already is.
-
-   Two rows, ranked. Movement is primary and takes the top row at full touch
-   size; the mode bar is a setting you change occasionally, so it sits below
-   and quieter. Every control clears the 44px minimum, and the dock carries
-   the bottom safe-area inset so it is not swallowed by the home indicator.
-   ══════════════════════════════════════════════════════════════════════ */
-.dock {
-  position: fixed;
-  left: 0; right: 0; bottom: 0;
-  z-index: 40;
-  background: var(--header-bg);
-  border-top: 1px solid var(--button-border);
-  padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.dock-row { display: flex; align-items: stretch; gap: 6px; padding: 6px 8px; }
-.dock-move { border-bottom: 1px solid var(--button-border); }
-.dock-btn {
-  display: flex; align-items: center; justify-content: center; gap: 6px;
-  min-height: 44px; padding: 6px 10px;
-  background: transparent; color: var(--header-text);
-  border: 1px solid var(--button-border); border-radius: 10px;
-  font-family: inherit; font-size: .85rem; line-height: 1.15;
-  cursor: pointer; -webkit-tap-highlight-color: transparent;
-}
-.dock-btn:hover { background: var(--header-hover); }
-.dock-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
-.dock-btn[disabled] { opacity: .35; cursor: default; }
-.dock-prev, .dock-next { flex: 1 1 0; min-width: 0; }
-/* the current reference is the anchor of the row: wider, filled, and it opens
-   the library at where you already are */
-.dock-here {
-  flex: 1.4 1 0; min-width: 0;
-  background: color-mix(in srgb, var(--accent-light) 16%, transparent);
-  border-color: var(--accent-light);
-  font-weight: 600;
-}
-.dock-dir { font-size: 1.2rem; line-height: 1; opacity: .9; }
-.dock-ref, .dock-here-ref {
-  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
-}
-.dock-here-hint { font-size: .7rem; opacity: .8; }
-/* the dock is fixed, so the page has to end above it rather than under it */
-body.has-dock main { padding-bottom: 8.5rem; }
-
 /* ── Drawer: a close control, a filter, and a sense of where you are ── */
 /* The head and the filter stay put while the list scrolls. The drawer opens
    scrolled to the reader's own book, which is usually a long way down, so a
@@ -1077,3 +971,71 @@ body.has-dock main { padding-bottom: 8.5rem; }
 .chapter-cell[aria-current="true"] {
   background: var(--accent); color: var(--page-bg); font-weight: 700;
 }
+
+
+/* ══════════════════════════════════════════════════════════════════════
+   HEADER AND FOOTER — the Spanish interlinear's, exactly.
+
+   Both bars are the indigo chrome with gold controls. The header is
+   home / current-reference / tools; the footer is one row, prev / reading
+   mode / next. Every control is a 44px target with a 1px gold border and a
+   3px radius, which is the shape the Spanish uses throughout.
+
+   The reference PILL is the piece that does the most work: it is the label
+   and the way into the contents at once, so the header no longer carries a
+   passive title beside a separate library button, and the footer no longer
+   needs a reference control of its own -- which is what had left two
+   identical "Alema 31 / Alema 33" rows stacked at the foot of the chapter.
+   ══════════════════════════════════════════════════════════════════════ */
+.controls-top {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; gap: 4px;
+  padding: 4px 6px;
+  padding-top: calc(4px + env(safe-area-inset-top, 0px));
+  background: var(--header-bg);
+  border-bottom: 1px solid var(--button-border);
+}
+.controls-bottom {
+  position: fixed; bottom: 0; left: 0; right: 0; z-index: 50;
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  padding: 6px 8px;
+  padding-bottom: calc(6px + env(safe-area-inset-bottom, 0px));
+  background: var(--header-bg);
+  border-top: 1px solid var(--button-border);
+}
+.bar-group { display: flex; align-items: center; gap: 4px; flex: none; }
+
+.icon-btn {
+  min-width: 44px; min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--accent-light);
+  border-radius: 3px;
+  color: var(--accent-light);
+  font-family: var(--serif); font-size: .855rem; line-height: 1;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.icon-btn:hover { background: var(--header-hover); }
+.icon-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+.icon-btn[disabled] { opacity: .35; cursor: default; }
+
+.chapter-pill {
+  flex: 1 1 auto; min-width: 0;
+  min-height: 44px; padding: 6px 12px;
+  background: transparent;
+  border: 1px solid var(--accent-light);
+  border-radius: 3px;
+  color: var(--accent-light);
+  font-family: var(--serif); font-size: .9rem; font-weight: 600; line-height: 1.15;
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.chapter-pill:hover { background: var(--header-hover); }
+.chapter-pill:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+
+.mode-group { display: flex; align-items: center; gap: 8px; }
+
+/* Both bars are fixed, so the page has to begin and end clear of them. */
+main { padding-top: calc(56px + env(safe-area-inset-top, 0px)); }
+body.has-dock main { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }

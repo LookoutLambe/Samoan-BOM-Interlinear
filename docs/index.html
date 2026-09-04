@@ -15,13 +15,28 @@
 </head>
 <body>
 
-<header class="chrome">
-  <button id="btn-back" class="chrome-btn round" hidden aria-label="Back">&#8249;</button>
-  <h1 id="title">O le Tusi a Mamona</h1>
-  <button id="btn-search" class="chrome-btn" aria-label="Search">&#9906;</button>
-  <button id="btn-library" class="chrome-btn" aria-label="Library">&#9776;</button>
-  <button id="btn-theme" class="chrome-btn" aria-label="Reading theme">&#9681;</button>
-  <button id="btn-settings" class="chrome-btn" aria-label="Display settings">A<small>A</small></button>
+<!-- Header and footer follow the Spanish interlinear exactly: home on the
+     left, the current reference as a pill that opens the contents, tools on
+     the right; and a single footer row of prev / reading-mode / next.
+
+     The pill absorbs two things that used to be separate. The title was a
+     passive <h1> saying "Alema 32" while a library button beside it opened
+     the contents -- the label and the way in, split apart. And it makes the
+     footer's own reference control unnecessary, which is what left two
+     "Alema 31 / Alema 33" rows stacked at the foot of every chapter. -->
+<header class="controls-top">
+  <div class="bar-group bar-left">
+    <button id="btn-home" class="icon-btn" type="button" aria-label="Aiga &#183; Home">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true" focusable="false"><path d="M12 3.2 2.6 11.3a1 1 0 0 0 1.3 1.5l.6-.5V20a1 1 0 0 0 1 1h4.1v-5.3h4.8V21h4.1a1 1 0 0 0 1-1v-7.7l.6.5a1 1 0 0 0 1.3-1.5Z"></path></svg>
+    </button>
+  </div>
+  <button id="nav-label" class="chapter-pill" type="button"
+          aria-haspopup="dialog" aria-controls="drawer">O le Tusi a Mamona</button>
+  <div class="bar-group bar-right">
+    <button id="btn-settings" class="icon-btn" type="button" aria-label="Lapo&#39;a o mataitusi &#183; Text size" title="Text size">Aa</button>
+    <button id="btn-theme" class="icon-btn" type="button" aria-label="Reading theme">&#9681;</button>
+    <button id="btn-search" class="icon-btn" type="button" aria-label="Su&#39;e &#183; Search">&#9906;</button>
+  </div>
 </header>
 
 <main id="view" tabindex="-1"></main>
@@ -42,20 +57,10 @@
      mode bar is secondary and sits under it. Before this, prev/next existed
      only at the very END of a chapter, so moving on meant scrolling past
      everything you had just read or going back out to the drawer. -->
-<div id="dock" class="dock" hidden>
-  <nav class="dock-row dock-move" aria-label="Chapter">
-    <button id="dock-prev" class="dock-btn dock-prev" type="button">
-      <span class="dock-dir">&#8249;</span><span class="dock-ref" id="dock-prev-ref"></span>
-    </button>
-    <button id="dock-here" class="dock-btn dock-here" type="button" aria-haspopup="dialog">
-      <span class="dock-here-ref" id="dock-here-ref"></span>
-      <span class="dock-here-hint">&#9662;</span>
-    </button>
-    <button id="dock-next" class="dock-btn dock-next" type="button">
-      <span class="dock-ref" id="dock-next-ref"></span><span class="dock-dir">&#8250;</span>
-    </button>
-  </nav>
-  <nav id="modebar" class="modebar" aria-label="Reader mode"></nav>
+<div id="dock" class="controls-bottom" hidden>
+  <button id="dock-prev" class="icon-btn" type="button" aria-label="Mataupu mu&#39;a">&#8592;</button>
+  <nav id="modebar" class="mode-group" role="group" aria-label="Reader mode"></nav>
+  <button id="dock-next" class="icon-btn" type="button" aria-label="Mataupu sosoo">&#8594;</button>
 </div>
 
 <!-- Per-verse note editor -->

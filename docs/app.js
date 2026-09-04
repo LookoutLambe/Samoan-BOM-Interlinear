@@ -482,27 +482,12 @@
   /* Chapter-to-chapter navigation. The app relies on its library sheet for
      this; on the web a pair of links at the end of the text keeps sequential
      reading possible without adding chrome the app doesn't have. */
-  function chapterNav(book, num) {
-    const all = flatChapters();
-    const at = all.findIndex((c) => c.id === book.id && c.num === num);
-    const nav = el('nav', 'chapter-nav');
-
-    const make = (target, label, cls) => {
-      if (!target) return el('span', 'nav-spacer');
-      const b = bookById(target.id);
-      const btn = el('button', `nav-btn ${cls}`);
-      btn.append(el('span', 'nav-dir', label));
-      btn.append(el('span', 'nav-ref', `${b.nameSm} ${target.num}`));
-      btn.addEventListener('click', () => {
-        location.hash = `#/b/${target.id}/${target.num}`;
-      });
-      return btn;
-    };
-
-    nav.append(make(all[at - 1], '‹ Mu’a', 'prev'));
-    nav.append(make(all[at + 1], 'Sosoo ›', 'next'));
-    return nav;
-  }
+  /* chapterNav() -- the prev/next pair that used to close every chapter -- is
+     gone. The dock carries the same two controls persistently and in thumb
+     reach, so the in-page pair was the identical thing rendered a second time,
+     immediately above it: two "Alema 31 / Alema 33" rows stacked. The dock is
+     the one that can be reached without scrolling to the end of the chapter,
+     so it is the one that stays. */
 
   /* The notice required by the Standard Scripture License Agreement, in the same
      three registers the app's landing page uses: the verbatim English (the
@@ -631,7 +616,7 @@
       return;
     }
 
-    $('title').textContent = `${book.nameSm} ${num}`;
+    $('nav-label').textContent = `${book.nameSm} ${num}`;
     document.title = `${book.nameSm} ${num} — O le Tusi a Mamona`;
 
     const frag = document.createDocumentFragment();
@@ -644,7 +629,6 @@
       frag.append(renderBlock(chapter.heading, 'heading', `${bookId}|${num}|heading`));
     }
     for (const verse of chapter.verses) frag.append(renderVerse(verse, bookId, num));
-    frag.append(chapterNav(book, num));
 
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
@@ -663,7 +647,7 @@
     } catch {
       return showHome();
     }
-    $('title').textContent = section.titleSm;
+    $('nav-label').textContent = section.titleSm;
     document.title = `${section.titleSm} — O le Tusi a Mamona`;
 
     const frag = document.createDocumentFragment();
@@ -682,7 +666,7 @@
      under it, and the license notice below. No book list here — that lives in
      the library drawer, as it does in the app. */
   function showHome() {
-    $('title').textContent = 'O le Tusi a Mamona';
+    $('nav-label').textContent = 'O le Tusi a Mamona';
     document.title = 'O le Tusi a Mamona — Interlinear';
     $('dock').hidden = true;
     document.body.classList.remove('has-dock');
@@ -781,25 +765,26 @@
   function buildDock(book, num) {
     const all = flatChapters();
     const at = all.findIndex((c) => c.id === book.id && c.num === num);
-    const set = (btnId, refId, target) => {
-      const btn = $(btnId), ref = $(refId);
+    const set = (btnId, target, dir) => {
+      const btn = $(btnId);
       if (!target) {
         btn.disabled = true;
-        ref.textContent = '';
-        btn.removeAttribute('aria-label');
+        btn.setAttribute('aria-label', dir);
         return;
       }
       const b = bookById(target.id);
       btn.disabled = false;
-      ref.textContent = `${b.nameSm} ${target.num}`;
-      btn.setAttribute('aria-label', `${b.nameSm} ${target.num}`);
+      /* the arrow stays an arrow and the reference goes in the label -- the
+         Spanish footer does the same, so the three controls keep equal
+         weight and the row does not have to grow to fit two book names */
+      btn.setAttribute('aria-label', `${dir}: ${b.nameSm} ${target.num}`);
+      btn.setAttribute('title', `${b.nameSm} ${target.num}`);
       btn.onclick = () => { location.hash = `#/b/${target.id}/${target.num}`; };
     };
-    set('dock-prev', 'dock-prev-ref', all[at - 1]);
-    set('dock-next', 'dock-next-ref', all[at + 1]);
-    $('dock-here-ref').textContent = `${book.nameSm} ${num}`;
-    $('dock-here').setAttribute('aria-label', `${book.nameSm} ${num} — open the library here`);
-    $('dock-here').onclick = () => { buildDrawer(); toggleDrawer(true); };
+    set('dock-prev', all[at - 1], 'Mataupu mu\u2019a');
+    set('dock-next', all[at + 1], 'Mataupu sosoo');
+    $('nav-label').textContent = `${book.nameSm} ${num} \u25be`;
+    $('nav-label').setAttribute('aria-label', `${book.nameSm} ${num} — open the contents`);
   }
 
   function toggleDrawer(open) {
@@ -1008,7 +993,6 @@
     const hash = location.hash || '#/';
     const chapter = hash.match(/^#\/b\/([^/]+)\/(\d+)/);
     const front = hash.match(/^#\/front\/(.+)/);
-    $('btn-back').hidden = hash === '#/';
 
     if (chapter) return showChapter(chapter[1], Number(chapter[2]));
     if (front) return showFront(decodeURIComponent(front[1]));
@@ -1070,11 +1054,12 @@
       if (e.target === $('note-sheet')) $('note-sheet').hidden = true;
     });
 
-    $('btn-library').addEventListener('click', () => toggleDrawer(true));
+    $('btn-home').addEventListener('click', () => { location.hash = '#/'; });
+    /* buildDrawer() before opening, always: the drawer marks where you are,
+       so a drawer built once and reused shows the wrong place. */
+    $('nav-label').addEventListener('click', () => { buildDrawer(); toggleDrawer(true); });
     $('drawer-scrim').addEventListener('click', () => toggleDrawer(false));
-    $('btn-back').addEventListener('click', () => {
-      location.hash = '#/';
-    });
+
 
     $('btn-theme').addEventListener('click', cycleTheme);
     $('btn-drawer-close').addEventListener('click', () => toggleDrawer(false));
