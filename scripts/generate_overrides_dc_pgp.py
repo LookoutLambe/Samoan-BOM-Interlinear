@@ -530,7 +530,30 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     return "", "particle-undecided"
 
 
+def merge_punctuation(cands: Counter) -> Counter:
+    """One reading is one reading, whatever punctuation trails it.
+
+    `lona loto atoa` had exactly two readings in the curation -- "his whole
+    heart," and "his whole heart" -- which is ONE reading recorded twice, and
+    counting them apart split a unanimous vote 1-1 so neither could reach a
+    majority and the unit came out blank. Every unit whose readings differ
+    only in a comma had the same problem.
+
+    The surviving surface is the commonest one, so the punctuation that the
+    curation actually used most is what gets written.
+    """
+    groups: dict[str, Counter] = defaultdict(Counter)
+    for gloss, n in cands.items():
+        groups[re.sub(r"[^a-z ]", "", gloss.lower()).strip()][gloss] += n
+    out: Counter = Counter()
+    for _key, surfaces in groups.items():
+        best = surfaces.most_common(1)[0][0]
+        out[best] = sum(surfaces.values())
+    return out
+
+
 def choose(cands: Counter, english: str) -> tuple[str, str]:
+    cands = merge_punctuation(cands)
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
         only = cands.most_common(1)[0][0]
