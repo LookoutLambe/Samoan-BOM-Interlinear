@@ -166,6 +166,7 @@ ERGATIVE = 'e'
 # to know that `taua` and `matou` are BOTH "we".
 PRONOUNS = {
     'a’u': ('1sg', 'I'),      'ou': ('1sg', 'I'),        'aʻu': ('1sg', 'I'),
+    '’ou': ('1sg', 'I'),      'ʻou': ('1sg', 'I'),   # the glottal written
     'oe': ('2sg', 'you'),     'e': ('2sg clitic', 'you'),
     'ia': ('3sg', 'he/she'),  'na': ('3sg', 'he/she'),
     'ma': ('1du.excl', 'we two'),    'ta': ('1du.incl', 'we two'),
@@ -301,6 +302,7 @@ DEGREE = {
     'tele':  'great, exceedingly (intensifier)',          #  1526    59
     'matua': 'fully, exceedingly (intensifier)',          #   115    13
     'naua':  'excessively, too much',                     #    55     0
+    'aupito': 'most, very',                               # the superlative
 }
 
 # ── THE POSSESSIVE PARADIGM ──────────────────────────────────────────────────
@@ -322,12 +324,27 @@ _POSS_PERSON = {
 
 
 def _possessives():
+    """The possessive paradigm: class x person x article.
+
+    THREE ARTICLE ROWS, not two. The bare `o-`/`a-` forms and the specific
+    `lo-`/`la-` forms were here; the NON-SPECIFIC `so-`/`sa-` row was not, and
+    it is the same construction with `se` in place of `le`:
+
+        lona  his (that one)        sona  his (any) -- so + na
+        lana  his (A-class)         sana  his (A-class, any)
+        lo’u  my                    so’u  my (any)
+
+    `sona` alone occurs 29 times and 39 of the family follow `leai`: `e leai
+    sona gataaga` is "there is no end OF IT", which the curation renders
+    "without end". None of them could be glossed while the row was missing.
+    """
     out = {}
     for suffix, person in _POSS_PERSON.items():
         for cls, art in (('O', 'o'), ('A', 'a')):
             bare = (art + suffix).strip()
             out[bare] = (cls, person, 'bare')
             out[('l' + art + suffix).strip()] = (cls, person, 'with article')
+            out[('s' + art + suffix).strip()] = (cls, person, 'non-specific')
     return out
 
 
@@ -568,6 +585,35 @@ def _first(text):
 # DIRECTIONALS ARE THEIR OWN WORD. `alu ifo` is "go" + "down", not one thing
 # whose English piles onto the second token -- 1 Nephi 4:33 printed "to go
 # down" on `ifo` and 2:5 printed a whole clause on it. One word, one gloss.
+# ── TENSE ────────────────────────────────────────────────────────────────────
+# The TAM markers were in this file from the start and NOTHING used them for
+# tense: they are absorbed, contribute no English of their own, and the verb's
+# gloss was never inflected by them. `sa alu`, `e alu` and `o le a alu` could
+# all come out "go".
+#
+# They predict it strongly. Counting only curated glosses that carry a tense at
+# all (a gloss like "the record" carries none):
+#
+#     o le a   2,266   FUTURE 97%
+#     na       1,172   PAST 66%, PERFECT 26%          -> 92% past-ish
+#     sa       3,760   PAST 66%, PRESENT 22%
+#     ua       2,522   PERFECT 50%, PAST 27%          -> 77% past-ish
+#     e        1,769   PRESENT 62%
+#     o lo’o      31   PRESENT 42%, PROGRESSIVE 39%   -> 81% non-past durative
+TENSE_OF_TAM = {
+    'sa': 'PAST',      'na': 'PAST',
+    'ua': 'PERFECT',
+    'e': 'PRESENT',    'te': 'PRESENT',
+    'o loo': 'PROGRESSIVE', 'o lo’o': 'PROGRESSIVE',
+    'o le a': 'FUTURE',
+}
+
+
+def tense_of_tam(form):
+    """The tense a marker calls for, or None."""
+    return TENSE_OF_TAM.get((form or '').strip().lower())
+
+
 ABSORBED = set(TAM) - {'o le a', 'o loo', 'o lo’o', 'loo'}
 # `o le a` is the exception: it heads 2,599 units in this corpus, glossed
 # "shall", so unlike the other TAM markers it carries an English word of its
@@ -655,6 +701,49 @@ TRANSLITERATED = {
     'anetione': 'antion',    'anetiona': 'antion',
     'onetise':  'onties',    'senuma,':  'senum',
 }
+
+
+# ── WORDS THE BOOK OF MORMON NEVER USES ──────────────────────────────────────
+# The tool learns its vocabulary from the curated Book of Mormon, so the D&C's
+# ecclesiastical words have no evidence anywhere and came out blank -- 28 forms,
+# 0.23% of the corpus, and they are the words those sections are ABOUT.
+#
+# Derived, not guessed. Each was found by lift: how much likelier an English
+# word is in the verses carrying the form than in the corpus at large. The
+# figure after each is that lift.
+VOCABULARY = {
+    'perisitua':   'priesthood',      #  86x
+    'peresitene':  'president',       # 143x
+    'epikopo':     'bishop',          # 158x
+    'aufono':      'council',         # 179x
+    'korama':      'quorum',          # 519x
+    'konafesi':    'conference',      # 495x
+    'ositaulaga':  'priest',          #  98x
+    'faleteuoloa': 'storehouse',      # 419x
+    'mea-tausi':   'stewardship',     # 371x
+    'tausimea':    'steward',         # 519x
+    'selesitila':  'celestial',       # 474x
+    'itumalo':     'county',          # 681x
+    'fuaiupu':     'verse',           # 535x
+    'lotu':        'religion',        # 303x
+    # `tamai` alone is "child of"; the LAMB is the pair, and the curation
+    # never writes one without the other -- `le tamai mamoe` "the Lamb".
+    'tamai mamoe': 'Lamb',            # 138x
+    'tunoa':       'grace',           # 178x  -- `alofa tunoa`
+    'siitia':      'lifted',          #  66x
+    'liligi':      'pour',            # 242x
+    'uluai':       'first',           #  41x
+    'olive':       'olive',           # 389x
+    'tuulima':     'handed',          # 431x
+    'faaosoina':   'stir',            # 133x
+    'segia':       'caught',          # 300x
+    'fa’asoa':     'distribute',
+}
+
+
+def vocabulary(form):
+    """A word this corpus uses that the Book of Mormon never did."""
+    return VOCABULARY.get((form or '').strip().lower())
 
 
 def transliterated(form):
@@ -924,6 +1013,14 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         if p in ('o', 'e', 'ma', 'te'):
             return 'him'
         return None
+
+    if f == 'o le a':
+        # THE FUTURE, AND ALSO "WHAT". `o le a le mea` is "what thing", `o le
+        # a se ...` likewise -- an article after it makes it the interrogative,
+        # 31 of the curated "what" readings against a verb everywhere else.
+        if n in ('le', 'se'):
+            return 'what'
+        return 'shall'
 
     if f == 'ona':
         # before a tense marker or the topic `o` it is causal; before a noun

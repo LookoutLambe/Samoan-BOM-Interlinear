@@ -108,6 +108,47 @@ IRREGULAR_NUMBER = {
 }
 
 
+_FUTURE = re.compile(r"\b(shall|will)\b")
+_PROG = re.compile(r"\b(is|are|was|were|am|be|being)\s+\w+ing\b")
+_PERF = re.compile(r"\b(has|have|had)\b")
+_PAST = re.compile(r"\b(did|was|were)\b|\w{3,}ed\b")
+_PRES = re.compile(r"\b\w{3,}s\b")
+# The regular -ed rule misses every strong verb, and scripture English is full
+# of them. Listed rather than derived: there is no rule to derive.
+IRREGULAR_PAST = {
+    "went", "said", "saith", "came", "saw", "made", "took", "gave", "knew",
+    "spake", "spoke", "wrote", "told", "found", "brought", "sent", "left",
+    "put", "began", "became", "fell", "rose", "stood", "sat", "held", "kept",
+    "led", "met", "read", "ran", "heard", "held", "built", "bought", "caught",
+    "chose", "drew", "drove", "ate", "felt", "fought", "forgot", "got", "grew",
+    "hid", "lay", "lost", "paid", "rent", "shed", "shook", "slew", "smote",
+    "sought", "sold", "spent", "sprang", "stole", "struck", "swore", "taught",
+    "thought", "threw", "understood", "wept", "won", "wrought", "beheld",
+    "bare", "bore", "cast", "cut", "hurt", "set", "shut", "spread", "cost",
+    "arose", "awoke", "bade", "bound", "burnt", "dwelt", "fled", "flew",
+    "hung", "knelt", "laid", "lit", "meant", "rode", "sang", "sank", "shone",
+    "shot", "sank", "slept", "slid", "spun", "sprung", "stuck", "stung",
+    "strove", "swam", "swept", "swung", "tore", "trod", "woke", "wore", "wove",
+}
+_IRREG = re.compile(r"\b(" + "|".join(sorted(IRREGULAR_PAST)) + r")\b")
+
+
+def tense_of(gloss: str):
+    """The tense a gloss is written in, or None if it carries none.
+
+    Deliberately shallow -- it reads the auxiliaries and the regular endings
+    and nothing else. It exists to ask whether a candidate AGREES with the
+    tense marker in front of it, not to parse English.
+    """
+    g = " " + (gloss or "").lower().strip() + " "
+    for rx, name in ((_FUTURE, "FUTURE"), (_PROG, "PROGRESSIVE"),
+                     (_PERF, "PERFECT"), (_PAST, "PAST"), (_IRREG, "PAST"),
+                     (_PRES, "PRESENT")):
+        if rx.search(g):
+            return name
+    return None
+
+
 def stems(word: str) -> set[str]:
     """A word and its inflections. Never changes which word it is.
 

@@ -323,8 +323,11 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
     # 3. a transliterated term is always its own unit, even where nothing in
     #    the curation ever glossed it -- `sume` and `eseroma` head no unit in
     #    the Book of Mormon, so without this they stay invisible
-    if SG.transliterated(n(i)):
-        return 1, "term"
+    # a registered word may be more than one token: `tamai mamoe` is "the Lamb"
+    for span in (3, 2, 1):
+        if i + span <= len(toks) and (SG.transliterated(n(i, i + span))
+                                      or SG.vocabulary(n(i, i + span))):
+            return span, "term"
 
     # 4. a closed-class form the grammar can gloss on its own
     if SG.primary_gloss(n(i)):
@@ -559,7 +562,18 @@ def merge_punctuation(cands: Counter) -> Counter:
     return out
 
 
-def choose(cands: Counter, english: str) -> tuple[str, str]:
+def unit_tense(key_sm: str):
+    """The tense the marker at the head of this unit calls for, if any."""
+    toks = key_sm.split()
+    for k in (3, 2, 1):
+        if len(toks) >= k:
+            t = SG.tense_of_tam(" ".join(toks[:k]))
+            if t:
+                return t
+    return None
+
+
+def choose(cands: Counter, english: str, want_tense: str | None = None) -> tuple[str, str]:
     cands = merge_punctuation(cands)
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
@@ -600,13 +614,21 @@ def choose(cands: Counter, english: str) -> tuple[str, str]:
         # a candidate that carries a negation the verse has outranks one that
         # silently drops it, whatever the ratio says
         neg = sum(1 for w in words if w in NEGATIONS and in_english(w, ew))
-        scored.append((present / max(1, present + absent), neg, n, gloss))
+        # TENSE AGREEMENT. The marker in front of the unit says what tense the
+        # verb is in -- `o le a` is future 97% of the time, `sa`/`na` past 66%,
+        # `ua` perfect -- and nothing used to consult it, so `sa alu` and `o le
+        # a alu` could come out the same word. A candidate that agrees with the
+        # marker outranks one that does not, AFTER the verse's own evidence:
+        # the verse still decides what the words are, this only decides which
+        # form of them.
+        agrees = 1 if (want_tense and ER.tense_of(gloss) == want_tense) else 0
+        scored.append((present / max(1, present + absent), neg, agrees, n, gloss))
     if scored:
         scored.sort(reverse=True)
         # trim on this path too: the scoring picks the best of what the
         # inventory offers, and the best may still carry a word the verse does
         # not have, when every candidate does
-        return trim_absent_tail(scored[0][3], english), "canon"
+        return trim_absent_tail(scored[0][-1], english), "canon"
     dom, n = cands.most_common(1)[0]
     if vetoed(dom, english):
         return "", "vetoed"
@@ -692,7 +714,7 @@ def main(argv: list[str] | None = None) -> int:
                     # somewhere. Where the grammar refuses -- the ambiguous
                     # forms, where position decides -- the inventory and the
                     # verse's English take over.
-                    term = SG.transliterated(key_sm)
+                    term = SG.transliterated(key_sm) or SG.vocabulary(key_sm)
                     if term:
                         stats["unit: transliterated"] += 1
                         prev_key = key_sm
@@ -758,7 +780,9 @@ def main(argv: list[str] | None = None) -> int:
                         # These are glossed by POSITION or not at all.
                         gloss, why = "", "ambiguous/" + src
                     elif key_sm in inv:
-                        gloss, why = choose(inv[key_sm], en_text)
+                        gloss, why = choose(inv[key_sm], en_text,
+                                            SG.tense_of_tam(prev_key)
+                                            or unit_tense(key_sm))
                         why = why + "/" + src
                     elif key_sm in lex:
                         gloss, why = choose(lex[key_sm], en_text)
