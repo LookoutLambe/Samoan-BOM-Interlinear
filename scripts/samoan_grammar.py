@@ -780,6 +780,54 @@ LE_NEG_AFTER = {'toe', 'mafai', 'salamo'}
 CLAUSE_END = ',;:.!?—'
 
 
+_POSITIONAL = None
+
+
+def _positional():
+    """Positional readings learned from the curation by build_positional.py.
+
+    The hand-written frames below were each found the same way -- split a
+    particle's witnesses by the CLASS of the token before it and see which
+    English goes with which class -- and doing that by hand, one form at a
+    time, is the wrong way to use a 111,683-unit record. This is the same
+    procedure run over every closed-class form at once.
+    """
+    global _POSITIONAL
+    if _POSITIONAL is None:
+        import json
+        from pathlib import Path
+        p = (Path(__file__).resolve().parent.parent /
+             "O le Tusi a Mamona Interlinear" / "Resources" /
+             "positional_readings.json")
+        try:
+            _POSITIONAL = json.loads(p.read_text(encoding="utf-8"))["readings"]
+        except Exception:
+            _POSITIONAL = {}
+    return _POSITIONAL
+
+
+def token_class(tok):
+    """What KIND of word this is -- the classes the frames turned out to need."""
+    t = (tok or '').strip().lower()
+    if not t:
+        return "START"
+    if t in TAM:
+        return "TAM"
+    if t in POSSESSIVES:
+        return "POSSESSIVE"
+    if t in PRONOUNS:
+        return "PRONOUN"
+    if t in ARTICLE_HEADS:
+        return "ARTICLE"
+    if t in PREPOSITIONS or t in COMPLEX_PREPOSITIONS:
+        return "PREP"
+    if t in DEGREE or t in COMPARATIVE:
+        return "DEGREE"
+    if t in CLOSED_CLASS or t in AMBIGUOUS:
+        return "PARTICLE"
+    return "OPEN"
+
+
 def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
     """A reading this particle takes only in this frame, or None.
 
@@ -912,7 +960,10 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         # verb the same token is the non-past TAM and says nothing
         return None
 
-    return None
+    # NOTHING HAND-WRITTEN COVERS THIS FORM -- fall back to what the curation
+    # settles positionally on its own. The hand frames above win because they
+    # were checked against the text one by one; this was not.
+    return _positional().get(f, {}).get(token_class(p))
 
 
 def _alternatives(desc):

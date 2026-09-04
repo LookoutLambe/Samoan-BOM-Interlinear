@@ -1,0 +1,104 @@
+{
+ "note": "Learned by build_positional.py from the curated units: the dominant English for a closed-class form, split by the CLASS of the token before it. The hand-written frames in samoan_grammar.contextual_reading override anything here.",
+ "min_witness": 20,
+ "min_share": 0.6,
+ "readings": {
+  "a’u": {
+   "TAM": "me",
+   "PRONOUN": "me"
+  },
+  "lea": {
+   "PREP": "therefore"
+  },
+  "ina": {
+   "OPEN": "that"
+  },
+  "lava": {
+   "TAM": "himself"
+  },
+  "ona": {
+   "PRONOUN": "because"
+  },
+  "ifo": {
+   "PREP": "down"
+  },
+  "ma": {
+   "PARTICLE": "to",
+   "OPEN": "to",
+   "DEGREE": "with"
+  },
+  "e": {
+   "PREP": "who"
+  },
+  "oe": {
+   "TAM": "you"
+  },
+  "latou": {
+   "PREP": "them"
+  },
+  "lenei": {
+   "PREP": "now"
+  },
+  "o": {
+   "DEGREE": "of",
+   "OPEN": "of",
+   "TAM": "of",
+   "PREP": "of"
+  },
+  "a": {
+   "ARTICLE": "shall",
+   "OPEN": "of"
+  },
+  "ua": {
+   "TAM": "when"
+  },
+  "faauta": {
+   "PARTICLE": "behold",
+   "PRONOUN": "behold",
+   "OPEN": "behold"
+  },
+  "outou": {
+   "TAM": "you",
+   "PREP": "you"
+  },
+  "laua": {
+   "PREP": "them"
+  },
+  "a’e": {
+   "PREP": "up",
+   "OPEN": "up"
+  },
+  "matou": {
+   "PREP": "us"
+  },
+  "tatou": {
+   "PREP": "us"
+  },
+  "faatasi": {
+   "OPEN": "together"
+  },
+  "po": {
+   "ARTICLE": "night"
+  },
+  "afai": {
+   "PARTICLE": "if",
+   "PRONOUN": "if"
+  },
+  "la’ua": {
+   "PREP": "them"
+  },
+  "lē": {
+   "TAM": "not",
+   "PRONOUN": "not"
+  },
+  "au": {
+   "TAM": "me"
+  },
+  "ae": {
+   "OPEN": "up"
+  },
+  "lo": {
+   "OPEN": "than"
+  }
+ }
+}
