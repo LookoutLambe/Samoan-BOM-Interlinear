@@ -806,6 +806,29 @@ def main(argv: list[str] | None = None) -> int:
                     # that reading is written. Nothing is invented: the word
                     # comes from the curation, and a token with a divided
                     # lexicon still says nothing.
+                    # THE DICTIONARY, last. Everything above is evidence from
+                    # this corpus; this is the two lexicons, and it speaks only
+                    # where the corpus has nothing to say. The verse still has
+                    # to carry the sense, so a dictionary entry that does not
+                    # fit the verse is not written.
+                    if not gloss and hit == 1 and key_sm not in SG.CLOSED_CLASS \
+                            and key_sm not in SG.AMBIGUOUS:
+                        ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+                        # A dictionary sense is often several alternatives in
+                        # one string -- Pratt writes `maua` as "get, to obtain,
+                        # to acquire" -- and the verse will carry one of them,
+                        # not all three. Each alternative is tried on its own.
+                        for sense in SG.dictionary(key_sm):
+                            for alt in re.split(r"[,;]", sense):
+                                alt = re.sub(r"^\s*to\s+", "", alt).strip()
+                                words = [w for w in re.findall(r"[a-z']+", alt)
+                                         if w not in FUNCTION_ONLY]
+                                if words and all(in_english(w, ew) for w in words):
+                                    gloss, why = alt, "dictionary/" + src
+                                    break
+                            if gloss:
+                                break
+
                     if not gloss:
                         opens = [t for t in key_sm.split()
                                  if t not in SG.CLOSED_CLASS

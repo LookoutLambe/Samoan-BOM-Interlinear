@@ -760,6 +760,55 @@ VOCABULARY = {
 }
 
 
+_DICT = None
+
+
+def _dictionary():
+    """The two lexicons, merged. THE TOOL HAD NONE UNTIL NOW.
+
+    Everything it knew about a Samoan word it had inferred from how that word
+    was glossed somewhere in the curated Book of Mormon -- so a word that book
+    never uses had no meaning at all, and a word with more senses than that
+    book happens to show could only ever be read the way it appears there.
+    `sau` had ~90 witnesses, every one of them "come"; Pratt gives it three
+    senses, "come", "fall as the dew", and "thy, your".
+
+      Pratt 1893   Samoan-English, public domain, OCR -- the archaic
+                   vocabulary of the scripture register
+      EALD         English-Samoan, modern and clean, inverted here -- the
+                   ordinary words Pratt's scan mangles
+
+    Pratt first where they disagree: it is a dictionary OF Samoan, and this
+    corpus is 19th-century scripture register.
+    """
+    global _DICT
+    if _DICT is None:
+        import json
+        from pathlib import Path
+        res = (Path(__file__).resolve().parent.parent /
+               "O le Tusi a Mamona Interlinear" / "Resources")
+        merged = {}
+        # Pratt FIRST and in its own order -- it is a dictionary of Samoan and
+        # this corpus is 19th-century scripture register -- then EALD for the
+        # ordinary modern words Pratt's scan mangles.
+        for name in ("samoan_dictionary.json", "samoan_dictionary_eald.json"):
+            try:
+                d = json.loads((res / name).read_text(encoding="utf-8"))["entries"]
+            except Exception:
+                continue
+            for k, v in d.items():
+                for sense in v:
+                    if sense not in merged.setdefault(k, []):
+                        merged[k].append(sense)
+        _DICT = merged
+    return _DICT
+
+
+def dictionary(form):
+    """Every sense the two lexicons give this Samoan word, or ()."""
+    return tuple(_dictionary().get((form or '').strip().lower(), ()))
+
+
 def vocabulary(form):
     """A word this corpus uses that the Book of Mormon never did."""
     return VOCABULARY.get((form or '').strip().lower())

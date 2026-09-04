@@ -1,0 +1,5187 @@
+{
+ "source": "Bilingual Dictionary for ESL Beginners (Samoan), EALD — English-Samoan, inverted to Samoan-English",
+ "note": "Only unambiguous `<pos> <english> <samoan>` lines are taken; numbered senses with English qualifiers are skipped.",
+ "entries": {
+  "tense verb form": [
+   "past"
+  ],
+  "poto": [
+   "ability",
+   "brilliant",
+   "clever",
+   "skilful",
+   "skill",
+   "wise"
+  ],
+  "tomai": [
+   "ability"
+  ],
+  "person tagata apoliki": [
+   "aboriginal"
+  ],
+  "le faatasi mai": [
+   "absent"
+  ],
+  "e matua atoatoa": [
+   "absolutely"
+  ],
+  "lelei": [
+   "absolutely",
+   "steady"
+  ],
+  "talia": [
+   "accept"
+  ],
+  "taliaina": [
+   "acceptable",
+   "agree",
+   "qualify"
+  ],
+  "faalavelave": [
+   "accident",
+   "disturb",
+   "interrupt"
+  ],
+  "faalavelave le’i fuafuaina": [
+   "accidental"
+  ],
+  "lua te toalua": [
+   "accompany"
+  ],
+  "lou soa": [
+   "accompany"
+  ],
+  "aitalafu": [
+   "account",
+   "owe"
+  ],
+  "tiga": [
+   "ache"
+  ],
+  "taunu’u": [
+   "achieve"
+  ],
+  "maua": [
+   "achieve",
+   "find"
+  ],
+  "manuia se taumafaiga": [
+   "achieve"
+  ],
+  "taunu’uga": [
+   "achievement"
+  ],
+  "faatinoga ua manuia": [
+   "achievement"
+  ],
+  "fa’alava": [
+   "across"
+  ],
+  "fai": [
+   "act"
+  ],
+  "faagaioi": [
+   "act"
+  ],
+  "galue": [
+   "act"
+  ],
+  "galuega": [
+   "activity",
+   "employment",
+   "job",
+   "occupation",
+   "task"
+  ],
+  "faagaioiga": [
+   "activity"
+  ],
+  "tama autu": [
+   "actor"
+  ],
+  "faaopopo": [
+   "add",
+   "plus"
+  ],
+  "faaopopoga": [
+   "addition"
+  ],
+  "tuatusi": [
+   "address"
+  ],
+  "upu faamatala": [
+   "adjective"
+  ],
+  "tagata matua": [
+   "adult",
+   "grown-up"
+  ],
+  "aoga": [
+   "advantage"
+  ],
+  "mea lelei": [
+   "advantage"
+  ],
+  "sailiiliga": [
+   "adventure"
+  ],
+  "suesuega": [
+   "adventure",
+   "examination"
+  ],
+  "soaveape": [
+   "adverb"
+  ],
+  "fautuaga": [
+   "advice",
+   "suggestion"
+  ],
+  "timaiga": [
+   "advice"
+  ],
+  "vaalele": [
+   "aeroplane",
+   "timetable"
+  ],
+  "lavatia": [
+   "afford"
+  ],
+  "mafaia": [
+   "afford"
+  ],
+  "fefe": [
+   "afraid",
+   "fright",
+   "frighten"
+  ],
+  "mulimuli ane": [
+   "after",
+   "later"
+  ],
+  "aoauli": [
+   "afternoon"
+  ],
+  "a uma loa": [
+   "afterwards"
+  ],
+  "tausaga": [
+   "age",
+   "year"
+  ],
+  "matua": [
+   "age"
+  ],
+  "tuana’i": [
+   "ago"
+  ],
+  "ua te’a atu": [
+   "ago"
+  ],
+  "malie": [
+   "agree"
+  ],
+  "ea": [
+   "air"
+  ],
+  "malae vaalele": [
+   "airport"
+  ],
+  "faataga": [
+   "allow"
+  ],
+  "na o oe": [
+   "alone",
+   "private"
+  ],
+  "toatasi": [
+   "alone",
+   "single"
+  ],
+  "leo tele": [
+   "aloud",
+   "loud"
+  ],
+  "ua uma": [
+   "already"
+  ],
+  "taimi ua te’a": [
+   "already"
+  ],
+  "ui lava": [
+   "although"
+  ],
+  "tusa lava": [
+   "although"
+  ],
+  "pea lava pea": [
+   "always",
+   "frequent",
+   "often"
+  ],
+  "masani lava": [
+   "always"
+  ],
+  "aofaiga": [
+   "amount",
+   "quantity",
+   "volume"
+  ],
+  "pili": [
+   "amphibian",
+   "lizard"
+  ],
+  "ma": [
+   "and",
+   "shame",
+   "shy",
+   "with"
+  ],
+  "ita": [
+   "angry",
+   "hate",
+   "temper"
+  ],
+  "manu": [
+   "animal"
+  ],
+  "tapuvae": [
+   "ankle"
+  ],
+  "faale-tausaga": [
+   "annual"
+  ],
+  "soo se": [
+   "any"
+  ],
+  "soo se isi": [
+   "anyone"
+  ],
+  "soo se mea": [
+   "anything"
+  ],
+  "faatoese": [
+   "apology"
+  ],
+  "vaaia": [
+   "appear"
+  ],
+  "apu": [
+   "apple"
+  ],
+  "feiloaiga": [
+   "appointment"
+  ],
+  "vaega": [
+   "area",
+   "group",
+   "part",
+   "section",
+   "strip"
+  ],
+  "fanua": [
+   "area",
+   "paddock"
+  ],
+  "finau": [
+   "argue",
+   "insist",
+   "quarrel"
+  ],
+  "finauga": [
+   "argument",
+   "struggle"
+  ],
+  "alamai": [
+   "arise"
+  ],
+  "tula’i": [
+   "arise"
+  ],
+  "autau fitafita": [
+   "army"
+  ],
+  "faataamilo": [
+   "around",
+   "circular"
+  ],
+  "taunuu": [
+   "arrive"
+  ],
+  "au": [
+   "arrow"
+  ],
+  "tusiata": [
+   "artist"
+  ],
+  "pei": [
+   "as"
+  ],
+  "lefulefu": [
+   "ash"
+  ],
+  "ua faamaina": [
+   "ashamed"
+  ],
+  "ua ma": [
+   "ashamed"
+  ],
+  "faalumaina": [
+   "ashamed"
+  ],
+  "fesili": [
+   "ask",
+   "question"
+  ],
+  "tuufaatasi": [
+   "assemble",
+   "joint",
+   "unite"
+  ],
+  "faamaopopo": [
+   "assemble"
+  ],
+  "tuufaatasiga": [
+   "assembly",
+   "collection",
+   "group"
+  ],
+  "fesoasoani": [
+   "assist"
+  ],
+  "tagata e fesoasoani": [
+   "assistant"
+  ],
+  "i le": [
+   "at",
+   "by"
+  ],
+  "afeleti": [
+   "athletics"
+  ],
+  "taaloga taufetuli": [
+   "athletics"
+  ],
+  "aau": [
+   "athletics"
+  ],
+  "fusu": [
+   "athletics"
+  ],
+  "atomi": [
+   "atom"
+  ],
+  "faapipi’i": [
+   "attach"
+  ],
+  "faatasi ai": [
+   "attend",
+   "together"
+  ],
+  "silasila toto’a": [
+   "attention"
+  ],
+  "tosina": [
+   "attract"
+  ],
+  "manaia": [
+   "attractive",
+   "beautiful",
+   "cute",
+   "nice",
+   "pleasant",
+   "pretty"
+  ],
+  "aulelei": [
+   "attractive",
+   "handsome",
+   "pretty"
+  ],
+  "uso lou tina": [
+   "aunt"
+  ],
+  "ausetalia": [
+   "australia"
+  ],
+  "o le ausetalia": [
+   "australian"
+  ],
+  "faa-ausetalia": [
+   "australian",
+   "australiana"
+  ],
+  "uiga faa-ausetalia": [
+   "australiana"
+  ],
+  "tusi tala": [
+   "author"
+  ],
+  "taofia": [
+   "avoid"
+  ],
+  "ala mai": [
+   "awake"
+  ],
+  "le i ai": [
+   "away"
+  ],
+  "toesea": [
+   "away"
+  ],
+  "leaga": [
+   "awful",
+   "bad"
+  ],
+  "mataga": [
+   "awful"
+  ],
+  "le lelei": [
+   "awful",
+   "boring"
+  ],
+  "to’i": [
+   "axe"
+  ],
+  "pepe": [
+   "baby"
+  ],
+  "tuasivi": [
+   "backbone"
+  ],
+  "talaaga": [
+   "background"
+  ],
+  "tua atu": [
+   "background"
+  ],
+  "lotoa i tua": [
+   "backyard"
+  ],
+  "taaloga ta fulumoa": [
+   "badminton"
+  ],
+  "taga": [
+   "bag",
+   "pouch"
+  ],
+  "tao (mea ai)": [
+   "bake"
+  ],
+  "paleni": [
+   "balance"
+  ],
+  "fetaui": [
+   "balance",
+   "meet"
+  ],
+  "faapaologa": [
+   "balcony"
+  ],
+  "ua tula": [
+   "bald"
+  ],
+  "paluni": [
+   "balloon"
+  ],
+  "fa’i": [
+   "banana"
+  ],
+  "fale teu tupe": [
+   "bank"
+  ],
+  "papakiu": [
+   "barbecue"
+  ],
+  "le ufiufia": [
+   "bare"
+  ],
+  "telenoa": [
+   "bare"
+  ],
+  "pa": [
+   "barrier",
+   "burst",
+   "explode",
+   "fence",
+   "railing"
+  ],
+  "apa fafano": [
+   "basin"
+  ],
+  "ato": [
+   "basket"
+  ],
+  "potu taele": [
+   "bathroom"
+  ],
+  "taua": [
+   "battle",
+   "war"
+  ],
+  "i ai": [
+   "be",
+   "contain"
+  ],
+  "matafaga": [
+   "beach",
+   "shore"
+  ],
+  "gutu o manulele": [
+   "beak"
+  ],
+  "pi uumi": [
+   "bean"
+  ],
+  "ava": [
+   "beard"
+  ],
+  "ona o": [
+   "because"
+  ],
+  "aua": [
+   "because"
+  ],
+  "avea": [
+   "become"
+  ],
+  "moega": [
+   "bed"
+  ],
+  "potu moe": [
+   "bedroom"
+  ],
+  "pi": [
+   "bee",
+   "pea"
+  ],
+  "fasi povi": [
+   "beef",
+   "meat"
+  ],
+  "povi": [
+   "beef"
+  ],
+  "amata": [
+   "begin"
+  ],
+  "tagata faatoa amata": [
+   "beginner"
+  ],
+  "amio": [
+   "behave"
+  ],
+  "amioga": [
+   "behaviour"
+  ],
+  "i tua": [
+   "behind"
+  ],
+  "logo": [
+   "bell"
+  ],
+  "e ana": [
+   "belong"
+  ],
+  "o la’u": [
+   "belong"
+  ],
+  "fusipa’u": [
+   "belt"
+  ],
+  "laulau": [
+   "bench",
+   "drawer"
+  ],
+  "punou": [
+   "bend"
+  ],
+  "silisili ona lelei": [
+   "best",
+   "excellent"
+  ],
+  "peti": [
+   "bet"
+  ],
+  "lelei feololo": [
+   "better"
+  ],
+  "i le va": [
+   "between"
+  ],
+  "uila vilivae": [
+   "bicycle"
+  ],
+  "tauofo": [
+   "bid"
+  ],
+  "lapo’a": [
+   "big",
+   "fat",
+   "large"
+  ],
+  "manu lele": [
+   "bird"
+  ],
+  "aso fanau": [
+   "birthday"
+  ],
+  "masi keke": [
+   "biscuit"
+  ],
+  "u": [
+   "bite"
+  ],
+  "aina": [
+   "bite"
+  ],
+  "gali": [
+   "bite"
+  ],
+  "laupapa aoga": [
+   "blackboard"
+  ],
+  "matá naifi": [
+   "blade"
+  ],
+  "avanoa": [
+   "blank",
+   "chance",
+   "empty",
+   "gap",
+   "opportunity"
+  ],
+  "palanikeke": [
+   "blanket"
+  ],
+  "toto": [
+   "bleed",
+   "blood"
+  ],
+  "tauaso": [
+   "blindness"
+  ],
+  "poloni": [
+   "blond"
+  ],
+  "ua toto atoa": [
+   "bloody"
+  ],
+  "vaa": [
+   "boat"
+  ],
+  "tino": [
+   "body"
+  ],
+  "puna": [
+   "boil"
+  ],
+  "pomu": [
+   "bomb"
+  ],
+  "ponaivi": [
+   "bone"
+  ],
+  "tusi faitau": [
+   "book"
+  ],
+  "fata tusi": [
+   "bookshelf"
+  ],
+  "pumalagi": [
+   "boomerang"
+  ],
+  "ua musuá": [
+   "bored"
+  ],
+  "fiu": [
+   "bored"
+  ],
+  "le manaia": [
+   "boring"
+  ],
+  "nonó": [
+   "borrow"
+  ],
+  "la’ua uma": [
+   "both"
+  ],
+  "toalua": [
+   "both",
+   "couple"
+  ],
+  "popole": [
+   "bother",
+   "nervous",
+   "worry"
+  ],
+  "fagu": [
+   "bottle"
+  ],
+  "fitfiti": [
+   "bounce"
+  ],
+  "ipu": [
+   "bowl",
+   "dish",
+   "plate"
+  ],
+  "apa lapo’a": [
+   "bowl"
+  ],
+  "pusa": [
+   "box",
+   "packet"
+  ],
+  "tama": [
+   "boy"
+  ],
+  "fai’ai": [
+   "brain"
+  ],
+  "mafaufau": [
+   "brain",
+   "consider",
+   "mental",
+   "think"
+  ],
+  "papa susu": [
+   "brassiere"
+  ],
+  "toa malosi": [
+   "brave"
+  ],
+  "loto tele": [
+   "bravely"
+  ],
+  "falaoa": [
+   "bread"
+  ],
+  "areto": [
+   "bread"
+  ],
+  "manava": [
+   "breadth",
+   "breath",
+   "breathe",
+   "stomach"
+  ],
+  "fanau": [
+   "breed"
+  ],
+  "piliki": [
+   "brick"
+  ],
+  "auala laupapa": [
+   "bridge"
+  ],
+  "faamalamalama": [
+   "brighten",
+   "explain"
+  ],
+  "aumai": [
+   "bring"
+  ],
+  "lautele": [
+   "broad",
+   "wide",
+   "width"
+  ],
+  "fualaau aina": [
+   "broccoli",
+   "crops",
+   "fruit"
+  ],
+  "uso tama": [
+   "brother",
+   "stepbrother"
+  ],
+  "pulumu": [
+   "brush"
+  ],
+  "pakete": [
+   "bucket"
+  ],
+  "fausia": [
+   "build",
+   "manufacture"
+  ],
+  "faia": [
+   "build",
+   "provide"
+  ],
+  "pulufana": [
+   "bullet"
+  ],
+  "tanu": [
+   "bury"
+  ],
+  "pasi": [
+   "bus"
+  ],
+  "pisi": [
+   "busy"
+  ],
+  "peita’i": [
+   "but"
+  ],
+  "tagata fasipovi": [
+   "butcher"
+  ],
+  "faamau": [
+   "button",
+   "fasten",
+   "record"
+  ],
+  "faatau": [
+   "buy"
+  ],
+  "e ala atu": [
+   "by"
+  ],
+  "kapisi": [
+   "cabbage"
+  ],
+  "uaea": [
+   "cable",
+   "wire"
+  ],
+  "fale ‘aiga": [
+   "cafe"
+  ],
+  "keke": [
+   "cake"
+  ],
+  "faavasega": [
+   "calculate",
+   "sort"
+  ],
+  "kalena": [
+   "calendar"
+  ],
+  "mea pu’eata": [
+   "camera"
+  ],
+  "api": [
+   "camp"
+  ],
+  "nofo le tumau": [
+   "camp"
+  ],
+  "moli ga’o": [
+   "candle"
+  ],
+  "falefaigaluega": [
+   "canteen",
+   "factory"
+  ],
+  "fualaau aina feú-pepa": [
+   "capsicum"
+  ],
+  "kapeteni": [
+   "captain"
+  ],
+  "taavale": [
+   "car",
+   "traffic",
+   "vehicle"
+  ],
+  "pepa": [
+   "card",
+   "paper"
+  ],
+  "pepa malo": [
+   "cardboard"
+  ],
+  "vaai": [
+   "care",
+   "see"
+  ],
+  "tausi": [
+   "care"
+  ],
+  "faaetete": [
+   "careful",
+   "gentle"
+  ],
+  "ia faaetete": [
+   "carefully"
+  ],
+  "vaai faalelei": [
+   "carefully"
+  ],
+  "tauvaga tuufaatasi": [
+   "carnival"
+  ],
+  "kaloti": [
+   "carrot"
+  ],
+  "tino i tupe": [
+   "cash"
+  ],
+  "olo": [
+   "castle",
+   "rub"
+  ],
+  "le tumau": [
+   "casual"
+  ],
+  "pusi": [
+   "cat"
+  ],
+  "ana": [
+   "cave"
+  ],
+  "fa’alo": [
+   "ceiling"
+  ],
+  "sela": [
+   "cell"
+  ],
+  "potu": [
+   "cell",
+   "room"
+  ],
+  "sene": [
+   "cent"
+  ],
+  "tu totonu": [
+   "central"
+  ],
+  "ogatotonu": [
+   "centre"
+  ],
+  "senituli": [
+   "century"
+  ],
+  "sauniga": [
+   "ceremony"
+  ],
+  "faapitoa": [
+   "certain",
+   "particular",
+   "special"
+  ],
+  "nofoa": [
+   "chair",
+   "seat"
+  ],
+  "penisina": [
+   "chalk"
+  ],
+  "ala leo": [
+   "channel"
+  ],
+  "mataupu": [
+   "chapter",
+   "topic"
+  ],
+  "tuliloa": [
+   "chase"
+  ],
+  "taugofie": [
+   "cheap"
+  ],
+  "gaoi": [
+   "cheat"
+  ],
+  "pepelo": [
+   "cheat",
+   "false",
+   "liar"
+  ],
+  "siaki": [
+   "check",
+   "cheque"
+  ],
+  "kemisi": [
+   "chemist"
+  ],
+  "faletalavai": [
+   "chemist"
+  ],
+  "fualaau aina mumu": [
+   "cherry"
+  ],
+  "mu": [
+   "chess"
+  ],
+  "fatafata": [
+   "chest"
+  ],
+  "gum pulu lole": [
+   "chewing"
+  ],
+  "tamaititi": [
+   "child"
+  ],
+  "faa-tamaiti": [
+   "childish"
+  ],
+  "auvae": [
+   "chin"
+  ],
+  "sukalaki": [
+   "chocolate"
+  ],
+  "aufaipese": [
+   "choir"
+  ],
+  "filifili": [
+   "choose",
+   "decide",
+   "select"
+  ],
+  "lotu": [
+   "church",
+   "religion"
+  ],
+  "sikaleti": [
+   "cigarette"
+  ],
+  "faletifaga": [
+   "cinema",
+   "theatre"
+  ],
+  "li’o": [
+   "circle"
+  ],
+  "taamilomilo": [
+   "circular"
+  ],
+  "faataamilosaga": [
+   "circumference"
+  ],
+  "aai": [
+   "city"
+  ],
+  "uo aoga": [
+   "classmate"
+  ],
+  "potu aoga": [
+   "classroom"
+  ],
+  "mati’u’u": [
+   "claw",
+   "paw"
+  ],
+  "palapala": [
+   "clay"
+  ],
+  "malamalama": [
+   "clear",
+   "conscious",
+   "understand"
+  ],
+  "tofé": [
+   "cliff"
+  ],
+  "‘a’e": [
+   "climb"
+  ],
+  "tautau": [
+   "cling"
+  ],
+  "pipi’i": [
+   "cling"
+  ],
+  "uati": [
+   "clock"
+  ],
+  "ua tapunia": [
+   "closed"
+  ],
+  "ie": [
+   "cloth"
+  ],
+  "lavalava": [
+   "clothes",
+   "clothing"
+  ],
+  "ofu": [
+   "clothing"
+  ],
+  "ao": [
+   "cloud"
+  ],
+  "puaoa": [
+   "cloudy"
+  ],
+  "kelú": [
+   "clue"
+  ],
+  "koale": [
+   "coal"
+  ],
+  "gataifale": [
+   "coast",
+   "shore"
+  ],
+  "tolotolo": [
+   "coast"
+  ],
+  "tu matafaga": [
+   "coastal"
+  ],
+  "pelaue": [
+   "coat"
+  ],
+  "popo": [
+   "coconut"
+  ],
+  "kofe": [
+   "coffee"
+  ],
+  "tupe siliva": [
+   "coin"
+  ],
+  "toto-malulu": [
+   "cold-blooded"
+  ],
+  "kola": [
+   "collar"
+  ],
+  "ao faatasi": [
+   "collect",
+   "gather"
+  ],
+  "kolisi": [
+   "college"
+  ],
+  "felanulanua’i": [
+   "colourful"
+  ],
+  "fiafia i ai": [
+   "comfortable"
+  ],
+  "faalogona lelei": [
+   "comfortable"
+  ],
+  "komi": [
+   "comic"
+  ],
+  "tagata faimea malie": [
+   "comic"
+  ],
+  "faatonu": [
+   "command",
+   "instruct",
+   "manager"
+  ],
+  "taatele": [
+   "common"
+  ],
+  "faifaatatau lelei": [
+   "commonsense"
+  ],
+  "fesootaiga": [
+   "communication"
+  ],
+  "tagata lautete": [
+   "community"
+  ],
+  "faatusatusa": [
+   "compare"
+  ],
+  "tapasá": [
+   "compass"
+  ],
+  "tauvá": [
+   "compete"
+  ],
+  "tauvaga": [
+   "competition"
+  ],
+  "faitio": [
+   "complain"
+  ],
+  "faitioga": [
+   "complaint"
+  ],
+  "lavelave": [
+   "complicate"
+  ],
+  "e lavelave": [
+   "complicated"
+  ],
+  "lavelavega": [
+   "complication"
+  ],
+  "tagata na fatuina": [
+   "composer"
+  ],
+  "fatuga": [
+   "composition",
+   "poetry"
+  ],
+  "komipiuta": [
+   "computer"
+  ],
+  "popolega": [
+   "concern"
+  ],
+  "ua popole": [
+   "concerned"
+  ],
+  "koniseti": [
+   "concert"
+  ],
+  "tulaga": [
+   "condition"
+  ],
+  "faaletonu": [
+   "confuse"
+  ],
+  "leiloa": [
+   "confuse"
+  ],
+  "faamáló": [
+   "congratulate"
+  ],
+  "soso’o": [
+   "connect"
+  ],
+  "soso’oga": [
+   "connection"
+  ],
+  "filifili faale-mafaufau": [
+   "consider"
+  ],
+  "konesane": [
+   "consonant"
+  ],
+  "g": [
+   "consonant"
+  ],
+  "l": [
+   "consonant"
+  ],
+  "m": [
+   "consonant"
+  ],
+  "n": [
+   "consonant"
+  ],
+  "aofia ai": [
+   "contain"
+  ],
+  "konotaina": [
+   "container"
+  ],
+  "faaauau": [
+   "continue"
+  ],
+  "pulea": [
+   "control",
+   "govern"
+  ],
+  "talanoaga": [
+   "conversation"
+  ],
+  "kuka": [
+   "cook"
+  ],
+  "tulimanu": [
+   "corner",
+   "hunt"
+  ],
+  "polotito": [
+   "corridor",
+   "verandah"
+  ],
+  "tau": [
+   "cost",
+   "price",
+   "prize",
+   "season"
+  ],
+  "vavae": [
+   "cotton"
+  ],
+  "wool vavae taufulufulu": [
+   "cotton"
+  ],
+  "fono": [
+   "council"
+  ],
+  "faufautua faipule": [
+   "counsellor"
+  ],
+  "lotoa": [
+   "courage"
+  ],
+  "lototele": [
+   "courageous"
+  ],
+  "malae tenisi": [
+   "court"
+  ],
+  "tausoga": [
+   "cousin"
+  ],
+  "pala’ai": [
+   "coward"
+  ],
+  "pa’a": [
+   "crab"
+  ],
+  "ta’e": [
+   "crack"
+  ],
+  "valea": [
+   "crazy",
+   "dumb",
+   "foolish",
+   "silly",
+   "stupid"
+  ],
+  "soso": [
+   "crazy",
+   "silly"
+  ],
+  "meaola": [
+   "creature"
+  ],
+  "vai tafe": [
+   "creek"
+  ],
+  "totolo": [
+   "creep"
+  ],
+  "kolokataila": [
+   "crocodile"
+  ],
+  "pi’opi’o": [
+   "crooked"
+  ],
+  "le sa’o": [
+   "crooked"
+  ],
+  "taaloga upufelavesa’i": [
+   "crossword"
+  ],
+  "paso": [
+   "crossword",
+   "puzzle"
+  ],
+  "tumutumuga o tagata": [
+   "crowd"
+  ],
+  "tumutumu": [
+   "crowded"
+  ],
+  "toatele": [
+   "crowded"
+  ],
+  "agaleaga": [
+   "cruel"
+  ],
+  "se faatafafá tutusa": [
+   "cube"
+  ],
+  "kupita": [
+   "cube"
+  ],
+  "kukama": [
+   "cucumber"
+  ],
+  "pusatu": [
+   "cupboard"
+  ],
+  "fofó": [
+   "cure"
+  ],
+  "togafiti": [
+   "cure",
+   "trick"
+  ],
+  "masalosalo": [
+   "curious"
+  ],
+  "fiailoa": [
+   "curious"
+  ],
+  "pupuni": [
+   "curtain"
+  ],
+  "pi’oga": [
+   "curve"
+  ],
+  "aganu’u": [
+   "custom"
+  ],
+  "tipi": [
+   "cut",
+   "slit"
+  ],
+  "aso taitasi": [
+   "daily"
+  ],
+  "fai sina susú": [
+   "damp"
+  ],
+  "matautia": [
+   "danger",
+   "fierce",
+   "horror"
+  ],
+  "e matautia": [
+   "dangerous"
+  ],
+  "le fefe": [
+   "daring"
+  ],
+  "le kea": [
+   "daring"
+  ],
+  "pogisa": [
+   "darkness"
+  ],
+  "pouliuli": [
+   "darkness"
+  ],
+  "afafine": [
+   "daughter",
+   "grandson"
+  ],
+  "ua oti": [
+   "dead"
+  ],
+  "faipé": [
+   "deaf"
+  ],
+  "tutuli": [
+   "deaf"
+  ],
+  "oti": [
+   "death",
+   "die"
+  ],
+  "ai talafu": [
+   "debt"
+  ],
+  "faasesé": [
+   "deceive"
+  ],
+  "tesimale": [
+   "decimal"
+  ],
+  "filifiliga": [
+   "decision",
+   "election",
+   "judgment"
+  ],
+  "ta’utino": [
+   "declare"
+  ],
+  "loloto": [
+   "deep",
+   "depth"
+  ],
+  "faamatala": [
+   "define",
+   "describe",
+   "explain"
+  ],
+  "fiafiaga": [
+   "delight",
+   "happiness",
+   "joy",
+   "pleasure"
+  ],
+  "ua faafiafiaina": [
+   "delightful",
+   "pleased"
+  ],
+  "tiliva": [
+   "deliver"
+  ],
+  "tufa": [
+   "deliver"
+  ],
+  "faataitai mai": [
+   "demonstrate"
+  ],
+  "faataitaiga": [
+   "demonstration",
+   "practice"
+  ],
+  "fa’inifo": [
+   "dentist"
+  ],
+  "fuafua": [
+   "depend",
+   "intend"
+  ],
+  "faalagolago": [
+   "depend",
+   "dependable"
+  ],
+  "e fuafua": [
+   "dependable"
+  ],
+  "faamatalaga": [
+   "description",
+   "remark"
+  ],
+  "ua tatau": [
+   "deserve"
+  ],
+  "talafeagai": [
+   "deserve"
+  ],
+  "kesi": [
+   "desk",
+   "gas"
+  ],
+  "faaleaga": [
+   "destroy",
+   "pollute",
+   "ruin",
+   "smash",
+   "spoil"
+  ],
+  "faaleagaga": [
+   "destruction"
+  ],
+  "leoleo naná": [
+   "detective"
+  ],
+  "vili": [
+   "dial"
+  ],
+  "faafesoota’i": [
+   "dial"
+  ],
+  "lolomi fefiloi": [
+   "dictionary"
+  ],
+  "mea ai": [
+   "diet",
+   "food",
+   "meal"
+  ],
+  "eseese": [
+   "different"
+  ],
+  "faigatá": [
+   "difficult"
+  ],
+  "eli": [
+   "dig"
+  ],
+  "mea ai afiafi": [
+   "dinner"
+  ],
+  "tainasoa": [
+   "dinosaur"
+  ],
+  "itulagi": [
+   "direction"
+  ],
+  "itu": [
+   "direction"
+  ],
+  "palapalá": [
+   "dirt",
+   "dirty"
+  ],
+  "eleelea": [
+   "dirty"
+  ],
+  "lemalie": [
+   "disagree"
+  ],
+  "le talia": [
+   "disagree"
+  ],
+  "feeseeseaiga": [
+   "disagreement"
+  ],
+  "siva": [
+   "disco"
+  ],
+  "mauaina": [
+   "discover",
+   "invent",
+   "possess"
+  ],
+  "mea na mauaina": [
+   "discovery"
+  ],
+  "faatalanoa": [
+   "discuss"
+  ],
+  "talatalanoaga": [
+   "discussion"
+  ],
+  "faama’i": [
+   "disease",
+   "illness"
+  ],
+  "lé fiafia": [
+   "dislike",
+   "upset"
+  ],
+  "tuli": [
+   "dismiss"
+  ],
+  "mamao": [
+   "distance",
+   "far"
+  ],
+  "oso": [
+   "dive",
+   "jump",
+   "leap"
+  ],
+  "vaevae": [
+   "divide"
+  ],
+  "vaevaega": [
+   "division"
+  ],
+  "foma’i": [
+   "doctor"
+  ],
+  "pepa tusia": [
+   "document"
+  ],
+  "maile": [
+   "dog"
+  ],
+  "talá": [
+   "dollar"
+  ],
+  "faitoto’a": [
+   "door"
+  ],
+  "faalua": [
+   "double"
+  ],
+  "toso": [
+   "drag",
+   "tow"
+  ],
+  "talago": [
+   "dragon"
+  ],
+  "tusiga o ata": [
+   "draw"
+  ],
+  "aveina(se taavale)": [
+   "drive"
+  ],
+  "auala taavale": [
+   "driveway"
+  ],
+  "mugálá": [
+   "drought"
+  ],
+  "malemo": [
+   "drown"
+  ],
+  "vailaau": [
+   "drug"
+  ],
+  "tagipalau": [
+   "drum"
+  ],
+  "‘aipia": [
+   "drunk"
+  ],
+  "mago": [
+   "dry",
+   "mango"
+  ],
+  "a’o": [
+   "during"
+  ],
+  "solo": [
+   "duster",
+   "towel"
+  ],
+  "‘áeto": [
+   "eagle"
+  ],
+  "taliga": [
+   "ear"
+  ],
+  "vave": [
+   "early",
+   "quick",
+   "soon"
+  ],
+  "tautaliga": [
+   "earring"
+  ],
+  "lalolagi": [
+   "earth",
+   "universe",
+   "world"
+  ],
+  "eleele": [
+   "earth"
+  ],
+  "sasa’e": [
+   "east"
+  ],
+  "faigofie": [
+   "easy",
+   "simple"
+  ],
+  "‘ai": [
+   "eat"
+  ],
+  "manu ai loi": [
+   "echidna"
+  ],
+  "pito": [
+   "edge",
+   "side"
+  ],
+  "su’esu’e": [
+   "edit"
+  ],
+  "aoaoga": [
+   "education"
+  ],
+  "aafiaga": [
+   "effect"
+  ],
+  "taumafaiga": [
+   "effort"
+  ],
+  "fuámoa": [
+   "egg"
+  ],
+  "po’o lea": [
+   "either"
+  ],
+  "meme’i": [
+   "elastic",
+   "shrink"
+  ],
+  "tulilima": [
+   "elbow"
+  ],
+  "tagata fai molí": [
+   "electrician"
+  ],
+  "eletise": [
+   "electricity"
+  ],
+  "faamatagá": [
+   "embarrass"
+  ],
+  "faaluma": [
+   "embarrass"
+  ],
+  "ua faalumaina": [
+   "embarrassed"
+  ],
+  "faafuase’i": [
+   "emergency"
+  ],
+  "lagona": [
+   "emotion",
+   "hear"
+  ],
+  "faigaluega": [
+   "employ"
+  ],
+  "tagata faigaluega": [
+   "employee"
+  ],
+  "pule fale faigaluega": [
+   "employer"
+  ],
+  "emeu": [
+   "emu"
+  ],
+  "faamalosi atu": [
+   "encourage"
+  ],
+  "fili": [
+   "enemy"
+  ],
+  "afi": [
+   "engine",
+   "motor"
+  ],
+  "enisini": [
+   "engine"
+  ],
+  "fiafia": [
+   "enjoy",
+   "glad",
+   "happy",
+   "interest"
+  ],
+  "matua telé": [
+   "enormous"
+  ],
+  "ua lava": [
+   "enough"
+  ],
+  "faafesili mai": [
+   "enquire"
+  ],
+  "ulufale": [
+   "enter"
+  ],
+  "faafiafia": [
+   "entertain"
+  ],
+  "faafiafiaga": [
+   "entertainment",
+   "festival"
+  ],
+  "teutusi": [
+   "envelope"
+  ],
+  "siosiomaga": [
+   "environment"
+  ],
+  "e tutusa": [
+   "equal"
+  ],
+  "ekueta": [
+   "equator"
+  ],
+  "vaeluaina tutusa": [
+   "even"
+  ],
+  "afiafi": [
+   "evening"
+  ],
+  "aofia uma ai": [
+   "every"
+  ],
+  "su’ega": [
+   "examination"
+  ],
+  "fiafiaga o lagona": [
+   "excitement"
+  ],
+  "malaga faapitoa pu’upu’u": [
+   "excursion"
+  ],
+  "manatu": [
+   "expect",
+   "opinion"
+  ],
+  "taugatá": [
+   "expensive",
+   "valuable"
+  ],
+  "faamalamalamaga": [
+   "explanation",
+   "information"
+  ],
+  "su’esu’e sailiili": [
+   "explore"
+  ],
+  "fia iloa": [
+   "explore"
+  ],
+  "faasili": [
+   "extra"
+  ],
+  "mata": [
+   "eye"
+  ],
+  "laumata": [
+   "eyebrow"
+  ],
+  "mea moni": [
+   "fact",
+   "real"
+  ],
+  "mou atu": [
+   "fade"
+  ],
+  "lé pasi": [
+   "fail"
+  ],
+  "taufeololo": [
+   "fairly"
+  ],
+  "áitu": [
+   "fairy"
+  ],
+  "pa’ú": [
+   "fall"
+  ],
+  "lé sa’o": [
+   "false",
+   "incorrect",
+   "prejudice"
+  ],
+  "tai tutusa": [
+   "familiar"
+  ],
+  "ta’uta’ua": [
+   "famous"
+  ],
+  "faatoaga": [
+   "farm",
+   "garden"
+  ],
+  "teuga": [
+   "fashion"
+  ],
+  "teuga fetaui": [
+   "fashionable"
+  ],
+  "nonoa": [
+   "fasten",
+   "knot"
+  ],
+  "puta tele": [
+   "fat"
+  ],
+  "tamá": [
+   "father"
+  ],
+  "sesé": [
+   "fault",
+   "guilt"
+  ],
+  "agalelei": [
+   "favour",
+   "friendly",
+   "generous",
+   "kindness"
+  ],
+  "leitió": [
+   "fax",
+   "radio"
+  ],
+  "fulu o manulele": [
+   "feather"
+  ],
+  "fafaga": [
+   "feed"
+  ],
+  "va’a": [
+   "ferry",
+   "ship"
+  ],
+  "tausamiga": [
+   "festival"
+  ],
+  "fiva": [
+   "fever"
+  ],
+  "to’alaititi": [
+   "few"
+  ],
+  "faatumu": [
+   "fill"
+  ],
+  "ata": [
+   "film",
+   "picture",
+   "poster"
+  ],
+  "faaiuga mulimuli lava": [
+   "final"
+  ],
+  "tamaimai lima": [
+   "finger"
+  ],
+  "mea faapápá": [
+   "fireworks"
+  ],
+  "muamua": [
+   "first",
+   "primary"
+  ],
+  "aid fesoasoani muamua": [
+   "first"
+  ],
+  "rod ofe fagota": [
+   "fishing"
+  ],
+  "fu’a": [
+   "flag"
+  ],
+  "aloiafi": [
+   "flame"
+  ],
+  "‘emo": [
+   "flashing"
+  ],
+  "opeaopea": [
+   "float"
+  ],
+  "lolo": [
+   "flood"
+  ],
+  "lologa": [
+   "flood"
+  ],
+  "disk kisiki vaivai": [
+   "floppy"
+  ],
+  "tafe": [
+   "flow"
+  ],
+  "fugála’au": [
+   "flower"
+  ],
+  "ua puaóa": [
+   "foggy"
+  ],
+  "gaugau": [
+   "fold"
+  ],
+  "faava’a": [
+   "folder",
+   "frame"
+  ],
+  "mulimuli": [
+   "follow"
+  ],
+  "vai faatanoa": [
+   "font"
+  ],
+  "vale": [
+   "fool"
+  ],
+  "vae": [
+   "foot",
+   "leg"
+  ],
+  "se’evae": [
+   "footwear",
+   "shoe"
+  ],
+  "tagata ese": [
+   "foreigner",
+   "stranger"
+  ],
+  "vao matua": [
+   "forest"
+  ],
+  "faagalo": [
+   "forget"
+  ],
+  "galo": [
+   "forget"
+  ],
+  "faamagalo": [
+   "forgive"
+  ],
+  "tui": [
+   "fork",
+   "injection",
+   "poke",
+   "prick",
+   "vaccination"
+  ],
+  "ta’i lua vaiaso": [
+   "fortnight"
+  ],
+  "manuia": [
+   "fortunate",
+   "success"
+  ],
+  "puná vai": [
+   "fountain"
+  ],
+  "vaega mea": [
+   "fraction"
+  ],
+  "sa’olotoga": [
+   "freedom"
+  ],
+  "faa’aisa": [
+   "freeze"
+  ],
+  "fou": [
+   "fresh"
+  ],
+  "uó": [
+   "friend"
+  ],
+  "faauó": [
+   "friendly"
+  ],
+  "mata’u": [
+   "frighten"
+  ],
+  "faanonou": [
+   "frown"
+  ],
+  "maliu": [
+   "funeral"
+  ],
+  "fulufulu o manu": [
+   "fur"
+  ],
+  "meafale": [
+   "furniture"
+  ],
+  "mamao atu": [
+   "further"
+  ],
+  "faasili atu": [
+   "further"
+  ],
+  "lumana’i": [
+   "future"
+  ],
+  "pelé tupe": [
+   "gamble"
+  ],
+  "matematega": [
+   "gamble"
+  ],
+  "taaloga": [
+   "game"
+  ],
+  "va": [
+   "gap"
+  ],
+  "aniani saina": [
+   "garlic"
+  ],
+  "e masani lava": [
+   "generally",
+   "occasionally"
+  ],
+  "foa’i alofa": [
+   "generosity"
+  ],
+  "meaalofa": [
+   "gift"
+  ],
+  "teine": [
+   "girl"
+  ],
+  "totigilima": [
+   "glove"
+  ],
+  "atua": [
+   "god"
+  ],
+  "auro": [
+   "gold"
+  ],
+  "faaauro": [
+   "golden"
+  ],
+  "oloa": [
+   "goods"
+  ],
+  "faitatala": [
+   "gossip"
+  ],
+  "maló": [
+   "government"
+  ],
+  "pulega": [
+   "government"
+  ],
+  "kovana": [
+   "governor"
+  ],
+  "tago": [
+   "grab",
+   "touch"
+  ],
+  "pu’e": [
+   "grab"
+  ],
+  "faasolo atu ina": [
+   "gradually"
+  ],
+  "faaiuga": [
+   "grand"
+  ],
+  "vine": [
+   "grape"
+  ],
+  "kalafa": [
+   "graph"
+  ],
+  "vao": [
+   "grass"
+  ],
+  "faafetai": [
+   "grateful"
+  ],
+  "tuugamau": [
+   "grave"
+  ],
+  "fanua oti": [
+   "grave"
+  ],
+  "telé": [
+   "great"
+  ],
+  "matape’ape’a": [
+   "greed"
+  ],
+  "ua matape’ape’a": [
+   "greedy"
+  ],
+  "faaloloto": [
+   "greedy"
+  ],
+  "lanulauvao": [
+   "green"
+  ],
+  "faafeiloa’i": [
+   "greet"
+  ],
+  "faafeiloaiga": [
+   "greeting"
+  ],
+  "le manino": [
+   "grey"
+  ],
+  "faanoanoaga": [
+   "grief"
+  ],
+  "faanoanoa": [
+   "grieve",
+   "regret",
+   "sad",
+   "upset"
+  ],
+  "ola": [
+   "grow",
+   "life"
+  ],
+  "tupu": [
+   "grow",
+   "king"
+  ],
+  "ola a’e": [
+   "grown-up"
+  ],
+  "vaavaai": [
+   "guard"
+  ],
+  "le e vaavaaia": [
+   "guardian"
+  ],
+  "mate": [
+   "guess"
+  ],
+  "maló asiasi mai": [
+   "guest"
+  ],
+  "agasala": [
+   "guilt"
+  ],
+  "ua sesé": [
+   "guilty"
+  ],
+  "kitara": [
+   "guitar"
+  ],
+  "fale koleni": [
+   "gymnasium"
+  ],
+  "masani": [
+   "habit"
+  ],
+  "timu aisa": [
+   "hailstorm"
+  ],
+  "lauulu": [
+   "hair"
+  ],
+  "manufasi faa-musalimi": [
+   "halal"
+  ],
+  "nofoaga telé": [
+   "hall"
+  ],
+  "vaelua": [
+   "halve",
+   "split"
+  ],
+  "tipilua": [
+   "halve"
+  ],
+  "hemupeka": [
+   "hamburger"
+  ],
+  "samala": [
+   "hammer"
+  ],
+  "polo e taulimaina": [
+   "handball"
+  ],
+  "tusilima": [
+   "handwriting"
+  ],
+  "ua tupu": [
+   "happen"
+  ],
+  "taulaga": [
+   "harbour"
+  ],
+  "lavea": [
+   "harm",
+   "injure"
+  ],
+  "faatama’ia": [
+   "harm"
+  ],
+  "seleselega": [
+   "harvest"
+  ],
+  "pulou": [
+   "hat"
+  ],
+  "inoino": [
+   "hate"
+  ],
+  "ulu tiga": [
+   "headache"
+  ],
+  "soifua maloloina": [
+   "health"
+  ],
+  "faalogo": [
+   "hear",
+   "listen"
+  ],
+  "fatu": [
+   "heart",
+   "seed"
+  ],
+  "mamafa": [
+   "heavy",
+   "weight"
+  ],
+  "umi": [
+   "height"
+  ],
+  "maualuga": [
+   "height"
+  ],
+  "loto fesoasoani": [
+   "helpful"
+  ],
+  "hemisifia": [
+   "hemisphere"
+  ],
+  "toa": [
+   "hero"
+  ],
+  "faatali": [
+   "hesitate",
+   "wait"
+  ],
+  "faatuai": [
+   "hesitate"
+  ],
+  "naná": [
+   "hide"
+  ],
+  "school aoga maualuga": [
+   "high"
+  ],
+  "mauga": [
+   "hill"
+  ],
+  "suilapalapa": [
+   "hip"
+  ],
+  "haea": [
+   "hire"
+  ],
+  "tala faasolopito": [
+   "history"
+  ],
+  "pu": [
+   "hole"
+  ],
+  "aso malóló": [
+   "holiday"
+  ],
+  "e pu": [
+   "hollow"
+  ],
+  "e pa’ia": [
+   "holy"
+  ],
+  "aiga": [
+   "home",
+   "relative"
+  ],
+  "faamaoni": [
+   "honest",
+   "loyal"
+  ],
+  "horisona": [
+   "horizon"
+  ],
+  "matuá leaga": [
+   "horrible"
+  ],
+  "solofanua": [
+   "horse"
+  ],
+  "falema’i": [
+   "hospital"
+  ],
+  "ae totogi": [
+   "hostel"
+  ],
+  "fale talimáló": [
+   "hotel"
+  ],
+  "u’amea vevela": [
+   "hot-plate"
+  ],
+  "itula": [
+   "hour"
+  ],
+  "fale": [
+   "house",
+   "shelter"
+  ],
+  "e lapo’a": [
+   "huge"
+  ],
+  "mea malie": [
+   "humour"
+  ],
+  "fia ‘ai": [
+   "hungry"
+  ],
+  "tamaifale faapuloulou": [
+   "hut"
+  ],
+  "aisa": [
+   "ice"
+  ],
+  "aisikulimi": [
+   "ice-cream"
+  ],
+  "afai": [
+   "if"
+  ],
+  "ma’i": [
+   "ill",
+   "sick"
+  ],
+  "faatinoga": [
+   "illustration"
+  ],
+  "manatunatu faale-mafaufau": [
+   "imagine"
+  ],
+  "faavave nei lava": [
+   "immediate"
+  ],
+  "fai faavave loa": [
+   "immediately"
+  ],
+  "tagata faimalaga": [
+   "immigrant"
+  ],
+  "e táúa": [
+   "important"
+  ],
+  "e lé mafai": [
+   "impossible"
+  ],
+  "faaleleia": [
+   "improve"
+  ],
+  "ia aofia ai": [
+   "include"
+  ],
+  "tupe maua mai": [
+   "income"
+  ],
+  "totogi": [
+   "income",
+   "salary",
+   "wage"
+  ],
+  "faateleina": [
+   "increase"
+  ],
+  "faasino upu": [
+   "index"
+  ],
+  "atina’e faapisinisi": [
+   "industry"
+  ],
+  "ua ‘ona": [
+   "infection"
+  ],
+  "ta’u mai": [
+   "inform",
+   "mention"
+  ],
+  "nofoia": [
+   "inhabit"
+  ],
+  "faaaigáina": [
+   "inhabit"
+  ],
+  "tagata-ánu’u": [
+   "inhabitant"
+  ],
+  "manu’a": [
+   "injure"
+  ],
+  "laveaga": [
+   "injury"
+  ],
+  "pito i totonu": [
+   "inner"
+  ],
+  "leai se agasala": [
+   "innocent"
+  ],
+  "iniseti": [
+   "insect"
+  ],
+  "tusi mai": [
+   "insert"
+  ],
+  "i totonu": [
+   "inside",
+   "into"
+  ],
+  "tauanau": [
+   "insist",
+   "persuade"
+  ],
+  "ai lo le": [
+   "instead"
+  ],
+  "faatonuga": [
+   "instruction"
+  ],
+  "inisiua": [
+   "insurance"
+  ],
+  "atamai": [
+   "intelligent"
+  ],
+  "manaoga": [
+   "interest"
+  ],
+  "e manaia": [
+   "interesting"
+  ],
+  "initaneti": [
+   "internet"
+  ],
+  "fetaulaiga-auala": [
+   "intersection"
+  ],
+  "faatalanoaga su’esu’e": [
+   "interview"
+  ],
+  "ia i ai": [
+   "into"
+  ],
+  "faafeiloa’iga faailoa mai": [
+   "introduce"
+  ],
+  "faia muamua": [
+   "invent"
+  ],
+  "valaaulia": [
+   "invitation"
+  ],
+  "valaau": [
+   "invite"
+  ],
+  "motu": [
+   "island"
+  ],
+  "falepuipui": [
+   "jail"
+  ],
+  "sioki": [
+   "jar"
+  ],
+  "fuá": [
+   "jealous"
+  ],
+  "ofuvae kákí": [
+   "jeans"
+  ],
+  "tieti": [
+   "jet"
+  ],
+  "afi malosi kesi": [
+   "jet"
+  ],
+  "sua vai": [
+   "jet"
+  ],
+  "tamo’emo’e": [
+   "jog"
+  ],
+  "tagata tamo’emo’e": [
+   "jogger"
+  ],
+  "talaula": [
+   "joke"
+  ],
+  "malaga": [
+   "journey",
+   "travel"
+  ],
+  "pi’iga faa-saina": [
+   "judo"
+  ],
+  "kagalú": [
+   "kangaroo"
+  ],
+  "ki": [
+   "key"
+  ],
+  "mama tautau ki": [
+   "keyring"
+  ],
+  "upu autú": [
+   "keyword"
+  ],
+  "kiki": [
+   "kick"
+  ],
+  "fasioti": [
+   "kill"
+  ],
+  "fasioti tagata": [
+   "killer"
+  ],
+  "kisi": [
+   "kiss"
+  ],
+  "umukuka": [
+   "kitchen"
+  ],
+  "to’otuli": [
+   "kneel"
+  ],
+  "naifi": [
+   "knife"
+  ],
+  "su’i lalaga": [
+   "knit"
+  ],
+  "tu’itu’i": [
+   "knock"
+  ],
+  "koala": [
+   "koala"
+  ],
+  "kukapala": [
+   "kookaburra"
+  ],
+  "fale su’etoto": [
+   "laboratory"
+  ],
+  "laipa": [
+   "labour"
+  ],
+  "lé lava": [
+   "lack"
+  ],
+  "tama laititi": [
+   "lad"
+  ],
+  "ape fa’i": [
+   "ladder"
+  ],
+  "vai tuloto": [
+   "lake"
+  ],
+  "molí": [
+   "lamp"
+  ],
+  "gagana": [
+   "language"
+  ],
+  "a’o le faaiuga": [
+   "lastly"
+  ],
+  "taluai nei lava": [
+   "lately"
+  ],
+  "‘ata": [
+   "laugh"
+  ],
+  "taliéga": [
+   "laughter"
+  ],
+  "taága mea": [
+   "laundry"
+  ],
+  "mea tatá": [
+   "laundry"
+  ],
+  "tulafono": [
+   "law"
+  ],
+  "loía": [
+   "lawyer"
+  ],
+  "paié": [
+   "lazy"
+  ],
+  "ta’ita’i": [
+   "leader"
+  ],
+  "ta’ita’iga": [
+   "leadership"
+  ],
+  "lau laau": [
+   "leaf"
+  ],
+  "tutulu": [
+   "leak"
+  ],
+  "year tausaga oso": [
+   "leap"
+  ],
+  "a’oa’o": [
+   "learn",
+   "teach"
+  ],
+  "pito i ititi": [
+   "least"
+  ],
+  "pa’u": [
+   "leather",
+   "rubber"
+  ],
+  "e tauagavale": [
+   "left-handed"
+  ],
+  "e lima agavale": [
+   "left-handed"
+  ],
+  "tipolo": [
+   "lemon"
+  ],
+  "umí": [
+   "length",
+   "tall"
+  ],
+  "lesona": [
+   "lesson"
+  ],
+  "pusa meli": [
+   "letterbox"
+  ],
+  "le maualuga": [
+   "level"
+  ],
+  "faletusi": [
+   "library"
+  ],
+  "laisene": [
+   "licence"
+  ],
+  "eto": [
+   "lick"
+  ],
+  "tapuni": [
+   "lid",
+   "shut"
+  ],
+  "fanatitili": [
+   "lightning"
+  ],
+  "faagata": [
+   "limit"
+  ],
+  "laina": [
+   "line"
+  ],
+  "laugutu": [
+   "lip"
+  ],
+  "suávai": [
+   "liquid"
+  ],
+  "lisi": [
+   "list"
+  ],
+  "faaotaota": [
+   "litter"
+  ],
+  "la’ititi": [
+   "little",
+   "small"
+  ],
+  "room potu nofonofo": [
+   "living",
+   "lounge"
+  ],
+  "la’u": [
+   "load"
+  ],
+  "uta i luga": [
+   "load"
+  ],
+  "ula": [
+   "lobster"
+  ],
+  "nofoaga": [
+   "location"
+  ],
+  "loka": [
+   "lock"
+  ],
+  "lole": [
+   "lolly"
+  ],
+  "lusi": [
+   "loose"
+  ],
+  "mamulu": [
+   "loose",
+   "slip"
+  ],
+  "gau": [
+   "loss"
+  ],
+  "maualalo": [
+   "low"
+  ],
+  "case mata’itusi laiti": [
+   "lower"
+  ],
+  "tumau": [
+   "loyal"
+  ],
+  "laki": [
+   "luck"
+  ],
+  "e laki": [
+   "lucky"
+  ],
+  "mea patupatu": [
+   "lump"
+  ],
+  "masini": [
+   "machine"
+  ],
+  "tamaita’i": [
+   "madam",
+   "ms"
+  ],
+  "nusipepa": [
+   "magazine",
+   "newspaper"
+  ],
+  "maneta": [
+   "magic"
+  ],
+  "makapai (manulele)": [
+   "magpie"
+  ],
+  "autú": [
+   "main"
+  ],
+  "vali-teuga o mata": [
+   "make-up"
+  ],
+  "tane": [
+   "male",
+   "tank"
+  ],
+  "mamele": [
+   "mammal"
+  ],
+  "ali’i": [
+   "man",
+   "mister"
+  ],
+  "faatonuina": [
+   "manage"
+  ],
+  "pule": [
+   "manager",
+   "owner"
+  ],
+  "moli saina": [
+   "mandarin"
+  ],
+  "faiga": [
+   "manner"
+  ],
+  "e tele": [
+   "many"
+  ],
+  "faafanua": [
+   "map"
+  ],
+  "maluana": [
+   "marijuana"
+  ],
+  "maketi": [
+   "market"
+  ],
+  "faaipoipoga": [
+   "marriage",
+   "wedding"
+  ],
+  "faaipoipo": [
+   "marry"
+  ],
+  "fala": [
+   "mat"
+  ],
+  "ituaiga mea": [
+   "material"
+  ],
+  "numera": [
+   "mathematics"
+  ],
+  "matimatika": [
+   "mathematics"
+  ],
+  "mafai": [
+   "may"
+  ],
+  "atonu e": [
+   "maybe",
+   "perhaps"
+  ],
+  "o a’u": [
+   "me"
+  ],
+  "’aiga": [
+   "meal"
+  ],
+  "uiga": [
+   "meaning"
+  ],
+  "fua": [
+   "measure",
+   "weigh"
+  ],
+  "fuaga": [
+   "measurement"
+  ],
+  "‘a’ano o manu": [
+   "meat"
+  ],
+  "pie paipovi": [
+   "meat"
+  ],
+  "inisinia": [
+   "mechanic"
+  ],
+  "vai": [
+   "medication"
+  ],
+  "faaleogalua": [
+   "medium"
+  ],
+  "feiloa’i": [
+   "meet"
+  ],
+  "meleni": [
+   "melon",
+   "watermelon"
+  ],
+  "ua liusuávai": [
+   "melt"
+  ],
+  "sui": [
+   "member"
+  ],
+  "tauloto": [
+   "memorise"
+  ],
+  "faalelei": [
+   "mend",
+   "properly"
+  ],
+  "faalétonu": [
+   "mess"
+  ],
+  "gaogaosá": [
+   "mess"
+  ],
+  "fe’au": [
+   "message"
+  ],
+  "u’amea": [
+   "metal",
+   "steel"
+  ],
+  "metotia": [
+   "method"
+  ],
+  "auala": [
+   "method",
+   "passage",
+   "path",
+   "road",
+   "street"
+  ],
+  "tagata malaga": [
+   "migrant"
+  ],
+  "le malúlú tele": [
+   "mild"
+  ],
+  "au tau": [
+   "military"
+  ],
+  "susu": [
+   "milk"
+  ],
+  "minelale": [
+   "mineral"
+  ],
+  "toese": [
+   "minus"
+  ],
+  "fa’ata": [
+   "mirror"
+  ],
+  "lagona lé fiafia": [
+   "miserable"
+  ],
+  "tu’u sesé": [
+   "misplace"
+  ],
+  "ua leiloa": [
+   "missing"
+  ],
+  "tama’ita’i": [
+   "missus"
+  ],
+  "susuga": [
+   "mister"
+  ],
+  "measesé": [
+   "mistake"
+  ],
+  "lé malamalama": [
+   "misunderstand",
+   "unconscious"
+  ],
+  "palu": [
+   "mix"
+  ],
+  "paluga": [
+   "mixture"
+  ],
+  "phone telefoni feavea’i": [
+   "mobile"
+  ],
+  "ona po nei": [
+   "modern"
+  ],
+  "le faalialia": [
+   "modest"
+  ],
+  "faasúsú": [
+   "moist"
+  ],
+  "súsú": [
+   "moist"
+  ],
+  "taimi nei": [
+   "moment"
+  ],
+  "tupe": [
+   "money"
+  ],
+  "masina": [
+   "month",
+   "moon"
+  ],
+  "amioga lelei": [
+   "moral"
+  ],
+  "toe faaopopo": [
+   "more"
+  ],
+  "taeao": [
+   "morning",
+   "tomorrow"
+  ],
+  "falesa musilimi": [
+   "mosque"
+  ],
+  "tiná": [
+   "mother"
+  ],
+  "bike uila afi": [
+   "motor"
+  ],
+  "scooter sikuta afi": [
+   "motor"
+  ],
+  "ava aluga": [
+   "moustache"
+  ],
+  "gutu": [
+   "mouth"
+  ],
+  "sósó atu": [
+   "move"
+  ],
+  "gaioi": [
+   "move"
+  ],
+  "gaioiga": [
+   "movement"
+  ],
+  "ata tifaga": [
+   "movie"
+  ],
+  "tele": [
+   "much",
+   "very"
+  ],
+  "atunuu e tele": [
+   "multicultural"
+  ],
+  "faatelega": [
+   "multiplication"
+  ],
+  "faatele": [
+   "multiply"
+  ],
+  "maso": [
+   "muscle"
+  ],
+  "pulou aitu": [
+   "mushroom"
+  ],
+  "musika": [
+   "music"
+  ],
+  "tatau lava": [
+   "must"
+  ],
+  "o lo’u": [
+   "my"
+  ],
+  "mealilo": [
+   "mystery"
+  ],
+  "tomumu": [
+   "nag"
+  ],
+  "telefua": [
+   "naked",
+   "nude"
+  ],
+  "váiti": [
+   "narrow"
+  ],
+  "ese le leaga": [
+   "nasty"
+  ],
+  "máló": [
+   "nation"
+  ],
+  "latalata": [
+   "near"
+  ],
+  "talaane": [
+   "nearby"
+  ],
+  "toeititi lava": [
+   "nearly",
+   "quite"
+  ],
+  "mamá": [
+   "neat",
+   "pure"
+  ],
+  "e tatau": [
+   "necessary",
+   "should"
+  ],
+  "ua": [
+   "neck"
+  ],
+  "mana’o": [
+   "need",
+   "want",
+   "wish"
+  ],
+  "nila": [
+   "needle"
+  ],
+  "tuulafoa’i": [
+   "neglect"
+  ],
+  "neula": [
+   "nerve"
+  ],
+  "faamoega": [
+   "nest"
+  ],
+  "e leai lava": [
+   "never"
+  ],
+  "e fou": [
+   "new"
+  ],
+  "po": [
+   "night",
+   "slap"
+  ],
+  "kalapu": [
+   "nightclub"
+  ],
+  "e leai seisi": [
+   "nobody"
+  ],
+  "lue le ulu": [
+   "nod"
+  ],
+  "pisa": [
+   "noise"
+  ],
+  "ua pisa": [
+   "noisily"
+  ],
+  "pisa tele": [
+   "noisy"
+  ],
+  "aoáuli": [
+   "noon"
+  ],
+  "leai seisi": [
+   "no-one"
+  ],
+  "poo lena foi": [
+   "nor"
+  ],
+  "mea masani": [
+   "normal"
+  ],
+  "mátú": [
+   "north"
+  ],
+  "isu": [
+   "nose"
+  ],
+  "papatoto le isu": [
+   "nosebleed"
+  ],
+  "leai": [
+   "not"
+  ],
+  "leai se mea": [
+   "nothing"
+  ],
+  "faasilasilaga": [
+   "notice"
+  ],
+  "nauna": [
+   "noun"
+  ],
+  "tala fatu": [
+   "novel",
+   "poem"
+  ],
+  "o nei": [
+   "now"
+  ],
+  "o neiaso": [
+   "nowadays"
+  ],
+  "tausi ma’i": [
+   "nurse"
+  ],
+  "usiusita’i": [
+   "obedient"
+  ],
+  "usita’i": [
+   "obey"
+  ],
+  "tete’ega": [
+   "objection"
+  ],
+  "ia maua mai": [
+   "obtain"
+  ],
+  "mea e tupu": [
+   "occasion"
+  ],
+  "moana": [
+   "ocean"
+  ],
+  "ta le taimi": [
+   "o'clock"
+  ],
+  "o le": [
+   "of",
+   "the"
+  ],
+  "solitulafono": [
+   "offence"
+  ],
+  "ofisa": [
+   "office"
+  ],
+  "tagata ofisa": [
+   "officer"
+  ],
+  "faa-ofisa": [
+   "official"
+  ],
+  "aloaia": [
+   "official"
+  ],
+  "age tagata matua": [
+   "old"
+  ],
+  "tasi": [
+   "one"
+  ],
+  "aniani": [
+   "onion"
+  ],
+  "na o le": [
+   "only"
+  ],
+  "se avanoa": [
+   "opening"
+  ],
+  "tipiga": [
+   "operation"
+  ],
+  "faasagatau": [
+   "oppose"
+  ],
+  "tete’e": [
+   "oppose"
+  ],
+  "tu’u faafeagai": [
+   "opposite"
+  ],
+  "fa’aili": [
+   "orchestra"
+  ],
+  "ta’atele": [
+   "ordinary"
+  ],
+  "faalapotopotoga": [
+   "organisation"
+  ],
+  "faatulaga": [
+   "organise",
+   "rank"
+  ],
+  "faatonutonu": [
+   "organise"
+  ],
+  "tupuaga": [
+   "origin"
+  ],
+  "isi": [
+   "other"
+  ],
+  "o á matou": [
+   "our"
+  ],
+  "i fafo": [
+   "outside"
+  ],
+  "ua to’atele tele": [
+   "overcrowded"
+  ],
+  "so’onafai": [
+   "overdo"
+  ],
+  "sa faalogo ai": [
+   "overhear"
+  ],
+  "moea le po": [
+   "overnight"
+  ],
+  "atunuu i fafo": [
+   "overseas"
+  ],
+  "ova le moe": [
+   "oversleep"
+  ],
+  "pasia": [
+   "overtake"
+  ],
+  "okesene": [
+   "oxygen"
+  ],
+  "teu": [
+   "pack"
+  ],
+  "lotoá": [
+   "paddock"
+  ],
+  "itulau": [
+   "page"
+  ],
+  "tigá": [
+   "pain"
+  ],
+  "vali": [
+   "paint"
+  ],
+  "ata ua valiina": [
+   "painting"
+  ],
+  "pea": [
+   "pair"
+  ],
+  "e lua": [
+   "pair"
+  ],
+  "sesega": [
+   "pale"
+  ],
+  "ulo": [
+   "pan"
+  ],
+  "ofuvae": [
+   "pants"
+  ],
+  "ofuvae-totini o fafine": [
+   "pantyhose"
+  ],
+  "palakalafa": [
+   "paragraph"
+  ],
+  "laina tutusa faasasa": [
+   "parallelogram"
+  ],
+  "mátua": [
+   "parent"
+  ],
+  "ae maise lava": [
+   "particular"
+  ],
+  "pa’aga": [
+   "partner"
+  ],
+  "pága": [
+   "partner"
+  ],
+  "pasese": [
+   "passenger"
+  ],
+  "tusifolau": [
+   "passport"
+  ],
+  "paluga falaoa": [
+   "pasta"
+  ],
+  "malologa": [
+   "pause"
+  ],
+  "filemú": [
+   "peace",
+   "quiet"
+  ],
+  "to’afilemú": [
+   "peaceful"
+  ],
+  "peni": [
+   "pen"
+  ],
+  "penitala": [
+   "pencil"
+  ],
+  "case pusa penitala": [
+   "pencil"
+  ],
+  "penikuinu": [
+   "penguin"
+  ],
+  "penitakoni": [
+   "pentagon"
+  ],
+  "pepa feú": [
+   "pepper"
+  ],
+  "cent pasene": [
+   "per"
+  ],
+  "pasene": [
+   "percentage"
+  ],
+  "atoatoa": [
+   "perfect"
+  ],
+  "faatino": [
+   "perform",
+   "physical"
+  ],
+  "fagu sausau": [
+   "perfume"
+  ],
+  "faatagaga": [
+   "permission"
+  ],
+  "tagata": [
+   "person"
+  ],
+  "faaoleole": [
+   "persuade"
+  ],
+  "fagafao": [
+   "pet"
+  ],
+  "penisini": [
+   "petrol"
+  ],
+  "kopi": [
+   "photocopy"
+  ],
+  "faaupuga": [
+   "phrase"
+  ],
+  "faale-tino": [
+   "physical"
+  ],
+  "tagata ta piano": [
+   "pianist"
+  ],
+  "piano": [
+   "piano"
+  ],
+  "pikiniki": [
+   "picnic"
+  ],
+  "fasi mea": [
+   "piece"
+  ],
+  "se vaega": [
+   "piece"
+  ],
+  "faupu’ega": [
+   "pile"
+  ],
+  "aluga": [
+   "pillow"
+  ],
+  "pailate": [
+   "pilot"
+  ],
+  "pine": [
+   "pin"
+  ],
+  "fala aina": [
+   "pineapple"
+  ],
+  "paipa": [
+   "pipe"
+  ],
+  "paneta": [
+   "planet"
+  ],
+  "la’au totó": [
+   "plant"
+  ],
+  "malae taalo": [
+   "playground"
+  ],
+  "ua tele na’uá": [
+   "plenty"
+  ],
+  "tagata fatu tala": [
+   "poet"
+  ],
+  "pou": [
+   "pole"
+  ],
+  "leoleo": [
+   "police"
+  ],
+  "faaaloalo": [
+   "polite",
+   "respect"
+  ],
+  "polokiki": [
+   "politics"
+  ],
+  "faaleagaina": [
+   "pollution"
+  ],
+  "vaitaele": [
+   "pool"
+  ],
+  "atonu e mafai": [
+   "possible"
+  ],
+  "lafo": [
+   "post"
+  ],
+  "pepa-ata e lafo": [
+   "postcard"
+  ],
+  "office fale meli": [
+   "post"
+  ],
+  "pateta": [
+   "potato"
+  ],
+  "pauta": [
+   "powder"
+  ],
+  "matuá malosi": [
+   "powerful"
+  ],
+  "masani e faatino": [
+   "practical"
+  ],
+  "faataitai": [
+   "practise"
+  ],
+  "tatalo": [
+   "pray"
+  ],
+  "talosaga": [
+   "prayer"
+  ],
+  "táua": [
+   "precious"
+  ],
+  "tó": [
+   "pregnant"
+  ],
+  "ma’itaga": [
+   "pregnant"
+  ],
+  "mafaufauga lé faavaéa": [
+   "prejudice"
+  ],
+  "sauniuniga": [
+   "preparation"
+  ],
+  "sauni": [
+   "prepare"
+  ],
+  "pelesitene": [
+   "president"
+  ],
+  "faatagá": [
+   "pretend"
+  ],
+  "faafoliga": [
+   "pretend"
+  ],
+  "puipuia mai": [
+   "prevent"
+  ],
+  "talu ai": [
+   "previous"
+  ],
+  "faamaualuga": [
+   "pride",
+   "proud"
+  ],
+  "school aoga maualalo": [
+   "primary"
+  ],
+  "minister palemia": [
+   "prime"
+  ],
+  "uiga faamaoni": [
+   "principle"
+  ],
+  "tapula’a": [
+   "principle",
+   "standard"
+  ],
+  "fale puipui": [
+   "prison"
+  ],
+  "atonu lava": [
+   "probability"
+  ],
+  "atonu a": [
+   "probable"
+  ],
+  "leiloa a pe": [
+   "probably"
+  ],
+  "faafitauli": [
+   "problem"
+  ],
+  "faagasolo": [
+   "proceed"
+  ],
+  "soso’o mai ai": [
+   "proceed"
+  ],
+  "faagasologa": [
+   "process"
+  ],
+  "savaliga faatulaga lelei": [
+   "procession"
+  ],
+  "talitonuga": [
+   "profession"
+  ],
+  "faatuatuaga": [
+   "profession"
+  ],
+  "polófesa": [
+   "professor"
+  ],
+  "polófiti": [
+   "profit"
+  ],
+  "polokalama": [
+   "program"
+  ],
+  "mea e fai": [
+   "project"
+  ],
+  "soánauna": [
+   "pronoun"
+  ],
+  "faaleo": [
+   "pronounce"
+  ],
+  "faaléoga": [
+   "pronunciation"
+  ],
+  "faamaoniga": [
+   "proof"
+  ],
+  "faiga sa’o": [
+   "proper"
+  ],
+  "mea totino": [
+   "property"
+  ],
+  "puipui": [
+   "protect",
+   "wall"
+  ],
+  "puipuiga": [
+   "protection"
+  ],
+  "faamaonia": [
+   "prove"
+  ],
+  "saunia": [
+   "provide"
+  ],
+  "papu": [
+   "pub"
+  ],
+  "mo le toatele": [
+   "public"
+  ],
+  "pamu": [
+   "pump"
+  ],
+  "faasala": [
+   "punish"
+  ],
+  "faasalaga": [
+   "punishment"
+  ],
+  "pá’auli": [
+   "purple"
+  ],
+  "ofu moe": [
+   "pyjamas"
+  ],
+  "piramita": [
+   "pyramid"
+  ],
+  "tulaga lelei": [
+   "quality"
+  ],
+  "kuata": [
+   "quarter"
+  ],
+  "tupu tama’ita’i": [
+   "queen"
+  ],
+  "kiú": [
+   "queue"
+  ],
+  "faavave": [
+   "quickly",
+   "rapid"
+  ],
+  "lé pisa": [
+   "quiet"
+  ],
+  "leai se pisa": [
+   "quietly",
+   "silent"
+  ],
+  "musu": [
+   "quit",
+   "refuse"
+  ],
+  "faailogalanu": [
+   "racism"
+  ],
+  "faailogatagata": [
+   "racism"
+  ],
+  "ala o nofoaafi": [
+   "railway"
+  ],
+  "timu": [
+   "rain"
+  ],
+  "coat ofu faatimu": [
+   "rain"
+  ],
+  "si’i i luga": [
+   "raise"
+  ],
+  "mau ituaiga": [
+   "range"
+  ],
+  "seáseá lava": [
+   "rare"
+  ],
+  "maka": [
+   "raw"
+  ],
+  "tali mai": [
+   "react",
+   "reply"
+  ],
+  "taliina mai": [
+   "reaction"
+  ],
+  "faitau": [
+   "read"
+  ],
+  "ua sauni": [
+   "ready"
+  ],
+  "ana iloa": [
+   "realise"
+  ],
+  "pito i tua": [
+   "rear"
+  ],
+  "pogai": [
+   "reason",
+   "stem"
+  ],
+  "talu ai nei": [
+   "recent"
+  ],
+  "iloaina": [
+   "recognise"
+  ],
+  "faatafafá": [
+   "rectangle"
+  ],
+  "lanumúmú": [
+   "red"
+  ],
+  "faaititia": [
+   "reduce"
+  ],
+  "faasino": [
+   "refer"
+  ],
+  "laufalí": [
+   "referee"
+  ],
+  "pusa aisa": [
+   "refrigerator"
+  ],
+  "tagata sulufa’i": [
+   "refugee"
+  ],
+  "nu’u": [
+   "region",
+   "settlement",
+   "town",
+   "village"
+  ],
+  "fai ma masani": [
+   "regular"
+  ],
+  "faifaipea": [
+   "regularly"
+  ],
+  "mafutaga": [
+   "relationship"
+  ],
+  "fefaauóaiga": [
+   "relationship"
+  ],
+  "lé popole": [
+   "relax"
+  ],
+  "totoe": [
+   "remain"
+  ],
+  "manatua": [
+   "remember"
+  ],
+  "faamanatu": [
+   "remind"
+  ],
+  "toe faamanatuga": [
+   "reminder"
+  ],
+  "ave ese": [
+   "remove"
+  ],
+  "toe fai": [
+   "repeat"
+  ],
+  "toesui": [
+   "replace"
+  ],
+  "tagata tusitala": [
+   "reporter"
+  ],
+  "malo faatemokalate": [
+   "republic"
+  ],
+  "lavea’i": [
+   "rescue"
+  ],
+  "tiute": [
+   "responsibility"
+  ],
+  "o ou tiute": [
+   "responsible"
+  ],
+  "faleaiga": [
+   "restaurant"
+  ],
+  "room potu malóló": [
+   "rest"
+  ],
+  "iuga": [
+   "result"
+  ],
+  "toe su’esu’e": [
+   "revise"
+  ],
+  "taui": [
+   "reward"
+  ],
+  "lipine": [
+   "ribbon"
+  ],
+  "alaisa": [
+   "rice"
+  ],
+  "mau’oa": [
+   "rich",
+   "wealth"
+  ],
+  "aveese": [
+   "rid"
+  ],
+  "ti’eti’e": [
+   "ride"
+  ],
+  "pula": [
+   "ripe"
+  ],
+  "lé mautinoa": [
+   "risk",
+   "wonder"
+  ],
+  "vaitafe": [
+   "river",
+   "stream"
+  ],
+  "‘e’é": [
+   "roar",
+   "shout"
+  ],
+  "faataió": [
+   "roar"
+  ],
+  "loupoto": [
+   "robot"
+  ],
+  "papa": [
+   "rock"
+  ],
+  "vaima’a": [
+   "rockpool"
+  ],
+  "to’oto’o": [
+   "rod"
+  ],
+  "taualuga": [
+   "roof"
+  ],
+  "a’a": [
+   "root"
+  ],
+  "maea": [
+   "rope"
+  ],
+  "so’ona fai": [
+   "rough"
+  ],
+  "tau-tupu": [
+   "royal"
+  ],
+  "lapisi": [
+   "rubbish"
+  ],
+  "lémafaufau": [
+   "rude"
+  ],
+  "sitepu": [
+   "rung"
+  ],
+  "tulaga lua": [
+   "runner-up"
+  ],
+  "tope": [
+   "rush"
+  ],
+  "saogalémú": [
+   "safe"
+  ],
+  "sefe": [
+   "safe"
+  ],
+  "salati": [
+   "salad"
+  ],
+  "faatau atu": [
+   "sale",
+   "sell"
+  ],
+  "masima": [
+   "salt"
+  ],
+  "tutusa": [
+   "same"
+  ],
+  "oneone": [
+   "sand"
+  ],
+  "se’evae tafao": [
+   "sandal"
+  ],
+  "sanu uisi": [
+   "sandwich"
+  ],
+  "maliega": [
+   "satisfaction"
+  ],
+  "faamalieina": [
+   "satisfaction",
+   "satisfy"
+  ],
+  "ua malie lelei": [
+   "satisfactory"
+  ],
+  "sosi": [
+   "sauce"
+  ],
+  "sosisi": [
+   "sausage"
+  ],
+  "tautala": [
+   "say",
+   "speak"
+  ],
+  "taulemaua": [
+   "scarce"
+  ],
+  "sikafu": [
+   "scarf"
+  ],
+  "vaaiga": [
+   "scene",
+   "scenery",
+   "view"
+  ],
+  "a’oga": [
+   "school"
+  ],
+  "shoe seevae a’oga": [
+   "school"
+  ],
+  "poto mai suesuega": [
+   "science"
+  ],
+  "seleulu": [
+   "scissors"
+  ],
+  "valaau leo tele": [
+   "scream"
+  ],
+  "ie faitifaga": [
+   "screen"
+  ],
+  "sikulú": [
+   "screw"
+  ],
+  "sami": [
+   "sea"
+  ],
+  "gogo sami": [
+   "seagull"
+  ],
+  "lona lua": [
+   "secondly"
+  ],
+  "saili": [
+   "seek"
+  ],
+  "seasea lava": [
+   "seldom"
+  ],
+  "manatufaapito": [
+   "selfish"
+  ],
+  "auina": [
+   "send"
+  ],
+  "lelei le mafaufau": [
+   "sensible"
+  ],
+  "faiupu": [
+   "sentence"
+  ],
+  "faasologa": [
+   "sequence"
+  ],
+  "mataupu faasolo": [
+   "series"
+  ],
+  "auauna": [
+   "servant",
+   "slave"
+  ],
+  "auauna mai": [
+   "serve"
+  ],
+  "auaunaga": [
+   "service"
+  ],
+  "tagata nofo mau": [
+   "settler"
+  ],
+  "su’i": [
+   "sew"
+  ],
+  "paolo": [
+   "shade",
+   "shadow"
+  ],
+  "ata lafoia": [
+   "shadow"
+  ],
+  "lúlú": [
+   "shake"
+  ],
+  "o le a": [
+   "shall"
+  ],
+  "papa’u": [
+   "shallow"
+  ],
+  "foliga": [
+   "shape"
+  ],
+  "ma’ai": [
+   "sharp"
+  ],
+  "sele": [
+   "shave"
+  ],
+  "mamoe": [
+   "sheep"
+  ],
+  "fata": [
+   "shelf"
+  ],
+  "atigi figota": [
+   "shell"
+  ],
+  "lafitaga": [
+   "shelter"
+  ],
+  "susulu": [
+   "shine"
+  ],
+  "e ‘i’ila": [
+   "shiny"
+  ],
+  "ofutino": [
+   "shirt"
+  ],
+  "te’i": [
+   "shock"
+  ],
+  "fana": [
+   "shoot"
+  ],
+  "cut faapu’upu’uga": [
+   "short"
+  ],
+  "tipi faapu’upu’u": [
+   "short"
+  ],
+  "vala’au": [
+   "shout"
+  ],
+  "sua ese": [
+   "shove"
+  ],
+  "una’i": [
+   "shove"
+  ],
+  "bay potu ma’i": [
+   "sick"
+  ],
+  "faatafatafa": [
+   "sideways"
+  ],
+  "va’aiga": [
+   "sight"
+  ],
+  "fa’ailo": [
+   "signal"
+  ],
+  "silika": [
+   "silk"
+  ],
+  "siliva": [
+   "silver"
+  ],
+  "taitutusa": [
+   "similar"
+  ],
+  "foliga faatasi": [
+   "similar"
+  ],
+  "pese": [
+   "sing",
+   "song"
+  ],
+  "mitiafu lima pupu’u": [
+   "singlet"
+  ],
+  "afioga": [
+   "sir"
+  ],
+  "uso  o teine": [
+   "sister"
+  ],
+  "tuafafine o tama": [
+   "sister"
+  ],
+  "nofo": [
+   "sit",
+   "stay"
+  ],
+  "laupapa faase’e": [
+   "skateboard",
+   "surfboard"
+  ],
+  "faase’ega": [
+   "skiing"
+  ],
+  "e atamai": [
+   "skilful"
+  ],
+  "sakete": [
+   "skirt"
+  ],
+  "lagi": [
+   "sky"
+  ],
+  "muágagana": [
+   "slang"
+  ],
+  "‘agaga": [
+   "slang"
+  ],
+  "moe": [
+   "sleep"
+  ],
+  "fiamoe": [
+   "sleepy"
+  ],
+  "faase’e": [
+   "slide"
+  ],
+  "pa’e’e": [
+   "slim"
+  ],
+  "siligi": [
+   "sling"
+  ],
+  "mase’ese’e": [
+   "slippery"
+  ],
+  "malifa": [
+   "slope"
+  ],
+  "faifai lémú": [
+   "slowly"
+  ],
+  "lamolemole": [
+   "smooth"
+  ],
+  "mea ‘ai mámá": [
+   "snack"
+  ],
+  "laititi": [
+   "snack"
+  ],
+  "gata": [
+   "snake"
+  ],
+  "mafatua": [
+   "sneeze"
+  ],
+  "aisa to’a": [
+   "snow"
+  ],
+  "fasimoli": [
+   "soap"
+  ],
+  "soka": [
+   "soccer"
+  ],
+  "sosaiete": [
+   "society"
+  ],
+  "faaleo laititi": [
+   "softly"
+  ],
+  "faafó’ia": [
+   "solve"
+  ],
+  "teuteu": [
+   "solve"
+  ],
+  "o nisi": [
+   "some"
+  ],
+  "o se tagata": [
+   "somebody"
+  ],
+  "seisi tagata": [
+   "someone"
+  ],
+  "o nisi taimi": [
+   "sometimes"
+  ],
+  "atali’i": [
+   "son"
+  ],
+  "faamalie atu": [
+   "sorry"
+  ],
+  "agaga": [
+   "soul"
+  ],
+  "leo": [
+   "sound",
+   "voice"
+  ],
+  "supo": [
+   "soup"
+  ],
+  "‘o’ona": [
+   "sour"
+  ],
+  "saute": [
+   "south"
+  ],
+  "suótipi": [
+   "spade"
+  ],
+  "sipea": [
+   "spare"
+  ],
+  "tautalaga": [
+   "speech"
+  ],
+  "sipela": [
+   "spell"
+  ],
+  "faaalu": [
+   "spend"
+  ],
+  "si’osi’omaga": [
+   "sphere"
+  ],
+  "masa’a": [
+   "spill"
+  ],
+  "ta’amilo": [
+   "spin"
+  ],
+  "feanu": [
+   "spit"
+  ],
+  "faapisipisi": [
+   "splash"
+  ],
+  "sipuni": [
+   "spoon"
+  ],
+  "taaaloga": [
+   "sport"
+  ],
+  "shoe seevae taalo": [
+   "sports"
+  ],
+  "faasalalau": [
+   "spread"
+  ],
+  "fata faufaapitoa": [
+   "stage"
+  ],
+  "faasitepu": [
+   "stair"
+  ],
+  "aveau": [
+   "starfish"
+  ],
+  "faamatalaga tusia": [
+   "statement"
+  ],
+  "faatusa": [
+   "statue"
+  ],
+  "mausalí": [
+   "steady"
+  ],
+  "fasi povi ‘a’ano": [
+   "steak"
+  ],
+  "gaói": [
+   "steal"
+  ],
+  "áusa": [
+   "steam"
+  ],
+  "sitima": [
+   "steam"
+  ],
+  "tifató i lalo": [
+   "steep"
+  ],
+  "tuafafine": [
+   "stepsister"
+  ],
+  "uso": [
+   "stepsister"
+  ],
+  "tiná faatasi-tamá esese": [
+   "stepsister"
+  ],
+  "ia": [
+   "stepsister",
+   "then"
+  ],
+  "pi’ipi’i": [
+   "sticky"
+  ],
+  "e maló": [
+   "stiff"
+  ],
+  "malosi": [
+   "stiff",
+   "strength"
+  ],
+  "sa’eu": [
+   "stir"
+  ],
+  "tiga le manava": [
+   "stomach-ache"
+  ],
+  "ma’a": [
+   "stone"
+  ],
+  "faleoloa": [
+   "store"
+  ],
+  "fugafale": [
+   "storey"
+  ],
+  "afá": [
+   "storm"
+  ],
+  "tala": [
+   "story",
+   "tale"
+  ],
+  "ogaumu": [
+   "stove"
+  ],
+  "faasa’o": [
+   "straighten"
+  ],
+  "e ese lava": [
+   "strange"
+  ],
+  "sitolóperi": [
+   "strawberry"
+  ],
+  "malosiaga": [
+   "strength"
+  ],
+  "faasauá": [
+   "strict"
+  ],
+  "manoa": [
+   "string"
+  ],
+  "milimili": [
+   "stroke"
+  ],
+  "tamaititi a’oga": [
+   "student"
+  ],
+  "sitaili": [
+   "style"
+  ],
+  "totoga": [
+   "substance"
+  ],
+  "to’ese": [
+   "subtract"
+  ],
+  "to’esega": [
+   "subtraction"
+  ],
+  "itumalo": [
+   "suburb"
+  ],
+  "ua manuia": [
+   "succeed"
+  ],
+  "faamanuiaina": [
+   "success"
+  ],
+  "susu mimiti": [
+   "suck"
+  ],
+  "faafuase’i lava": [
+   "sudden"
+  ],
+  "ua faafuase’i": [
+   "suddenly"
+  ],
+  "tigaina": [
+   "suffer"
+  ],
+  "suka": [
+   "sugar"
+  ],
+  "fautua": [
+   "suggest"
+  ],
+  "e fetaui": [
+   "suitable"
+  ],
+  "sama": [
+   "summer"
+  ],
+  "taumafanafana": [
+   "summer"
+  ],
+  "la": [
+   "sun"
+  ],
+  "pulou faalá": [
+   "sunhat"
+  ],
+  "ua la": [
+   "sunny"
+  ],
+  "tali-lá": [
+   "sunscreen"
+  ],
+  "ua mautinoa": [
+   "sure"
+  ],
+  "pito i luga": [
+   "surface"
+  ],
+  "faai’u": [
+   "surname"
+  ],
+  "si’osi’oina": [
+   "surround"
+  ],
+  "ua sao mai": [
+   "survival"
+  ],
+  "faasao": [
+   "survive"
+  ],
+  "faaolaina mai": [
+   "survive"
+  ],
+  "folo": [
+   "swallow"
+  ],
+  "salu": [
+   "sweep"
+  ],
+  "suamalie": [
+   "sweet"
+  ],
+  "corn saga": [
+   "sweet"
+  ],
+  "potato pateto suamalie": [
+   "sweet"
+  ],
+  "‘a’au": [
+   "swim"
+  ],
+  "fe’ausi": [
+   "swim"
+  ],
+  "tagata ‘a’au": [
+   "swimmer"
+  ],
+  "fe’ausiga": [
+   "swimming"
+  ],
+  "carnival tauvaga ‘a’au": [
+   "swimming"
+  ],
+  "costume lavalava ta’ele": [
+   "swimming"
+  ],
+  "fula": [
+   "swollen"
+  ],
+  "pelu": [
+   "sword"
+  ],
+  "pigi pogo": [
+   "table"
+  ],
+  "si’usi’u": [
+   "tail"
+  ],
+  "lafoga": [
+   "tax"
+  ],
+  "tamaitaavale la’u pasese": [
+   "taxi"
+  ],
+  "faia’oga": [
+   "teacher"
+  ],
+  "aide faia’oga fesoasoani": [
+   "teacher's"
+  ],
+  "‘au": [
+   "team"
+  ],
+  "faalili": [
+   "tease"
+  ],
+  "poto faasaienisi": [
+   "technology"
+  ],
+  "booth pusa telefoni": [
+   "telephone"
+  ],
+  "mea vá’ai": [
+   "telescope"
+  ],
+  "ta’u": [
+   "tell"
+  ],
+  "falesá": [
+   "temple"
+  ],
+  "lé tumau": [
+   "temporary"
+  ],
+  "tenisi": [
+   "tennis"
+  ],
+  "fale ‘ie": [
+   "tent"
+  ],
+  "mata’utia": [
+   "terrible"
+  ],
+  "lé lelei": [
+   "terrible"
+  ],
+  "e uiga ese": [
+   "terrific"
+  ],
+  "tusitusiga": [
+   "text"
+  ],
+  "a latou": [
+   "their"
+  ],
+  "lo latou": [
+   "their"
+  ],
+  "o latou": [
+   "them",
+   "they"
+  ],
+  "le taimi lena": [
+   "then"
+  ],
+  "o lo’o": [
+   "there"
+  ],
+  "meafuafiva": [
+   "thermometer"
+  ],
+  "mafiafia": [
+   "thick"
+  ],
+  "tagata gaoi": [
+   "thief"
+  ],
+  "manifinifi": [
+   "thin"
+  ],
+  "togi": [
+   "throw"
+  ],
+  "lima matua": [
+   "thumb"
+  ],
+  "fagatitili": [
+   "thunder"
+  ],
+  "tumamá": [
+   "tidy"
+  ],
+  "mau": [
+   "tight"
+  ],
+  "fufusi": [
+   "tight"
+  ],
+  "faasipa": [
+   "tilt"
+  ],
+  "solo pepa": [
+   "tissue"
+  ],
+  "faaulutala": [
+   "title"
+  ],
+  "i": [
+   "to"
+  ],
+  "le asó": [
+   "today"
+  ],
+  "aso nei": [
+   "today"
+  ],
+  "tamatamaivae": [
+   "toe"
+  ],
+  "falevao": [
+   "toilet"
+  ],
+  "tamato": [
+   "tomato"
+  ],
+  "laulaufaiva": [
+   "tongue"
+  ],
+  "mea faigaluega": [
+   "tool"
+  ],
+  "nifo": [
+   "tooth"
+  ],
+  "nifo tigá": [
+   "toothache"
+  ],
+  "malaga tafafao": [
+   "tour"
+  ],
+  "aga’i atu": [
+   "towards"
+  ],
+  "‘olo": [
+   "tower"
+  ],
+  "‘a’ai": [
+   "town"
+  ],
+  "mea taalo": [
+   "toy"
+  ],
+  "lolomi": [
+   "trace"
+  ],
+  "soli": [
+   "tread"
+  ],
+  "la’au": [
+   "tree",
+   "wood"
+  ],
+  "gatete": [
+   "tremble"
+  ],
+  "ituaiga o tagata": [
+   "tribe"
+  ],
+  "faalaititi": [
+   "trim"
+  ],
+  "ofuvae  vae’u’umi": [
+   "trousers"
+  ],
+  "loli": [
+   "truck"
+  ],
+  "e moni": [
+   "true"
+  ],
+  "mitiafu failima": [
+   "t-shirt"
+  ],
+  "tapu": [
+   "tub"
+  ],
+  "pa’u fa’aga’au": [
+   "tube"
+  ],
+  "fa’alua": [
+   "twice"
+  ],
+  "mimilo": [
+   "twist",
+   "wring"
+  ],
+  "pa’u taavale": [
+   "tyre"
+  ],
+  "auleaga": [
+   "ugly"
+  ],
+  "faamalu": [
+   "umbrella"
+  ],
+  "ua leiloa seisi": [
+   "unconscious"
+  ],
+  "i lalo ifo": [
+   "under"
+  ],
+  "lea ua fai": [
+   "undergo"
+  ],
+  "ofuvae laiti": [
+   "underpants"
+  ],
+  "toe tatala": [
+   "undo"
+  ],
+  "lé faigaluega": [
+   "unemployed"
+  ],
+  "toniga": [
+   "uniform"
+  ],
+  "iuni": [
+   "union"
+  ],
+  "iunivesa": [
+   "universe"
+  ],
+  "iunivesité": [
+   "university"
+  ],
+  "se’i o’o ina": [
+   "until"
+  ],
+  "e ‘ese lava": [
+   "unusual"
+  ],
+  "lé masani ai": [
+   "unusual"
+  ],
+  "maualuga a’e": [
+   "upper"
+  ],
+  "tusa’o": [
+   "upright"
+  ],
+  "fogáfaleiluga": [
+   "upstairs"
+  ],
+  "ole atu": [
+   "urge"
+  ],
+  "faavave lava": [
+   "urgent"
+  ],
+  "matou": [
+   "us"
+  ],
+  "alatoto": [
+   "vain"
+  ],
+  "vanu": [
+   "valley"
+  ],
+  "e taúa": [
+   "valuable"
+  ],
+  "tamai loli": [
+   "van"
+  ],
+  "fefiloia’i": [
+   "variety"
+  ],
+  "fesuisuia’i": [
+   "vary"
+  ],
+  "i isi mau": [
+   "various"
+  ],
+  "fuála’au": [
+   "vegetable"
+  ],
+  "veape": [
+   "verb"
+  ],
+  "foma’i manu": [
+   "veterinarian"
+  ],
+  "fa’asauá": [
+   "violent"
+  ],
+  "mata’utia leaga": [
+   "violent"
+  ],
+  "vailini": [
+   "violin"
+  ],
+  "asiasi": [
+   "visit"
+  ],
+  "tagata asiasi": [
+   "visitor"
+  ],
+  "palota": [
+   "vote"
+  ],
+  "vaueli": [
+   "vowel"
+  ],
+  "faigamalaga": [
+   "voyage"
+  ],
+  "ala": [
+   "wake"
+  ],
+  "savali": [
+   "walk"
+  ],
+  "ato tupe": [
+   "wallet"
+  ],
+  "fealualua’i": [
+   "wander"
+  ],
+  "uálata": [
+   "waratah"
+  ],
+  "toto mafanafana": [
+   "warm-blooded"
+  ],
+  "lapata’i": [
+   "warn"
+  ],
+  "lapata’iga": [
+   "warning"
+  ],
+  "galugalu": [
+   "wavy"
+  ],
+  "migimigi": [
+   "wavy"
+  ],
+  "ga’o": [
+   "wax"
+  ],
+  "tatou": [
+   "we"
+  ],
+  "vaivai": [
+   "weak"
+  ],
+  "e mau’oa": [
+   "wealthy"
+  ],
+  "maumea": [
+   "wealthy"
+  ],
+  "a’upega": [
+   "weapon"
+  ],
+  "vaiaso": [
+   "week"
+  ],
+  "sisifo": [
+   "west"
+  ],
+  "uili": [
+   "wheel"
+  ],
+  "‘a’o": [
+   "while"
+  ],
+  "sasa": [
+   "whip"
+  ],
+  "musumusu": [
+   "whisper"
+  ],
+  "lanu pa’epa’e": [
+   "white"
+  ],
+  "laupapa pa’epa’e": [
+   "whiteboard"
+  ],
+  "meaatoa": [
+   "whole"
+  ],
+  "aiseá": [
+   "why"
+  ],
+  "amioleaga": [
+   "wicked"
+  ],
+  "‘aivao": [
+   "wild"
+  ],
+  "manumalo": [
+   "win"
+  ],
+  "faamalama": [
+   "window"
+  ],
+  "sill laupapa faamalama": [
+   "window"
+  ],
+  "savili": [
+   "windy"
+  ],
+  "lagilagiá": [
+   "windy"
+  ],
+  "apa’au": [
+   "wing"
+  ],
+  "taumalúlú": [
+   "winter"
+  ],
+  "soloi": [
+   "wipe"
+  ],
+  "molimau": [
+   "witness"
+  ],
+  "fafine": [
+   "woman"
+  ],
+  "kamuta": [
+   "woodwork"
+  ],
+  "fulufulu mamoe": [
+   "wool"
+  ],
+  "upu": [
+   "word"
+  ],
+  "lelei atu": [
+   "worth"
+  ],
+  "sili atu": [
+   "worth"
+  ],
+  "afífí": [
+   "wrap"
+  ],
+  "titina": [
+   "wring"
+  ],
+  "tapulima": [
+   "wrist"
+  ],
+  "tusi": [
+   "write"
+  ],
+  "fá’ata": [
+   "x-ray"
+  ],
+  "va’a failá": [
+   "yacht"
+  ],
+  "iata": [
+   "yard"
+  ],
+  "mavava": [
+   "yawn"
+  ],
+  "lanu samasama": [
+   "yellow"
+  ],
+  "ananafi": [
+   "yesterday"
+  ],
+  "‘oe": [
+   "you"
+  ],
+  "outou": [
+   "you"
+  ],
+  "talavou": [
+   "young"
+  ],
+  "lou": [
+   "your"
+  ],
+  "sone": [
+   "zone"
+  ],
+  "sú": [
+   "zoo"
+  ],
+  "sukini": [
+   "zucchini"
+  ]
+ }
+}
