@@ -323,6 +323,17 @@ _POSS_PERSON = {
 }
 
 
+# A GENERATED FORM CAN COLLIDE WITH A REAL WORD, and the paradigm must give
+# way when it does -- the same mistake as `maua` "obtain" and `taua` "war"
+# sitting in the pronoun table. `sau` is `sa`+`u` on paper and the verb "come"
+# in the text: 229 occurrences, and the curation glosses every unit starting
+# with it "come" or "came". `o le a sau` is "will come", not "will your".
+#
+# The possessive it would have been is `sa’u`, with the glottal, which is
+# generated separately and kept.
+_NOT_POSSESSIVE = {'sau'}
+
+
 def _possessives():
     """The possessive paradigm: class x person x article.
 
@@ -344,11 +355,19 @@ def _possessives():
             bare = (art + suffix).strip()
             out[bare] = (cls, person, 'bare')
             out[('l' + art + suffix).strip()] = (cls, person, 'with article')
-            out[('s' + art + suffix).strip()] = (cls, person, 'non-specific')
+            ns = ('s' + art + suffix).strip()
+            if ns not in _NOT_POSSESSIVE:
+                out[ns] = (cls, person, 'non-specific')
     return out
 
 
 POSSESSIVES = _possessives()
+
+# The non-specific series -- `se` and the `so-`/`sa-` possessives built on it.
+# It is the grammar of NOT KNOWING: which one, whose, whether there is one at
+# all. `o le a` leans on it to ask a question.
+NON_SPECIFIC = ({f for f, v in POSSESSIVES.items() if v[2] == 'non-specific'}
+                | {'se', 'ni', 'so', 'sa'})
 # The bare articles themselves, which the paradigm above does not generate
 # because they carry no person: `lo` and `la` stand before a following
 # pronoun or noun phrase (`lo latou atua`, `la latou savaliga`).
@@ -1015,10 +1034,25 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         return None
 
     if f == 'o le a':
-        # THE FUTURE, AND ALSO "WHAT". `o le a le mea` is "what thing", `o le
-        # a se ...` likewise -- an article after it makes it the interrogative,
-        # 31 of the curated "what" readings against a verb everywhere else.
-        if n in ('le', 'se'):
+        # THE FUTURE, AND ALSO "WHAT" -- and the user's account of why: "theres
+        # many ways to use it because of uncertainty and not knowing what or if
+        # its that person's". The uncertainty is carried by the NON-SPECIFIC
+        # series, which is why `o le a se mea` asks "what is that thing" while
+        # `o le a alu` simply says "shall go":
+        #
+        #   o le a se mea     ->  "And WHAT will ye do..."
+        #   o le a sa latou   ->  a question
+        #   o le a sa outou   ->  a question
+        #   o le a le         ->  59 questions against 67 futures -- a coin
+        #                         flip, which is exactly why the VERSE decides
+        #   everything else   ->  1-6% questions; the future
+        #
+        # `sau` is excluded: it is the verb "come", not `sa’u` the possessive,
+        # and `o le a sau mai` is "there shall come".
+        #
+        # Proposing "what" costs nothing when it is wrong, because a frame's
+        # answer is only written if the verse actually carries the word.
+        if n == 'le' or (n in NON_SPECIFIC and n != 'sau'):
             return 'what'
         return 'shall'
 
