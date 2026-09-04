@@ -1372,7 +1372,28 @@ def normalise_glottal(text):
 #
 # Every pair below is attested in this corpus, with its own occurrence counts,
 # and the glosses are the ones the translator actually chose.
+# ── GAGANA FA’AALOALO, the respectful register ───────────────────────────────
+# The chiefly vocabulary, and in this corpus it is the DIVINE register: these
+# are the words the scriptures use of God. The entries below marked "Pratt"
+# were taken from his dictionary, which flags a chiefly word in its definition
+# ("a chief's voice", "to speak. Used of chiefs", "life. (Chiefs word.)") --
+# 110 such entries, of which 21 occur here. The web has almost nothing: the
+# pages on gagana fa’aaloalo give a handful of pairs (maota/fale, suafa/igoa,
+# afio/sau, soifua/ola) and no list.
 RESPECTFUL = {
+    # `foliga` is the respectful word for a face -- `o le foliga o le Atua` is
+    # "the face of God", where `mata` would be the ordinary word. The corpus
+    # also uses it for image/form/likeness, which is the same root sense.
+    'foliga': ('mata', 'face, image, likeness'),
+    'afioga':    ('upu', 'word, address'),          # Pratt; 294 in the corpus
+    'soifua':    ('ola', 'life, live'),             # Pratt "life. (Chiefs word.)"
+    'fetalaiga': ('upu', 'word, speech'),           # Pratt "a chief's speech"
+    'malolo':    ('malolo', 'rest'),                # 25
+    'susuga':    ('igoa', 'address, title'),        # the form for teachers, ministers
+    'tofa':      ('moe', 'sleep'),                  # Pratt "to sleep, of chiefs"
+    'laufofoga': ('mata', 'face'),                  # Pratt "a chief's eyelids"
+    'sisila':    ('vaai', 'look, see, know'),       # Pratt "(a chief's word)"
+    'lauao':     ('lauulu', 'hair'),                # Pratt "a chief's hair"
     # respectful          common      sense           (respectful n, common n)
     'fetalai':   ('tautala', 'speak, says'),          # 561 / 382
     'saunoa':    ('tautala', 'speak'),                 #   8 / 382

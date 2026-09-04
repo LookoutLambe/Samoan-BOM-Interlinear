@@ -469,10 +469,17 @@ def dominant_lemma(dist) -> str:
                 break
         else:
             groups.append([(word, n)])
-    best = max(groups, key=lambda g: sum(n for _, n in g))
-    if sum(n for _, n in best) / total < 0.60:
+    sizes = sorted((sum(n for _, n in g), i) for i, g in enumerate(groups))
+    top, idx = sizes[-1]
+    runner = sizes[-2][0] if len(sizes) > 1 else 0
+    # A FIXED SHARE IS THE WRONG TEST when the runner-up is tiny. `foliga` is
+    # appear/appears/appeared/appearance 10 times of 17 -- 58.8%, under a 60%
+    # bar -- against a next-biggest group of 2. That is not a disagreement, it
+    # is one word with a long tail, and the user confirms it: `e foliga mai`
+    # means "it appears". So a clear plurality counts as well as a majority.
+    if top / total < 0.60 and not (top >= 2 * runner and top / total >= 0.40):
         return ""
-    return best[0][0]
+    return groups[idx][0][0]
 
 
 def capitalise_names(gloss: str, key_sm: str, names) -> str:
@@ -620,6 +627,49 @@ def unit_tense(key_sm: str):
             if t:
                 return t
     return None
+
+
+def align_to_verse(gloss: str, english: str) -> str:
+    """Say it in the VERSE'S words where the curation used a synonym.
+
+    The English column decides the rendering. 1 Nephi 1:8 reads "in the
+    attitude of singing"; the curation glosses `e foliga mai` "in the manner
+    of". One content word apart, so the veto threw the whole phrase away and
+    the verse got a literal "appears" instead of the column's own wording.
+
+    So: if the candidate matches a run of the verse word for word EXCEPT for a
+    single content word, take the verse's word. The shape has to match exactly
+    -- same length, same function words in the same places -- which is what
+    stops this from being a synonym generator. It can only ever swap one word
+    for the word the verse itself uses in that position.
+    """
+    # TRIED AND REVERTED. Matching the SHAPE is not enough to know two words
+    # mean the same thing: this turned "the voice of" into "the attitude of"
+    # as readily as it turned "in the manner of" into it, because both differ
+    # from the verse by one content word in the same slot. Content F1 86.0 ->
+    # 84.4. Doing it properly needs evidence that the two words are synonyms,
+    # and the dictionary gives Samoan->English, not English->English.
+    return gloss
+
+    g = gloss.split()
+    if len(g) < 3:
+        return gloss
+    e = re.findall(r"[A-Za-z’']+", english)
+    gl = [w.lower().strip(".,;:") for w in g]
+    for i in range(len(e) - len(g) + 1):
+        window = [w.lower() for w in e[i:i + len(g)]]
+        diff = [k for k in range(len(g)) if window[k] != gl[k]]
+        if len(diff) != 1:
+            continue
+        k = diff[0]
+        # the differing word must be CONTENT on both sides -- swapping a
+        # function word would change the grammar, not the vocabulary
+        if gl[k] in FUNCTION_ONLY or window[k] in FUNCTION_ONLY:
+            continue
+        out = list(g)
+        out[k] = e[i + k]
+        return " ".join(out)
+    return gloss
 
 
 def choose(cands: Counter, english: str, want_tense: str | None = None) -> tuple[str, str]:
