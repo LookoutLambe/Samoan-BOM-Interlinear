@@ -116,14 +116,59 @@ def check_drift(V, minimum=8):
         tot = sum(c.values())
         if tot < minimum or len(c) < 2:
             continue
-        # a capitalisation-only difference is sentence position, not drift
+        # Fold what is NOT drift before counting what is.
+        #
+        # Capitalisation is sentence position, and trailing punctuation is the
+        # sentence's own -- the chapter scripts carry it on the gloss on
+        # purpose, "to keep the reader's punctuation flow honest". Comparing
+        # raw strings therefore reported `ioe` as drifting three ways because
+        # it appears as "yea," "yea." and "yea;", and `ia te ia` as drifting
+        # because of a colon. That inflated the count from a few hundred real
+        # cases to 1,556 and buried them.
         folded = Counter()
         for g, n in c.items():
-            folded[g.lower()] += n
+            folded[g.lower().strip(' .,;:!?—-')] += n
         if len(folded) < 2:
             continue
         out.append((k, tot, folded, where[k][:1]))
     out.sort(key=lambda x: -x[1])
+    return out
+
+
+def outliers(V, min_dom=40, max_odd=2, min_share=0.95):
+    """A gloss used once against a settled majority is a slip, not a nuance.
+
+    `faauta` is "behold" 784 times and "yea" once. `o le mea lea` is
+    "wherefore" 409 times and "that may" once. Ordinary drift is context and
+    cannot be judged mechanically -- `i luga o` really is "upon" or "over"
+    depending on what is above what -- but a singleton against a settled
+    majority is a different animal, and it is the one class in the 1,367 that
+    can be reported with confidence.
+
+    Locates only. Every hit still has to be read in its verse.
+    """
+    seen = defaultdict(Counter)
+    where = defaultdict(lambda: defaultdict(list))
+    for key, words in V.items():
+        for sm, en, i in units(words):
+            k = clean(sm)
+            if not k:
+                continue
+            g = en.lower().strip(' .,;:!?\u2014-')
+            seen[k][g] += 1
+            where[k][g].append((key, en))
+    out = []
+    for k, c in seen.items():
+        tot = sum(c.values())
+        dom, dn = c.most_common(1)[0]
+        if dn < min_dom or dn / tot < min_share:
+            continue
+        for g, n in c.items():
+            if g == dom or n > max_odd:
+                continue
+            for key, raw in where[k][g]:
+                out.append((k, key, raw, dom, dn, n))
+    out.sort(key=lambda r: -r[4])
     return out
 
 
@@ -134,6 +179,12 @@ def main(argv):
         print('ARTICLE SPECIFICITY — %d violations\n' % len(bad))
         for key, sm, en, why in bad[:40]:
             print('   %-18s %-34s %-30r %s' % (key, sm[:34], en, why))
+        print()
+    if '--outliers' in argv:
+        rows = outliers(V)
+        print('OUTLIER GLOSSES — %d uses of a gloss that is otherwise settled\n' % len(rows))
+        for k, key, raw, dom, dn, n in rows[:60]:
+            print('   %-22s %-16s %-24r  (settled: %r x%d)' % (k[:22], key, raw, dom, dn))
         print()
     if '--drift' in argv:
         d = check_drift(V)

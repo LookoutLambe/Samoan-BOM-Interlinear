@@ -416,7 +416,7 @@ VERSE_SPECS: dict[int, list[tuple[int, int, str]]] = {
         (32, 33, "us."),
     ],
     19: [
-        (0, 1, "For behold,"),
+        (0, 1, "But behold,"),
         (2, 3, "fought"),
         (4, 6, "without"),
         (7, 12, "a thought of death"),

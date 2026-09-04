@@ -308,7 +308,7 @@ VERSE_SPECS: dict[int, list[tuple[int, int, str]]] = {
         (38, 40, "which he hath prophesied."),
     ],
     15: [
-        (0, 1, "For behold,"),
+        (0, 1, "And behold,"),
         (2, 4, "we are strong,"),
         (5, 9, "shall not be enslaved"),
         (10, 11, "we,"),
