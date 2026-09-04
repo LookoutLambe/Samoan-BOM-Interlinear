@@ -497,6 +497,26 @@ CAUSAL = {
 }
 
 # ── DEMONSTRATIVES ───────────────────────────────────────────────────────────
+# ── INTERROGATIVES ───────────────────────────────────────────────────────────
+# The question words, none of which this file had. From samoan.ws/04-questions,
+# checked against the corpus (occurrences after each) and against the
+# curation's own gloss where it has one.
+#
+# That page also states, independently, the two things the user had already
+# told me: `o le a lea?` is "what is this?", and a QUESTION TAKES THE
+# INDEFINITE ARTICLE `se`/`ni` where an answer takes `le`. That is the same
+# uncertainty that makes `o le a` + a non-specific form interrogative.
+INTERROGATIVES = {
+    'fia':      'how many, how much',                     #   249
+    'aisea':    'why',                                    #    79  curated "why"
+    'aiseā':    'why',
+    'faapefea': 'how',                                    #    59
+    'fa’apefea': 'how',
+    'fea':      'where',                                  #    32  curated "where"
+    'afea':     'when',                                   #    10  (future)
+    'anafea':   'when',                                   #        (past)
+}
+
 DEMONSTRATIVES = {
     # `o e` is the headless relative -- "those who", "they who". The curation
     # ends 218 units on this `e` with "who" as the last English word, and the
@@ -506,6 +526,14 @@ DEMONSTRATIVES = {
     'lenei': 'this',
     'lea':   'that, the aforementioned',
     'na':    'that (distal) -- also the past TAM; position decides',
+    # THE DISTAL DEMONSTRATIVE, 708 occurrences and absent from this table.
+    # samoan.ws gives the paradigm as lea/lenei "this", lenā/lele "that",
+    # lelā/lale "that (far)", with nei/nā/lā as their plurals. This corpus
+    # writes only the unmacronned forms -- `lena` 708, `lele` 8 -- and never
+    # lenā, nā, lelā or lā, not once. Curated: "that" 58 unit-initial, 23
+    # unit-final.
+    'lena':  'that',                                      #   708
+    'lele':  'that',                                      #     8
 }
 
 def classify(word):
@@ -1177,7 +1205,7 @@ def _build_alt_readings():
     for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
                   COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
                   SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
-                  VERB_ONA):
+                  VERB_ONA, INTERROGATIVES):
         for form, desc in table.items():
             alts = _alternatives(desc)
             if len(alts) > 1:
@@ -1298,7 +1326,7 @@ def _build_primary():
     for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
                   COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
                   SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
-                  VERB_ONA):
+                  VERB_ONA, INTERROGATIVES):
         for form, desc in table.items():
             _PRIMARY.setdefault(form, _first(desc))
     for form, (cls, person, shape) in POSSESSIVES.items():
