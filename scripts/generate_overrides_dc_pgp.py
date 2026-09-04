@@ -248,14 +248,26 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
             if (prev in names or SG.transliterated(prev)
                     or prev in SG.DIRECTIONALS):
                 continue
-            # A NAME MAY FOLLOW THE NOUN IT QUALIFIES. `o tagata Iutaia` is
-            # "of the Jews" -- one phrase, with `tagata` "people" and the name
-            # naming which people. What a name may not follow is a PARTICLE,
-            # because the particle's English is what lands on it:
-            #   i Aikupito -> "into Egypt"   ia Siona -> "against Zion"
-            #   maua e sa Lamanā -> "the Lamanites have taken"
-            if prev in SG.CLOSED_CLASS or prev in SG.AMBIGUOUS:
-                return True
+            # A PARTICLE BELONGS WITH THE NAME. `O Nifae` is one phrase, and
+            # the curation says so 1,011 times -- `o` + name glossed "Nephi"
+            # bare 95 times, "of Israel" 118, "of Nephi" 54. So do `e` + name
+            # ("Alma" 47, "Moroni" 47), `a` + name ("of Christ" 25), `ia` +
+            # name ("in Christ" 50), `i` + name ("at Jerusalem"), `ma` + name
+            # ("and Sam"). Barring those was wrong and this is the correction.
+            #
+            # A NOUN the name qualifies belongs with it too, ADJACENTLY:
+            # `o tagata Iutaia` is "of the Jews".
+            #
+            # What must not happen is a VERB reaching across particles to the
+            # name, because then the clause's English lands there:
+            #   maua e sa Lamanā  -> "the Lamanites have taken"
+            #   ... Iesu          -> "when Jesus had spoken"
+            # so an open-class word before the name is allowed only when it is
+            # the token immediately before it.
+            for j in range(a, k - 1):
+                if (n(j) not in SG.CLOSED_CLASS and n(j) not in SG.AMBIGUOUS
+                        and n(j) not in names and not SG.transliterated(n(j))):
+                    return True
         # A BLANKET BOUND-PRONOUN SPLIT WAS TRIED AND REVERTED. `ua ou tusia`
         # really is the tense marker + "I" + "write", but forcing every
         # pronoun to open a unit breaks the verb clusters around it and turns
@@ -268,7 +280,11 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
         doing four jobs -- "and", the tense marker, "I", "write" -- and the
         curation records it whole, so the coordinator's "and" and the bound
         pronoun's "I" both vanished and only "written" was printed."""
-        return b - a > 1 and n(a) in SG.COORDINATORS
+        if b - a <= 1 or n(a) not in SG.COORDINATORS:
+            return False
+        # unless the coordinator is the first word of a frame the grammar
+        # knows -- `ae ui i lea` is "nevertheless", not "but" plus three words
+        return not SG.primary_gloss(n(a, b))
 
     def legal(span):
         key = n(i, i + span)
@@ -477,7 +493,7 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     frequency is only a tie-break, and a reading the verse does not contain is
     used only when the grammar has just one.
     """
-    readings = SG.particle_readings(form)
+    readings = SG.readings_in_frame(form, prev_tok) or SG.particle_readings(form)
     if not readings:
         return "", "absorbed-particle"
     # a locative frame already carries the English; its `o` says nothing more

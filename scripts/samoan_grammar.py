@@ -268,6 +268,14 @@ COORDINATORS = {
 }
 
 DISCOURSE = {
+    # `ae ui i lea` is ONE WORD of English: "nevertheless", 237 times, and the
+    # curation records it whole 170 of those. It opens with a coordinator, so
+    # the rule that makes a coordinator start its own unit was cutting it in
+    # half and printing "In" on the `lea`.
+    'ae ui i lea': 'nevertheless',                        #   237
+    'e ui i lea':  'nevertheless, howbeit',               #    22
+    'ui i lea':    'nevertheless',                        #   260 total
+    'ae ui':       'although, though',
     'ioe':    'yea (affirmative opener)',                 #  1253  1244
     'faauta': 'behold',                                   #  1582   831
     'faapea': 'thus, so, in this manner',                 #   996    55
@@ -795,6 +803,30 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
             return ''
         return None
 
+    if f == 'lava':
+        # STRESS, AND IT TAKES ITS SENSE FROM WHAT IT STRESSES. Four readings,
+        # each fixed by the preceding word (curated witnesses in brackets):
+        #   after a PRONOUN    the reflexive   latou lava "themselves" [148]
+        #                                      ia lava "himself" [70]
+        #   after a POSSESSIVE "own"           lona lava "his own" [54]
+        #   after a DEGREE word "even"         oo lava "even to" [46]
+        #                                      pei lava "even as" [40]
+        #   alone              "verily"        [25]
+        # `ma lona loto atoa lava` carries the possessive AND the stress:
+        # "with all his own heart".
+        if p in PRONOUNS:
+            person = PRONOUNS[p][0].split()[0]
+            return {'1sg': 'myself', '2sg': 'yourself', '3sg': 'himself',
+                    '1pl.excl': 'ourselves', '1pl.incl': 'ourselves',
+                    '2pl': 'yourselves', '3pl': 'themselves',
+                    '1du.excl': 'ourselves', '1du.incl': 'ourselves',
+                    '2du': 'yourselves', '3du': 'themselves'}.get(person)
+        if p in POSSESSIVES:
+            return 'own'
+        if p in DEGREE or p in COMPARATIVE or p in ('oo', 'faapea', 'atoa'):
+            return 'even'
+        return None
+
     if f in ('ae', 'a’e'):
         # THE GLOTTAL IS NOT ALWAYS WRITTEN (the user: "sometimes youll see
         # them with glutters others you wont the ae sometimes should be a’e").
@@ -906,6 +938,28 @@ def _build_alt_readings():
 _ALT_READINGS = None
 
 
+# A FRAME CAN REPLACE THE WHOLE READING SET, not just pick from it. `o` after
+# a tense marker is not the linking particle at all -- it is the VERB "go,
+# come": the curation glosses `na o` "who went / went forth / came", `sa o`
+# "came / went forth", `ua o` "had come / were coming / and departed", `e o`
+# "to go / to come". Nothing else in this file could say that, because every
+# other mechanism here picks among a form's own readings.
+FRAME_READINGS = {
+    ('o', 'TAM'): ('come', 'go', 'came', 'went', 'gone', 'departed', 'coming'),
+}
+
+
+def readings_in_frame(form, prev=None):
+    """A reading set that belongs to this frame, or () for the usual one."""
+    f = (form or '').strip().lower()
+    p = (prev or '').strip().lower()
+    if p in TAM or p in ('te',):
+        hit = FRAME_READINGS.get((f, 'TAM'))
+        if hit:
+            return hit
+    return ()
+
+
 def particle_readings(form):
     """The closed set of readings for a form, or ().
 
@@ -921,6 +975,18 @@ def particle_readings(form):
     return tuple(_ALT_READINGS.get(f, ()))
 
 
+# Two different jobs, and conflating them cost real segmentation.
+#
+# PHRASE_LINKERS are the particles that open a NEW phrase in the middle of
+# one: `i luga o motu` is "upon" + "of the isles", `O le Tusi a Mamona` is
+# "The Book" + "of Mormon". A unit may not run THROUGH one.
+#
+# PHRASE_INITIAL is the wider set that may not END a unit -- an article or a
+# preposition left hanging off the back has taken the next phrase's first
+# word. But those same words are perfectly at home INSIDE a phrase: `o le
+# agalelei` is "of the goodness", one unit, and barring it as "contains `le`"
+# broke every ordinary noun phrase in the corpus into dangling heads.
+PHRASE_LINKERS = {'o', 'a'}
 PHRASE_INITIAL = {'o', 'a', 'i', 'le', 'se', 'ma', 'mo', 'ni'}
 
 # Forms where one of those tokens is not the head it usually is. `po o` is one
@@ -941,7 +1007,12 @@ def splits_a_phrase(unit):
     # anything. The rule is about spans someone PROPOSED, not about entries.
     if key in _build_primary() or key in POSSESSIVES:
         return False
-    return any(t in PHRASE_INITIAL for t in toks[1:])
+    if toks[-1] in PHRASE_INITIAL:
+        return True
+    # a linker opens a new phrase -- unless a tense marker precedes it, where
+    # `o` is the verb "go/come" and `na o mai ai` is one thing, "there came"
+    return any(t in PHRASE_LINKERS and toks[i - 1] not in TAM
+               for i, t in enumerate(toks) if i)
 
 
 # kept under the old name for callers written against it
