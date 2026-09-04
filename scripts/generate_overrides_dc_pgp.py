@@ -350,8 +350,13 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
         return "", "silent-by-frame"
     if framed and in_english(framed, ew):
         return framed, "frame"
+    def carried(reading):
+        # a reading of more than one word is present only if ALL of it is --
+        # "to him" must not win on the "to" alone
+        return all(in_english(w, ew) for w in reading.split())
+
     scored = sorted(
-        ((in_english(r, ew), inv.get(form, {}).get(r, 0), -n, r)
+        ((carried(r), inv.get(form, {}).get(r, 0), -n, r)
          for n, r in enumerate(readings)),
         reverse=True)
     present, _weight, _order, best = scored[0]

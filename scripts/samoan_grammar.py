@@ -182,6 +182,12 @@ PRONOUNS = {
     'i matou': ('1pl.excl obl', 'us'),     # us 50
     'i tatou': ('1pl.incl obl', 'us'),     # us 27
     'i laua':  ('3du obl', 'them'),        # they 11 / them 8
+    # `o ia` and `e ia` are the pronoun under the topic and the ergative. The
+    # curation ends 1,578 units on the first and 611 on the second, and the
+    # grammar had neither, so both were guessed from the inventory.
+    'o ia':    ('3sg topic', 'he'),        # him 253 / he 248
+    'e ia':    ('3sg ergative', 'him'),    # him 113 / he 45
+    'lava ia': ('3sg reflexive', 'himself'),  # myself 20 / himself 18
     'ia te au':      ('1sg dat', 'to me'),      # to me 46
     'ia te oe':      ('2sg dat', 'to you'),     # to you 141
     'ia te ia':      ('3sg dat', 'to him'),     # to him 246
@@ -474,6 +480,14 @@ def _first(text):
 # tokens inside a verb cluster, which is what GLOSSING_RULES.md rule 1 and rule
 # 2 describe. So the grammar's contribution here is knowing where a cluster
 # STARTS, not what the particle reads as on its own.
+# DIRECTIONALS STAY ABSORBED, and this was tested rather than assumed. They
+# carry real English -- the curation glosses `atu` "forth" 170 times and "away"
+# 108, `ifo` "down" 126 -- so letting them speak looked obviously right. It
+# measured WORSE (content F1 86.4 -> 86.2), because far more often the curation
+# binds them to the verb: `fai atu` is "said" 336 times, `sau mai` is "come"
+# 356. Splitting those to gloss the particle costs more than it gains.
+#
+# They keep their READINGS anyway, for the times one does stand as its own unit.
 ABSORBED = (set(TAM) | set(DIRECTIONALS)) - {'o le a', 'o loo', 'o lo’o', 'loo'}
 # `o le a` is the exception: it heads 2,599 units in this corpus, glossed
 # "shall", so unlike the other TAM markers it carries an English word of its
@@ -585,12 +599,26 @@ READINGS = {
     'ai':   ['thereto', 'thereof', 'therein', 'thereby'],
     'aua':  ['for', 'because'],
     'ua':   [],                                  # perfect TAM: absorbed
+    # the directionals, with the English the curation gives them
+    'atu':  ['forth', 'away', 'out', 'over', 'to', 'unto'],   # forth 170, away 108
+    'mai':  ['from', 'forth', 'out', 'here', 'up'],           # from 90, come 356
+    'ifo':  ['down'],                                          # down 126
+    'ae':   ['but', 'up', 'yet'],                              # but 187, up 31
+    'a’e':  ['up'],
+    'ane':  ['by', 'near', 'along', 'across'],                 # by 12, near 8
     # not ambiguous PARTICLES, but forms with two real readings the verse can
     # choose between rather than the grammar guessing one
     'i latou': ['them', 'they'],                 #   515 / 271
     'i laua':  ['them', 'they'],                 #     8 /  11
     'i matou': ['us', 'we'],                     #    50 /  12
     'i tatou': ['us', 'we'],                     #    27 /  10
+    'o ia':    ['him', 'he'],                    #   253 / 248
+    'e ia':    ['him', 'he'],                    #   113 /  45
+    # `ia` itself: a preposition before a name, an object pronoun, a
+    # demonstrative, the hortative, and the head of a relative clause when a
+    # tense marker follows it (`ia na` 60 of 71 "which", `ia ua` 51 of 56).
+    'ia':   ['to', 'him', 'her', 'it', 'them', 'that', 'which', 'let',
+             'these', 'those'],
 }
 
 # `o` heads the phrase, and when a locative frame already carries the English
@@ -652,6 +680,33 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         # after a locative frame the preposition already said it
         if p in ('luga', 'lalo', 'totonu', 'luma', 'fafo', 'tua'):
             return ''
+        return None
+
+    if f in ('ae', 'a’e'):
+        # THE GLOTTAL IS NOT ALWAYS WRITTEN (the user: "sometimes youll see
+        # them with glutters others you wont the ae sometimes should be a’e").
+        # So `ae` the conjunction "but" and `a’e` the upward directional "up"
+        # arrive as one token, exactly like `le`/`lē`. Position separates them:
+        # the conjunction OPENS a clause -- the curation glosses a unit that is
+        # just `ae` as "but" 187 times -- and the directional FOLLOWS its verb,
+        # where the curation ends 31 units on it with "up".
+        if clause_initial or p in ('', 'ma', 'ona', 'ioe'):
+            return 'but'
+        if p and p not in CLOSED_CLASS and p not in AMBIGUOUS:
+            return 'up'
+        return None
+
+    if f == 'ia':
+        # a tense marker after it makes a relative clause
+        if n in ('na', 'ua', 'sa'):
+            return 'which'
+        if p == 'ina':
+            return 'that'
+        if p == 'lava':
+            return 'himself'
+        # under the topic, the ergative or the dative it is the object pronoun
+        if p in ('o', 'e', 'ma', 'te'):
+            return 'him'
         return None
 
     if f == 'ona':
