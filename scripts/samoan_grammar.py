@@ -304,12 +304,30 @@ POSSESSIVES['la'] = ('A', '-', 'article')        #  354  143
 # variant. That was backwards: the bare frame IS the preposition, and every
 # `... o` entry was a frame that had eaten the next phrase's head.
 COMPLEX_PREPOSITIONS = {
-    'i luga':   'upon, over, on top of',                  #  773   649
-    'i totonu': 'among, within, in the midst of',         #  584   472
-    'i luma':   'before, in front of',                    #  198   173
-    'i lalo':   'under, beneath',                         #   63    30
-    'i fafo':   'outside, out of',                        #   17     8
-    'i tua':    'behind, without',                        #    5     2
+    # THE LOCATIVE FRAMES: `i` + a directional noun. Every alternative here is
+    # a reading the verse may choose (see _build_alt_readings) -- the code used
+    # to take the first and only the first, so `i luga` said "upon" 773 times
+    # and "over" almost never, while the curation says "over" in 90% of the
+    # verses whose English carries it.
+    #
+    # The alternatives and their order are the curation's own, counted as the
+    # first English word of a unit that starts with the frame.
+    'i luga':   'upon, over, on, above, up, upward',      # 560/150/26/24/21
+    'i totonu': 'among, in, into, within, amongst',       # 412/94/53/35/5
+    'i luma':   'before, forward, in front of, forth',    # 184/19/7
+    'i lalo':   'down, under, below, beneath',            #  66/34/11/1
+    'i fafo':   'out, forth, outside, away, abroad',      #  52/10/5/3
+    'i tua':    'back, backward, behind, without',        #  12/5/3/2
+    # SIX MORE THE GRAMMAR NEVER HAD, found by asking the corpus which `i X`
+    # pairs behave like these. `i uta` and `i tai` are not among them -- this
+    # text does not use either, not once.
+    'i matu':      'northward, north',                    #   86 pairs
+    'i tafatafa':  'by, beside, near',                    #   68
+    'i saute':     'southward, south',                    #   63
+    'i sisifo':    'west, westward',                      #   52
+    'i sasae':     'east, eastward',                      #   47
+    'i itu':       'side, sides, about',                  #   27
+    'i tala':      'beyond, beside, further',             #   14
     # `e ala i le X` is `e ala` + `i le X`: the `i` heads the phrase.
     'e ala':    'by, through, by means of',               #  130   114
     # More `e <base>` frames, all measured from the curation by the first
@@ -326,12 +344,15 @@ COMPLEX_PREPOSITIONS = {
 # These follow the verb and orient the action relative to the speaker. They are
 # routinely absorbed into the verb's gloss, which is correct -- English carries
 # them in the verb itself ("came" vs "went").
+# These held DESCRIPTIONS, not glosses, and a lone directional printed one:
+# `atu` came out "away from the speaker". Every value here is now English a
+# gloss may actually say, alternatives first, with the deixis in the comment.
 DIRECTIONALS = {
-    'mai': 'toward the speaker (hither)',
-    'atu': 'away from the speaker (thither)',
-    'aʻe': 'upward',   'a’e': 'upward',
-    'ifo': 'downward',
-    'ane': 'obliquely, past, alongside',
+    'mai': 'from, forth, hither, out, here',      # toward the speaker
+    'atu': 'forth, away, out, over, thither',     # away from the speaker
+    'aʻe': 'up, upward',   'a’e': 'up, upward',
+    'ifo': 'down, downward',
+    'ane': 'by, near, along, across',             # obliquely, past, alongside
 }
 
 # ── ai: the anaphoric particle ───────────────────────────────────────────────
@@ -488,7 +509,10 @@ def _first(text):
 # 356. Splitting those to gloss the particle costs more than it gains.
 #
 # They keep their READINGS anyway, for the times one does stand as its own unit.
-ABSORBED = (set(TAM) | set(DIRECTIONALS)) - {'o le a', 'o loo', 'o lo’o', 'loo'}
+# DIRECTIONALS ARE THEIR OWN WORD. `alu ifo` is "go" + "down", not one thing
+# whose English piles onto the second token -- 1 Nephi 4:33 printed "to go
+# down" on `ifo` and 2:5 printed a whole clause on it. One word, one gloss.
+ABSORBED = set(TAM) - {'o le a', 'o loo', 'o lo’o', 'loo'}
 # `o le a` is the exception: it heads 2,599 units in this corpus, glossed
 # "shall", so unlike the other TAM markers it carries an English word of its
 # own rather than disappearing into the verb.
@@ -554,6 +578,34 @@ def gloss_in_context(form, nxt=None):
 #   e    genuinely both: the ergative and TAM `e` open a phrase, but the
 #        VOCATIVE `e` closes one -- `E outou e tagata` "O ye people". Until
 #        those two are told apart, the rule would break every vocative.
+# ── TRANSLITERATED TERMS ─────────────────────────────────────────────────────
+# The Nephite measures of Alma 11. They are proper terms, but unlike the names
+# they are written LOWERCASE in both languages, so the name rule cannot see
+# them: `senine`, `seone`, `sume`, `limena` were all left blank and the whole
+# of "a senine of gold" landed on `auro` "gold".
+#
+# Derived, not guessed: each English measure occurs almost nowhere else in the
+# canon, so pairing it with the Samoan tokens of the same verse names its form.
+#
+# `leah` IS DELIBERATELY ABSENT. Its Samoan form collides with `lea`, the
+# demonstrative that heads 686 curated units -- registering it would cost far
+# more than the four verses it would fix.
+TRANSLITERATED = {
+    'senine':   'senine',    'seone':    'seon',
+    'sume':     'shum',      'limena':   'limnah',
+    'senuma':   'senum',     'aminoa':   'amnor',
+    'eseroma':  'ezrom',     'oneti':    'onti',
+    'sipelona': 'shiblon',   'sipelumo': 'shiblum',
+    'anetione': 'antion',    'anetiona': 'antion',
+    'onetise':  'onties',    'senuma,':  'senum',
+}
+
+
+def transliterated(form):
+    """The English of a transliterated Nephite term, or None."""
+    return TRANSLITERATED.get((form or '').strip().lower())
+
+
 # ── THE ONE-VOWEL RADICALS ───────────────────────────────────────────────────
 # Samoan is built on vowels, so its heaviest grammar sits on single-vowel
 # tokens, and each carries several jobs at once. The form cannot tell you which
@@ -602,7 +654,7 @@ READINGS = {
     # the directionals, with the English the curation gives them
     'atu':  ['forth', 'away', 'out', 'over', 'to', 'unto'],   # forth 170, away 108
     'mai':  ['from', 'forth', 'out', 'here', 'up'],           # from 90, come 356
-    'ifo':  ['down'],                                          # down 126
+    'ifo':  ['down', 'downward'],                              # down 126
     'ae':   ['but', 'up', 'yet'],                              # but 187, up 31
     'a’e':  ['up'],
     'ane':  ['by', 'near', 'along', 'across'],                 # by 12, near 8
@@ -747,9 +799,58 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
     return None
 
 
+def _alternatives(desc):
+    """The comma-separated alternatives in a table entry, as readings."""
+    txt = desc[-1] if isinstance(desc, tuple) else desc
+    out, seen = [], set()
+    for part in str(txt).split(','):
+        w = part.strip().strip('.').lower()
+        # a gloss, not a description: "marks the agent of a transitive verb"
+        # is prose and must not become a candidate reading
+        if not w or len(w.split()) > 3 or ':' in w or w.startswith('the same'):
+            continue
+        if w not in seen:
+            seen.add(w); out.append(w)
+    return out
+
+
+def _build_alt_readings():
+    """EVERY grammar entry that offers alternatives lets the verse choose.
+
+    `i luga` is "upon, over, on top of" and the code took the first, always --
+    so the corpus said "upon" 773 times and "over" almost never, while the
+    curation says "over" in 90% of the verses whose English has it and this
+    pass managed 14%. The alternatives were already written down; nothing was
+    reading past the first comma.
+    """
+    out = {}
+    for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
+                  COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
+                  SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
+                  VERB_ONA):
+        for form, desc in table.items():
+            alts = _alternatives(desc)
+            if len(alts) > 1:
+                out[form] = alts
+    return out
+
+
+_ALT_READINGS = None
+
+
 def particle_readings(form):
-    """The closed set of readings for an ambiguous particle, or ()."""
-    return tuple(READINGS.get((form or '').strip().lower(), ()))
+    """The closed set of readings for a form, or ().
+
+    READINGS first -- those are hand-checked against the curation -- then the
+    alternatives the grammar tables already list.
+    """
+    global _ALT_READINGS
+    f = (form or '').strip().lower()
+    if f in READINGS:
+        return tuple(READINGS[f])
+    if _ALT_READINGS is None:
+        _ALT_READINGS = _build_alt_readings()
+    return tuple(_ALT_READINGS.get(f, ()))
 
 
 PHRASE_INITIAL = {'o', 'a', 'i', 'le', 'se', 'ma', 'mo', 'ni'}

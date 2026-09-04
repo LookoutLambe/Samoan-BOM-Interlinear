@@ -172,7 +172,31 @@ def build_word_lexicon(units: list) -> dict[str, Counter]:
 # particle, it joins the unit that follows rather than being left blank, which
 # is what the Book of Mormon's own curation does with them.
 
-def frame_at(toks, i, inv, maxlen, lex=None):
+def build_names(books) -> set:
+    """Proper names, derived: capitalised mid-verse and never lowercase.
+
+    Nothing is hand-listed. A Samoan word that is always written with a capital
+    somewhere other than the first position of a verse, and never written in
+    lower case anywhere in 10,893 verses, is a name.
+    """
+    from collections import Counter
+    up, low = Counter(), Counter()
+    for b in books:
+        for ch in b["chapters"]:
+            for v in ch["verses"]:
+                for i, w in enumerate(v["words"]):
+                    t = re.sub(r"[^\w’]", "", w["sm"])
+                    if len(t) < 3:
+                        continue
+                    if t[0].isupper():
+                        if i > 0:
+                            up[t.lower()] += 1
+                    else:
+                        low[t.lower()] += 1
+    return {t for t, n in up.items() if n >= 2 and low.get(t, 0) == 0}
+
+
+def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
     """(length, source) of the unit starting at i, or (0, '').
 
     Memory is still consulted first -- a curated unit is a human decision and
@@ -199,10 +223,36 @@ def frame_at(toks, i, inv, maxlen, lex=None):
                     return True
         return False
 
+    def eats_a_name(a, b):
+        """A NAME OPENS ITS OWN PHRASE — always, not just after a verb.
+
+        Nothing may precede a proper name inside a unit except another name
+        (`Anti-Nifae-Liae`). The English of whatever stands in front of it
+        lands on the name otherwise, and it always did:
+
+            maua e sa Lamanā  ->  "the Lamanites have taken"   the verb
+            i Aikupito        ->  "into Egypt"                 the preposition
+            ia Siona          ->  "against Zion"               the preposition
+            faapea ona ... Iesu -> "when Jesus had spoken"     the whole clause
+
+        Split, each of those says its own word: `i` "into", `ia` "against",
+        `maua` "taken", and the name says the name.
+        """
+        for k in range(a + 1, b):
+            here = (n(k) in names or SG.transliterated(n(k))
+                    or n(k) in SG.DIRECTIONALS)
+            prev = (n(k - 1) in names or SG.transliterated(n(k - 1))
+                    or n(k - 1) in SG.DIRECTIONALS)
+            if here and not prev:
+                return True
+        return False
+
     def legal(span):
         key = n(i, i + span)
         # `o` heads the phrase that follows it, so no unit ends on one
-        return not SG.ends_mid_phrase(key) and not cuts_a_construction(i, i + span)
+        return (not SG.ends_mid_phrase(key)
+                and not cuts_a_construction(i, i + span)
+                and not eats_a_name(i, i + span))
 
     # 1. curated memory, longest first -- subject to both rules
     for span in range(min(maxlen, len(toks) - i), 0, -1):
@@ -222,7 +272,13 @@ def frame_at(toks, i, inv, maxlen, lex=None):
         if SG.primary_gloss(key):
             return span, "rule"
 
-    # 3. a closed-class form the grammar can gloss on its own
+    # 3. a transliterated term is always its own unit, even where nothing in
+    #    the curation ever glossed it -- `sume` and `eseroma` head no unit in
+    #    the Book of Mormon, so without this they stay invisible
+    if SG.transliterated(n(i)):
+        return 1, "term"
+
+    # 4. a closed-class form the grammar can gloss on its own
     if SG.primary_gloss(n(i)):
         return 1, "rule"
 
@@ -440,6 +496,8 @@ def main(argv: list[str] | None = None) -> int:
     maxlen = max(len(k.split()) for k in inv)
     english = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
     books = json.loads((RES / "bom_books.json").read_text(encoding="utf-8"))["books"]
+    names = build_names(books)
+    print(f"proper names derived   {len(names)}")
 
     # EVERY VOLUME. The curated segmentation drew boundaries the grammar
     # forbids -- `i luga o`, `o loo i`, 3,635 units ending on a phrase head --
@@ -474,7 +532,7 @@ def main(argv: list[str] | None = None) -> int:
                 i = 0
                 prev_key = ""
                 while i < len(toks):
-                    hit, src = frame_at(toks, i, inv, maxlen, lex)
+                    hit, src = frame_at(toks, i, inv, maxlen, lex, names)
                     if not hit:
                         stats["token: no unit"] += 1
                         i += 1
@@ -493,6 +551,16 @@ def main(argv: list[str] | None = None) -> int:
                     # somewhere. Where the grammar refuses -- the ambiguous
                     # forms, where position decides -- the inventory and the
                     # verse's English take over.
+                    term = SG.transliterated(key_sm)
+                    if term:
+                        stats["unit: transliterated"] += 1
+                        prev_key = key_sm
+                        for j in range(i, i + hit - 1):
+                            out[j]["en"] = CONT
+                        out[i + hit - 1]["en"] = term
+                        i += hit
+                        continue
+
                     # A FORM WITH TWO REAL READINGS lets the verse choose;
                     # only a form with one gets a fixed answer. `i latou` is
                     # "them" 515 times and "they" 271, and the grammar has no
