@@ -107,7 +107,34 @@ GLUE_RE = re.compile(r"([A-Za-z\u0101\u0113\u012b\u014d\u016b\u2019])([\u2014;:]
                      r"(?=[A-Za-z\u0101\u0113\u012b\u014d\u016b\u2019])")
 
 
-def tokenise(text: str) -> list[str]:
+# ── TYPOS IN THE PUBLISHED TEXT ──────────────────────────────────────────────
+# Keyed by verse, applied before tokenising, so the correction lives where the
+# text is produced and survives a re-scrape.
+#
+# `maia` is `mai ia` run together at the seam, and it is NOT always that: of
+# the nine in the corpus, five are the directional `mai` followed by an agent
+# phrase (`... maia e le Alii`, `... maia i latou`) and are correct as printed.
+# The four here are imperatives -- a clause-opening command verb, no agent
+# after it -- where `mai ia` is the emphatic command particle pair:
+#
+#   dc 1:1    Faalogo mai ia    "Hearken, O ye people"
+#   dc 76:1   Faalogo mai ia    "Hear, O ye heavens"
+#   2ne 8:23  Ifo mai ia        "Bow down"          NOT APPLIED
+#   2ne 15:3  faamasino mai ia  "judge, I pray you" NOT APPLIED
+#
+# The two Book of Mormon sites are left alone deliberately. Splitting a token
+# there shifts every index after it, and those chapters' hand-curated gloss
+# specs are written against the current token count -- the same wall that
+# holds the 37 glued tokens in the Book of Mormon.
+TEXT_CORRECTIONS: dict[str, list[tuple[str, str]]] = {
+    "dc|1|1":  [("Faalogo maia,", "Faalogo mai ia,")],
+    "dc|76|1": [("Faalogo maia,", "Faalogo mai ia,")],
+}
+
+
+def tokenise(text: str, ref: str | None = None) -> list[str]:
+    for find, repl in TEXT_CORRECTIONS.get(ref or "", ()):
+        text = text.replace(find, repl)
     return TOKEN_RE.findall(GLUE_RE.sub(r"\1\2 ", text))
 
 
@@ -140,12 +167,14 @@ def parse_verses(html: str) -> list[tuple[int, str]]:
     return out
 
 
-def scrape_chapter(path: str, chapter: int) -> list[dict]:
+def scrape_chapter(path: str, chapter: int, bid: str = "") -> list[dict]:
     url = f"https://www.churchofjesuschrist.org/study/scriptures/{path}/{chapter}?lang=smo"
     verses = parse_verses(fetch(url))
     if not verses:
         print(f"  ! no verses parsed for {path}/{chapter}", file=sys.stderr)
-    return [{"num": n, "words": [{"sm": t, "en": ""} for t in tokenise(txt)]}
+    return [{"num": n,
+             "words": [{"sm": t, "en": ""}
+                       for t in tokenise(txt, f"{bid}|{chapter}|{n}")]}
             for n, txt in verses]
 
 
@@ -190,7 +219,7 @@ def main(argv: list[str] | None = None) -> int:
             print(f"[{bid}] {nen} — {count} chapter(s)")
             chapters = []
             for ch in range(1, count + 1):
-                verses = scrape_chapter(path, ch)
+                verses = scrape_chapter(path, ch, bid)
                 chapters.append({"num": ch, "verses": verses})
                 print(f"  {nen} {ch}: {len(verses)} verses")
                 time.sleep(0.15)

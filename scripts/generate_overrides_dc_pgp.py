@@ -366,8 +366,14 @@ def main(argv: list[str] | None = None) -> int:
                     stats["left: hand-curated"] += 1
                     continue
                 toks = [w["sm"] for w in verse["words"]]
-                en_text = english.get(
-                    f"{book['nameEn']}|{ch['num']}|{verse['num']}", "")
+                # MATCH MODERN AGAINST MODERN. The glosses are modern English
+                # now and the canon is KJV-register, so every test that asks
+                # whether the verse carries a gloss word was comparing across
+                # registers: "to" stopped matching "unto", 3,652 times. The
+                # published English is untouched -- this is a comparison copy,
+                # and nothing written to the page comes from it.
+                en_text = modernise(english.get(
+                    f"{book['nameEn']}|{ch['num']}|{verse['num']}", ""))
                 out = [{"sm": t, "en": ""} for t in toks]
                 i = 0
                 while i < len(toks):
