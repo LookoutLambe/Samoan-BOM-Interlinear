@@ -58,6 +58,11 @@ TAM = {
     'ua':    ('perfect / inchoative',          'perfect'),#  6923  4471
     'o lo’o': ('progressive / durative',       'is …ing'),#   146   104
     'o loo': ('progressive / durative',        'is …ing'),
+    # The bare second half. It is never a word on its own, and while the
+    # grammar knew only the pair, anything that split `o loo i` treated
+    # `loo` as open-class and glossed it from whatever the lexicon had
+    # seen once -- D&C 1:1 printed "together" under it.
+    'loo':   ('progressive / durative',        'is …ing'),
     'o le a': ('future',                       'shall'),  #  ----  2599, glossed
                                                             # "shall" 102x
     'ona':   ('sequential, with ai',           'then'),   #  6983  3104

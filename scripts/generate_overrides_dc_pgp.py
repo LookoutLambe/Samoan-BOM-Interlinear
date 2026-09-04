@@ -405,8 +405,31 @@ def main(argv: list[str] | None = None) -> int:
                     elif key_sm in lex:
                         gloss, why = choose(lex[key_sm], en_text)
                         why = why + "/lex"
+
                     else:
                         gloss, why = "", "no-gloss/" + src
+                    # BACK OFF TO THE CONTENT WORD. A remembered reading of a
+                    # whole phrase is rejected when the verse does not carry
+                    # all of it -- `o ona fofoga` is "of his eyes," somewhere
+                    # in the Book of Mormon and D&C 1:1 says "whose eyes",
+                    # so the "his" sank the whole unit and `fofoga` printed
+                    # nothing. The unit's one open-class word still has a
+                    # reading, and the verse still decides which: this can
+                    # only ever produce a word the verse actually has.
+                    if not gloss:
+                        open_toks = [t for t in key_sm.split()
+                                     if t not in SG.CLOSED_CLASS]
+                        if len(open_toks) == 1 and open_toks[0] in lex:
+                            d = lex[open_toks[0]]
+                            back, bwhy = choose(d, en_text)
+                            # A COMMON WORD'S RARE READING needs more than one
+                            # verse happening to contain it. `mea` is "thing"
+                            # 1,714 times and was read "own" off 3 witnesses,
+                            # because the verse said "own" somewhere in it.
+                            total = sum(d.values())
+                            share = d.get(back, 0) / total if total else 0
+                            if back and not (total >= 500 and share < 0.01):
+                                gloss, why = back, bwhy + "/backoff"
                     stats["unit: " + why] += 1
                     if gloss:
                         gloss = modernise(align_number(gloss, en_text))

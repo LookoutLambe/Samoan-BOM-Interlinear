@@ -84,8 +84,22 @@ def vocabulary() -> set[str]:
     return _VOCAB
 
 
+# Pairs English spells as two words that are one word here. Kept SHORT and
+# literal: this is not a synonym list, and anything that changes which word
+# the gloss uses belongs nowhere near it.
+VARIANTS = {"far": {"afar"}, "afar": {"far"},
+            "among": {"amongst"}, "amongst": {"among"},
+            "while": {"whilst"}, "whilst": {"while"},
+            "toward": {"towards"}, "towards": {"toward"}}
+
+
 def stems(word: str) -> set[str]:
-    """A word and its other number. Never changes which word it is."""
+    """A word and its inflections. Never changes which word it is.
+
+    Number and TENSE both. `sao` is "escaped" in the Book of Mormon and D&C
+    1:2 reads "there is none to escape" -- one word, and without the tense
+    pair the verse looked like it did not have it and the gloss was dropped.
+    """
     out = {word}
     if word.endswith("ies") and len(word) > 4:
         out.add(word[:-3] + "y")
@@ -94,6 +108,14 @@ def stems(word: str) -> set[str]:
     if word.endswith("s") and not word.endswith("ss"):
         out.add(word[:-1])
     out.add(word + "s")
+    if word.endswith("ed") and len(word) > 3:
+        out.add(word[:-1])          # escaped -> escape
+        out.add(word[:-2])          # walked  -> walk
+    elif word.endswith("e"):
+        out.add(word + "d")
+    else:
+        out.add(word + "ed")
+    out |= VARIANTS.get(word, set())
     return out
 
 
@@ -106,8 +128,8 @@ def in_english(word: str, verse_words: set[str]) -> bool:
 
 
 def _third_person(stem: str) -> str:
-    if stem.endswith(("s", "sh", "ch", "x", "z")):
-        return stem + "es"
+    if stem.endswith(("s", "sh", "ch", "x", "z", "o")):
+        return stem + "es"          # go -> goes, not "gos"
     if stem.endswith("y") and len(stem) > 1 and stem[-2] not in "aeiou":
         return stem[:-1] + "ies"
     return stem + "s"
@@ -128,20 +150,33 @@ def modernise(gloss: str) -> str:
             em = _ETH.match(low)
             if em:
                 # `maketh` is make+eth, `bringeth` is bring+eth. The canon
-                # settles which base is a word; where it has neither form,
-                # the bare stem is the safer guess.
+                # settles which base is a word.
+                #
+                # THE BASE MUST BE A WORD, or the rule eats nouns: `teeth`
+                # also ends in -eth, and without this it comes out "tes".
                 stem = em.group(1)
-                base = stem + "e" if stem + "e" in vocab else stem
-                out = _third_person(base)
-                if out not in vocab and _third_person(stem) in vocab:
-                    out = _third_person(stem)
+                # stem+e FIRST: `com` is in the canon (an abbreviation),
+                # so stem-first turned `cometh` into "coms".
+                base = next((c for c in (stem + "e", stem) if c in vocab), None)
+                if base:
+                    out = _third_person(base)
             else:
                 sm = _EST.match(low)
                 if sm:
-                    for cand in (sm.group(1), sm.group(1) + "e"):
-                        if cand in vocab:
-                            out = cand
-                            break
+                    # -est is a SUPERLATIVE as often as a verb, and `vilest`
+                    # -> "vile" and `mightiest` -> "mighty" are both wrong. A
+                    # verb that takes -est in this register also takes -eth, so
+                    # the canon can say which this is: `denieth` is in it,
+                    # `vileth` is not.
+                    stem = sm.group(1)
+                    if stem + "eth" in vocab:
+                        undouble = (stem[:-1] if len(stem) > 2
+                                    and stem[-1] == stem[-2] else None)
+                        dey = stem[:-1] + "y" if stem.endswith("i") else None
+                        for cand in (stem, stem + "e", undouble, dey):
+                            if cand and cand in vocab:
+                                out = cand
+                                break
         if out is None:
             return w
         return out.capitalize() if w[:1].isupper() else out
