@@ -94,6 +94,22 @@ TAG_RE = re.compile(r'<[^>]+>')
 WS_RE = re.compile(r'\s+')
 TOKEN_RE = re.compile(r"\S+")
 
+# An em dash, semicolon or colon between two letters is a WORD BOUNDARY that
+# carries no space. Splitting on whitespace alone glues the words either side
+# into one token -- `Atua—ma`, `nuu;Ma`, `atu—Ia` -- and a glued token can
+# never be glossed, because it is two words wearing one label. 213 of them in
+# the Doctrine and Covenants and the Pearl of Great Price.
+#
+# The punctuation stays on the LEFT token, which is how the corpus writes it
+# everywhere the space is present, so the prose still round-trips when the
+# tokens are joined back with spaces.
+GLUE_RE = re.compile(r"([A-Za-z\u0101\u0113\u012b\u014d\u016b\u2019])([\u2014;:])"
+                     r"(?=[A-Za-z\u0101\u0113\u012b\u014d\u016b\u2019])")
+
+
+def tokenise(text: str) -> list[str]:
+    return TOKEN_RE.findall(GLUE_RE.sub(r"\1\2 ", text))
+
 
 def fetch(url: str, retries: int = 3) -> str:
     last: Exception | None = None
@@ -129,7 +145,7 @@ def scrape_chapter(path: str, chapter: int) -> list[dict]:
     verses = parse_verses(fetch(url))
     if not verses:
         print(f"  ! no verses parsed for {path}/{chapter}", file=sys.stderr)
-    return [{"num": n, "words": [{"sm": t, "en": ""} for t in TOKEN_RE.findall(txt)]}
+    return [{"num": n, "words": [{"sm": t, "en": ""} for t in tokenise(txt)]}
             for n, txt in verses]
 
 
