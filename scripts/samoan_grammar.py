@@ -37,18 +37,62 @@ checker can find without knowing any vocabulary at all.
 """
 
 # ── TAM: the particle that opens a verb phrase ───────────────────────────────
-# Samoan marks tense/aspect/mood before the verb, not on it. These are the
-# markers this corpus actually uses, with their occurrence counts.
+# Samoan marks tense/aspect/mood BEFORE the verb, not on it.
+#
+# Every entry carries its count in this corpus, because the first version of
+# this table was nine markers written from a general description of the
+# language and it was wrong twice and short eleven times. Counts are from
+# bom_overrides.json: `corpus` is raw occurrences of the string, `heads` is how
+# often it opens a glossed unit.
 TAM = {
-    'e':     ('general/habitual/future', 'e'),      # non-past, generic
-    'te':    ('general, after a pronoun', 'te'),    # `ou te`, `latou te`
-    'sa':    ('past', 'past'),                      # sa and na are
-    'na':    ('past', 'past'),                      # interchangeable here
-    'ua':    ('perfect/inchoative', 'perfect'),     # has become / now is
-    'ona':   ('sequential, with ai', 'sequential'),
-    'ia':    ('optative/hortative', 'let'),
-    'ina':   ('complementiser/sequential', 'that'),
-    'o le a': ('immediate future', 'about to'),
+    #  form        gloss              corpus   heads   note
+    'e':     ('general / non-past',            'e'),      # 14008  9270
+    'te':    ('general, bound to a preposed pronoun', 'te'),  # 5595 but only 20
+                                                            # heads: `te` never
+                                                            # stands alone, it
+                                                            # clings to `ou te`,
+                                                            # `latou te`
+    'sa':    ('past',                          'past'),   #  9988  5238
+    'na':    ('past',                          'past'),   #  2725  1766
+    'ua':    ('perfect / inchoative',          'perfect'),#  6923  4471
+    'o lo’o': ('progressive / durative',       'is …ing'),#   146   104
+    'o loo': ('progressive / durative',        'is …ing'),
+    'o le a': ('future',                       'shall'),  #  ----  2599, glossed
+                                                            # "shall" 102x
+    'ona':   ('sequential, with ai',           'then'),   #  6983  3104
+    'ia':    ('optative / hortative',          'let'),    # 12920  5815
+    'ina':   ('complementiser / purposive',    'that'),   #  3234  1322
+    'se’i':  ('hortative: let, until',         'let'),    #    35    33
+    'sei':   ('hortative: let, until',         'let'),
+}
+
+# ── MODALS ───────────────────────────────────────────────────────────────────
+# Not TAM proper -- they take a TAM marker themselves (`e mafai`) -- but they
+# carry the mood the English gloss has to show, so nothing that reads the verb
+# phrase can ignore them.
+MODALS = {
+    'mafai':  'ability / possibility: can, may, might',   # 1301   130
+    'tatau':  'obligation: must, ought, lawful',          #  458    14
+    'atonu':  'epistemic: perhaps, it may be',            #   59    34
+    'semanu': 'counterfactual: would have, must have',    #   16    10
+}
+
+# ── CLAUSE OPENERS ───────────────────────────────────────────────────────────
+# Conditionals and temporals. These were missing entirely from the first
+# version, and `afai` alone occurs 520 times.
+SUBORDINATORS = {
+    'afai':   'conditional: if',                          #  520   270
+    'pe a':   'temporal / future conditional: when, after',#  212   185
+    'pe ana': 'counterfactual conditional: had it been',  #    2
+    'ina ia': 'purposive: that, so that',
+    'ona o':  'causal: because of',                       #  824
+}
+
+# ── DISJUNCTIVE AND INTERROGATIVE ────────────────────────────────────────────
+DISJUNCTIVE = {
+    'pe':   'or, whether, if (polar question)',           #  866   806
+    'po o': 'or, whether',                                #  400   385
+    'soo':  'any, whosoever, whatsoever',                 #  320    78
 }
 
 # ── ARTICLES: specificity, not definiteness ──────────────────────────────────
@@ -151,20 +195,50 @@ NEGATION = {
     'le': 'not (verbal negator -- NOT the article; position decides)',
     'lē': 'not (verbal negator)',
     'leai': 'no, there is not',
-    'leʻi': 'not yet',  'le’i': 'not yet',
-    'aua': 'prohibitive: do not',
+    'le’i': 'not yet',  'lei': 'not yet',                 #  188
+    'aua': 'prohibitive: do not',                         #  see the note below
 }
 # `le` is the single most dangerous string in the language for this corpus:
 # the specific article (25,941 tokens) and the verbal negator share a spelling,
 # separated in careful orthography by the macron on `lē` and in practice by
 # position -- before a noun it is the article, before a verb it is negation.
+#
+# TWO ENTRIES HERE WERE WRONG, and the corpus said so:
+#
+#   `nei` was listed as the prohibitive "lest". In this corpus it is the
+#   DEMONSTRATIVE, 966 times, heading units glossed "these things" (128),
+#   "all these things" (34), "these words" (29). It has been moved to
+#   DEMONSTRATIVES below and taken out of negation entirely.
+#
+#   `aua` was listed only as the prohibitive "do not". It occurs 427 times and
+#   heads a unit 363 of them, glossed "for behold" (148) and "for" (65) -- in
+#   this corpus it is overwhelmingly the CAUSAL conjunction, and the
+#   prohibitive is the minority reading. Both are kept, prohibitive first,
+#   because a reader of this table has to know it is ambiguous.
+CAUSAL = {
+    'aua': 'for, because (the dominant reading here, 213 of 363 unit heads)',
+    'ona': 'for, because',
+    'ona o': 'because of',
+}
 
+# ── DEMONSTRATIVES ───────────────────────────────────────────────────────────
+DEMONSTRATIVES = {
+    'nei':   'this, these (proximal)',                    #  966   331
+    'lenei': 'this',
+    'lea':   'that, the aforementioned',
+    'na':    'that (distal) -- also the past TAM; position decides',
+}
 
 def classify(word):
     """Every closed-class role this surface form can play. Never decides."""
     w = (word or '').strip().lower()
     roles = []
     if w in TAM:            roles.append(('TAM', TAM[w][0]))
+    if w in MODALS:         roles.append(('MODAL', MODALS[w]))
+    if w in SUBORDINATORS:  roles.append(('SUBORDINATOR', SUBORDINATORS[w]))
+    if w in DISJUNCTIVE:    roles.append(('DISJUNCTIVE', DISJUNCTIVE[w]))
+    if w in CAUSAL:         roles.append(('CAUSAL', CAUSAL[w]))
+    if w in DEMONSTRATIVES: roles.append(('DEMONSTRATIVE', DEMONSTRATIVES[w]))
     if w in ARTICLES:       roles.append(('ARTICLE', ARTICLES[w][0]))
     if w in PRESENTATIVE:   roles.append(('PRESENTATIVE', 'topic/nominal predicate'))
     if w in PREPOSITIONS:   roles.append(('PREPOSITION', PREPOSITIONS[w]))
@@ -177,7 +251,9 @@ def classify(word):
     return roles
 
 
-CLOSED_CLASS = (set(TAM) | set(ARTICLES) | PRESENTATIVE | set(PREPOSITIONS) |
+CLOSED_CLASS = (set(TAM) | set(MODALS) | set(SUBORDINATORS) | set(DISJUNCTIVE) |
+                set(CAUSAL) | set(DEMONSTRATIVES) |
+                set(ARTICLES) | PRESENTATIVE | set(PREPOSITIONS) |
                 set(PRONOUNS) | set(POSSESSIVE_CLASS) | set(DIRECTIONALS) |
                 set(POSTVERBAL) | set(NEGATION) | {ANAPHORIC})
 
