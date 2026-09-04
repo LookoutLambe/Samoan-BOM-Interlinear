@@ -649,7 +649,11 @@ READINGS = {
     'la':   ['their', 'our'],                    #    65 / 31
     'na':   ['which', 'who', 'that'],            #   332
     'ai':   ['thereto', 'thereof', 'therein', 'thereby'],
-    'aua':  ['for', 'because'],
+    # `aua` is two words. Causal "for/because" is the common one -- `aua
+    # faauta` "for behold" alone is 148 -- and before a negator or a bound
+    # 2nd-person pronoun it is the PROHIBITIVE, "do not". The imperative is
+    # the reading the count hides.
+    'aua':  ['for', 'because', 'do not', 'not'],
     'ua':   [],                                  # perfect TAM: absorbed
     # the directionals, with the English the curation gives them
     'atu':  ['forth', 'away', 'out', 'over', 'to', 'unto'],   # forth 170, away 108
@@ -746,6 +750,13 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
             return 'but'
         if p and p not in CLOSED_CLASS and p not in AMBIGUOUS:
             return 'up'
+        return None
+
+    if f == 'aua':
+        if n in ('le', 'lē', 'ne’i', 'nei', 'tou', 'nea'):
+            return 'do not'
+        if n == 'faauta':
+            return 'for'
         return None
 
     if f == 'ia':
