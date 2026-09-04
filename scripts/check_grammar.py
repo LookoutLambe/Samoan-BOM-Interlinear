@@ -55,7 +55,8 @@ def units(words):
 
 
 def clean(sm):
-    return re.sub(r'[^\wʻ’\- ]+', '', sm).lower().strip()
+    """One key per word; the glottal has four spellings in this corpus."""
+    return re.sub(r'[^\w’\- ]+', '', SG.normalise_glottal(sm)).lower().strip()
 
 
 def check_articles(V):

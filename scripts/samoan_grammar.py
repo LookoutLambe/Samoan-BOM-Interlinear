@@ -1,3 +1,4 @@
+import re
 #!/usr/bin/env python3
 """The Samoan closed-class grammar, as facts, in one machine-readable place.
 
@@ -374,3 +375,153 @@ if __name__ == '__main__':
     import sys
     for w in sys.argv[1:] or ['le', 'se', 'e', 'o', 'ai', 'atu', 'lava', 'lē']:
         print('%-8s %s' % (w, classify(w) or '(open class / not listed)'))
+
+
+# ── THE GLOSS A RULE GIVES ───────────────────────────────────────────────────
+# classify() says what a form IS. This says what it READS as in English, for
+# the forms where the grammar alone settles it -- which is most of the closed
+# class and 70% of the corpus.
+#
+# AMBIGUOUS is the important half. `le` is the specific article AND the verbal
+# negator; `e` is a TAM marker AND the ergative AND a 2sg pronoun; `o` is the
+# presentative AND the O-class possessive; `na` is past tense AND a distal
+# demonstrative. For those the grammar states the ambiguity and refuses to
+# choose -- position or context decides, and the caller has the corpus and the
+# verse's English to decide with. A rule that guesses is worse than no rule.
+AMBIGUOUS = {'le', 'e', 'o', 'a', 'na', 'ia', 'aua', 'ma', 'lo', 'la', 'se',
+             'ina', 'ona', 'pe', 'ai', 'nei', 'lava', 'uma', 'ua'}
+
+_PRIMARY = {}
+
+
+def _first(text):
+    """The head reading of a description.
+
+    Two shapes appear in the tables: a plain list, "upon, over, on top of",
+    where the head is the first item; and a labelled one, "conditional: if" or
+    "ability / possibility: can", where the label is the grammatical category
+    and the gloss is what follows the colon.
+    """
+    if not text:
+        return ''
+    if ':' in text:
+        text = text.split(':', 1)[1]
+    return re.split(r'[,;(]', text)[0].strip()
+
+
+# TAM markers and directionals are ABSORBED, not glossed. Samoan puts tense
+# before the verb and deixis after it, and English carries both inside the verb
+# itself -- "came" against "went" is `mai` against `atu`, and there is no
+# separate English word to hang on them. In this corpus they are continuation
+# tokens inside a verb cluster, which is what GLOSSING_RULES.md rule 1 and rule
+# 2 describe. So the grammar's contribution here is knowing where a cluster
+# STARTS, not what the particle reads as on its own.
+ABSORBED = (set(TAM) | set(DIRECTIONALS)) - {'o le a'}
+# `o le a` is the exception: it heads 2,599 units in this corpus, glossed
+# "shall", so unlike the other TAM markers it carries an English word of its
+# own rather than disappearing into the verb.
+
+
+def _build_primary():
+    if _PRIMARY:
+        return _PRIMARY
+    _PRIMARY['o le a'] = 'shall'
+    for form, (_spec, _num, gloss) in ARTICLES.items():
+        _PRIMARY.setdefault(form, gloss)
+    for form, (_person, gloss) in PRONOUNS.items():
+        _PRIMARY.setdefault(form, gloss)
+    for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
+                  COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
+                  SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS):
+        for form, desc in table.items():
+            _PRIMARY.setdefault(form, _first(desc))
+    for form, (cls, person, shape) in POSSESSIVES.items():
+        eng = {'1sg': 'my', '2sg': 'thy', '3sg': 'his', '1pl.excl': 'our',
+               '1pl.incl': 'our', '2pl': 'your', '3pl': 'their',
+               '1du.excl': 'our', '1du.incl': 'our'}.get(person)
+        if eng:
+            _PRIMARY.setdefault(form, eng)
+    return _PRIMARY
+
+
+def primary_gloss(form):
+    """The English a closed-class form reads as, or '' when the grammar
+    deliberately refuses (see AMBIGUOUS) or does not know the form."""
+    f = (form or '').strip().lower()
+    if not f or f in AMBIGUOUS or f in ABSORBED:
+        return ''
+    return _build_primary().get(f, '')
+
+
+# ── ORTHOGRAPHY: one glottal, and marks that are NOT folded ──────────────────
+# The corpus writes the glottal with U+2019 (12,147 times), but three other
+# codepoints leak in from the source: U+2018 (16), U+02BC (in `Saraʼemila`) and
+# the plain ASCII apostrophe. Four spellings of one letter split a word across
+# four index keys, so every lookup, every unit and every derived lexicon has to
+# key on a normalised form. This is the "sweep hyphen-tolerant" lesson from the
+# Hebrew and Spanish corpora, in its Samoan dress.
+#
+# WHAT IS NOT FOLDED: the glottal itself, and the macron. They are CONTRASTIVE.
+#   au     your, current    a’u     I, me
+#   ai     anaphoric        a’i     with, by means of
+#   ou     I                o’u     my
+#   ia     he, to           i’a     fish        iā   to (before a name)
+#   savali to walk          sāvali  a messenger
+# Folding them would merge distinct words exactly as folding Spanish accents
+# merged `él` with `el`. 504 forms in this corpus differ only by a glottal or a
+# macron, and most of those pairs are different words.
+#
+# A WARNING ABOUT DETECTING "TYPOS" BY FOLDING. A scan for rare forms whose
+# accent-and-glottal-stripped shape matches a much commoner form returns 78
+# candidates here, and it looks like a list of stray markings. It is not a
+# reliable one: `sāvali` occurs once against `savali` sixty times and is not a
+# mistyped `savali` at all, it is a different word. The fold that finds the
+# candidates is the same fold that cannot tell them apart, which is how a
+# gentilic sweep on the Spanish corpus once read `un` as "Jun" and `ella` as
+# "Elah". Such a list locates; only a reader who knows Samoan can judge it.
+GLOTTALS = "\u2019\u2018\u02bb\u02bc'\u00b4\u0060"
+GLOTTAL = "\u2019"
+
+
+def normalise_glottal(text):
+    """One codepoint for the glottal. Nothing else is touched."""
+    out = text
+    for ch in GLOTTALS:
+        if ch != GLOTTAL:
+            out = out.replace(ch, GLOTTAL)
+    return out
+
+
+# ── REGISTER: gagana fa’aaloalo, the respectful language ─────────────────────
+# Samoan has a chiefly register with its own words for everyday things, and
+# scripture uses it constantly, because it is speaking of and to God. It is not
+# decoration: it changes which Samoan word appears, and the English gloss
+# usually flattens it, so a tool that does not know the pairs will treat the
+# respectful word as unknown vocabulary.
+#
+# This is why `le siufofoga o` glosses "the voice of" and `o ona fofoga` was
+# left undecided: `siufofoga` and `fofoga` are the respectful forms of `leo`
+# and `mata`. It is also why the first-pass generator wanted to write `mata o`
+# as "faces of" in a verse about eyes.
+#
+# Every pair below is attested in this corpus, with its own occurrence counts,
+# and the glosses are the ones the translator actually chose.
+RESPECTFUL = {
+    # respectful          common      sense           (respectful n, common n)
+    'fetalai':   ('tautala', 'speak, saith'),          # 561 / 382
+    'saunoa':    ('tautala', 'speak'),                 #   8 / 382
+    'afio':      ('sau',     'come, go (of a chief)'), # 211 / 125
+    'maliu':     ('oti',     'die, pass away'),        #  73 / 340
+    'silasila':  ('vaai',    'see, behold'),           #  34 / 691
+    'silafia':   ('iloa',    'know'),                  #  44 / 775
+    'finagalo':  ('manao',   'will, desire'),          #  71 / 238
+    'taumafa':   ('ai',      'eat'),                   #   3
+    'gasegase':  ('mai',     'be sick'),               #   1
+    'suafa':     ('igoa',    'name'),                  # 148 / 200
+    'aao':       ('lima',    'hand, arm'),             # 106 / 344
+    'fofoga':    ('mata',    'face, eyes, mouth'),     #  73 / 112
+    'siufofoga': ('leo',     'voice'),                 #  67 / 107
+    'alo':       ('tama',    'son, child'),            # 101 /  34
+    'maota':     ('fale',    'house, mansion'),        #   9 / 112
+}
+COMMON_OF = {r: c for r, (c, _s) in RESPECTFUL.items()}
