@@ -268,11 +268,18 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
                 if (n(j) not in SG.CLOSED_CLASS and n(j) not in SG.AMBIGUOUS
                         and n(j) not in names and not SG.transliterated(n(j))):
                     return True
-        # A BLANKET BOUND-PRONOUN SPLIT WAS TRIED AND REVERTED. `ua ou tusia`
-        # really is the tense marker + "I" + "write", but forcing every
-        # pronoun to open a unit breaks the verb clusters around it and turns
-        # `maua` -- which is BOTH the 1st-dual pronoun "we two" and the verb
-        # "obtain" -- into the pronoun everywhere. Content F1 84.2 -> 82.5.
+        # A BOUND PRONOUN SAYS ITS OWN WORD. `sa ia faapa’ū ifo` is the past
+        # marker + "he" + "fell" + "down" (the user's own reading), and
+        # swallowed whole it printed NOTHING at all in 1 Nephi 1:7, while
+        # elsewhere the clause landed on the directional -- `atu` "he spake".
+        #
+        # This was tried twice and reverted twice. The first failure had a
+        # cause -- `maua` and `taua` sat in the pronoun table on the wrong
+        # forms, so every "obtain" and every "war" became "we two". With those
+        # struck it was measured again on its merits and is still wrong:
+        # content F1 86.4 -> 85.0, coverage 92.8% -> 90.8%, and it does not
+        # even fix the verse that prompted it. Splitting a verb from the
+        # pronoun bound to it costs more than the pronoun is worth.
         return False
 
     def joins_two_clauses(a, b):
@@ -557,8 +564,12 @@ def choose(cands: Counter, english: str) -> tuple[str, str]:
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
         only = cands.most_common(1)[0][0]
-        if vetoed(only, english):
-            return "", "vetoed"
+        # A UNANIMOUS CURATED READING IS A HUMAN DECISION about this exact
+        # Samoan string, and the veto exists to arbitrate between COMPETING
+        # readings -- not to overrule one. `sa ia faapa’ū ifo` is glossed "he
+        # fell down" in the curation and 1 Nephi 1:7 reads "he cast himself
+        # upon his bed": the English chose other words and the Samoan still
+        # says fell down. Vetoed, the verse printed nothing at all.
         return trim_absent_tail(only, english), "settled"
     ew = content_words(english)
     stem_ew = set()
