@@ -162,6 +162,107 @@ POSSESSIVE_CLASS = {
     'a':    ('A', '-', 'of'),          'o':    ('O', '-', 'of'),
 }
 
+
+# ── COORDINATORS AND DISCOURSE PARTICLES ─────────────────────────────────────
+# Found by an EXHAUSTIVE pass, not by asking whether the ones I had guessed
+# were right. `ae` is 1,241 occurrences of the basic adversative "but" and it
+# was simply absent, while `ma` -- "and" -- had been there from the first
+# version. That is what a candidate list does: it can only confirm or refute
+# what you already thought of.
+COORDINATORS = {
+    'ma':     'and, with',                                # 18548 16623
+    'ae':     'but (adversative)',                        #  1241  1166
+    'peitai': 'but, yet, nevertheless',                   #   204   201
+    'po':     'or',                                       #   597   475
+    'ao':     'while, as',                                #   163    29
+}
+
+DISCOURSE = {
+    'ioe':    'yea (affirmative opener)',                 #  1253  1244
+    'faauta': 'behold',                                   #  1582   831
+    'faapea': 'thus, so, in this manner',                 #   996    55
+    'o lea':  'therefore',
+    'o le mea lea': 'wherefore',
+}
+
+# ── COMPARATIVE AND MANNER ───────────────────────────────────────────────────
+# All of these are `e` + a base, which is why the bare base heads almost no
+# units: `pei` alone heads 7, `e pei` heads 460. The marker is the pair.
+COMPARATIVE = {
+    'e pei':   'as, even as, like',                       #   495   460
+    'e tusa':  'according to',                            #   623   600
+    'e tusa ma': 'according to',
+    'faapei':  'like, as though',                         #    24     3
+    'faatasi': 'together with',                           #   530   224
+}
+
+# ── DEGREE AND ITERATIVE ─────────────────────────────────────────────────────
+DEGREE = {
+    'toe':   'again, once more (iterative)',              #   782   108
+    'tele':  'great, exceedingly (intensifier)',          #  1526    59
+    'matua': 'fully, exceedingly (intensifier)',          #   115    13
+    'naua':  'excessively, too much',                     #    55     0
+}
+
+# ── THE POSSESSIVE PARADIGM ──────────────────────────────────────────────────
+# The A/O distinction is PRODUCTIVE, not a list of eight words. It combines
+# with every person and number, and with or without the article `l-`:
+#
+#     bare      o’u    a’u     o latou   a latou   o outou   o tatou
+#     with l-   lo’u   la’u    lo latou  la latou  lo outou  lo tatou
+#
+# The first version held eight fixed forms and so missed `lo` (1,380), `la`
+# (354), `o latou` (1,319), `a latou` (940), `lo latou` (788) and the rest --
+# together more of the corpus than the eight it did hold. Generated rather
+# than listed, so nothing can fall out of it again.
+_POSS_PERSON = {
+    '’u': '1sg', 'u': '2sg', 'na': '3sg',
+    ' matou': '1pl.excl', ' tatou': '1pl.incl',
+    ' outou': '2pl', ' latou': '3pl', ' ma': '1du.excl', ' ta': '1du.incl',
+}
+
+
+def _possessives():
+    out = {}
+    for suffix, person in _POSS_PERSON.items():
+        for cls, art in (('O', 'o'), ('A', 'a')):
+            bare = (art + suffix).strip()
+            out[bare] = (cls, person, 'bare')
+            out[('l' + art + suffix).strip()] = (cls, person, 'with article')
+    return out
+
+
+POSSESSIVES = _possessives()
+# The bare articles themselves, which the paradigm above does not generate
+# because they carry no person: `lo` and `la` stand before a following
+# pronoun or noun phrase (`lo latou atua`, `la latou savaliga`).
+POSSESSIVES['lo'] = ('O', '-', 'article')        # 1380  591
+POSSESSIVES['la'] = ('A', '-', 'article')        #  354  143
+
+
+# ── COMPLEX PREPOSITIONS ─────────────────────────────────────────────────────
+# Samoan builds most spatial relations as `i` + a LOCATIVE NOUN + `o`, so the
+# preposition is a three-token frame and neither end of it is a preposition on
+# its own. `luga` alone means "top" and sits outside any closed class; the
+# preposition is `i luga o`, and it is 773 occurrences of "upon" and "over".
+# An inventory of single words cannot hold these, which is why `luga` and
+# `totonu` kept surfacing as frequent forms "outside the grammar".
+COMPLEX_PREPOSITIONS = {
+    'i luga o':   'upon, over, on top of',                #  773   649
+    'i totonu o': 'among, within, in the midst of',       #  584   472
+    'i luma o':   'before, in front of',                  #  198   173
+    'i lalo o':   'under, beneath',                       #   63    30
+    'i fafo o':   'outside, out of',                      #   17     8
+    'i tua o':    'behind, without',                      #    5     2
+    'e ala i':    'by, through, by means of',             #  130   114
+}
+# The same frames occur without the closing `o` when no complement follows --
+# `i luga` 907, `i totonu` 720, `i lalo` 243 -- so both shapes are listed.
+COMPLEX_PREPOSITIONS.update({
+    'i luga': 'upon, above', 'i totonu': 'among, within',
+    'i lalo': 'down, beneath', 'i luma': 'before', 'i fafo': 'outside',
+})
+
 # ── DIRECTIONALS: deixis on the verb ─────────────────────────────────────────
 # These follow the verb and orient the action relative to the speaker. They are
 # routinely absorbed into the verb's gloss, which is correct -- English carries
@@ -239,6 +340,15 @@ def classify(word):
     if w in DISJUNCTIVE:    roles.append(('DISJUNCTIVE', DISJUNCTIVE[w]))
     if w in CAUSAL:         roles.append(('CAUSAL', CAUSAL[w]))
     if w in DEMONSTRATIVES: roles.append(('DEMONSTRATIVE', DEMONSTRATIVES[w]))
+    if w in COORDINATORS:   roles.append(('COORDINATOR', COORDINATORS[w]))
+    if w in DISCOURSE:      roles.append(('DISCOURSE', DISCOURSE[w]))
+    if w in COMPARATIVE:    roles.append(('COMPARATIVE', COMPARATIVE[w]))
+    if w in DEGREE:         roles.append(('DEGREE', DEGREE[w]))
+    if w in COMPLEX_PREPOSITIONS:
+        roles.append(('COMPLEX PREPOSITION', COMPLEX_PREPOSITIONS[w]))
+    if w in POSSESSIVES:
+        c, person, shape = POSSESSIVES[w]
+        roles.append(('POSSESSIVE', '%s-class, %s, %s' % (c, person, shape)))
     if w in ARTICLES:       roles.append(('ARTICLE', ARTICLES[w][0]))
     if w in PRESENTATIVE:   roles.append(('PRESENTATIVE', 'topic/nominal predicate'))
     if w in PREPOSITIONS:   roles.append(('PREPOSITION', PREPOSITIONS[w]))
@@ -252,6 +362,8 @@ def classify(word):
 
 
 CLOSED_CLASS = (set(TAM) | set(MODALS) | set(SUBORDINATORS) | set(DISJUNCTIVE) |
+                set(COORDINATORS) | set(DISCOURSE) | set(COMPARATIVE) |
+                set(DEGREE) | set(POSSESSIVES) | set(COMPLEX_PREPOSITIONS) |
                 set(CAUSAL) | set(DEMONSTRATIVES) |
                 set(ARTICLES) | PRESENTATIVE | set(PREPOSITIONS) |
                 set(PRONOUNS) | set(POSSESSIVE_CLASS) | set(DIRECTIONALS) |
