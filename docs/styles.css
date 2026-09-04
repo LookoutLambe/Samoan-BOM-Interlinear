@@ -1039,3 +1039,15 @@ body.no-gloss .unit .en { display: none; }
 /* Both bars are fixed, so the page has to begin and end clear of them. */
 main { padding-top: calc(56px + env(safe-area-inset-top, 0px)); }
 body.has-dock main { padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)); }
+
+/* The reading text must be selectable for drag-to-select to work at all. The
+   chrome is not: dragging from a bar should never start a text selection. */
+.unit, .verse .prose { -webkit-user-select: text; user-select: text; }
+.controls-top, .controls-bottom, .drawer, .actionbar {
+  -webkit-user-select: none; user-select: none;
+}
+
+/* Underline: a second mark that coexists with a highlight, so it is drawn as
+   a border rather than text-decoration -- text-decoration would be swallowed
+   by the tint and is hard to see under a wash. */
+.unit.ul .sm, .verse.ul .prose { border-bottom: 2px solid var(--accent); }

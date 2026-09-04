@@ -44,8 +44,20 @@
 <!-- Selection toolbar, mirroring WordActionBar in the app -->
 <div id="actionbar" class="actionbar" hidden role="toolbar" aria-label="Selection actions">
   <div id="swatches" class="swatches"></div>
-  <button id="btn-erase" class="act-btn" aria-label="Aveese le Faailoga" title="Aveese le Faailoga">&#9013;</button>
+  <!-- A real eraser. This was &#9013; (U+2335 COUNTERSINK), which draws as a
+       down-pointing chevron and reads as "collapse", not "erase". -->
+  <button id="btn-erase" class="act-btn" aria-label="Aveese le Faailoga &#183; Erase" title="Aveese le Faailoga">
+    <svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true" focusable="false">
+      <path d="M8.6 20.5 3.5 15.4a1.6 1.6 0 0 1 0-2.3L12.9 3.7a1.6 1.6 0 0 1 2.3 0l5.1 5.1a1.6 1.6 0 0 1 0 2.3l-9.4 9.4z"
+            fill="currentColor" opacity=".18"/>
+      <path d="M8.6 20.5 3.5 15.4a1.6 1.6 0 0 1 0-2.3L12.9 3.7a1.6 1.6 0 0 1 2.3 0l5.1 5.1a1.6 1.6 0 0 1 0 2.3l-9.4 9.4z"
+            fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M8.7 8.1l7.2 7.2M8.6 20.5H20" fill="none" stroke="currentColor"
+            stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+  </button>
   <span class="act-div"></span>
+  <button id="btn-underline" class="act-btn" aria-label="Vase i lalo &#183; Underline" title="Vase i lalo"><u>U</u></button>
   <button id="btn-note" class="act-btn" aria-label="Manatu" title="Manatu">&#9998;</button>
   <button id="btn-copy" class="act-btn" aria-label="Kopi" title="Kopi">&#10064;</button>
   <span class="act-spacer"></span>

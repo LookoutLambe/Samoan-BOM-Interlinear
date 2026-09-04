@@ -46,6 +46,7 @@
     // and `bookId|chapter|verse` for a whole verse, as in the app.
     highlights: loadJSON('bom.highlights.v1', {}),
     notes: loadJSON('bom.notes.v1', {}),
+    underlines: loadJSON('bom.underlines.v1', {}),
   };
 
   /* Which word-units are selected. Scoped to one verse: tapping a word in a
@@ -79,11 +80,13 @@
     toggleWord(key, text, verseKey) {
       this.wholeVerseKey = null;
       this.wholeVerseText = '';
-      if (this.verseKey !== verseKey) {
-        this.words.clear();
-        this.texts = {};
-        this.verseKey = verseKey;
-      }
+      /* A selection may SPAN VERSES. It used to reset the moment you touched a
+         word in a different verse, mirroring WordSelectionModel.swift, so a
+         passage that ran over a verse boundary could not be marked or noted as
+         one thing -- and a reader marks a thought, which does not stop where
+         the versification does. The anchor verse is simply the first one
+         touched; everything after that accumulates. */
+      if (!this.verseKey) this.verseKey = verseKey;
       if (this.words.has(key)) {
         this.words.delete(key);
         delete this.texts[key];
@@ -119,6 +122,8 @@
   const saveHighlights = () =>
     localStorage.setItem('bom.highlights.v1', JSON.stringify(state.highlights));
   const saveNotes = () => localStorage.setItem('bom.notes.v1', JSON.stringify(state.notes));
+  const saveUnderlines = () =>
+    localStorage.setItem('bom.underlines.v1', JSON.stringify(state.underlines));
 
   // ---------------------------------------------------------------- settings
 
@@ -317,6 +322,11 @@
     // Tapping builds up a selection; the toolbar then acts on it. Highlighting
     // is never applied by the tap itself, matching the app.
     unit.addEventListener('click', () => {
+      /* A drag leaves a native selection behind and then fires click on the
+         unit under the finger; without this the drag would be replaced by a
+         single word the instant it ended. */
+      const native = window.getSelection();
+      if (native && !native.isCollapsed && String(native).trim()) return;
       selection.toggleWord(wordKey, item.sm.join(' '), verseKey);
       refreshSelectionUI();
     });
@@ -328,15 +338,24 @@
     const color = state.highlights[wordKey];
     unit.classList.toggle('hl', !!color);
     unit.dataset.hl = color || '';
+    unit.classList.toggle('ul', !!state.underlines[wordKey]);
     unit.classList.toggle('selected', selection.words.has(wordKey));
   }
 
   /* Notes are stored per verse, so the marker belongs on the verse row — one
      dot per annotated verse. Putting it on every word of the verse would stamp
      a row of identical dots across the whole passage. */
+  function notesIn(verseKey) {
+    return Object.keys(state.notes)
+      .filter((k) => verseOfNoteKey(k) === verseKey && String(state.notes[k]).trim())
+      .sort();
+  }
+
+  /* The margin marker asks "does this verse carry any note at all", which is
+     no longer the same question as "what is the note for this verse". */
   function noteFor(verseKey) {
-    const text = state.notes[verseKey];
-    return text && text.trim() ? text : null;
+    const keys = notesIn(verseKey);
+    return keys.length ? state.notes[keys[0]] : null;
   }
 
   /* Repaint highlight/selection state in place, without rebuilding the
@@ -351,6 +370,7 @@
       const color = state.highlights[key];
       row.classList.toggle('hl', !!color);
       row.dataset.hl = color || '';
+      row.classList.toggle('ul', !!state.underlines[key]);
       row.classList.toggle('selected', selection.wholeVerseKey === key);
       row.classList.toggle('has-note', !!noteFor(key));
     }
@@ -432,7 +452,10 @@
       '</svg>';
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      openNote(verseKey, preview);
+      /* a verse can now carry several notes; the marker opens the first one
+         anchored in it rather than assuming the key IS the verse id */
+      const keys = notesIn(verseKey);
+      openNote(keys[0] || verseKey, preview);
     });
     return btn;
   }
@@ -896,16 +919,72 @@
   function applyColor(color) {
     const keys = selection.isWholeVerse ? [selection.wholeVerseKey] : [...selection.words];
     for (const key of keys) {
-      if (color) state.highlights[key] = color;
-      else delete state.highlights[key];
+      if (color) {
+        state.highlights[key] = color;
+      } else {
+        /* the eraser takes off EVERY mark, not just the tint -- otherwise an
+           underlined word looks unerasable */
+        delete state.highlights[key];
+        delete state.underlines[key];
+      }
     }
     saveHighlights();
+    saveUnderlines();
     selection.clear();
+    refreshSelectionUI();
+  }
+
+  /* Underline is a SECOND mark, not a colour. A reader wants to underline a
+     phrase they have already highlighted, so the two are stored separately
+     rather than sharing one slot -- the Spanish and Hebrew readers both do
+     this, and it is why their popover has a colour row AND an underline
+     control. Toggling applies to the whole selection: if any of it is not yet
+     underlined the whole selection becomes underlined, so a sweep over mixed
+     text does the expected thing instead of inverting word by word. */
+  function toggleUnderline() {
+    const keys = selection.isWholeVerse ? [selection.wholeVerseKey] : [...selection.words];
+    if (!keys.length) return;
+    const makeOn = keys.some((k) => !state.underlines[k]);
+    for (const key of keys) {
+      if (makeOn) state.underlines[key] = 1;
+      else delete state.underlines[key];
+    }
+    saveUnderlines();
     refreshSelectionUI();
   }
 
   function selectionText() {
     return selection.isWholeVerse ? selection.wholeVerseText : selection.joinedText;
+  }
+
+
+  /* DRAG TO SELECT A PASSAGE. Tapping word by word is fine for two or three,
+     and unusable for a sentence -- which is what a reader wants to note. The
+     Spanish reader solves it with the browser's own selection: drag across the
+     text, then collect every word-unit the selection touches. It crosses verse
+     boundaries for free, because a text selection does not know what a verse
+     is.
+
+     Tap-toggle is kept alongside it: on a phone a single word is easier to tap
+     than to drag, and the two do not conflict because the click handler stands
+     down while a native selection is live. */
+  function adoptNativeSelection() {
+    const native = window.getSelection();
+    if (!native || native.isCollapsed || !String(native).trim()) return;
+    const units = [];
+    for (const u of document.querySelectorAll('.unit')) {
+      try { if (native.containsNode(u, true)) units.push(u); } catch { /* ignore */ }
+    }
+    if (units.length < 2) return;        // a stray caret drag is not a selection
+    selection.clear();
+    for (const u of units) {
+      const key = u.dataset.key;
+      if (!key) continue;
+      const verseKey = key.slice(0, key.lastIndexOf('|'));
+      const sm = u.querySelector('.sm');
+      selection.toggleWord(key, sm ? sm.textContent.trim() : '', verseKey);
+    }
+    refreshSelectionUI();
   }
 
   /* Human reference for the note sheet — "1 Nifae 1:1". */
@@ -917,17 +996,44 @@
 
   /* `verseKey` is passed when opening from a margin marker; otherwise the note
      belongs to whatever is currently selected. */
-  function openNote(verseKey, preview) {
-    if (!verseKey) verseKey = selection.anchorVerseKey;
-    if (!verseKey) return;
-    const existing = state.notes[verseKey] || '';
+  /* A note is keyed by WHAT IT IS ATTACHED TO, not by the verse.
+
+     `state.notes` was keyed by verse id alone, so a verse held exactly one
+     note and a second one silently overwrote the first -- which is the real
+     limit behind "it only allows me to highlight one at a time for note
+     taking". The key is now the anchor: the bare verse id for a whole-verse
+     note, and `verse#i-j-k` for a word selection. Old notes are already in
+     the first shape, so nothing has to be migrated. */
+  function noteKeyFor() {
+    if (selection.isWholeVerse) return selection.wholeVerseKey;
+    const keys = selection.sortedKeys;
+    if (!keys.length) return null;
+    const byVerse = {};
+    for (const k of keys) {
+      const i = k.lastIndexOf('|');
+      (byVerse[k.slice(0, i)] ||= []).push(k.slice(i + 1));
+    }
+    const verses = Object.keys(byVerse);
+    return `${verses[0]}#${byVerse[verses[0]].join('-')}` +
+           (verses.length > 1 ? `+${verses.length - 1}` : '');
+  }
+
+  function verseOfNoteKey(noteKey) {
+    return String(noteKey).split('#')[0];
+  }
+
+  function openNote(noteKey, preview) {
+    if (!noteKey) noteKey = noteKeyFor() || selection.anchorVerseKey;
+    if (!noteKey) return;
+    const verseKey = verseOfNoteKey(noteKey);
+    const existing = state.notes[noteKey] || '';
 
     $('note-ref').textContent = referenceLabel(verseKey);
     $('note-preview').textContent = preview || selectionText();
     $('note-text').value = existing;
     $('btn-note-delete').hidden = !existing;
     $('note-sheet').hidden = false;
-    $('note-sheet').dataset.key = verseKey;
+    $('note-sheet').dataset.key = noteKey;
     $('note-text').focus();
   }
 
@@ -1039,7 +1145,12 @@
   function wireUI() {
     buildSwatches();
     $('btn-erase').addEventListener('click', () => applyColor(null));
-    $('btn-note').addEventListener('click', openNote);
+    /* NOT `addEventListener('click', openNote)`: that hands the PointerEvent
+       to the first parameter, which is now the note key, and the note was
+       stored under "[object PointerEvent]". It was harmless while the
+       parameter was ignored in favour of the current selection. */
+    $('btn-note').addEventListener('click', () => openNote());
+    $('btn-underline').addEventListener('click', toggleUnderline);
     $('btn-copy').addEventListener('click', copySelection);
     $('btn-clear-sel').addEventListener('click', () => {
       selection.clear();
@@ -1055,6 +1166,9 @@
     });
 
     $('btn-home').addEventListener('click', () => { location.hash = '#/'; });
+    for (const ev of ['mouseup', 'touchend']) {
+      document.addEventListener(ev, () => setTimeout(adoptNativeSelection, 0));
+    }
     /* buildDrawer() before opening, always: the drawer marks where you are,
        so a drawer built once and reused shows the wrong place. */
     $('nav-label').addEventListener('click', () => { buildDrawer(); toggleDrawer(true); });
