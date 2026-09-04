@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>O le Tusi a Mamona — Interlinear</title>
 <meta name="description" content="A Samoan–English interlinear Book of Mormon. Every Samoan word glossed phrase by phrase against the official English edition.">
-<meta name="theme-color" content="#1e2233">
+<meta name="theme-color" content="#1B2A41">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/icon-192.png">
 <link rel="apple-touch-icon" href="icons/icon-192.png">
@@ -20,6 +20,7 @@
   <h1 id="title">O le Tusi a Mamona</h1>
   <button id="btn-search" class="chrome-btn" aria-label="Search">&#9906;</button>
   <button id="btn-library" class="chrome-btn" aria-label="Library">&#9776;</button>
+  <button id="btn-theme" class="chrome-btn" aria-label="Reading theme">&#9681;</button>
   <button id="btn-settings" class="chrome-btn" aria-label="Display settings">A<small>A</small></button>
 </header>
 
@@ -36,8 +37,26 @@
   <button id="btn-clear-sel" class="act-btn" aria-label="Fa&#39;aleaoga" title="Fa&#39;aleaoga">&#10005;</button>
 </div>
 
-<!-- Reader mode bar, mirroring ReaderControlBar in the app -->
-<nav id="modebar" class="modebar" hidden aria-label="Reader mode"></nav>
+<!-- The reader dock. Chapter movement sits in the PRIMARY row because it is
+     the thing a reader does most and it has to be reachable with a thumb; the
+     mode bar is secondary and sits under it. Before this, prev/next existed
+     only at the very END of a chapter, so moving on meant scrolling past
+     everything you had just read or going back out to the drawer. -->
+<div id="dock" class="dock" hidden>
+  <nav class="dock-row dock-move" aria-label="Chapter">
+    <button id="dock-prev" class="dock-btn dock-prev" type="button">
+      <span class="dock-dir">&#8249;</span><span class="dock-ref" id="dock-prev-ref"></span>
+    </button>
+    <button id="dock-here" class="dock-btn dock-here" type="button" aria-haspopup="dialog">
+      <span class="dock-here-ref" id="dock-here-ref"></span>
+      <span class="dock-here-hint">&#9662;</span>
+    </button>
+    <button id="dock-next" class="dock-btn dock-next" type="button">
+      <span class="dock-ref" id="dock-next-ref"></span><span class="dock-dir">&#8250;</span>
+    </button>
+  </nav>
+  <nav id="modebar" class="modebar" aria-label="Reader mode"></nav>
+</div>
 
 <!-- Per-verse note editor -->
 <div id="note-sheet" class="sheet" hidden>
@@ -59,7 +78,14 @@
 <!-- Library drawer -->
 <div id="drawer-scrim" class="scrim" hidden></div>
 <aside id="drawer" class="drawer" hidden aria-label="Library">
-  <div class="drawer-head">Tusi</div>
+  <div class="drawer-head">
+    <span>Tusi</span>
+    <button id="btn-drawer-close" class="chrome-btn" type="button" aria-label="Close">&times;</button>
+  </div>
+  <div class="drawer-filter">
+    <input id="drawer-filter" type="search" autocomplete="off"
+           placeholder="Su&#39;e tusi &#183; Filter books" aria-label="Filter books">
+  </div>
   <div id="drawer-body"></div>
 </aside>
 

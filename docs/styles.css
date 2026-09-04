@@ -1,26 +1,50 @@
 /* Palette mirrors Theme.swift so the web reader and the iOS app look like one
    product. Values are the same hex the Swift enum documents. */
+/* ══════════════════════════════════════════════════════════════════════
+   INDIGO & GOLD (2026-09-04)
+
+   The palette from the Spanish and Hebrew interlinears, carried across so the
+   three books are bound alike. Same roles: a warm neutral paper family, one
+   deep indigo for all chrome, and gold as the accent -- BRIGHT only where it
+   sits on the indigo (#DDB768, 7.60:1 on the bars) and DEEP on paper
+   (#8E6215, 5.16:1), where it reads as bronze. Pale gold on a light ground is
+   the one pairing this palette must never make; it measures about 1.5:1.
+
+   Two changes beyond a straight swap of hexes:
+
+   The Samoan was #1a2744, a navy, and the gloss #5a6a8a, a lighter navy of the
+   same hue. With indigo chrome that reads as chrome text that has escaped onto
+   the page. The three tiers are now ink / gloss-ink / muted, exactly as the
+   other two books rank them: the Samoan is the voice and takes full ink, the
+   English sits a step below it. 17.18:1 and 7.87:1 in light, 15.08:1 and
+   8.02:1 in dark -- both AAA, where the old gloss-on-cream was 4.9:1.
+
+   The verse numeral was #7fb3d3, a light blue with no other job in the design.
+   It takes the accent, like the verse numerals in the other two.
+
+   Every pair below was measured, not eyeballed.
+   ══════════════════════════════════════════════════════════════════════ */
 :root {
-  --page-bg: #faf8f2;
-  --page-bg-deep: #f0ece0;
-  --row-alt: #fdf8eb;
+  --page-bg: #FCFAF7;
+  --page-bg-deep: #F0ECE5;
+  --row-alt: #F7F4EF;
 
-  --ink: #1a1a1a;
-  --ink-light: #444444;
+  --ink: #191713;
+  --ink-light: #6D655B;
 
-  --hw-ink: #1a2744;      /* Samoan surface form */
-  --gloss-ink: #5a6a8a;   /* English gloss */
+  --hw-ink: #191713;      /* Samoan surface form -- the voice, full ink */
+  --gloss-ink: #554E45;   /* English gloss -- one step below it */
 
-  --accent: #dbb958;
-  --accent-light: #e8cc78;
-  --rule: #d6ceb8;
-  --rule-light: #e8e2d4;
-  --verse-num: #7fb3d3;
+  --accent: #8E6215;         /* the accent as a MARK on paper: bronze */
+  --accent-light: #DDB768;   /* the accent on the indigo chrome: bright */
+  --rule: #E2DCD2;
+  --rule-light: #EDE8E0;
+  --verse-num: #8E6215;
 
-  --header-bg: #1e2233;
-  --header-hover: #2a2f44;
-  --header-text: #dbb958;
-  --button-border: #3a3f55;
+  --header-bg: #1B2A41;
+  --header-hover: #243652;
+  --header-text: #DDB768;
+  --button-border: #2E4260;
 
   --scale: 1;
   --serif: "Times New Roman", "Tinos", Times, serif;
@@ -28,17 +52,77 @@
   --chrome-h: 3rem;
 }
 
+/* SEPIA — the third theme, and the one built for reading.
+
+   Not a warm dark mode. Positive polarity (dark text on a light ground) beats
+   negative for acuity at every age, and the advantage GROWS as type gets
+   smaller -- which decides it here, because the gloss tier is the smallest
+   text on the page. Dark mode also causes halation for readers with
+   astigmatism: bright glyphs bleed against a dark ground. Tinting a dark
+   ground brown keeps the light text and so keeps the halation; it just makes
+   it brown. Sepia works by flipping the polarity back. */
+:root[data-theme="sepia"] {
+  --page-bg: #F4EAD8;
+  --page-bg-deep: #E8DAC2;
+  --row-alt: #EFE3CD;
+  --ink: #2A2318;
+  --ink-light: #71634C;
+  --hw-ink: #2A2318;
+  --gloss-ink: #5C503C;
+  --rule: #DCCDB2;
+  --rule-light: #E8DCC6;
+  /* the accent goes a step deeper than light's: the ground is itself warm, so
+     #8E6215 loses separation against it */
+  --accent: #7A5412;
+  --verse-num: #7A5412;
+}
+
+/* Dark, reachable two ways: chosen explicitly, or the OS default when nothing
+   has been chosen. Declaring the tokens in one place and listing both
+   selectors keeps the two from drifting -- which is the failure the Spanish
+   app had, where a token declared only on :root baked in the light value and
+   inherited it into dark. */
+:root[data-theme="dark"] {
+    --page-bg: #14120F;
+    --page-bg-deep: #0C0B09;
+    --row-alt: #191613;
+    --ink: #EDE6DA;
+    --ink-light: #9A8D7C;
+    --hw-ink: #EDE6DA;
+    --gloss-ink: #B5A896;
+    --rule: #342E26;
+    --rule-light: #24201B;
+    /* the binding deepens in dark: #1B2A41 against a #14120F page reads as a
+       lit slab, because the chrome ends up LIGHTER than the paper it frames */
+    --header-bg: #101823;
+    --header-hover: #22304A;
+    --header-text: #E6C87E;
+    --button-border: #24334A;
+    --accent: #D9B45F;
+    --accent-light: #E6C87E;
+    --verse-num: #D9B45F;
+}
+
 @media (prefers-color-scheme: dark) {
-  :root {
-    --page-bg: #14161f;
-    --page-bg-deep: #0e1017;
-    --row-alt: #191c27;
-    --ink: #e8e4d8;
-    --ink-light: #b4b0a4;
-    --hw-ink: #cdd8ef;
-    --gloss-ink: #8fa0c2;
-    --rule: #2e3244;
-    --rule-light: #232636;
+  :root:not([data-theme="light"]):not([data-theme="sepia"]) {
+    --page-bg: #14120F;
+    --page-bg-deep: #0C0B09;
+    --row-alt: #191613;
+    --ink: #EDE6DA;
+    --ink-light: #9A8D7C;
+    --hw-ink: #EDE6DA;
+    --gloss-ink: #B5A896;
+    --rule: #342E26;
+    --rule-light: #24201B;
+    /* the binding deepens in dark: #1B2A41 against a #14120F page reads as a
+       lit slab, because the chrome ends up LIGHTER than the paper it frames */
+    --header-bg: #101823;
+    --header-hover: #22304A;
+    --header-text: #E6C87E;
+    --button-border: #24334A;
+    --accent: #D9B45F;
+    --accent-light: #E6C87E;
+    --verse-num: #D9B45F;
   }
 }
 
@@ -86,8 +170,11 @@ html, body {
 }
 
 .chrome-btn {
-  min-width: 2.25rem;
-  height: 2.25rem;
+  /* 44x44 is the floor for a touch target, and the header is the one bar a
+     reader hits on every screen. These were 36x36. */
+  min-width: 44px;
+  min-height: 44px;
+  height: 44px;
   padding: 0 .5rem;
   border: 1px solid var(--button-border);
   border-radius: .4rem;
@@ -99,6 +186,7 @@ html, body {
   cursor: pointer;
 }
 
+.chrome-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
 .chrome-btn:hover { background: var(--header-hover); }
 .chrome-btn:active { background: var(--header-hover); }
 
@@ -307,8 +395,8 @@ body.no-gloss .unit .en { display: none; }
 /* The tints are light by design, so highlighted text keeps the dark ink
    rather than inheriting a dark-mode foreground it can't be read against. */
 @media (prefers-color-scheme: dark) {
-  .unit.hl .sm, .verse.hl .prose, .verse.hl .verse-num { color: #1a2744; }
-  .unit.hl .en { color: #47546f; }
+  .unit.hl .sm, .verse.hl .prose, .verse.hl .verse-num { color: #191713; }
+  .unit.hl .en { color: #554E45; }
 }
 
 .unit.selected { border-color: var(--accent); }
@@ -320,11 +408,16 @@ body.no-gloss .unit .en { display: none; }
    the way the Church's own reader marks a noted verse. Hidden unless the row
    carries a note, but always in the DOM so the gutter width never shifts. */
 .note-marker {
+  /* the MARK stays small -- it is a margin ornament, not a button that should
+     shout -- but the hit area is padded out to the 44px floor */
   flex: none;
   align-self: flex-start;
-  width: 1.5rem;
-  height: 1.5rem;
-  margin-top: .375rem;
+  width: 44px;
+  height: 44px;
+  margin-top: 0;
+  margin-left: -.6rem;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 1.1rem;
   padding: 0;
   border: 0;
   background: transparent;
@@ -482,6 +575,7 @@ body.no-gloss .unit .en { display: none; }
 .drawer-body-group { border-bottom: 1px solid var(--rule-light); }
 
 .drawer-book {
+  min-height: 44px;
   width: 100%;
   padding: .7rem 1rem;
   border: 0;
@@ -496,14 +590,21 @@ body.no-gloss .unit .en { display: none; }
 .drawer-book:hover { background: var(--row-alt); }
 .drawer-book .en { color: var(--ink-light); font-size: .8rem; font-style: italic; }
 
+/* Sized to the touch floor, not to a column count: at a fixed 6 columns the
+   chips came out ~30px wide in a 220px drawer. auto-fill lets the grid choose
+   how many 44px cells fit, so the target size is the constant and the column
+   count is what gives. */
 .chapter-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(2.6rem, 1fr));
-  gap: .35rem;
-  padding: .25rem .75rem .85rem;
+  grid-template-columns: repeat(auto-fill, minmax(44px, 1fr));
+  gap: 6px;
+  padding: 8px 10px 12px;
 }
 
 .chapter-chip {
+  /* a chapter grid is a wall of small targets; Alma alone has 63 of them */
+  min-height: 44px;
+  display: inline-flex; align-items: center; justify-content: center;
   padding: .45rem 0;
   border: 1px solid var(--rule);
   border-radius: .3rem;
@@ -602,36 +703,37 @@ body.no-gloss .unit .en { display: none; }
 
 /* ---------- reader mode bar (footer) ---------- */
 
+/* The mode bar now lives INSIDE the dock, so it must not position itself:
+   fixed here left it anchored to the viewport while the dock sat above it,
+   and the two chrome bars stacked on top of each other. The dock owns the
+   position, the safe-area inset and the background; this owns the row. */
 .modebar {
-  position: fixed;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 20;
+  position: static;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: .625rem;
-  padding: .5rem 1rem .625rem;
-  padding-bottom: calc(.625rem + env(safe-area-inset-bottom));
-  background: var(--header-bg);
+  padding: .5rem 1rem;
+  background: transparent;
 }
 
 .mode-btn {
+  min-height: 44px;
   padding: .438rem .875rem;
   border: 1px solid var(--button-border);
   border-radius: .25rem;
   background: transparent;
-  color: var(--accent);
+  color: var(--header-text);
   font-family: var(--serif);
   font-size: .875rem;
   font-weight: 600;
   cursor: pointer;
 }
+.mode-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
 
 .mode-btn.active {
-  border-color: var(--accent);
-  background: var(--accent);
+  border-color: var(--accent-light);
+  background: var(--accent-light);
   color: var(--header-bg);
 }
 
@@ -712,9 +814,9 @@ body.no-gloss .unit .en { display: none; }
   aspect-ratio: 3 / 4;
   margin-top: 1.5rem;
   padding: 1.75rem 1rem;
-  border: 1px solid #2a4060;
+  border: 1px solid #2E4260;
   border-radius: .5rem;
-  background: linear-gradient(180deg, #0d1a2e 0%, #162744 100%);
+  background: linear-gradient(180deg, #142132 0%, #1B2A41 100%);
   box-shadow: 0 4px 10px rgba(0, 0, 0, .18);
   cursor: pointer;
   font-family: var(--serif);
@@ -723,7 +825,7 @@ body.no-gloss .unit .en { display: none; }
 .cover-rule {
   width: calc(100% - 3.5rem);
   height: 1px;
-  background: rgba(219, 185, 88, .55);
+  background: color-mix(in srgb, var(--accent-light) 55%, transparent);
 }
 
 .cover-title, .cover-sub {
@@ -746,19 +848,19 @@ body.no-gloss .unit .en { display: none; }
 }
 
 .cover-title .en {
-  color: rgba(219, 185, 88, .8);
+  color: color-mix(in srgb, var(--accent-light) 80%, transparent);
   font-size: .688rem;
   font-style: italic;
 }
 
 .cover-sub .sm {
-  color: rgba(219, 185, 88, .9);
+  color: color-mix(in srgb, var(--accent-light) 90%, transparent);
   font-size: .813rem;
   letter-spacing: .031em;
 }
 
 .cover-sub .en {
-  color: rgba(219, 185, 88, .7);
+  color: color-mix(in srgb, var(--accent-light) 70%, transparent);
   font-size: .563rem;
   font-style: italic;
 }
@@ -770,7 +872,7 @@ body.no-gloss .unit .en { display: none; }
   gap: 3px;
   margin-top: 1.5rem;
   padding: .75rem 1.5rem;
-  border: 1px solid rgba(219, 185, 88, .6);
+  border: 1px solid color-mix(in srgb, var(--accent-light) 60%, transparent);
   border-radius: .5rem;
   background: var(--header-bg);
   cursor: pointer;
@@ -813,7 +915,7 @@ body.no-gloss .unit .en { display: none; }
 .disclaimer .hairline {
   height: 1px;
   margin: .75rem 2.5rem;
-  background: rgba(214, 206, 184, .6);
+  background: color-mix(in srgb, var(--rule) 60%, transparent);
 }
 
 .disclaimer-gloss {
@@ -885,4 +987,93 @@ body.no-gloss .unit .en { display: none; }
   color: var(--accent);
   font-size: .72rem;
   font-style: italic;
+}
+
+/* ══════════════════════════════════════════════════════════════════════
+   THE READER DOCK (2026-09-04)
+
+   Chapter movement used to live in one place only: a prev/next pair at the
+   very END of the chapter. To read on you had to scroll past everything you
+   had just read, or go back out to the drawer and start again. Moving to the
+   next chapter is the single most frequent thing a reader does here, so it
+   belongs where the thumb already is.
+
+   Two rows, ranked. Movement is primary and takes the top row at full touch
+   size; the mode bar is a setting you change occasionally, so it sits below
+   and quieter. Every control clears the 44px minimum, and the dock carries
+   the bottom safe-area inset so it is not swallowed by the home indicator.
+   ══════════════════════════════════════════════════════════════════════ */
+.dock {
+  position: fixed;
+  left: 0; right: 0; bottom: 0;
+  z-index: 40;
+  background: var(--header-bg);
+  border-top: 1px solid var(--button-border);
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.dock-row { display: flex; align-items: stretch; gap: 6px; padding: 6px 8px; }
+.dock-move { border-bottom: 1px solid var(--button-border); }
+.dock-btn {
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+  min-height: 44px; padding: 6px 10px;
+  background: transparent; color: var(--header-text);
+  border: 1px solid var(--button-border); border-radius: 10px;
+  font-family: inherit; font-size: .85rem; line-height: 1.15;
+  cursor: pointer; -webkit-tap-highlight-color: transparent;
+}
+.dock-btn:hover { background: var(--header-hover); }
+.dock-btn:focus-visible { outline: 2px solid var(--accent-light); outline-offset: 2px; }
+.dock-btn[disabled] { opacity: .35; cursor: default; }
+.dock-prev, .dock-next { flex: 1 1 0; min-width: 0; }
+/* the current reference is the anchor of the row: wider, filled, and it opens
+   the library at where you already are */
+.dock-here {
+  flex: 1.4 1 0; min-width: 0;
+  background: color-mix(in srgb, var(--accent-light) 16%, transparent);
+  border-color: var(--accent-light);
+  font-weight: 600;
+}
+.dock-dir { font-size: 1.2rem; line-height: 1; opacity: .9; }
+.dock-ref, .dock-here-ref {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+}
+.dock-here-hint { font-size: .7rem; opacity: .8; }
+/* the dock is fixed, so the page has to end above it rather than under it */
+body.has-dock main { padding-bottom: 8.5rem; }
+
+/* ── Drawer: a close control, a filter, and a sense of where you are ── */
+/* The head and the filter stay put while the list scrolls. The drawer opens
+   scrolled to the reader's own book, which is usually a long way down, so a
+   filter that scrolled with the list would open already out of reach --
+   and so would the close button. */
+.drawer-head {
+  display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  position: sticky; top: 0; z-index: 2;
+}
+.drawer-filter {
+  padding: 8px 10px; border-bottom: 1px solid var(--rule-light);
+  position: sticky; top: var(--chrome-h); z-index: 2;
+  background: var(--page-bg-deep);
+}
+.drawer-filter input {
+  width: 100%; min-height: 44px; padding: 8px 10px;
+  font-family: inherit; font-size: .9rem;
+  color: var(--ink); background: var(--page-bg);
+  border: 1px solid var(--rule); border-radius: 8px;
+}
+.drawer-filter input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+.drawer-section {
+  padding: 12px 14px 4px;
+  font-size: .7rem; letter-spacing: .14em; text-transform: uppercase;
+  color: var(--ink-light);
+}
+/* WHERE YOU ARE. The drawer used to open with every book collapsed and
+   nothing marked, so it could not answer "where am I" -- the one question a
+   reader opens it with. */
+.drawer-book[aria-current="true"] {
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  box-shadow: inset 3px 0 0 var(--accent);
+}
+.chapter-cell[aria-current="true"] {
+  background: var(--accent); color: var(--page-bg); font-weight: 700;
 }

@@ -22,6 +22,12 @@
     { id: 'dual', label: 'Tutusa' },
   ];
 
+  const THEMES = [
+    { id: 'light', glyph: '\u25D1', label: 'Malamalama \u00b7 Light' },
+    { id: 'sepia', glyph: '\u25D2', label: 'Sepia' },
+    { id: 'dark',  glyph: '\u25D0', label: 'Pogisa \u00b7 Dark' },
+  ];
+
   /* Five highlight colors, matching HighlightColor in HighlightStore.swift. */
   const COLORS = [
     { id: 'yellow', tint: '#fff08c', label: 'Samasama' },
@@ -130,6 +136,7 @@
       scale: typeof s.scale === 'number' ? s.scale : 1,
       diacritics: !!s.diacritics,
       mode: MODES.some((m) => m.id === s.mode) ? s.mode : 'interlinear',
+      theme: THEMES.some((t) => t.id === s.theme) ? s.theme : 'light',
     };
   }
 
@@ -142,6 +149,35 @@
     document.documentElement.style.setProperty('--scale', state.settings.scale);
     $('font-scale').value = state.settings.scale;
     $('toggle-diacritics').checked = state.settings.diacritics;
+    applyTheme();
+  }
+
+  /* Three reading themes on one button, the same cycle the Hebrew and Spanish
+     interlinears use: light -> sepia -> dark -> light. Sepia sits between the
+     two because it IS a light theme -- warm paper, dark ink -- so the cycle
+     runs brightest ground to darkest. The button shows the theme you are in;
+     its label names the one you get next.
+
+     The theme is written to data-theme on <html>, and the CSS reads dark from
+     BOTH that attribute and the OS preference, so a reader who has never
+     touched the button still gets their system's dark mode. */
+
+  function applyTheme() {
+    const t = state.settings.theme || 'light';
+    document.documentElement.setAttribute('data-theme', t);
+    const btn = $('btn-theme');
+    if (!btn) return;
+    const i = THEMES.findIndex((x) => x.id === t);
+    const next = THEMES[(i + 1) % THEMES.length];
+    btn.textContent = THEMES[i < 0 ? 0 : i].glyph;
+    btn.setAttribute('aria-label', 'Reading theme: ' + next.label);
+    btn.setAttribute('title', next.label);
+  }
+
+  function cycleTheme() {
+    const i = THEMES.findIndex((x) => x.id === (state.settings.theme || 'light'));
+    state.settings.theme = THEMES[(i + 1) % THEMES.length].id;
+    saveSettings();
   }
 
   /* The footer mode bar. Active pill = gold fill with navy text, inactive =
@@ -612,7 +648,9 @@
 
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
-    $('modebar').hidden = false;
+    $('dock').hidden = false;
+    document.body.classList.add('has-dock');
+    buildDock(book, num);
     refreshSelectionUI();
     localStorage.setItem('bom.last', `#/b/${bookId}/${num}`);
   }
@@ -634,7 +672,8 @@
     if (section.en) frag.append(el('div', 'front-body en', section.en));
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
-    $('modebar').hidden = true;
+    $('dock').hidden = true;
+    document.body.classList.remove('has-dock');
     selection.clear();
     $('actionbar').hidden = true;
   }
@@ -645,7 +684,8 @@
   function showHome() {
     $('title').textContent = 'O le Tusi a Mamona';
     document.title = 'O le Tusi a Mamona — Interlinear';
-    $('modebar').hidden = true;
+    $('dock').hidden = true;
+    document.body.classList.remove('has-dock');
     selection.clear();
     $('actionbar').hidden = true;
 
@@ -672,12 +712,20 @@
 
   // ----------------------------------------------------------------- drawer
 
+  /* The drawer's one job is to answer "where am I, and where do I want to be".
+     It used to answer only the second half: every book collapsed, nothing
+     marked, front matter and scripture in one undifferentiated run. Now it
+     opens at the reader's own chapter with that chapter marked, the sections
+     are labelled, and a filter is there for anyone who already knows. */
   function buildDrawer() {
     const body = $('drawer-body');
     body.replaceChildren();
+    const here = currentRef();
 
+    body.append(el('div', 'drawer-section', 'Amataga \u00b7 Front matter'));
     for (const section of state.index.frontmatter) {
       const btn = el('button', 'drawer-book', section.titleSm);
+      if (here.front === section.id) btn.setAttribute('aria-current', 'true');
       btn.addEventListener('click', () => {
         location.hash = `#/front/${section.id}`;
         toggleDrawer(false);
@@ -685,17 +733,23 @@
       body.append(btn);
     }
 
+    body.append(el('div', 'drawer-section', 'Tusi Paia \u00b7 Books'));
     for (const book of state.index.books) {
       const group = el('div', 'drawer-body-group');
       const btn = el('button', 'drawer-book');
       btn.append(document.createTextNode(book.nameSm));
       btn.append(document.createElement('br'));
       btn.append(el('span', 'en', book.nameEn));
+      const isHere = here.book === book.id;
+      if (isHere) btn.setAttribute('aria-current', 'true');
+      btn.setAttribute('aria-expanded', String(isHere));
 
       const grid = el('div', 'chapter-grid');
-      grid.hidden = true;
+      grid.hidden = !isHere;          // the book you are in opens for you
       for (const num of book.chapters) {
         const chip = el('button', 'chapter-chip', String(num));
+        chip.className = 'chapter-chip chapter-cell';
+        if (isHere && here.num === num) chip.setAttribute('aria-current', 'true');
         chip.addEventListener('click', () => {
           location.hash = `#/b/${book.id}/${num}`;
           toggleDrawer(false);
@@ -704,15 +758,71 @@
       }
       btn.addEventListener('click', () => {
         grid.hidden = !grid.hidden;
+        btn.setAttribute('aria-expanded', String(!grid.hidden));
       });
       group.append(btn, grid);
       body.append(group);
     }
   }
 
+  /* Where the reader is, read off the hash rather than tracked separately --
+     the hash is already the single source of truth for the route. */
+  function currentRef() {
+    const m = /^#\/b\/([^/]+)\/(\d+)/.exec(location.hash || '');
+    if (m) return { book: m[1], num: Number(m[2]), front: null };
+    const f = /^#\/front\/([^/]+)/.exec(location.hash || '');
+    return { book: null, num: null, front: f ? f[1] : null };
+  }
+
+
+  /* The dock's movement row. flatChapters() already runs the whole book as one
+     sequence, so "next" crosses a book boundary the way a reader does -- the
+     last chapter of 1 Nifae is followed by 2 Nifae 1, not by nothing. */
+  function buildDock(book, num) {
+    const all = flatChapters();
+    const at = all.findIndex((c) => c.id === book.id && c.num === num);
+    const set = (btnId, refId, target) => {
+      const btn = $(btnId), ref = $(refId);
+      if (!target) {
+        btn.disabled = true;
+        ref.textContent = '';
+        btn.removeAttribute('aria-label');
+        return;
+      }
+      const b = bookById(target.id);
+      btn.disabled = false;
+      ref.textContent = `${b.nameSm} ${target.num}`;
+      btn.setAttribute('aria-label', `${b.nameSm} ${target.num}`);
+      btn.onclick = () => { location.hash = `#/b/${target.id}/${target.num}`; };
+    };
+    set('dock-prev', 'dock-prev-ref', all[at - 1]);
+    set('dock-next', 'dock-next-ref', all[at + 1]);
+    $('dock-here-ref').textContent = `${book.nameSm} ${num}`;
+    $('dock-here').setAttribute('aria-label', `${book.nameSm} ${num} — open the library here`);
+    $('dock-here').onclick = () => { buildDrawer(); toggleDrawer(true); };
+  }
+
   function toggleDrawer(open) {
     $('drawer').hidden = !open;
     $('drawer-scrim').hidden = !open;
+    if (open) {
+      const cur = $('drawer-body').querySelector('[aria-current="true"]');
+      if (cur) cur.scrollIntoView({ block: 'center' });
+      const f = $('drawer-filter');
+      if (f) f.value = '';
+      filterDrawer('');
+    }
+  }
+
+  /* A filter, because the list is 15 books plus the front matter and a reader
+     who knows where they are going should not have to scroll to it. Matches
+     both names, so "Alma" and "Alema" both find the book. */
+  function filterDrawer(q) {
+    const needle = (q || '').trim().toLowerCase();
+    for (const group of $('drawer-body').querySelectorAll('.drawer-body-group, .drawer-book, .drawer-section')) {
+      if (!needle) { group.hidden = false; continue; }
+      group.hidden = !group.textContent.toLowerCase().includes(needle);
+    }
   }
 
   // ----------------------------------------------------------------- search
@@ -966,6 +1076,15 @@
       location.hash = '#/';
     });
 
+    $('btn-theme').addEventListener('click', cycleTheme);
+    $('btn-drawer-close').addEventListener('click', () => toggleDrawer(false));
+    $('drawer-filter').addEventListener('input', (e) => filterDrawer(e.target.value));
+    /* Escape closes whatever is open, so the drawer is never a trap for a
+       keyboard user. */
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'Escape') return;
+      if (!$('drawer').hidden) toggleDrawer(false);
+    });
     $('btn-settings').addEventListener('click', () => {
       $('settings').hidden = false;
     });
