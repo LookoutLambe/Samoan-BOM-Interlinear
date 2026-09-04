@@ -38,6 +38,7 @@ happened since.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import re
 import sys
@@ -241,14 +242,38 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
         for k in range(a + 1, b):
             here = (n(k) in names or SG.transliterated(n(k))
                     or n(k) in SG.DIRECTIONALS)
-            prev = (n(k - 1) in names or SG.transliterated(n(k - 1))
-                    or n(k - 1) in SG.DIRECTIONALS)
-            if here and not prev:
+            if not here:
+                continue
+            prev = n(k - 1)
+            if (prev in names or SG.transliterated(prev)
+                    or prev in SG.DIRECTIONALS):
+                continue
+            # A NAME MAY FOLLOW THE NOUN IT QUALIFIES. `o tagata Iutaia` is
+            # "of the Jews" -- one phrase, with `tagata` "people" and the name
+            # naming which people. What a name may not follow is a PARTICLE,
+            # because the particle's English is what lands on it:
+            #   i Aikupito -> "into Egypt"   ia Siona -> "against Zion"
+            #   maua e sa Lamanā -> "the Lamanites have taken"
+            if prev in SG.CLOSED_CLASS or prev in SG.AMBIGUOUS:
                 return True
+        # A BLANKET BOUND-PRONOUN SPLIT WAS TRIED AND REVERTED. `ua ou tusia`
+        # really is the tense marker + "I" + "write", but forcing every
+        # pronoun to open a unit breaks the verb clusters around it and turns
+        # `maua` -- which is BOTH the 1st-dual pronoun "we two" and the verb
+        # "obtain" -- into the pronoun everywhere. Content F1 84.2 -> 82.5.
         return False
+
+    def joins_two_clauses(a, b):
+        """A COORDINATOR OPENS ITS OWN UNIT. `ma ua ou tusia` is four words
+        doing four jobs -- "and", the tense marker, "I", "write" -- and the
+        curation records it whole, so the coordinator's "and" and the bound
+        pronoun's "I" both vanished and only "written" was printed."""
+        return b - a > 1 and n(a) in SG.COORDINATORS
 
     def legal(span):
         key = n(i, i + span)
+        if joins_two_clauses(i, i + span):
+            return False
         # `o` heads the phrase that follows it, so no unit ends on one
         return (not SG.ends_mid_phrase(key)
                 and not cuts_a_construction(i, i + span)
@@ -378,6 +403,68 @@ def trim_absent_tail(gloss: str, english: str) -> str:
     return " ".join(parts)
 
 
+_EN_NAMES = None
+
+
+def english_names() -> set:
+    """English proper names: words the canon never writes in lower case."""
+    global _EN_NAMES
+    if _EN_NAMES is None:
+        from collections import Counter
+        up, low = Counter(), Counter()
+        data = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
+        for v in data.values():
+            for w in re.findall(r"[A-Za-z][a-z']+", v):
+                (up if w[0].isupper() else low)[w.lower()] += 1
+        _EN_NAMES = {w for w, n in up.items() if n >= 2 and low.get(w, 0) == 0}
+    return _EN_NAMES
+
+
+def dominant_lemma(dist) -> str:
+    """The one word a token means, when its lexicon agrees on the word and
+    only disagrees on the form.
+
+    `tusia` is written 84, write 61, wrote 9, kept 4 -- one verb in three
+    tenses, and no single spelling reaches a majority, so a threshold on the
+    top READING refuses a word the corpus is unanimous about. Cluster the
+    forms first, then ask whether one LEMMA dominates: 154 of 158, 97%.
+
+    Returns '' when the disagreement is real, which is the point -- a token
+    read two different ways still says nothing.
+    """
+    total = sum(dist.values())
+    if total < 3:
+        return ""
+    groups: list[list] = []
+    for word, n in dist.most_common():
+        for g in groups:
+            if difflib.SequenceMatcher(None, g[0][0], word).ratio() >= 0.6:
+                g.append((word, n))
+                break
+        else:
+            groups.append([(word, n)])
+    best = max(groups, key=lambda g: sum(n for _, n in g))
+    if sum(n for _, n in best) / total < 0.60:
+        return ""
+    return best[0][0]
+
+
+def capitalise_names(gloss: str, key_sm: str, names) -> str:
+    """A proper name is written with a capital -- and only the name is.
+
+    `Iutaia` came out "jews", because the derived lexicon lowercases as it
+    learns. Capitalising the whole unit instead gave "Of The Jews", so only
+    the words the ENGLISH canon itself never writes lower case are raised.
+    """
+    if not any(t in names for t in key_sm.split()):
+        return gloss
+    en_names = english_names()
+    return re.sub(r"[A-Za-z']+",
+                  lambda m: (m.group(0).capitalize()
+                             if m.group(0).lower() in en_names else m.group(0)),
+                  gloss)
+
+
 def choose_particle(form: str, english: str, inv, prev_key: str = "",
                     prev_tok: str = "", next_tok: str = "",
                     clause_initial: bool = False) -> tuple[str, str]:
@@ -411,11 +498,15 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
         # "to him" must not win on the "to" alone
         return all(in_english(w, ew) for w in reading.split())
 
+    # ORDER BEFORE COUNT. Each READINGS list is written in the curation's own
+    # frequency order -- `i` is "in" 2,708 times, "to" 2,146, "upon" 857 --
+    # and that beats inv, which counts whole gloss STRINGS and had `i` coming
+    # out "to" in verses reading "in the commencement" and "at Jerusalem".
     scored = sorted(
-        ((carried(r), inv.get(form, {}).get(r, 0), -n, r)
+        ((carried(r), -n, inv.get(form, {}).get(r, 0), r)
          for n, r in enumerate(readings)),
         reverse=True)
-    present, _weight, _order, best = scored[0]
+    present, _order, _weight, best = scored[0]
     if present:
         return best, "particle"
     if len(readings) == 1:
@@ -633,6 +724,23 @@ def main(argv: list[str] | None = None) -> int:
                     # nothing. The unit's one open-class word still has a
                     # reading, and the verse still decides which: this can
                     # only ever produce a word the verse actually has.
+                    # THE VERSE IS A GUIDE, NOT A GAG. `tusia` is "write"
+                    # and 1 Nephi 1:3 reads "I make it with mine own hand" --
+                    # the English chose another word, and the Samoan still
+                    # says write. Where a lone open-class token would be left
+                    # BLANK and its lexicon is overwhelmingly one reading,
+                    # that reading is written. Nothing is invented: the word
+                    # comes from the curation, and a token with a divided
+                    # lexicon still says nothing.
+                    if not gloss:
+                        opens = [t for t in key_sm.split()
+                                 if t not in SG.CLOSED_CLASS
+                                 and t not in SG.AMBIGUOUS and t in lex]
+                        if len(opens) == 1:
+                            hit_g = dominant_lemma(lex[opens[0]])
+                            if hit_g:
+                                gloss, why = hit_g, "lexicon/" + src
+
                     if not gloss:
                         open_toks = [t for t in key_sm.split()
                                      if t not in SG.CLOSED_CLASS
@@ -652,6 +760,7 @@ def main(argv: list[str] | None = None) -> int:
                     stats["unit: " + why] += 1
                     if gloss:
                         gloss = modernise(align_number(gloss, en_text))
+                        gloss = capitalise_names(gloss, key_sm, names)
                         for j in range(i, i + hit - 1):
                             out[j]["en"] = CONT
                         out[i + hit - 1]["en"] = gloss

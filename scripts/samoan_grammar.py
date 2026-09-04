@@ -168,9 +168,23 @@ PRONOUNS = {
     'a’u': ('1sg', 'I'),      'ou': ('1sg', 'I'),        'aʻu': ('1sg', 'I'),
     'oe': ('2sg', 'you'),     'e': ('2sg clitic', 'you'),
     'ia': ('3sg', 'he/she'),  'na': ('3sg', 'he/she'),
-    'maua': ('1du.excl', 'we two'),  'ma': ('1du.excl', 'we two'),
-    'taua': ('1du.incl', 'we two'),  'ta': ('1du.incl', 'we two'),
-    'oulua': ('2du', 'you two'),      'laua': ('3du', 'they two'),
+    'ma': ('1du.excl', 'we two'),    'ta': ('1du.incl', 'we two'),
+    'oulua': ('2du', 'you two'),      'laua': ('3du', 'them'),
+    # THE GLOTTAL IS THE WHOLE WORD HERE. These were registered on the
+    # glottal-LESS form, which is a different word, so the pronoun reading was
+    # claimed by 1,587 tokens that are nothing of the kind:
+    #
+    #   maua  1,224  the VERB "obtain, receive"   ma’ua  73  1du.excl "us"
+    #   taua    363  the NOUN "war"               ta’ua 295  the VERB "called"
+    #   laua    359  3du "them"                   la’ua 173  the same word,
+    #                                                         glottal written
+    #
+    # `maua` and `taua` are struck from this table entirely. `ta’ua` is not
+    # added: in this corpus it is "which was called", never the 1st-dual.
+    # `la’ua` IS added, because there the glottal is only inconsistent
+    # spelling of one word -- both forms gloss "them / to them / they" and
+    # both follow `i`, `o`, `lo`.
+    'ma’ua': ('1du.excl', 'us'),      'la’ua': ('3du', 'them'),
     'matou': ('1pl.excl', 'we'),     'tatou': ('1pl.incl', 'we'),
     'outou': ('2pl', 'you all'), 'tou': ('2pl clitic', 'you all'),
     'latou': ('3pl', 'they'),
@@ -188,6 +202,35 @@ PRONOUNS = {
     'o ia':    ('3sg topic', 'he'),        # him 253 / he 248
     'e ia':    ('3sg ergative', 'him'),    # him 113 / he 45
     'lava ia': ('3sg reflexive', 'himself'),  # myself 20 / himself 18
+    # ── BOUND PRONOUN + `te` ────────────────────────────────────────────
+    # `te` is the TAM that clings to a preposed pronoun -- this file has said
+    # so since it was written ("never stands alone, it clings to `ou te`,
+    # `latou te`") -- and not one of the frames was registered, so 3,105
+    # tokens fell through to the inventory. The DUALS are here too: the
+    # user's point that a bound form "can also be us two depending on
+    # context" is exactly this frame. Counts are the curation's first English
+    # word for a unit starting with the frame.
+    # ── `o` + PRONOUN : THE TOPIC FRAME ─────────────────────────────────
+    # `o a’u` is "I" 97 times and "I am" 39 -- the topic-marked 1st person,
+    # which the table did not have at all. The plural ones are claimed by the
+    # possessive paradigm as "your/our/their", and they are BOTH: `o outou`
+    # is "you" 19 and "of you" 5. Those get readings so the verse decides
+    # rather than the paradigm always winning.
+    'o a’u':   ('1sg topic', 'I'),       # I 97 / I am 39
+    'o oe':    ('2sg topic', 'you'),
+    'o ma’ua': ('1du.excl topic', 'we two'),
+    'o ta’ua': ('1du.incl topic', 'we two'),
+    'ou te':    ('1sg', 'I'),            # I 698
+    'tou te':   ('2pl', 'you all'),      # you 85
+    'e te':     ('2sg', 'you'),          # you 33
+    'latou te': ('3pl', 'they'),         # they 72
+    'na te':    ('3sg', 'he'),           # he 10
+    'matou te': ('1pl.excl', 'we'),      # we 46
+    'tatou te': ('1pl.incl', 'we'),      # we 11
+    'lua te':   ('2du', 'you two'),      # 32 pairs
+    'la te':    ('3du', 'they two'),     # they 4
+    'ma te':    ('1du.excl', 'we two'),  # we 2
+    'ta te':    ('1du.incl', 'we two'),  # we 1
     'ia te au':      ('1sg dat', 'to me'),      # to me 46
     'ia te oe':      ('2sg dat', 'to you'),     # to you 141
     'ia te ia':      ('3sg dat', 'to him'),     # to him 246
@@ -338,6 +381,11 @@ COMPLEX_PREPOSITIONS = {
     'e faasaga': 'against, toward',                       #   288, "against"    270
     'e faavavau': 'forever, everlasting',                 #   113, "forever"     69
     'e leai':    'there is no, none',                     #   120
+    # ONE FRAME, like `po o`. `e tusa ma lo’u iloa` is "according to my
+    # knowledge": the `ma` is part of the preposition, not the head of the
+    # phrase after it, and split the gloss said "according to" and "to" twice.
+    'e tusa ma': 'according to',                          #   410
+    'e tusa':    'according to, like',                    #   600
 }
 
 # ── DIRECTIONALS: deixis on the verb ─────────────────────────────────────────
@@ -669,6 +717,15 @@ READINGS = {
     'i matou': ['us', 'we'],                     #    50 /  12
     'i tatou': ['us', 'we'],                     #    27 /  10
     'o ia':    ['him', 'he'],                    #   253 / 248
+    # the topic frame and the O-class possessive are the same string
+    'o outou': ['your', 'you'],                  #    19 "you" /  5 "of you"
+    'o matou': ['our', 'we'],
+    'o tatou': ['our', 'we'],
+    'o latou': ['their', 'they'],                #     9 / 1
+    # `au` is the 2sg possessive AND the noun "host, band" -- `au taua` is a
+    # band of war. `taua` is that war; `ta’ua`, with the glottal, is the verb
+    # "be called" (called 95). Three words the table had as one pronoun.
+    'au':      ['your', 'host', 'band', 'army'],
     'e ia':    ['him', 'he'],                    #   113 /  45
     # `ia` itself: a preposition before a name, an object pronoun, a
     # demonstrative, the hortative, and the head of a relative clause when a
@@ -870,7 +927,7 @@ PHRASE_INITIAL = {'o', 'a', 'i', 'le', 'se', 'ma', 'mo', 'ni'}
 # disjunctive marker (the user's ruling); `o le a` is the future; `pe a` is
 # temporal; and in the possessive paradigm `ma` is the 1st-dual pronoun, not
 # the comitative preposition.
-PHRASE_RULE_EXCEPTIONS = {'po o', 'o le a', 'pe a'}
+PHRASE_RULE_EXCEPTIONS = {'po o', 'o le a', 'pe a', 'e tusa ma'}
 
 
 def splits_a_phrase(unit):
