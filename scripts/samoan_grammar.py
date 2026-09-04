@@ -710,6 +710,8 @@ READINGS = {
     # 2nd-person pronoun it is the PROHIBITIVE, "do not". The imperative is
     # the reading the count hides.
     'aua':  ['for', 'because', 'do not', 'not'],
+    'tele': ['great', 'many', 'exceedingly', 'greatly', 'much', 'very'],
+    'matua': ['exceedingly', 'fully', 'greatly'],
     'ua':   [],                                  # perfect TAM: absorbed
     # the directionals, with the English the curation gives them
     'atu':  ['forth', 'away', 'out', 'over', 'to', 'unto'],   # forth 170, away 108
@@ -801,6 +803,20 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         # after a locative frame the preposition already said it
         if p in ('luga', 'lalo', 'totonu', 'luma', 'fafo', 'tua'):
             return ''
+        return None
+
+    if f in ('tele', 'matua', 'matuā'):
+        # STRESS AGAIN, read off what it modifies. `gatete tele ai o ia` is
+        # "he trembled EXCEEDINGLY" -- the intensifier on a verb -- while the
+        # same word after a particle is the quantity "many". Curated:
+        #   e tele 298 "many"            olioli tele 51 "great joy /
+        #   le tele 171 "many of"                        rejoice exceedingly"
+        #   sa tele  29 "were many"      faanoanoa tele 42 "exceedingly
+        #                                                   sorrowful"
+        if p and (p in CLOSED_CLASS or p in AMBIGUOUS):
+            return 'many'
+        if p:
+            return 'exceedingly'
         return None
 
     if f == 'lava':
@@ -903,7 +919,10 @@ def _alternatives(desc):
     """The comma-separated alternatives in a table entry, as readings."""
     txt = desc[-1] if isinstance(desc, tuple) else desc
     out, seen = [], set()
-    for part in str(txt).split(','):
+    for part in re.sub(r"\([^)]*\)", "", str(txt)).split(','):
+        # the parenthetical is a note to whoever reads this file -- "exceedingly
+        # (intensifier)" was becoming a candidate reading and could never match
+        # any verse
         w = part.strip().strip('.').lower()
         # a gloss, not a description: "marks the agent of a transitive verb"
         # is prose and must not become a candidate reading
