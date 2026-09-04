@@ -69,7 +69,7 @@ VERSE_SPECS: dict[int, list[tuple[int, int, str]]] = {
         (37, 39, "and said"),
         (40, 43, "unto them:"),
         (44, 46, "What"),
-        (47, 48, "the thing"),
+        (47, 48, "a thing"),
         (49, 51, "that ye desire"),
         (52, 55, "that I shall give"),
         (56, 58, "unto you?"),

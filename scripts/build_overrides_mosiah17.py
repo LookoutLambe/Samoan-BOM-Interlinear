@@ -235,7 +235,7 @@ VERSE_SPECS: dict[int, list[tuple[int, int, str]]] = {
         (37, 39, "ye slay"),
         (40, 40, "me,"),
         (41, 45, "ye shall shed"),
-        (46, 47, "the blood"),
+        (46, 47, "blood"),
         (48, 49, "guiltless,"),
         (50, 50, "and"),
         (51, 54, "shall stand"),
