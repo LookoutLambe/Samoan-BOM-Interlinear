@@ -75,13 +75,24 @@ def content_words(text: str) -> set[str]:
     return {w for w in re.findall(r"[a-z']+", (text or "").lower())}
 
 
-def build_inventory(verses: dict) -> dict[str, Counter]:
+def load_evidence() -> list:
+    """The hand-curated Samoan/English unit pairs.
+
+    They live in their own file now. They used to be read back out of
+    bom_overrides.json, which is the file this script WRITES -- so its own
+    guesses came back as evidence and two runs disagreed. Evidence is a fixed
+    record of what a human decided; it is never the output of a pass.
+    """
+    data = json.loads((RES / "curated_evidence.json").read_text(encoding="utf-8"))
+    return data["units"]
+
+
+def build_inventory(units: list) -> dict[str, Counter]:
     inv: dict[str, Counter] = defaultdict(Counter)
-    for words in verses.values():
-        for sm, en, _i in CG.units(words):
-            k = norm(sm)
-            if k:
-                inv[k][en] += 1
+    for sm, en in units:
+        k = norm(sm)
+        if k:
+            inv[k][en] += 1
     return inv
 
 
@@ -125,10 +136,10 @@ def vetoed(gloss: str, english: str) -> bool:
 # than once. This is the project's own translation work, read back as a
 # dictionary.
 
-def build_word_lexicon(verses: dict) -> dict[str, Counter]:
+def build_word_lexicon(units: list) -> dict[str, Counter]:
     lex: dict[str, Counter] = defaultdict(Counter)
-    for words in verses.values():
-        for sm, en, _i in CG.units(words):
+    for sm, en in units:
+        if True:
             toks = norm(sm).split()
             if not toks:
                 continue
@@ -162,19 +173,54 @@ def build_word_lexicon(verses: dict) -> dict[str, Counter]:
 # is what the Book of Mormon's own curation does with them.
 
 def frame_at(toks, i, inv, maxlen, lex=None):
-    """(length, source) of the unit starting at i, or (0, '')."""
+    """(length, source) of the unit starting at i, or (0, '').
+
+    Memory is still consulted first -- a curated unit is a human decision and
+    the grammar is not better than one. But memory may no longer draw a
+    boundary the GRAMMAR forbids, and that is the whole change: the curation
+    recorded `i luga o` and `o loo i` as units, and both cut a construction in
+    half. Two rules govern every candidate span, whatever proposed it.
+    """
     def n(a, b=None):
         return norm(" ".join(toks[a:b if b is not None else a + 1]))
 
-    # 1. curated memory, longest first
+    def cuts_a_construction(a, b):
+        """Does the span [a, b) stop part-way through a grammar frame?
+
+        `o loo i luga o motu` was segmented `o loo i` + `luga o` because the
+        curation happens to contain `o loo i`. `i luga` is a preposition, and
+        a unit that ends on its `i` has taken its head. This asks, of every
+        position inside the span, whether a grammar frame starts there and
+        runs past the end.
+        """
+        for k in range(a, b):
+            for m in range(SG.MAX_FORM_LEN, 1, -1):
+                if k + m > b and k + m <= len(toks) and n(k, k + m) in SG.MULTI_FORMS:
+                    return True
+        return False
+
+    def legal(span):
+        key = n(i, i + span)
+        # `o` heads the phrase that follows it, so no unit ends on one
+        return not SG.ends_mid_phrase(key) and not cuts_a_construction(i, i + span)
+
+    # 1. curated memory, longest first -- subject to both rules
     for span in range(min(maxlen, len(toks) - i), 0, -1):
-        if n(i, i + span) in inv:
+        if n(i, i + span) in inv and legal(span):
             return span, "inv"
 
-    # 2. a complex preposition the inventory never saw whole
-    for span in (3, 2):
-        if i + span <= len(toks) and n(i, i + span) in SG.COMPLEX_PREPOSITIONS:
+    # 2. ANY multi-token grammar frame, longest first. This used to test
+    #    complex prepositions only, so the TAM pairs were invisible to the
+    #    segmenter: `o loo` could never be found as a unit and only survived
+    #    where the curation happened to contain it.
+    for span in range(min(SG.MAX_FORM_LEN, len(toks) - i), 1, -1):
+        key = n(i, i + span)
+        if not legal(span):
+            continue
+        if key in SG.COMPLEX_PREPOSITIONS:
             return span, "prep"
+        if SG.primary_gloss(key):
+            return span, "rule"
 
     # 3. a closed-class form the grammar can gloss on its own
     if SG.primary_gloss(n(i)):
@@ -276,6 +322,46 @@ def trim_absent_tail(gloss: str, english: str) -> str:
     return " ".join(parts)
 
 
+def choose_particle(form: str, english: str, inv, prev_key: str = "",
+                    prev_tok: str = "", next_tok: str = "",
+                    clause_initial: bool = False) -> tuple[str, str]:
+    """Gloss a one-vowel particle from its CLOSED set of readings.
+
+    choose() cannot do this job: every reading of a particle is a function
+    word, so its content-word gate empties and it falls through to whichever
+    reading the curation's segmentation parked on this token most often. Here
+    the candidates are fixed by the grammar and the VERSE picks among them --
+    frequency is only a tie-break, and a reading the verse does not contain is
+    used only when the grammar has just one.
+    """
+    readings = SG.particle_readings(form)
+    if not readings:
+        return "", "absorbed-particle"
+    # a locative frame already carries the English; its `o` says nothing more
+    if form == "o" and prev_key in SG.SILENT_AFTER:
+        return "", "silent-after-prep"
+    ew = set(re.findall(r"[a-z']+", (english or "").lower()))
+
+    # THE FRAME PROPOSES, THE VERSE CONFIRMS. A frame-only reading is written
+    # only when the verse actually carries it, so a 72%-reliable frame costs
+    # nothing on the 28%.
+    framed = SG.contextual_reading(form, prev_tok, next_tok, clause_initial)
+    if framed == "":
+        return "", "silent-by-frame"
+    if framed and in_english(framed, ew):
+        return framed, "frame"
+    scored = sorted(
+        ((in_english(r, ew), inv.get(form, {}).get(r, 0), -n, r)
+         for n, r in enumerate(readings)),
+        reverse=True)
+    present, _weight, _order, best = scored[0]
+    if present:
+        return best, "particle"
+    if len(readings) == 1:
+        return readings[0], "particle-sole"
+    return "", "particle-undecided"
+
+
 def choose(cands: Counter, english: str) -> tuple[str, str]:
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
@@ -343,21 +429,26 @@ def main(argv: list[str] | None = None) -> int:
     # A corpus can never be validated against itself. `generated` is the list
     # of verses this script wrote, so the Book of Mormon's 42,538 hand-curated
     # units are exactly what is left.
-    generated = set(ov.get("generated", []))
-    curated = {k: v for k, v in ov["verses"].items() if k not in generated}
-    inv = build_inventory(curated)
-    lex = build_word_lexicon(curated)
+    units = load_evidence()
+    inv = build_inventory(units)
+    lex = build_word_lexicon(units)
     maxlen = max(len(k.split()) for k in inv)
     english = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
     books = json.loads((RES / "bom_books.json").read_text(encoding="utf-8"))["books"]
 
-    already = set(generated)
-    hand = set(curated)
+    # EVERY VOLUME. The curated segmentation drew boundaries the grammar
+    # forbids -- `i luga o`, `o loo i`, 3,635 units ending on a phrase head --
+    # so it no longer decides where units fall anywhere in the corpus. It is
+    # kept in full as EVIDENCE (curated_evidence.json, 111,683 pairs): it still
+    # says what a Samoan string was read as, it just no longer says where the
+    # string stops.
+    already = set()
+    hand = set()
     stats = Counter()
     made = 0
 
     for book in books:
-        if book.get("volume") not in ("dc", "pgp"):
+        if book.get("volume") not in ("bom", "dc", "pgp"):
             continue
         for ch in book["chapters"]:
             for verse in ch["verses"]:
@@ -376,6 +467,7 @@ def main(argv: list[str] | None = None) -> int:
                     f"{book['nameEn']}|{ch['num']}|{verse['num']}", ""))
                 out = [{"sm": t, "en": ""} for t in toks]
                 i = 0
+                prev_key = ""
                 while i < len(toks):
                     hit, src = frame_at(toks, i, inv, maxlen, lex)
                     if not hit:
@@ -405,6 +497,29 @@ def main(argv: list[str] | None = None) -> int:
                         # page, skipping the finishing every other path gets.
                         gloss = trim_absent_tail(gloss, en_text)
                         why = "grammar/" + src
+                    elif key_sm in SG.AMBIGUOUS:
+                        prev_raw = toks[i - 1] if i else ""
+                        gloss, why = choose_particle(
+                            key_sm, en_text, inv, prev_key,
+                            prev_tok=norm(prev_raw),
+                            next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
+                            clause_initial=(i == 0 or
+                                            prev_raw[-1:] in SG.CLAUSE_END))
+                        why = why + "/" + src
+                    elif False:
+                        # THE ONE-VOWEL RADICALS. `o`, `e`, `a`, `i`, `le`,
+                        # `ma` each carry several grammatical jobs and the form
+                        # cannot tell you which -- the same problem lamed, yod,
+                        # he and mem pose in Hebrew. The inventory will happily
+                        # answer anyway, because somewhere in 111,683 units a
+                        # bare `o` was read as almost every English word, and
+                        # then whichever reading the verse happens to contain
+                        # wins. That is not evidence, it is drift: Alma 32:21
+                        # came out `o`="as" three times and `le`="the
+                        # knowledge" twice.
+                        #
+                        # These are glossed by POSITION or not at all.
+                        gloss, why = "", "ambiguous/" + src
                     elif key_sm in inv:
                         gloss, why = choose(inv[key_sm], en_text)
                         why = why + "/" + src
@@ -424,7 +539,8 @@ def main(argv: list[str] | None = None) -> int:
                     # only ever produce a word the verse actually has.
                     if not gloss:
                         open_toks = [t for t in key_sm.split()
-                                     if t not in SG.CLOSED_CLASS]
+                                     if t not in SG.CLOSED_CLASS
+                                     and t not in SG.AMBIGUOUS]
                         if len(open_toks) == 1 and open_toks[0] in lex:
                             d = lex[open_toks[0]]
                             back, bwhy = choose(d, en_text)
@@ -436,6 +552,7 @@ def main(argv: list[str] | None = None) -> int:
                             share = d.get(back, 0) / total if total else 0
                             if back and not (total >= 500 and share < 0.01):
                                 gloss, why = back, bwhy + "/backoff"
+                    prev_key = key_sm
                     stats["unit: " + why] += 1
                     if gloss:
                         gloss = modernise(align_number(gloss, en_text))

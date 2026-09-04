@@ -93,6 +93,21 @@ VARIANTS = {"far": {"afar"}, "afar": {"far"},
             "toward": {"towards"}, "towards": {"toward"}}
 
 
+# Number that -s cannot reach. `o loo` glosses "is" and D&C 1:1 reads "ye that
+# ARE upon the islands" -- one word in two numbers, exactly like heart/hearts,
+# and without this the verse looked like it did not carry the gloss at all.
+IRREGULAR_NUMBER = {
+    "is": {"are"}, "are": {"is"}, "was": {"were"}, "were": {"was"},
+    "has": {"have"}, "have": {"has"}, "does": {"do"}, "do": {"does"},
+    "man": {"men"}, "men": {"man"}, "woman": {"women"}, "women": {"woman"},
+    "child": {"children"}, "children": {"child"},
+    "foot": {"feet"}, "feet": {"foot"}, "tooth": {"teeth"}, "teeth": {"tooth"},
+    "this": {"these"}, "these": {"this"}, "that": {"those"}, "those": {"that"},
+    "ox": {"oxen"}, "oxen": {"ox"}, "brother": {"brethren"},
+    "brethren": {"brother"}, "person": {"people"}, "people": {"person"},
+}
+
+
 def stems(word: str) -> set[str]:
     """A word and its inflections. Never changes which word it is.
 
@@ -116,6 +131,7 @@ def stems(word: str) -> set[str]:
     else:
         out.add(word + "ed")
     out |= VARIANTS.get(word, set())
+    out |= IRREGULAR_NUMBER.get(word, set())
     return out
 
 

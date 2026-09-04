@@ -91,12 +91,13 @@ SUBORDINATORS = {
     'pe a':   'temporal / future conditional: when, after',#  212   185
     'pe ana': 'counterfactual conditional: had it been',  #    2
     'ina ia': 'purposive: that, so that',
-    'ona o':  'causal: because of',                       #  824
 }
 
 # ── DISJUNCTIVE AND INTERROGATIVE ────────────────────────────────────────────
 DISJUNCTIVE = {
     'pe':   'or, whether, if (polar question)',           #  866   806
+    # THE EXCEPTION to the phrase-initial `o` rule, by the user's ruling:
+    # `po o` is one disjunctive marker, not `po` plus a headed phrase.
     'po o': 'or, whether',                                #  400   385
     'soo':  'any, whoever, whatever',                 #  320    78
 }
@@ -128,8 +129,6 @@ PREPOSITIONS = {
     'a':    'possessive, A-class',
     'o':    'possessive, O-class',
     'mo':   'benefactive, O-class: for',
-    'ma o': 'benefactive, A-class: for',
-    'faatasi ma': 'together with',
 }
 
 # ── ERGATIVITY ───────────────────────────────────────────────────────────────
@@ -197,7 +196,6 @@ DISCOURSE = {
 COMPARATIVE = {
     'e pei':   'as, even as, like',                       #   495   460
     'e tusa':  'according to',                            #   623   600
-    'e tusa ma': 'according to',
     'faapei':  'like, as though',                         #    24     3
     # bare `faatasi` is "together"; the "with" belongs to the `ma` that
     # follows it, and is already carried by the 'faatasi ma' entry above.
@@ -255,21 +253,24 @@ POSSESSIVES['la'] = ('A', '-', 'article')        #  354  143
 # preposition is `i luga o`, and it is 773 occurrences of "upon" and "over".
 # An inventory of single words cannot hold these, which is why `luga` and
 # `totonu` kept surfacing as frequent forms "outside the grammar".
+# `o` IS PHRASE-INITIAL. It heads the complement; it is not the tail of the
+# preposition. `ua i luga o tagata uma` is `ua` + `i luga` "upon" +
+# `o tagata uma` "of all men" -- NOT `i luga o` + `tagata uma`, which takes the
+# head off the noun phrase and leaves it to start on a bare noun.
+#
+# This file used to list both shapes and called the bare one the reduced
+# variant. That was backwards: the bare frame IS the preposition, and every
+# `... o` entry was a frame that had eaten the next phrase's head.
 COMPLEX_PREPOSITIONS = {
-    'i luga o':   'upon, over, on top of',                #  773   649
-    'i totonu o': 'among, within, in the midst of',       #  584   472
-    'i luma o':   'before, in front of',                  #  198   173
-    'i lalo o':   'under, beneath',                       #   63    30
-    'i fafo o':   'outside, out of',                      #   17     8
-    'i tua o':    'behind, without',                      #    5     2
-    'e ala i':    'by, through, by means of',             #  130   114
+    'i luga':   'upon, over, on top of',                  #  773   649
+    'i totonu': 'among, within, in the midst of',         #  584   472
+    'i luma':   'before, in front of',                    #  198   173
+    'i lalo':   'under, beneath',                         #   63    30
+    'i fafo':   'outside, out of',                        #   17     8
+    'i tua':    'behind, without',                        #    5     2
+    # `e ala i le X` is `e ala` + `i le X`: the `i` heads the phrase.
+    'e ala':    'by, through, by means of',               #  130   114
 }
-# The same frames occur without the closing `o` when no complement follows --
-# `i luga` 907, `i totonu` 720, `i lalo` 243 -- so both shapes are listed.
-COMPLEX_PREPOSITIONS.update({
-    'i luga': 'upon, above', 'i totonu': 'among, within',
-    'i lalo': 'down, beneath', 'i luma': 'before', 'i fafo': 'outside',
-})
 
 # ── DIRECTIONALS: deixis on the verb ─────────────────────────────────────────
 # These follow the verb and orient the action relative to the speaker. They are
@@ -326,8 +327,10 @@ NEGATION = {
 #   because a reader of this table has to know it is ambiguous.
 CAUSAL = {
     'aua': 'for, because (the dominant reading here, 213 of 363 unit heads)',
+    # `ona o le mea lea` is `ona` "because" + `o le mea lea` "of this thing".
+    # The `o` still tells you WHICH `ona` this is -- see BY_NEXT below, which
+    # reads it as context without swallowing it.
     'ona': 'for, because',
-    'ona o': 'because of',
 }
 
 # ── DEMONSTRATIVES ───────────────────────────────────────────────────────────
@@ -423,16 +426,218 @@ def _first(text):
 # tokens inside a verb cluster, which is what GLOSSING_RULES.md rule 1 and rule
 # 2 describe. So the grammar's contribution here is knowing where a cluster
 # STARTS, not what the particle reads as on its own.
-ABSORBED = (set(TAM) | set(DIRECTIONALS)) - {'o le a'}
+ABSORBED = (set(TAM) | set(DIRECTIONALS)) - {'o le a', 'o loo', 'o lo’o', 'loo'}
 # `o le a` is the exception: it heads 2,599 units in this corpus, glossed
 # "shall", so unlike the other TAM markers it carries an English word of its
 # own rather than disappearing into the verb.
+#
+# `o lo’o` / `o loo` is the same kind of exception. The progressive is a
+# PREDICATE marker, not a particle that vanishes into a verb: in
+# `o loo i luga o motu o le sami` there is no verb at all for it to vanish
+# into -- it is the copula of a locative predicate, "that ARE upon the isles
+# of the sea". While it was absorbed, D&C 1:1 printed nothing under it and the
+# segmentation reached past it for `o loo i`, taking the `i` off `i luga`.
+
+
+# ── CONTEXT THAT DISAMBIGUATES WITHOUT BEING SWALLOWED ───────────────────────
+# The old tables handled ambiguity by lengthening the form: `ona o` glossed
+# "because of", `ma o` glossed "for". That reads the following `o` correctly
+# and then keeps it, which is exactly the mistake -- `o` heads what comes next.
+#
+# A following particle can tell you which word this is without belonging to
+# it. The unit stays one token; only the reading is chosen by the lookahead.
+BY_NEXT = {
+    ('ona', 'o'): 'because',      # ona o le mea lea -- vs sequential `ona`
+    ('ma', 'o'):  'for',          # benefactive, A-class
+    ('mo', 'o'):  'for',          # benefactive, O-class
+}
+
+
+def gloss_in_context(form, nxt=None):
+    """The gloss for `form`, letting the NEXT token disambiguate it.
+
+    Falls back to primary_gloss when the lookahead says nothing. The next
+    token is never consumed -- see BY_NEXT.
+    """
+    f = (form or '').strip().lower()
+    n = (nxt or '').strip().lower()
+    if n:
+        hit = BY_NEXT.get((f, n))
+        if hit:
+            return hit
+    return primary_gloss(f)
+
+
+# ── `o` IS PHRASE-INITIAL ────────────────────────────────────────────────────
+# The one structural rule this file exists to state. A unit never ENDS on a
+# bare `o`: the `o` is the head of the phrase that follows, so a unit ending
+# on it has taken the next phrase's first word.
+#
+# `po o` is the exception, by the user's ruling: it is a single disjunctive
+# marker rather than a word plus a headed phrase.
+# THE HEADS. Each of these opens a phrase, so a unit may not end on one and
+# may not contain one anywhere but in first position -- a bare `o` inside a
+# unit means the unit has run through the start of the next phrase.
+# `i luga o motu` is `i luga` "upon" + `o motu` "of the isles", not one thing.
+#
+# Measured against the 111,683 curated units, unit-final vs unit-initial:
+#   o  3,635 / 16,269      a    775 / 1,533     i  1,006 / 13,211
+#   ma   838 / 16,623      le   237 /  6,361    se    73 /  1,193
+#   mo    25 /    817      ni     3 /    352
+#
+# DELIBERATELY NOT HERE, because these really do end phrases:
+#   ia   an object pronoun as often as a preposition -- `iā te ia` "to him"
+#   mai  a directional that follows its verb -- `sau mai` "come hither"
+#   lea  a demonstrative, and Samoan puts it after the noun -- `le mea lea`
+#   e    genuinely both: the ergative and TAM `e` open a phrase, but the
+#        VOCATIVE `e` closes one -- `E outou e tagata` "O ye people". Until
+#        those two are told apart, the rule would break every vocative.
+# ── THE ONE-VOWEL RADICALS ───────────────────────────────────────────────────
+# Samoan is built on vowels, so its heaviest grammar sits on single-vowel
+# tokens, and each carries several jobs at once. The form cannot tell you which
+# -- the same problem lamed, yod, he and mem pose in Hebrew, where a single
+# letter is a preposition, a prefix and a radical depending on where it stands.
+#
+# The failure mode is specific and was measured: the 111,683 curated units
+# contain a bare `o` read as almost every English word at some point, so an
+# inventory lookup will always find SOMETHING, and whichever reading the verse
+# happens to contain wins. Alma 32:21 came out `o`="as" three times.
+#
+# So a particle does not get a free lookup. It gets a CLOSED SET of readings it
+# actually has in the grammar, and the verse chooses among those. Frequency
+# only breaks ties. Anything outside the set is not a candidate, however often
+# the curation's segmentation happened to park it on this token.
+#
+# Counts below are from the curation: the first English word of a unit that
+# STARTS with this particle, which is the particle's own reading.
+READINGS = {
+    'o':    ['of'],                              # 2,288 of 3,635
+    'a':    ['of'],                              #   843
+    'ma':   ['and', 'with'],                     # 12,968 / 501
+    'le':   ['the'],                             # 4,513
+    'se':   ['a', 'an', 'one', 'any'],           #   735 / 99 / 58 / 45
+    'i':    ['in', 'to', 'upon', 'at', 'on', 'into'],   # 2,708 / 2,146 / 857
+    'ia':   ['to', 'him', 'her', 'them', 'that'],#  2,559 / 1,123
+    'e':    ['by', 'o', 'who'],                  # ergative / vocative / relative
+    'ona':  ['because', 'for', 'his', 'her'],    #   672 / 521 / 162
+    'ina':  ['that', 'when', 'after'],           #   889 / 175 / 124
+    'pe':   ['or', 'if', 'whether', 'nor'],      #   139 / 120 / 102 / 72
+    'nei':  ['these', 'this', 'now'],            #   220 / 15
+    'uma':  ['all', 'every'],                    #    65 / 4
+    'lava': ['himself', 'themselves', 'yourselves', 'myself', 'itself',
+             'ourselves', 'even', 'verily'],     #   187 / 109 / 70
+    'lo':   ['their', 'our', 'your'],            #   381 / 100 / 80
+    'la':   ['their', 'our'],                    #    65 / 31
+    'na':   ['which', 'who', 'that'],            #   332
+    'ai':   ['thereto', 'thereof', 'therein', 'thereby'],
+    'aua':  ['for', 'because'],
+    'ua':   [],                                  # perfect TAM: absorbed
+}
+
+# `o` heads the phrase, and when a locative frame already carries the English
+# there is nothing left for it to say: `i luga o tagata uma` is "upon all men",
+# with `i luga` = "upon" and the `o` silent. Same for the topic `o` that opens
+# a clause -- English has no word for it.
+SILENT_AFTER = set(COMPLEX_PREPOSITIONS)
+
+
+# ── READINGS A PARTICLE TAKES ONLY IN A FRAME ────────────────────────────────
+# `le` is the article 40,757 times and the NEGATIVE the rest, and the published
+# text does not always write the macron that separates them -- Alma 32:21 has
+# "e le o le maua", "is not the having", with a bare `le`. Same collapse as an
+# unpointed Hebrew text.
+#
+# Position tells them apart. Measured over the curation, the rate at which a
+# `le` in each frame was glossed with a negation:
+#
+#   ou te le ...   132/132   100%      e le o ...      26/26   100%
+#   sa le ...      172/185    93%      ... le toe ...  88/102   86%
+#   ua le ...      127/177    72%      ... le mafai   127/218   58%
+#   e le <noun>   169/1269    13%   <- the article, and the common case
+#
+# The frame PROPOSES the negative; the verse still has to carry a negation
+# before it is written, so the 72% and 58% frames cost nothing when wrong.
+LE_NEG_BEFORE = {'te', 'sa', 'ua', 'na', 'latou', 'outou', 'matou', 'tatou',
+                 'ou', 'oe', 'ia', 'ta', 'lua', 'lautou'}
+LE_NEG_AFTER = {'toe', 'mafai', 'salamo'}
+
+CLAUSE_END = ',;:.!?—'
+
+
+def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
+    """A reading this particle takes only in this frame, or None.
+
+    Returning '' means SILENT: the frame carries the English already, and the
+    particle adds no word of its own.
+    """
+    f = (form or '').strip().lower()
+    p = (prev or '').strip().lower()
+    n = (nxt or '').strip().lower()
+
+    if f == 'le':
+        if p in LE_NEG_BEFORE or (p == 'e' and n == 'o') or n in LE_NEG_AFTER:
+            return 'not'
+        return None
+
+    if f == 'o':
+        # The topic/presentative `o` opens a clause and English has no word
+        # for it: `O le faatuatua e ...` is "Faith is ...", not "Of faith".
+        if clause_initial:
+            return ''
+        # after a locative frame the preposition already said it
+        if p in ('luga', 'lalo', 'totonu', 'luma', 'fafo', 'tua'):
+            return ''
+        return None
+
+    if f == 'e':
+        # the ergative marks an AGENT, which is a person or a name; before a
+        # verb the same token is the non-past TAM and says nothing
+        return None
+
+    return None
+
+
+def particle_readings(form):
+    """The closed set of readings for an ambiguous particle, or ()."""
+    return tuple(READINGS.get((form or '').strip().lower(), ()))
+
+
+PHRASE_INITIAL = {'o', 'a', 'i', 'le', 'se', 'ma', 'mo', 'ni'}
+
+# Forms where one of those tokens is not the head it usually is. `po o` is one
+# disjunctive marker (the user's ruling); `o le a` is the future; `pe a` is
+# temporal; and in the possessive paradigm `ma` is the 1st-dual pronoun, not
+# the comitative preposition.
+PHRASE_RULE_EXCEPTIONS = {'po o', 'o le a', 'pe a'}
+
+
+def splits_a_phrase(unit):
+    """Does this unit run through the head of a phrase that follows it?"""
+    toks = (unit or '').strip().lower().split()
+    key = ' '.join(toks)
+    if len(toks) < 2 or key in PHRASE_RULE_EXCEPTIONS:
+        return False
+    # A form the grammar lists is ONE form by definition -- `o le mea lea`
+    # "wherefore" is lexicalised and its `le` is not an article heading
+    # anything. The rule is about spans someone PROPOSED, not about entries.
+    if key in _build_primary() or key in POSSESSIVES:
+        return False
+    return any(t in PHRASE_INITIAL for t in toks[1:])
+
+
+# kept under the old name for callers written against it
+def ends_mid_phrase(unit):
+    return splits_a_phrase(unit)
 
 
 def _build_primary():
     if _PRIMARY:
         return _PRIMARY
     _PRIMARY['o le a'] = 'shall'
+    # the progressive is a predicate marker, not an absorbed particle;
+    # number comes from the verse (english_register.stems knows is/are)
+    for f in ('o lo’o', 'o loo', 'loo'):
+        _PRIMARY[f] = 'is'
     for form, (_spec, _num, gloss) in ARTICLES.items():
         _PRIMARY.setdefault(form, gloss)
     for form, (_person, gloss) in PRONOUNS.items():
@@ -532,3 +737,12 @@ RESPECTFUL = {
     'maota':     ('fale',    'house, mansion'),        #   9 / 112
 }
 COMMON_OF = {r: c for r, (c, _s) in RESPECTFUL.items()}
+
+
+# Every construction the grammar knows that is longer than one token. The
+# segmenter needs these to avoid cutting through one: a remembered unit that
+# ends on `i` when the text reads `i luga` has taken the preposition's head.
+MULTI_FORMS = {f for f in _build_primary() if len(f.split()) > 1}
+MULTI_FORMS |= {f for f in COMPLEX_PREPOSITIONS if len(f.split()) > 1}
+MULTI_FORMS |= {f for f in TAM if len(f.split()) > 1}
+MAX_FORM_LEN = max(len(f.split()) for f in MULTI_FORMS)
