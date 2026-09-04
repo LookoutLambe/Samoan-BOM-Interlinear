@@ -60,6 +60,12 @@ def main(argv: list[str] | None = None) -> int:
     ap.add_argument("--compare", action="store_true",
                     help="fetch and report differences, write nothing")
     ap.add_argument("--book", nargs="*", help="limit to these book ids")
+    ap.add_argument("--out", help="write ONLY the fetched verses to this file "
+                                  "instead of merging into bom_english.json. "
+                                  "Two fetches running at once would each read "
+                                  "the whole file, update their own share and "
+                                  "write it back, and the last one to finish "
+                                  "would erase the other.")
     a = ap.parse_args(argv)
 
     have = json.loads(OUT_PATH.read_text(encoding="utf-8")) if OUT_PATH.exists() else {}
@@ -109,6 +115,10 @@ def main(argv: list[str] | None = None) -> int:
 
     if a.compare:
         print("\n(--compare, nothing written)")
+        return 0
+    if a.out:
+        Path(a.out).write_text(json.dumps(fresh, ensure_ascii=False), encoding="utf-8")
+        print(f"\nwrote {a.out} — {len(fresh)} verses (not merged)")
         return 0
     have.update(fresh)
     OUT_PATH.write_text(json.dumps(have, ensure_ascii=False), encoding="utf-8")

@@ -76,6 +76,27 @@ TAM = {
 # Not TAM proper -- they take a TAM marker themselves (`e mafai`) -- but they
 # carry the mood the English gloss has to show, so nothing that reads the verb
 # phrase can ignore them.
+# ── `<verb> ona` : ona AS A COMPLEMENTISER ───────────────────────────────────
+# `ona` has three jobs and the corpus uses all three heavily:
+#   causal      "for, because"   before a TAM or `o`  — ona ua 197, ona sa 163
+#   possessive  "his, her, its"  before a noun        — ona tagata 78 of 85
+#   COMPLEMENTISER, bound to the verb in front of it, which is the one the
+#   grammar did not know. Curated counts for the unit ENDING on `ona`:
+#     mafai ona   351   "may / might / cannot"     amata ona  187  "began to"
+#     faapea ona   92   "thus"                     uma ona     79  "after"
+#     pei ona      72   "as"
+# Each is one frame. Split, the verb loses its complement and `ona` is read as
+# the causal, which says "because" in the middle of "he began to speak".
+VERB_ONA = {
+    'mafai ona':  'can, may, is able to',                 #   351
+    'amata ona':  'began to',                             #   187
+    'faapea ona': 'thus, so that',                        #    92
+    'uma ona':    'after, when … had finished',           #    79
+    'pei ona':    'as, just as',                          #    72
+    'tatau ona':  'must, should, ought',
+    'ave ona':    'take to',
+}
+
 MODALS = {
     'mafai':  'ability / possibility: can, may, might',   # 1301   130
     'tatau':  'obligation: must, ought, lawful',          #  458    14
@@ -153,6 +174,21 @@ PRONOUNS = {
     'matou': ('1pl.excl', 'we'),     'tatou': ('1pl.incl', 'we'),
     'outou': ('2pl', 'you all'), 'tou': ('2pl clitic', 'you all'),
     'latou': ('3pl', 'they'),
+    # THE OBLIQUE FRAMES. `latou` alone is "they"; the same pronoun after `i`
+    # is the object, and after `ia te` it is a dative. The grammar knew only
+    # the bare pronoun, so `ia te i latou` fell through to the inventory and
+    # `i latou` came back "those". Curated counts in the comment.
+    'i latou': ('3pl obl', 'them'),        # them 515 / they 271
+    'i matou': ('1pl.excl obl', 'us'),     # us 50
+    'i tatou': ('1pl.incl obl', 'us'),     # us 27
+    'i laua':  ('3du obl', 'them'),        # they 11 / them 8
+    'ia te au':      ('1sg dat', 'to me'),      # to me 46
+    'ia te oe':      ('2sg dat', 'to you'),     # to you 141
+    'ia te ia':      ('3sg dat', 'to him'),     # to him 246
+    'ia te outou':   ('2pl dat', 'to you'),     # to you 451
+    'ia te i latou': ('3pl dat', 'to them'),    # to them 358
+    'ia te i matou': ('1pl.excl dat', 'to us'), # to us 44
+    'ia te i tatou': ('1pl.incl dat', 'to us'), # to us 26
 }
 
 # ── POSSESSIVE CLASS: the a/o distinction ────────────────────────────────────
@@ -270,6 +306,14 @@ COMPLEX_PREPOSITIONS = {
     'i tua':    'behind, without',                        #    5     2
     # `e ala i le X` is `e ala` + `i le X`: the `i` heads the phrase.
     'e ala':    'by, through, by means of',               #  130   114
+    # More `e <base>` frames, all measured from the curation by the first
+    # English word of a unit that starts with them. They were invisible to
+    # the grammar, so each fell through to the inventory and was glossed by
+    # whatever a verse happened to contain.
+    'e uiga':    'concerning, about',                     #   443, "concerning" 399
+    'e faasaga': 'against, toward',                       #   288, "against"    270
+    'e faavavau': 'forever, everlasting',                 #   113, "forever"     69
+    'e leai':    'there is no, none',                     #   120
 }
 
 # ── DIRECTIONALS: deixis on the verb ─────────────────────────────────────────
@@ -335,6 +379,10 @@ CAUSAL = {
 
 # ── DEMONSTRATIVES ───────────────────────────────────────────────────────────
 DEMONSTRATIVES = {
+    # `o e` is the headless relative -- "those who", "they who". The curation
+    # ends 218 units on this `e` with "who" as the last English word, and the
+    # grammar had no entry, so it was read as an ergative or dropped.
+    'o e': 'those who, they who',
     'nei':   'this, these (proximal)',                    #  966   331
     'lenei': 'this',
     'lea':   'that, the aforementioned',
@@ -513,7 +561,12 @@ def gloss_in_context(form, nxt=None):
 READINGS = {
     'o':    ['of'],                              # 2,288 of 3,635
     'a':    ['of'],                              #   843
-    'ma':   ['and', 'with'],                     # 12,968 / 501
+    # `ma` IS A RADICAL TOO (the user's point). Six jobs, and the count hides
+    # five of them behind the sixth: coordinator "and" 12,968, comitative
+    # "with" 501 (and 227 of 1,404 in the `ma le` frame alone), plus the
+    # phrasal frames below where the preceding word selects the reading.
+    'ma':   ['and', 'with', 'as', 'to', 'from'],  # 12,968 / 501 / ...
+    'mo':   ['for', 'to'],
     'le':   ['the'],                             # 4,513
     'se':   ['a', 'an', 'one', 'any'],           #   735 / 99 / 58 / 45
     'i':    ['in', 'to', 'upon', 'at', 'on', 'into'],   # 2,708 / 2,146 / 857
@@ -532,6 +585,12 @@ READINGS = {
     'ai':   ['thereto', 'thereof', 'therein', 'thereby'],
     'aua':  ['for', 'because'],
     'ua':   [],                                  # perfect TAM: absorbed
+    # not ambiguous PARTICLES, but forms with two real readings the verse can
+    # choose between rather than the grammar guessing one
+    'i latou': ['them', 'they'],                 #   515 / 271
+    'i laua':  ['them', 'they'],                 #     8 /  11
+    'i matou': ['us', 'we'],                     #    50 /  12
+    'i tatou': ['us', 'we'],                     #    27 /  10
 }
 
 # `o` heads the phrase, and when a locative frame already carries the English
@@ -557,6 +616,12 @@ SILENT_AFTER = set(COMPLEX_PREPOSITIONS)
 #
 # The frame PROPOSES the negative; the verse still has to carry a negation
 # before it is written, so the 72% and 58% frames cost nothing when wrong.
+# the tens and the round numbers, for the `<ten> ma le <n>` compound
+NUMERAL_TENS = {'sefulu', 'luasefulu', 'tolusefulu', 'fasefulu', 'limasefulu',
+                'onosefulu', 'fitusefulu', 'valusefulu', 'ivasefulu',
+                'selau', 'afe', 'miliona', 'lua', 'tolu', 'fa', 'lima', 'ono',
+                'fitu', 'valu', 'iva'}
+
 LE_NEG_BEFORE = {'te', 'sa', 'ua', 'na', 'latou', 'outou', 'matou', 'tatou',
                  'ou', 'oe', 'ia', 'ta', 'lua', 'lautou'}
 LE_NEG_AFTER = {'toe', 'mafai', 'salamo'}
@@ -587,6 +652,36 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         # after a locative frame the preposition already said it
         if p in ('luga', 'lalo', 'totonu', 'luma', 'fafo', 'tua'):
             return ''
+        return None
+
+    if f == 'ona':
+        # before a tense marker or the topic `o` it is causal; before a noun
+        # it is the possessive. `ona o` is 607 "because" of 824, `ona ua` 127
+        # "for" of 197, `ona tagata` 78 "his" of 85.
+        if n in ('o', 'ua', 'sa', 'na', 'e', 'te', 'latou', 'ou', 'outou',
+                 'matou', 'tatou', 'ia'):
+            return 'because'
+        if n and n not in CLOSED_CLASS and n not in AMBIGUOUS:
+            return 'his'
+        return None
+
+    if f == 'ma':
+        # THE PRECEDING WORD SELECTS THE READING. Each of these is a phrasal
+        # frame whose English preposition belongs to the `ma`, not to the word
+        # in front of it -- `faatasi` is "together", `ma le tama` is "with the
+        # boy". Curated counts: tusa 410, faatasi 96+70, avea 73, aunoa 24.
+        if p == 'faatasi':
+            return 'with'
+        if p == 'tusa':
+            return 'to'
+        if p == 'avea':
+            return 'as'
+        if p == 'aunoa':
+            return 'from'
+        # in a compound numeral it is always the conjunction: `sefulu ma le
+        # tasi` is "ten and one"
+        if p in NUMERAL_TENS:
+            return 'and'
         return None
 
     if f == 'e':
@@ -644,7 +739,8 @@ def _build_primary():
         _PRIMARY.setdefault(form, gloss)
     for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
                   COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
-                  SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS):
+                  SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
+                  VERB_ONA):
         for form, desc in table.items():
             _PRIMARY.setdefault(form, _first(desc))
     for form, (cls, person, shape) in POSSESSIVES.items():

@@ -488,6 +488,29 @@ def main(argv: list[str] | None = None) -> int:
                     # somewhere. Where the grammar refuses -- the ambiguous
                     # forms, where position decides -- the inventory and the
                     # verse's English take over.
+                    # A FORM WITH TWO REAL READINGS lets the verse choose;
+                    # only a form with one gets a fixed answer. `i latou` is
+                    # "them" 515 times and "they" 271, and the grammar has no
+                    # business picking for a verse it can see.
+                    if len(SG.particle_readings(key_sm)) > 1 \
+                            and key_sm not in SG.AMBIGUOUS:
+                        prev_raw = toks[i - 1] if i else ""
+                        gloss, why = choose_particle(
+                            key_sm, en_text, inv, prev_key,
+                            prev_tok=norm(prev_raw),
+                            next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
+                            clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END))
+                        why = "reading/" + why
+                        stats["unit: " + why] += 1
+                        prev_key = key_sm
+                        if gloss:
+                            gloss = modernise(align_number(gloss, en_text))
+                            for j in range(i, i + hit - 1):
+                                out[j]["en"] = CONT
+                            out[i + hit - 1]["en"] = gloss
+                        i += hit
+                        continue
+
                     gloss = SG.primary_gloss(key_sm)
                     if gloss:
                         # A rule says what a form reads as EVERYWHERE, and the
