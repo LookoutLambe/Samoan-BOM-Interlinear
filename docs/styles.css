@@ -768,6 +768,22 @@ body.no-gloss .unit .en { display: none; }
   font-family: var(--serif);
 }
 
+/* The five volume cards: one grid, uniform 3:4 plates, two across where
+   there is room and one on a phone. */
+.covers {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
+  gap: 1rem;
+  width: 100%;
+  margin-top: 1.5rem;
+  padding: 0 .5rem;
+  box-sizing: border-box;
+}
+.covers .cover { width: 100%; margin-top: 0; }
+.covers .cover-title .sm { font-size: clamp(1.05rem, 4.2vw, 1.5rem); }
+
+.search-scope { margin: .25rem 0 0; font-size: .9rem; }
+
 .cover-rule {
   width: calc(100% - 3.5rem);
   height: 1px;

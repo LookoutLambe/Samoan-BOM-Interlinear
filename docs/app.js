@@ -540,18 +540,11 @@
 
   /* The navy cover plate from BookListView.BookCover — tapping it opens the
      library, exactly as in the app. */
-  function bookCover() {
-    const titles = [
-      ['O LE TUSI', 'The Book'],
-      ['A MAMONA', 'of Mormon'],
-    ];
-    const subtitles = [
-      ['O se tasi molimau', 'Another testimony'],
-      ['a Iesu Keriso', 'of Jesus Christ'],
-    ];
-
-    const cover = el('button', 'cover');
-    cover.setAttribute('aria-label', 'Tatala le tusi');
+  /* One cover plate: interlinear title cells over interlinear subtitle cells,
+     between two gold rules. The Book of Mormon and O le Tusi Paia share it. */
+  function coverPlate(titles, subtitles, label, extraClass, onOpen) {
+    const cover = el('button', 'cover' + (extraClass ? ' ' + extraClass : ''));
+    cover.setAttribute('aria-label', label);
     cover.append(el('div', 'cover-rule'));
 
     const title = el('div', 'cover-title');
@@ -573,9 +566,42 @@
     cover.append(sub);
     cover.append(el('div', 'cover-rule'));
 
-    cover.addEventListener('click', () => toggleDrawer(true));
+    cover.addEventListener('click', onOpen);
     return cover;
   }
+
+  /* One card per volume, in the index's order, each in the Book of Mormon
+     cover's dress: Samoan title cells over their English, a subtitle, gold
+     rules. The glosses read cell by cell in Samoan order, as the interlinear
+     does. Tapping a card opens the library at that volume's books. */
+  const COVERS = {
+    bom: { titles: [['O LE TUSI', 'The Book'], ['A MAMONA', 'of Mormon']],
+           sub: [['O se tasi molimau', 'Another testimony'], ['a Iesu Keriso', 'of Jesus Christ']] },
+    dc:  { titles: [['MATAUPU FAAVAE', 'Doctrine'], ['MA FEAGAIGA', 'and Covenants']],
+           sub: [['a le Ekalesia a Iesu Keriso', 'of the Church of Jesus Christ'],
+                 ['o le Au Paia o Aso e Gata Ai', 'of Latter-day Saints']] },
+    pgp: { titles: [['LE PENINA', 'The Pearl'], ['SILISILI ONA TAUA', 'of Great Price']],
+           sub: [['Faaaliga ma faaliliuga', 'Revelations and translations'],
+                 ['a Iosefa Samita', 'of Joseph Smith']] },
+    ot:  { titles: [['O LE FEAGAIGA', 'The Testament'], ['TUAI', 'Old']],
+           sub: [['O le Tusi Paia', 'The Holy Bible'], ['Kenese \u2013 Malaki', 'Genesis \u2013 Malachi']] },
+    nt:  { titles: [['O LE FEAGAIGA', 'The Testament'], ['FOU', 'New']],
+           sub: [['O le Tusi Paia', 'The Holy Bible'], ['Mataio \u2013 Faaaliga', 'Matthew \u2013 Revelation']] },
+  };
+
+  function volumeCovers() {
+    const grid = el('div', 'covers');
+    const volumes = state.index.volumes || [{ id: 'bom', nameSm: 'O le Tusi a Mamona', nameEn: 'Book of Mormon' }];
+    for (const vol of volumes) {
+      if (!state.index.books.some((b) => (b.volume || 'bom') === vol.id)) continue;
+      const spec = COVERS[vol.id] || { titles: [[vol.nameSm.toUpperCase(), vol.nameEn]], sub: [] };
+      grid.append(coverPlate(spec.titles, spec.sub, `Tatala: ${vol.nameSm}`, `cover-${vol.id}`,
+        () => openDrawerAt(vol.id)));
+    }
+    return grid;
+  }
+
+  const isBibleBook = (book) => book && (book.volume === 'ot' || book.volume === 'nt');
 
   /* Link to the iOS/iPadOS/macOS build on the App Store. An inline SVG mark
      rather than the  glyph, which is a private-use character and renders as
@@ -698,7 +724,7 @@
 
     const frag = document.createDocumentFragment();
     const home = el('div', 'home');
-    home.append(bookCover());
+    home.append(volumeCovers());
     home.append(continueButton());
     home.append(appStoreButton());
     home.append(disclaimer());
@@ -752,6 +778,7 @@
         (b) => (b.volume || 'bom') === vol.id);
       if (!inVol.length) continue;
       const head = el('div', 'drawer-section');
+      head.id = `drawer-vol-${vol.id}`;
       head.append(document.createTextNode(vol.nameSm));
       if (vol.nameEn && vol.nameEn !== vol.nameSm) {
         head.append(document.createTextNode(' \u00b7 ' + vol.nameEn));
@@ -831,6 +858,14 @@
     $('nav-label').setAttribute('aria-label', `${book.nameSm} ${num} — open the contents`);
   }
 
+  /* Open the library scrolled to one volume's section — how the Bible cover
+     lands the reader among the 66 books rather than at the top of the drawer. */
+  function openDrawerAt(volId) {
+    toggleDrawer(true);
+    const head = document.getElementById(`drawer-vol-${volId}`);
+    if (head) head.scrollIntoView({ block: 'start' });
+  }
+
   function toggleDrawer(open) {
     $('drawer').hidden = !open;
     $('drawer-scrim').hidden = !open;
@@ -872,7 +907,10 @@
       return;
     }
 
-    const all = flatChapters();
+    /* The Bible is 1,189 more chapter files (~26 MB) and is not precached, so
+       it joins a search only when the reader asks for it. */
+    const includeBible = $('toggle-search-bible') && $('toggle-search-bible').checked;
+    const all = flatChapters().filter(({ id }) => includeBible || !isBibleBook(bookById(id)));
     let hits = 0;
     let scanned = 0;
 
@@ -1244,6 +1282,9 @@
     });
 
     let debounce;
+    $('toggle-search-bible').addEventListener('change', () => {
+      runSearch($('search-input').value);
+    });
     $('search-input').addEventListener('input', (e) => {
       clearTimeout(debounce);
       const value = e.target.value;

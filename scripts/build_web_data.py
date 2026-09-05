@@ -112,6 +112,11 @@ def main() -> None:
     # Official English, keyed by the book's English name — "1 Nephi|1|1".
     # Needed for the dual (Tutusa) reading mode.
     english = load("bom_english.json")
+    # O le Tusi Paia: the Bible index and its KJV column (Protestant
+    # versification — the user's ruling for both volumes). Each Bible book is
+    # its own file, book_<id>.json, built by scripts/build_tusi_paia_dual.py.
+    bible_index = load("tusi_paia_index.json")
+    bible_english = load("tusi_paia_english.json")
 
     # Rebuild from scratch so chapters dropped upstream don't linger as stale
     # files that the service worker would keep serving.
@@ -168,6 +173,39 @@ def main() -> None:
             }
         )
 
+    # The Bible: 1,189 chapters, ~26 MB. Written in the same per-chapter shape
+    # so the reader treats them like any other chapter, but kept OUT of the
+    # up-front precache (assets.json "data") — the service worker caches them
+    # on first read instead, so installing the PWA stays a 10 MB affair.
+    lazy: list[str] = []
+    for meta in bible_index["books"]:
+        bid = meta["id"]
+        book = load(f"book_{bid}.json")
+        for chapter in book["chapters"]:
+            num = chapter["num"]
+            verses = []
+            for verse in chapter["verses"]:
+                words = verse["words"]
+                entry = {"n": verse["num"], "w": words, "sm": " ".join(w["sm"] for w in words)}
+                official = bible_english.get(f"{meta['nameEn']}|{num}|{verse['num']}")
+                if official:
+                    entry["en"] = official
+                else:
+                    missing_english.append(f"{bid}|{num}|{verse['num']}")
+                verses.append(entry)
+            rel = f"data/ch/{bid}-{num}.json"
+            total += write(OUT / "ch" / f"{bid}-{num}.json", {"book": bid, "num": num, "verses": verses})
+            lazy.append(rel)
+        index_books.append(
+            {
+                "id": bid,
+                "volume": meta["volume"],
+                "nameSm": meta["nameSm"],
+                "nameEn": meta["nameEn"],
+                "chapters": [c["num"] for c in book["chapters"]],
+            }
+        )
+
     for section in frontmatter:
         rel = f"data/front/{section['id']}.json"
         total += write(OUT / "front" / f"{section['id']}.json", section)
@@ -191,7 +229,7 @@ def main() -> None:
                  "nameEn": "Doctrine and Covenants"},
                 {"id": "pgp", "nameSm": "Le Penina Silisili Ona Taua",
                  "nameEn": "Pearl of Great Price"},
-            ],
+            ] + bible_index["volumes"],
             "books": index_books,
             "frontmatter": [
                 {"id": s["id"], "titleEn": s["titleEn"], "titleSm": s["titleSm"]}
@@ -222,14 +260,15 @@ def main() -> None:
     # is redeployed. Hashing the published payload means the version moves
     # exactly when the content does, and never on a no-op rebuild.
     digest = hashlib.sha256()
-    for rel in shell + assets:
+    for rel in shell + assets + lazy:
         path = ROOT / "docs" / rel
         if path.is_file():
             digest.update(rel.encode("utf-8"))
             digest.update(path.read_bytes())
     version = digest.hexdigest()[:12]
 
-    write(ROOT / "docs" / "assets.json", {"version": version, "shell": shell, "data": assets})
+    write(ROOT / "docs" / "assets.json",
+          {"version": version, "shell": shell, "data": assets, "lazy": lazy})
 
     sw_path = ROOT / "docs" / "sw.js"
     sw_src = sw_path.read_text(encoding="utf-8")
