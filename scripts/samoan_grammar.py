@@ -112,6 +112,35 @@ SUBORDINATORS = {
     'pe a':   'temporal / future conditional: when, after',#  212   185
     'pe ana': 'counterfactual conditional: had it been',  #    2
     'ina ia': 'purposive: that, so that',
+    # ── THE CLAUSE CONNECTIVES OF DUNN'S UNIT SIX, as he lays them out ──────
+    # Each of these opens a clause; the sentence-initial form and the
+    # mid-sentence form are given where the language has two (`afai` opens a
+    # sentence, `pe afai` sits in the middle of one; `A` opens, `pe a` sits).
+    'pe afai':  'conditional, mid-sentence: if',
+    'ana':      'counterfactual: if, had',                # `ana e sau` "had you come"
+    'ina ua':   'temporal, past: when',                   # `ina ua uma` "when … was finished"
+    # NOT `a o` / `ina o` "while": before a pronoun or article (`A o i latou
+    # uma`, `a o le Atua`) it is `a` "but" + the presentative `o`, and `ina o
+    # faia` is `ina` "when" + the verb -- far the commoner cases
+    'o lei':    'before',                                 # lit. "while not yet": `o lei o mai` "before they came"
+    'ae lei':   'before',
+    'ina ua uma': 'after',                                # lit. "when finished"
+    'pe a uma': 'after, when … is finished',
+    'a uma':    'after, when … is finished',
+    'talu':     'since, from',                            # `talu le aso lua` "since Tuesday"
+    'talu ona': 'since, because',                         # + a clause with no marker
+    'talu ai':  'because of, on account of, since',
+    'talu mai': 'since, from',                            # + a time expression
+    'seia':     'until',                                  # the deferential `sei` in this use
+    'se’ia':    'until',
+    'seia oo':  'until',                                  # + `i` a time, `ina` a clause
+    'seiloga':  'unless, except',                         # the clause takes `e` or `ua` only
+    'vagana':   'except, unless, save',
+    'vagana ai': 'except, save',                          # + a noun phrase
+    'e ui ina': 'although, though, even though',
+    'e ui lava ina': 'although, even though',
+    'ne’i':     'lest',
+    'neʻi':     'lest',
 }
 
 # ── DISJUNCTIVE AND INTERROGATIVE ────────────────────────────────────────────
@@ -241,6 +270,49 @@ PRONOUNS = {
     'ia te i tatou': ('1pl.incl dat', 'to us'), # to us 26
 }
 
+# ── THE DESCRIPTIVE (CLITIC) DOER ────────────────────────────────────────────
+# Dunn (Samoan for Missionaries, 1983, unit 4): Samoan has two sets of doer
+# pronouns. The EMPHATIC set (`o ia`, `i latou`, `a’u`, `oe`) stands where a
+# noun would -- after the verb, with `e` if the verb is transitive. The
+# DESCRIPTIVE set stands BETWEEN the tense marker and the verb, takes no `e`,
+# and is the ordinary way to say who did it:
+#
+#     sa ia faitauina le tusi     he read the book        (sa + ia + verb)
+#     ua latou o mai              they have come          (ua + latou + verb)
+#     e te alu                    thou goest              (e + te, the bound TAM)
+#     ou te alofa                 I love                  (ou + te)
+#
+# The non-past `e` after a descriptive pronoun becomes `te`, which is why the
+# `ou te` / `latou te` frames above exist. This table gives the pronoun set
+# itself, and the frames below generate TAM + pronoun for every past/perfect/
+# future marker, so `sa ia`, `na latou`, `ua ou`, `o le a tatou` are each ONE
+# unit that says the pronoun, and the verb after them says the verb in the
+# marker's tense. Before this the marker was absorbed into whatever followed
+# and the doer vanished: `sa ou alu` printed only "went".
+DESCRIPTIVE_PRONOUNS = {
+    'ou': ('1sg', 'I'),        'e': ('2sg', 'thou'),       'ia': ('3sg', 'he'),
+    'na': ('3sg', 'he'),       'ma': ('1du.excl', 'we'),   'ta': ('1du.incl', 'we'),
+    'lua': ('2du', 'ye'),      'la': ('3du', 'they'),      'tou': ('2pl', 'ye'),
+    'matou': ('1pl.excl', 'we'), 'tatou': ('1pl.incl', 'we'),
+    'outou': ('2pl', 'ye'),    'latou': ('3pl', 'they'),
+}
+# the markers a clitic doer follows. NOT the non-past `e`: with a clitic it
+# becomes `te` (`ou te`, `latou te`), which the table above already holds --
+# and `e lua` is the numeral "two", `e ia` the ergative.
+_CLITIC_TAM = {
+    'sa': '', 'na': '', 'ua': '',
+    'ia': '',                                # the optative: `Ia outou alolofa` "love ye"
+    'o le a': ' shall',                      # `o le a ou alu` "I shall go"
+}
+for _tam, _aux in _CLITIC_TAM.items():
+    for _pr, (_person, _eng) in DESCRIPTIVE_PRONOUNS.items():
+        if _tam == 'ia' and _pr in ('ia', 'na', 'e', 'ma', 'ta', 'la'):
+            continue                         # `ia ia` / `ia na` / `ia e` are not clitic frames
+        if _pr == 'ta':
+            continue                         # `ua ta le logo` is the VERB "strike"; the 1du.incl clitic is not in this text
+        PRONOUNS.setdefault(_tam + ' ' + _pr, (_person + ' clitic', _eng + _aux))
+del _tam, _aux, _pr, _person, _eng
+
 # ── POSSESSIVE CLASS: the a/o distinction ────────────────────────────────────
 # Alienable (A-class) vs inalienable (O-class). It is a real distinction with
 # no English exponent -- both are "his" -- so it cannot show in the gloss, but
@@ -266,6 +338,17 @@ COORDINATORS = {
     'peitai': 'but, yet, nevertheless',                   #   204   201
     'po':     'or',                                       #   597   475
     'ao':     'while, as',                                #   163    29
+    # Dunn, unit six: `a` and `ae` are "but" (`a` before `o`, `ua`, `e`, `o
+    # ia`; `ae` before almost any word); "however" is `peitai`, `ae peitai`,
+    # `peitai ane`. The noun-phrase conjunctions: `atoa ma` "together with",
+    # `atoa foi ma` "as well as", `aemaise` "especially" -- a conjunction, not
+    # an adverb: it stands only before a noun phrase.
+    'ae peitai':  'but, howbeit, nevertheless',
+    'peitai ane': 'however, nevertheless',
+    'atoa ma':    'together with, and, with',
+    'atoa foi ma': 'as well as, and also',
+    'aemaise':    'especially, and especially',
+    'aemaise lava': 'especially, most of all',
 }
 
 DISCOURSE = {
@@ -430,6 +513,16 @@ COMPLEX_PREPOSITIONS = {
     # phrase after it, and split the gloss said "according to" and "to" twice.
     'e tusa ma': 'according to',                          #   410
     'e tusa':    'according to, like',                    #   600
+    # PREDICATE PHRASES USED AS PREPOSITIONS (Dunn, unit five): a tense marker
+    # + a predicate + a preposition, read as one preposition. The non-past `e`
+    # is the usual marker, since they describe standing relations.
+    'e aunoa ma':   'without',                            # `e aunoa ma se meaai` "without any food"
+    'e aunoa':      'without',
+    'e latalata':   'near, nigh, close to',               # + `i` / `ane i`
+    'e faafeagai ma': 'opposite, over against',
+    'e sosoo':      'next to, adjoining',                 # + `ane i` / `mai i` / `atu i`
+    'e pito':       'next to, at the end of',             # + `ane i` / `mai i` / `atu i`
+    'e tupito':     'furthest from, at the far end of',
 }
 
 # ── DIRECTIONALS: deixis on the verb ─────────────────────────────────────────
@@ -445,7 +538,21 @@ DIRECTIONALS = {
     'aʻe': 'up, upward',   'a’e': 'up, upward',
     'ifo': 'down, downward',
     'ane': 'by, near, along, across',             # obliquely, past, alongside
+    'ese': 'away, off, apart',                    # `alu ese` "go away"; fuses: `aveesea` "taken away"
 }
+# Dunn, unit five, on the directionals: `atu` action headed AWAY from the
+# speaker, `mai` TOWARD the speaker, `ane` along or aside, `a’e` up, `ifo`
+# down, `ese` away. They follow the verb. A verb and its directional may fuse
+# into one word with the verb's final vowel elided -- `ave` + `atu` = `avatu`
+# "give (to someone else)", `ave` + `ane` = `avane` "hand over", `au` + `mai`
+# = `aumai` "bring" -- and the perfective suffix then follows the directional:
+# `aveesea`, `aveeseina` "taken away". The generator's morphology restores the
+# vowel and looks the verb up (GLOSSING_RULES.md 21d).
+#
+# POSITION separates `mai` the directional from `mai` the preposition "from":
+# after a verb and before nothing, or before the agent `e`, it is the
+# directional and English carries it in the verb (`sau mai` came, `auina mai e
+# le Atua` sent by God); before a noun phrase it is "from" (`mai le fale`).
 
 # ── ai: the anaphoric particle ───────────────────────────────────────────────
 # Refers back to something already named -- a place, a reason, an instrument.
@@ -471,6 +578,20 @@ NEGATION = {
     'le’i': 'not',  'lei': 'not',   # `e lei X` is the PAST negative -- "knew him not", "hath not seen";
     # "not yet" only where the verse says yet (contextual_reading)  #  188
     'aua': 'prohibitive: do not',                         #  see the note below
+    # Dunn, units four and five. The system: `e le` is the general negative
+    # (present, and of adjectives: `e le lelei` "is not good"); `e lei` / `te
+    # lei` the past negative ("not yet" in the older grammars, plain "not" in
+    # use); `leai` is `e le i ai` contracted -- "there is not", the negative
+    # existential -- and the answer "no"; `e le o` negates a nominal or
+    # progressive predicate ("is not the …"); the negative imperatives are
+    # `aua`, `aua nei`, `soia` and `ne’i` "lest".
+    # the frame says "not"; the copula belongs to the clause and the generator's
+    # negative-equative pass supplies it from the English ("he was not the light")
+    'e le o':  'not (negative of a nominal or progressive predicate)',
+    'e lē o':  'not (negative of a nominal or progressive predicate)',
+    'soia':    'do not, cease, stop',
+    'aua nei': 'lest, do not',
+    'aua ne’i': 'lest, do not',
 }
 # `le` is the single most dangerous string in the language for this corpus:
 # the specific article (25,941 tokens) and the verbal negator share a spelling,
@@ -535,13 +656,144 @@ DEMONSTRATIVES = {
     # unit-final.
     'lena':  'that',                                      #   708
     'lele':  'that',                                      #     8
+    # Dunn, unit seven: the full set, singular / plural -- lenei, nei "this,
+    # these"; lea, ia "this/that, these/those"; lena, na "that, those"; lela,
+    # la "that over there, those over there"; and the regional lenaʻe, nae,
+    # lele, lale, which follow the noun. `lenei`, `lea`, `lena`, `lela` may
+    # stand before or after the noun or alone; the plurals `nei`, `na`, `la`
+    # follow it, which is how `na` the demonstrative is told from `na` the
+    # past marker (contextual_reading).
+    'lela':  'that, yonder',
+    'lale':  'that, yonder',
+    'nae':   'those',
+    # THE EMPHATIC ANTECEDENT (Dunn, unit seven, lesson five): `o le`, `o se`,
+    # `o e` before a relative clause -- "he who", "anyone who", "those who" --
+    # the pronoun stands for the noun the clause describes. With the non-past
+    # `e` the two are written as one word (`le e` = `lē`), so `o le na`, `o le
+    # ua`, `o le e` each head a clause: `o le na ula i le faiaoga` "he who
+    # made fun of the teacher"; `o se ua fiafia i ai` "anyone who likes it".
+    'o le na': 'he who, the one who, he that, him that, which',
+    'o le ua': 'he that, he who, the one who, which',
+    'o le e':  'he that, he who, whoso, the one who, which',
+    'o se e':  'whosoever, any that, he that, anyone who',
+    'o se ua': 'whosoever, any that, anyone who',
+    'o e ua':  'they that, those who, they who, which',
+    'o e e':   'they that, those who, they who, which',
+    'o e na':  'they that, those who, they who, which',
+    'o e sa':  'they that, those who, they who, which',
 }
+
+# ── THE EXISTENTIAL PREDICATE ────────────────────────────────────────────────
+# Dunn, unit three: `E i ai se X` is "there is an X"; its negative is `e leai
+# se X` "there is no X", and `leai` alone answers "no". The marker gives the
+# tense: `sa i ai` "there was", `ua i ai` "there is (now)". These are
+# predicates, not the preposition `i` + the anaphoric `ai`, and as one frame
+# they stop the simple-sentence pass from reading `Sa i ai le tagata` (John
+# 1:6, "There was a man") as a locative "was in it".
+EXISTENTIAL = {
+    'e i ai':    'there is, there are, is, are, hath, have, had',
+    'sa i ai':   'there was, there were, was, were, had',
+    'na i ai':   'there was, was, had',
+    'ua i ai':   'there is, there are, is, hath, have',
+    'o loo i ai': 'there is, there are, is, are',
+    'sa leai':   'there was no, there was not, had no, none, not',
+    'na leai':   'there was no, there was not, had no, none, not',
+    # `ua` is the determinate present, and in narrative the state reached --
+    # "there was not a man to till the ground" (Genesis 2:5)
+    'ua leai':   'there is no, there is not, there was not, there was no, no more, none, not',
+}
+
+# ── NUMERALS AND THEIR PREFIXES ──────────────────────────────────────────────
+# Dunn, unit eight: the cardinals take the non-past `e` as a predicate (`e lua
+# au tusi` "I have two books", lit. "my books are two"); `lona` + a number is
+# the ORDINAL (`lona lua` second, `lona tolu` third -- except "first", which is
+# `muamua`); the prefix `faa-` on a number is "times" (`faalua` twice); `toa-`
+# counts PEOPLE (`toalua` two persons, `toatele` many, `toaitiiti` few); `tai-`
+# is "each" (`taitasi` each one, `taisefulu` ten each).
+NUMERALS = {
+    'tasi': 'one', 'lua': 'two', 'tolu': 'three', 'fa': 'four', 'lima': 'five',
+    'ono': 'six', 'fitu': 'seven', 'valu': 'eight', 'iva': 'nine', 'sefulu': 'ten',
+    'sefulutasi': 'eleven', 'sefululua': 'twelve', 'luasefulu': 'twenty',
+    'tolusefulu': 'thirty', 'fasefulu': 'forty', 'limasefulu': 'fifty',
+    'onosefulu': 'sixty', 'fitusefulu': 'seventy', 'valusefulu': 'eighty',
+    'ivasefulu': 'ninety', 'selau': 'hundred', 'afe': 'thousand',
+}
+ORDINALS = {
+    'lua': 'second', 'tolu': 'third', 'fa': 'fourth', 'lima': 'fifth', 'ono': 'sixth',
+    'fitu': 'seventh', 'valu': 'eighth', 'iva': 'ninth', 'sefulu': 'tenth',
+    'sefulutasi': 'eleventh', 'sefululua': 'twelfth',
+}
+_TIMES = {'tasi': 'once', 'lua': 'twice', 'tolu': 'three times'}
+# one reading each: these are written straight to the page as a term
+_NUMERAL_PREFIXED = {
+    'muamua': 'first',
+    'toatele': 'many',  'toaititi': 'few',  'toaitiiti': 'few',
+    'taitasi': 'each',  'taitoatasi': 'one by one',
+    'faatasi': None,                 # "together" -- COMPARATIVE has it; not "once"
+}
+
+
+def numeral_derived(form):
+    """The English of a number under one of its prefixes, or None.
+
+    `faalua` twice, `toalua` two (persons), `taitolu` three each; `toatele`
+    many, `taitasi` each. Only forms built on a listed numeral resolve, so
+    `faatasi` "together" stays with its own entry."""
+    f = (form or '').strip().lower()
+    if f in _NUMERAL_PREFIXED:
+        return _NUMERAL_PREFIXED[f]
+    for pre in ('fa’a', 'faʻa', 'faa'):
+        if f.startswith(pre) and f[len(pre):] in NUMERALS:
+            n = f[len(pre):]
+            return _TIMES.get(n, NUMERALS[n] + ' times')
+    if f.startswith('toa') and f[3:] in NUMERALS:
+        return NUMERALS[f[3:]]
+    if f.startswith('tai') and f[3:] in NUMERALS:
+        return NUMERALS[f[3:]] + ' each'
+    return None
+
+
+# ── VERBS WHOSE OBJECT TAKES `i` ─────────────────────────────────────────────
+# Dunn, unit six, lesson two, and the pattern boxes throughout: a set of
+# Samoan verbs are INTRANSITIVE where their English equivalents are transitive,
+# and their object is introduced by `i` (`ia`, `ia te` before a pronoun or
+# name). That `i` is not "to" or "in": `sa alofa le teine ia Pili` is "the
+# girl loved Bill", `ou te manao i se tusi` "I want a book", `vaai i le tama`
+# "see the boy". The Bible pass drops the preposition after these verbs when
+# the English has the noun as a plain object, and keeps it when the English
+# has one ("believe ON his name", "listen TO").
+OBJECT_I_VERBS = {
+    'alofa', 'alolofa', 'vaai', 'va’ai', 'vaʻai', 'vaavaai', 'faatali', 'fa’atali',
+    'fesoasoani', 'manao', 'mana’o', 'mananao', 'aoao', 'a’oa’o', 'tali',
+    'valaau', 'vala’au', 'fesili', 'faalogo', 'fa’alogo', 'faalogologo', 'talitonu',
+    'fiafia', 'inoino', 'musu', 'fefe', 'ita', 'mafaufau', 'manatu', 'manatua',
+    'faamoemoe', 'fa’amoemoe', 'faatuatua', 'fa’atuatua', 'usitai', 'usita’i',
+    'usiusitai', 'tautala', 'faamalosi', 'iloa', 'tago', 'taumafai', 'faafetai',
+    'fa’afetai', 'agalelei', 'faamagalo', 'fa’amagalo', 'alu', 'sau', 'o', 'oo',
+    # the verbs of looking, in their respectful and reduplicated forms too
+    'silasila', 'tilotilo', 'matamata', 'vaavaai', 'va’ava’ai', 'faalogologo',
+}
+
+# The register being glossed. The generator sets 'bible' while it works on
+# O le Tusi Paia; the frames that are safe there and would cost the curated
+# Book of Mormon (a directional `mai` read silent) consult it.
+REGISTER = {'bible': False}
+
+# the multi-token forms whose reading a frame may change (contextual_reading
+# is consulted for these keys as a whole); `o le a` is deliberately absent --
+# its "what" reading is a coin flip the verse cannot settle
+MULTI_CONTEXTUAL = {'o lea'}
+
 
 def classify(word):
     """Every closed-class role this surface form can play. Never decides."""
     w = (word or '').strip().lower()
     roles = []
     if w in TAM:            roles.append(('TAM', TAM[w][0]))
+    if w in EXISTENTIAL:    roles.append(('EXISTENTIAL', EXISTENTIAL[w]))
+    if w in DESCRIPTIVE_PRONOUNS: roles.append(('CLITIC PRONOUN', DESCRIPTIVE_PRONOUNS[w][0]))
+    if w in NUMERALS:       roles.append(('NUMERAL', NUMERALS[w]))
+    if numeral_derived(w):  roles.append(('NUMERAL (derived)', numeral_derived(w)))
     if w in MODALS:         roles.append(('MODAL', MODALS[w]))
     if w in SUBORDINATORS:  roles.append(('SUBORDINATOR', SUBORDINATORS[w]))
     if w in DISJUNCTIVE:    roles.append(('DISJUNCTIVE', DISJUNCTIVE[w]))
@@ -571,7 +823,7 @@ def classify(word):
 CLOSED_CLASS = (set(TAM) | set(MODALS) | set(SUBORDINATORS) | set(DISJUNCTIVE) |
                 set(COORDINATORS) | set(DISCOURSE) | set(COMPARATIVE) |
                 set(DEGREE) | set(POSSESSIVES) | set(COMPLEX_PREPOSITIONS) |
-                set(CAUSAL) | set(DEMONSTRATIVES) |
+                set(CAUSAL) | set(DEMONSTRATIVES) | set(EXISTENTIAL) |
                 set(ARTICLES) | PRESENTATIVE | set(PREPOSITIONS) |
                 set(PRONOUNS) | set(POSSESSIVE_CLASS) | set(DIRECTIONALS) |
                 set(POSTVERBAL) | set(NEGATION) | {ANAPHORIC})
@@ -862,6 +1114,10 @@ BIBLE_VOCABULARY = {
     'o ia lava': 'he also',
     'pupula mai': 'shine',           # John 1:5 `Ua pupula mai foi le malamalama` -- a verb, not "brightness"
     'a e': 'but',                    # the 1887 edition spaces aʻe: `a e lei talia` "but received not" (user, John 1:11)
+    # `alofa tunoa` -- "free love" -- is the Bible's one word for GRACE (John
+    # 1:14, 16, 17); split, it printed "the love | grace"
+    'alofa tunoa': 'grace',
+    'le alofa tunoa': 'the grace',
 }
 
 
@@ -921,7 +1177,14 @@ READINGS = {
     'lo':   ['their', 'our', 'your'],            #   381 / 100 / 80
     'la':   ['their', 'our'],                    #    65 / 31
     'na':   ['which', 'who', 'that'],            #   332
-    'ai':   ['thereto', 'thereof', 'therein', 'thereby'],
+    # `ai` and `i ai` are PRO-PHRASES (Dunn, unit seven): they stand for a
+    # prepositional phrase already named or obvious -- `ai` for one of place or
+    # instrument ("in it, at it, with it"), `i ai` for one of direction ("to
+    # it, to him, about it"). In a relative clause the same particle answers
+    # to the KJV's wherein / whereby / wherewith: `le aso na e sau ai` "the day
+    # wherein thou camest".
+    'ai':   ['thereto', 'thereof', 'therein', 'thereby', 'wherein', 'whereby',
+             'wherewith', 'whereof', 'whereon', 'therewith', 'thereon'],
     # `aua` is two words. Causal "for/because" is the common one -- `aua
     # faauta` "for behold" alone is 148 -- and before a negator or a bound
     # 2nd-person pronoun it is the PROHIBITIVE, "do not". The imperative is
@@ -954,10 +1217,13 @@ READINGS = {
     # "be called" (called 95). Three words the table had as one pronoun.
     'au':      ['your', 'host', 'band', 'army'],
     'e ia':    ['him', 'he'],                    #   113 /  45
+    # `lava ia` after a verb: the reflexive where the verse has it, else the
+    # plain object -- `e lei iloa lava ia` "knew him not" (John 1:10)
+    'lava ia': ['himself', 'him', 'even him'],
     # `ia` itself: a preposition before a name, an object pronoun, a
     # demonstrative, the hortative, and the head of a relative clause when a
     # tense marker follows it (`ia na` 60 of 71 "which", `ia ua` 51 of 56).
-    'ia':   ['to', 'him', 'her', 'it', 'them', 'that', 'which', 'let',
+    'ia':   ['to', 'unto', 'him', 'her', 'it', 'them', 'that', 'which', 'let',
              'these', 'those'],
 }
 
@@ -1088,11 +1354,32 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         # "not", and "not yet" only where the verse itself says yet.
         return 'not yet|not'
 
+    if f in ('a’u', 'aʻu', 'au') and p in ('sa', 'na', 'ua', 'o le a', 'e'):
+        # the emphatic 1sg as the doer straight after the marker: `sa a’u fai
+        # atu` "I said" -- nominative, not "me" and not the possessive `au`
+        return 'I'
+
+    if f in DESCRIPTIVE_PRONOUNS and f not in ('e', 'ia', 'na') and p in ('sa', 'na', 'ua', 'o le a'):
+        # THE CLITIC DOER between the marker and the verb (Dunn, unit four):
+        # `sa latou o` "they went", `ua ma taunuu` "we two have arrived", `sa la
+        # nonofo` "they two dwelt". `la` and `ma` are the dual pronouns here,
+        # not the article and the conjunction, and `lua` is "you two", not the
+        # numeral. `ia` and `na` have their own frames below.
+        return DESCRIPTIVE_PRONOUNS[f][1]
+
     if f == 'a' and clause_initial:
-        # CLAUSE-INITIAL `a` IS THE CONJUNCTION "but" (or "and"), never the
-        # A-class possessive: `a e lei manumalo` "but the darkness comprehended
-        # it not", `A o i latou uma` "But as many as". The possessive follows a
-        # noun mid-clause and keeps its reading there.
+        # CLAUSE-INITIAL `a` (Dunn, unit six). Before `o`, `ua`, `ia`, `o ia`, a
+        # negator, it is the conjunction "but" (`a e lei manumalo` "but … not",
+        # `A o i latou uma` "But as many as"). Before a pronoun or a verb it is
+        # the FUTURE / TEMPORAL marker "when" (`A e sau, aumai lau tusi` "when
+        # you come, bring your book"; `A latou o mai` "when they come") -- `a`
+        # is itself the tense marker in that clause, so no other follows. The
+        # A-class possessive follows a noun mid-clause and keeps its reading.
+        nn = after[1] if len(after) > 1 else ''
+        if n in ('o', 'ua', 'ia', 'lei', 'le’i', 'leʻi', 'le', 'lē') or (n == 'e' and nn in ('lei', 'le’i', 'leʻi', 'le', 'lē', 'leai')):
+            return 'but|and'
+        if n == 'e' or n in DESCRIPTIVE_PRONOUNS or n in PRONOUNS or token_class(n) == 'OPEN':
+            return 'when|if|but|and'
         return 'but|and'
 
     if f == 'sa':
@@ -1147,7 +1434,49 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
             return ''                                # the fronted pronoun here
         if p in TAM or p == 'te':
             return 'he'
+        # THE DEMONSTRATIVE (Dunn, unit seven): `na` is the plural of `lena`
+        # and follows its noun -- `o tagata na` "those people", `afu tino na`
+        # "those shirts". After a noun with nothing verbal following (the unit
+        # ends the sentence, or a particle follows) it is "those"; after a noun
+        # with a verb following it opens a relative clause (`le tagata na sau`
+        # "the man who came") and the readings which/who/that stand.
+        if p and token_class(p) == 'OPEN' and (n == '' or n in ('ma', 'ae', 'a', 'ona', 'i', 'o', 'ia', 'foi', 'fo’i', 'uma', 'lava', 'ua', 'sa', 'po', 'pe')):
+            return 'those|that'
         return None
+
+    if f == 'la' and p and token_class(p) == 'OPEN' and n == '':
+        # `la` the plural of `lela`, after its noun at the end of the sentence:
+        # "those (over there)". Elsewhere it is the A-class article `la latou`.
+        return 'those|that'
+
+    if f == 'mai':
+        # THE DIRECTIONAL AND THE PREPOSITION (Dunn, unit five). Before a noun
+        # phrase `mai` is the preposition "from" (`mai le fale`, `mai ia Iesu`,
+        # `mai i le lagi`); after a verb, with no noun phrase following -- the
+        # sentence ends, or the agent `e` follows (`auina mai e le Atua` "sent
+        # by God") -- it is the directional toward the speaker, and English
+        # carries it inside the verb ("come", "bring", "said unto me"). The
+        # curated Book of Mormon renders some directionals as their own word
+        # ("forth", "hither"), so the silence applies to the Bible register.
+        if n in ('le', 'se', 'ni', 'lo', 'la', 'lona', 'lana', 'lou', 'lau', 'lo’u', 'la’u', 'loʻu', 'laʻu',
+                 'lenei', 'lea', 'lena', 'ia', 'iā', 'i', 'ai', 'luga', 'lalo', 'totonu', 'fafo', 'tua', 'luma', 'o'):
+            return 'from|out of|of'
+        if REGISTER['bible'] and p and token_class(p) == 'OPEN' and (n == '' or n in ('e', 'ma', 'ae', 'a', 'ona', 'foi', 'fo’i', 'lava', 'ai', 'ia te', 'ia', 'ua', 'sa', 'na', 'po', 'pe')):
+            return ''
+        return None
+
+    if f == 'o lea' and n and token_class(n) == 'OPEN' and n not in NUMERALS:
+        # `o lea` before a NOUN is the demonstrative (Dunn: `lea` may precede
+        # its noun) -- `o lea manuia` "that blessing"; before a marker or a verb
+        # it is the discourse "therefore" (`o lea ua`, `o lea sa`)
+        return 'that|this'
+
+    if f in NUMERALS and p in ('lona', 'lana', 'o lona', 'i lona'):
+        # THE ORDINAL (Dunn, unit eight): `lona lua` second, `lona tolu` third
+        # -- the possessive before a number says nothing of its own
+        return ORDINALS.get(f, None)
+    if f in ('lona', 'lana') and n in ORDINALS:
+        return ''
 
     if f == 'o':
         # The topic/presentative `o` opens a clause and English has no word
@@ -1222,6 +1551,13 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         # a tense marker after it makes a relative clause
         if n in ('na', 'ua', 'sa'):
             return 'which'
+        # THE SUBJECT AFTER THE VERB (Dunn, unit four: the emphatic pronoun
+        # stands where a noun would, after the verb, and its `o` is dropped
+        # after a directional in practice): `ua silasila atu ia i le motu` "he
+        # looked at the multitude", `ua fai atu ia` "he said". Before `te` it
+        # is the dative frame `ia te ia`; before a name it is the preposition.
+        if (p in DIRECTIONALS or (p and token_class(p) == 'OPEN')) and n in ('i', 'ia', 'iā', 'e', 'ma', 'le', 'se', 'o', 'ona', 'ai', 'foi', 'fo’i', 'lava', ''):
+            return 'he|him'
         if p == 'ina':
             return 'that'
         if p == 'lava':
@@ -1326,7 +1662,7 @@ def _build_alt_readings():
     for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
                   COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
                   SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
-                  VERB_ONA, INTERROGATIVES):
+                  VERB_ONA, INTERROGATIVES, EXISTENTIAL):
         for form, desc in table.items():
             alts = _alternatives(desc)
             if len(alts) > 1:
@@ -1345,13 +1681,24 @@ _ALT_READINGS = None
 # other mechanism here picks among a form's own readings.
 FRAME_READINGS = {
     ('o', 'TAM'): ('come', 'go', 'came', 'went', 'gone', 'departed', 'coming'),
+    # THE PREPOSITION BEFORE A NAME (Dunn, unit two, lesson four): `i` stands
+    # before common nouns and places, `ia` before personal names and the
+    # plural pronouns, `ia te` before the singular pronouns. So `ia Iesu` is
+    # "unto Jesus" -- a preposition, never the pronoun "him" or the optative
+    # "let"; the verse says which preposition.
+    ('ia', 'NAME'): ('unto', 'to', 'in', 'on', 'upon', 'at', 'with', 'of', 'by',
+                     'against', 'toward', 'for', 'from', 'among'),
 }
 
 
-def readings_in_frame(form, prev=None):
+def readings_in_frame(form, prev=None, next_is_name=False):
     """A reading set that belongs to this frame, or () for the usual one."""
     f = (form or '').strip().lower()
     p = (prev or '').strip().lower()
+    if next_is_name:
+        hit = FRAME_READINGS.get((f, 'NAME'))
+        if hit:
+            return hit
     if p in TAM or p in ('te',):
         hit = FRAME_READINGS.get((f, 'TAM'))
         if hit:
@@ -1447,7 +1794,7 @@ def _build_primary():
     for table in (COMPLEX_PREPOSITIONS, DIRECTIONALS, POSTVERBAL, NEGATION,
                   COORDINATORS, DISCOURSE, COMPARATIVE, DEGREE, DISJUNCTIVE,
                   SUBORDINATORS, MODALS, CAUSAL, DEMONSTRATIVES, PREPOSITIONS,
-                  VERB_ONA, INTERROGATIVES):
+                  VERB_ONA, INTERROGATIVES, EXISTENTIAL):
         for form, desc in table.items():
             _PRIMARY.setdefault(form, _first(desc))
     for form, (cls, person, shape) in POSSESSIVES.items():

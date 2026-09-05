@@ -94,3 +94,24 @@ before anyone read it as scripture. Silent OCR errors in a scripture text are
 the one failure mode that cannot be accepted quietly.
 
 Not started. Recorded here so the next attempt does not re-derive it.
+
+## Grammar
+
+**Scott C. Dunn, *Samoan for Missionaries* (1983), BYU M.A. thesis.** The grammar the
+tool encodes (GLOSSING_RULES.md §22): tense markers, the two kinds of doer, nominal and
+existential sentences, the object-marking `i`, directionals, perfective suffixes and
+doer omission, negation, reduplication, nominalisation, numeral prefixes, relative
+clauses, `ai` / `i ai`, the unit-six conjunctions. Facts of the language, not text:
+nothing of the book is reproduced. The PDF is on the user's Desktop
+(`samoanformissionaries.pdf`), never in the repo. User, 2026-09-05: "forget my rules use
+the samoanformissionaries as source here" -- where the curated readings and Dunn
+disagree, Dunn stands.
+
+**bible.com 2203 "SOV" (checked 2026-09-05).** The user pointed to
+`bible.com/bible/2203/JHN.1.SOV` as the same 1887 text, cleanly typed. The page names it
+"O LE TUSI PAIA - SOV (Samoan Edited Old Version)" and prints "© Bible Society of the
+South Pacific, 2017": an EDITED old version under a current copyright claim, and
+YouVersion's terms forbid scraping. So it is a searchlight, never a source (the same
+standing as the IAS PDF on the Hebrew side). John 1:1-10 read against it: our scanned
+1887 text matches word for word except 1:8, where the edited version has `i le lava
+malamalama` for the 1887 `i lea lava malamalama` -- the edition's change, not our OCR.

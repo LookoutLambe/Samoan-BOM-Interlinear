@@ -161,7 +161,7 @@ And the verb it marks says its word: under an explicit tense marker, a verb
 with no verse-confirmed reading takes the curation's plurality reading in
 that tense (`na faia` → "made" where the KJV has "created"). The word is the
 curation's, the tense is the marker's; nothing is invented. Generator:
-`tensed-plurality` in `generate_overrides_dc_pgp.py`.
+`tensed-plurality` in `gloss_corpus.py` (formerly generate_overrides_dc_pgp.py).
 
 ## 18. The tool learns the Bible's words, and the frames the Book of Mormon never showed
 
@@ -326,3 +326,252 @@ kind of thing; none names a verse.
 - Reference the user pointed to: *Samoan for Missionaries* (Scott C. Dunn, 1983,
   BYU thesis) -- for the particle and TAM tables; read it from the Desktop when
   the user puts it there.
+
+## 22. The grammar of the language (from Dunn, *Samoan for Missionaries*, 1983)
+
+User, 2026-09-05: *"you werent teaching the full grammar rules of the language to
+the tool"*; *"its the grammar rules you need from it so its not copywrite its
+facts"*; *"the grammar rule book should also explain redundancy words /
+multiplying"*; *"this tool should not be just dc_pgp but the entire corpus even
+the BOM"*; *"the tool should include all 5... OT, NT, BOM, DC, PGP"*.
+
+The tool is `scripts/gloss_corpus.py` (the old name `generate_overrides_dc_pgp.py`
+is a shim that runs it). One grammar, five volumes: the default run glosses the
+Book of Mormon, D&C and Pearl of Great Price; `--bible` the Old and New
+Testaments; `--all` everything. The sentence pass (`simple_sentences`) runs on
+every volume; the curated units are consulted first and stand where no rule
+speaks. `SS_TRACE="<words of the verse>"` prints the gloss line after each stage
+of the sentence pass. The facts below are Dunn's; the code location follows each.
+
+### 22a. Tense-aspect-mood markers (`TAM`, `TENSE_OF_TAM`, `TAM_SEMANTICS` in samoan_grammar.py)
+
+| marker | Dunn | English of the verb |
+|---|---|---|
+| `e` | non-past: habitual, permanent, future | present ("is", "-eth") |
+| `te` | `e` after a clitic doer (`ou te`, `latou te`) | present |
+| `ua` | determinate present, "has become", the state reached | perfect / "is (now)" |
+| `o loo` | indeterminate present, progressive | "is …ing", the copula of a locative |
+| `sa` | indeterminate past | past |
+| `na` | determinate past | past |
+| `o le a` | future | "shall" |
+| `a` (clause-initial), `pe a` (mid) | future / "when" | the clause takes no other marker |
+| `ia` | insistent imperative, optative | "let", or the bare verb |
+| `sei` / `seia` | deferential imperative; "until" | "let"; "until" |
+| `ina ia` | purposive | "to VERB" |
+
+After `ina ia`, `ia`, `sei`, `ne’i`, `aua` the verb is bare (`BARE_AFTER`). A
+unit's own marker outranks the one before it (`e | na talia` is past). The
+marker is not glossed; its tense is written on the verb in the verse's own form.
+
+### 22b. Word order and the two kinds of doer
+
+Neutral order: MARKER – PREDICATE – DOER – DONE-TO – PREPOSITIONAL PHRASES. The
+language then speaks three ways (rule 21c) and every clause is read for its own
+shape.
+
+- **Descriptive (clitic) doers** stand between the marker and the verb and take
+  no `e`: `sa ia faitauina le tusi` "he read the book", `ua latou o mai` "they
+  have come". Table `DESCRIPTIVE_PRONOUNS`; every `sa / na / ua / ia / o le a` +
+  pronoun is a generated frame in `PRONOUNS` (`sa ou` = I, `o le a latou` = they
+  shall). Before this the doer vanished into the verb.
+- **Emphatic doers** (`o ia`, `i latou`, `a’u`, `oe`) stand where a noun would,
+  after the verb; with a transitive verb they take the ergative `e` ("by").
+  After a directional the `o` is dropped in practice: `ua silasila atu ia`
+  "he looked" (`contextual_reading`, `ia` after a verb).
+- **Doer omission**: the 3sg is dropped once introduced; a possessive implies
+  the doer (`ua le iloa la’u peni` "I lost my pen"); a transitive verb needs no
+  doer at all when it is unknown, unimportant or obvious — which is where the
+  KJV has a passive: `ua saunia le meaai` "the food is prepared", `na tuuina mai
+  e Mose le tulafono` "the law was given by Moses". The sentence pass writes
+  the copula the verse sets beside the word ("were made", "was given").
+
+### 22c. Nominal sentences (rule 21, `simple_sentences`)
+
+Presentative `O NP` = "(it) is NP"; equative `O NP-pred NP-subj` = "subject is
+predicate", predicate first and tenseless — "God is | also | the Word", "John is
+| his name"; `O ia lenei` "he was | this". Stative predicate `E poto le tama`
+"is smart | the boy": the copula from the English. Existential `E i ai se X`
+"there is an X", `sa i ai` "there was", `e leai se X` "there is no X"
+(`EXISTENTIAL`). Negative nominal `E le o NP` "is not NP" (frame `e le o` =
+"not"; the pass supplies the copula: "he was not that light").
+
+### 22d. Articles and number (rule 21e)
+
+`le` specific singular "the"; `se` non-specific "a"; `ni` non-specific plural
+"some"; **no article = plural** (`o tagata` "men"). Adjectives FOLLOW the noun
+and agree in number by reduplication (22k). Numbers are predicates with `e`
+(`e lua au tusi` "I have two books").
+
+### 22e. Demonstratives (`DEMONSTRATIVES`, `contextual_reading`)
+
+lenei / nei "this / these"; lea / ia "this, that / these, those"; lena / na
+"that / those"; lela / la "that yonder"; the regional lenaʻe, lele, lale, nae.
+The plurals follow the noun, which is how `na` "those" is told from the past
+marker: after a noun with nothing verbal following it is "those"; with a verb
+following it opens a relative clause ("the man who came"). `o lea` before a
+noun is "that", before a marker "therefore".
+
+### 22f. Prepositions
+
+`i` before common nouns and places; `ia` before personal names and plural
+pronouns; `ia te` before singular pronouns. So `ia Iesu` is a preposition,
+never "him" (`FRAME_READINGS[('ia', 'NAME')]`). `i` = to / in / into
+(direction) and at / on / in (location); the verse chooses. **Accompaniment
+is `ma`, instrument is `i`**: `ma le teine` "with the girl", `i le penitala`
+"with a pencil". `mo` / `ma` "for" (benefit), `i` "for" (duration).
+
+**The object-marking `i`** (`OBJECT_I_VERBS`): alofa, vaai, silasila, faatali,
+fesoasoani, manao, aoao, tali, valaau, fesili, faalogo, talitonu, fiafia,
+inoino, musu, fefe, iloa … are intransitive in Samoan where their English is
+transitive, and their object takes `i`. That `i` says no preposition when the
+English has a plain object ("loved the world", "taught them") and keeps one
+when the English has one ("believe ON his name").
+
+**Predicate phrases as prepositions** (`COMPLEX_PREPOSITIONS`): e aunoa ma
+"without", e uiga i "about", e tusa ma "according to", e faasaga i "facing /
+against", e faafeagai ma "opposite", e latalata i "near", e sosoo ane i
+"adjoining", e pito ane i "next to", e tupito atu i "furthest from".
+
+### 22g. Possession (`POSSESSIVES`, the possessive rules of the pass)
+
+`o`-class for what is not controlled (parts, relations, dwelling); `a`-class
+for what is (food, tools, behaviour, speech). Both are "his / her / their".
+A possessive before a verb makes it a noun (`lona maliu mai` "his coming");
+before an adjective the -ness noun (`lona tumu` "his fulness"). A possessive
+and its noun are one phrase even when the memory split them ("of his
+fulness"). `avea ma` "become", `fai ma` "act as": the `ma` marks the
+complement.
+
+### 22h. Directionals (`DIRECTIONALS`, `morph_gloss`)
+
+`atu` away from the speaker, `mai` toward, `ane` along / aside, `a’e` up,
+`ifo` down, `ese` away. They follow the verb and English carries them in the
+verb ("came", "gave"). A verb and its directional fuse with the vowel elided
+(`ave` + `atu` = `avatu`, `au` + `mai` = `aumai`), and a perfective suffix then
+follows the directional (`aveesea`). `mai` before a noun phrase is the
+preposition "from"; after a verb with nothing following, or before the agent
+`e` (`auina mai e le Atua` "sent by God"), it is the directional.
+
+### 22i. The perfective suffixes
+
+`-ina`, `-a`, `-ia`, `-gia`, `-mia`, `-sia` make a verb transitive / perfective:
+they appear in negatives (`sa le faia`), with clitic doers (`sa ia faitauina`),
+and shift sense (`tali` answer → `talia` accept; `vaai` look → `vaaia` see).
+Verbs of motion and statives do not take them. `-ina` with no doer is the
+passive the KJV writes (22b).
+
+### 22j. Negation (`NEGATION`, `NEG_UNITS`, the fold in the pass)
+
+`e le` general negative (also of adjectives: `e le lelei` "is not good");
+`e lei` / `te lei` past ("not", the traditional "not yet" only where the verse
+says yet); `leai` = `e le i ai`, "there is not / no"; `e le o` before a
+nominal or progressive predicate; imperatives `aua`, `aua nei`, `soia`; `ne’i`
+"lest". The negative folds into its verb: `e lei talia` "not received", `te
+le oti` "not die". A remembered span may not begin on the negator (`lua te |
+le oti lava`).
+
+### 22k. Redundancy: reduplication ("multiplying", the user's word)
+
+Two doublings, two meanings, one root — and the tool never collapses a
+doubled form it already knows:
+
+| pattern | example | meaning |
+|---|---|---|
+| one syllable doubled | nofo → nonofo, moe → momoe, galue → galulue, poto → popoto, malosi → malolosi, umi → uumi | PLURAL — the verb or adjective agrees with a plural doer or noun |
+| the whole root doubled | mata "eye, see" → matamata "look at, behold"; savali → savalivali "walk about"; fai → faifai "keep doing"; tagi → tagitagi | repeated, continued or intensified action; often a distinct word |
+
+The user's pair: **malu** "shelter, shade" → **mamalu** "dignity, glory" (syllable
+doubling) and **mālumalu** "temple, the sheltered place" (root doubling). Three
+words. `_dereduplicate` in gloss_corpus.py strips a doubled root or syllable
+only for a form no lexicon holds, so the known words stay themselves; a
+plural form glosses as its base (the number rides on the subject).
+
+### 22l. Verbs as nouns (`morph_gloss` frame "noun", the article and possessive rules)
+
+The suffix `-ga` (amata → amataga "beginning", faaali → faaaliga
+"revelation", galue → galuega "work"; some lengthen the first vowel: taalo →
+taaloga "game"; a few take `-aga`: nofo → nofoaga "dwelling"). And a verb is
+a noun without any change under an article or possessive: `lana sau` "his
+coming", `le faalogo` "the hearing", `o le mu o le fale` "the burning of the
+house". The pass writes the verse's gerund or -ness noun when it has one.
+
+### 22m. Numerals and their prefixes (`NUMERALS`, `ORDINALS`, `numeral_derived`)
+
+`lona` + number = ordinal (`lona lua` second; "first" is `muamua`); `faa-` +
+number = times (`faalua` twice); `toa-` counts people (`toalua` two persons,
+`toatele` many, `toaitiiti` few); `tai-` = each (`taitasi` each one,
+`taisefulu` ten each). The derivations are dictionary senses, written when the
+verse carries them — `e toatasi` stays the curated "only".
+
+### 22n. Relative clauses and the emphatic antecedent (`DEMONSTRATIVES`, rule 21)
+
+Samoan omits the relative word: `le tagata na sau` "the man who came", `le aso
+na e sau ai` "the day thou camest". When the omitted phrase is one of place,
+instrument, time or reason, `ai` follows the predicate; of direction, `i ai`
+(22o). A whole sentence can be a relative clause for "whose" and "with whom"
+(`le teine ua leaga lana uati` "the girl whose watch is broken"). The emphatic
+antecedents `o le`, `o se`, `o e` before a relative clause are "he who",
+"anyone who", "those who" (`o le na`, `o le ua`, `o le e`, `o se e`, `o e
+ua` …); `o le` before a bare verb is "he that" (`O le mulimuli mai` "he that
+cometh after").
+
+### 22o. `ai` and `i ai`, the pro-phrases
+
+`ai` stands for a phrase of location or instrument already named ("in it, with
+it, there"); `i ai` for one of direction ("to it, to him, about it"). Both
+follow the predicate. Where the KJV has a compound the particle says it
+(therein, thereby, wherein, whereby …); where the KJV names the object after
+the verb it says that ("touch it"); otherwise the English carries it inside
+the verb and the particle folds into the verb's unit.
+
+### 22p. Conjunctions (`SUBORDINATORS`, `COORDINATORS`, `DISCOURSE`)
+
+| sense | Samoan |
+|---|---|
+| and, with | ma; atoa ma "together with"; atoa foi ma "as well as"; aemaise "especially" (before a noun phrase only) |
+| but | a (before o / ua / ia / a negator), ae (before anything) |
+| however | peitai, ae peitai, peitai ane |
+| then | ona … lea; ona … ai lea when the first clause is the reason |
+| if | afai (sentence-initial), pe afai (mid); ana / pe ana counterfactual |
+| when | a / pe a (future); ina ua (past); a o / ao "while" |
+| before | o lei, ae lei ("while not yet"), o lei oo i + noun |
+| after | ina ua uma, a uma, pe a uma ("when finished") |
+| because | aua, leaga, ona ua / ona sa / ona e; ona o + noun "because of"; talu ai "on account of" |
+| since | talu, talu ona, talu mai |
+| until | seia, seia oo i / ina; sei "wait until" |
+| unless / except | seiloga, vagana (ai) |
+| although | e ui ina, e ui lava ina; ae ui i lea "nevertheless" |
+| like, as | e pei (o), faapei (o), e pei ona + clause |
+| in order to, lest | ina ia; ne’i |
+| therefore | o lea, o le mea lea |
+
+### 22q. Phrases are constituents
+
+Preposition + determiner + noun, and determiner + noun, are one unit even where
+the memory held no span for them (`i | le | motu` → `i le motu` "the
+multitudes"); the phrase rules (the English's preposition, the object-marking
+`i`, the article) read the joined unit.
+
+### 22r. What it measured
+
+`measure_pass.py` scores the generated Book of Mormon against the curated units.
+Before the grammar ran on the BOM it read ALL F1 85.0 / content 86.1; with Dunn's
+rules on every volume it reads 84.9 / 85.9, and the differences that remain are
+the grammar's own (clitic doers "I shall", "they"; agents "by the Lord"; "also";
+"it came to pass"; `le` = "the"; "when", "after", "none"). The user's ruling
+(2026-09-05): *"forget my rules use the samoanformissionaries as source here"* —
+the score is a diagnostic now, not a gate. Every misfire found on the way was
+fixed as a rule about the language, never a verse: `o le mea lea` is one word,
+`ona` before a marker is "because" not "his", `e le vaaia` is the negative not an
+agent, a frame never runs across a comma, `i latou` as a plain object takes no
+preposition, a curated imperative's capital is lowercased mid-sentence.
+
+### 22s. The Bible pipeline, in order
+
+`segment_1887_pdf.py --all` (the PDF on the Desktop → `corpus/tusi_paia/tusi_paia_verses_1887.json`;
+`--book` never writes the file) → `build_tusi_paia_dual.py` (tokens, fallbacks, hand layer,
+text fixes → `corpus/tusi_paia/dual/`, THE TOKEN MASTER) → `gloss_corpus.py --bible` (reads
+the dual tokens, syncs the dual index and English into Resources, writes the glossed
+`Resources/book_<id>.json`) → `build_web_data.py` → the iOS build. The glosser used to read
+its own last output in Resources and overwrite the dual files, so a rebuilt text never
+reached the app; it reads the dual build now.

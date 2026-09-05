@@ -58,6 +58,10 @@ ARCHAIC = {
     "says": {"saith"}, "saith": {"says"}, "said": {"saith"},
     "is": {"art", "be"}, "are": {"art", "be"}, "art": {"are", "is"},
     "shall": {"will"}, "will": {"shall"},
+    # the KJV's "unto" is the gloss's "to": a gloss "to them" is carried by a
+    # verse reading "unto them" (the Book of Mormon side compares modernised
+    # English, where no "unto" survives, so this changes nothing there)
+    "to": {"unto"}, "unto": {"to"},
 }
 
 MODERN_WORD = {
@@ -87,6 +91,26 @@ def vocabulary() -> set[str]:
 # Pairs English spells as two words that are one word here. Kept SHORT and
 # literal: this is not a synonym list, and anything that changes which word
 # the gloss uses belongs nowhere near it.
+# near-synonyms a dictionary sense and the KJV use for one Samoan word --
+# only for pairing a blank with a leftover word of the verse, never to write
+# a gloss the verse does not have
+SYNONYMS = {
+    "behold": {"look", "see", "gaze", "view", "watch"}, "beheld": {"look", "see", "gaze", "saw"},
+    "look": {"behold", "see"}, "see": {"behold", "look", "perceive"},
+    "power": {"might", "strength", "authority"}, "might": {"power", "strength"},
+    "sons": {"children", "child", "son"}, "children": {"sons", "son", "offspring"},
+    "speak": {"say", "talk", "tell"}, "spake": {"say", "said", "talk", "tell"},
+    "rejoice": {"glad", "joy", "happy"}, "glad": {"rejoice", "joy", "happy"},
+    "wroth": {"angry", "anger"}, "angry": {"wroth", "anger"},
+    "smite": {"strike", "beat", "hit"}, "smote": {"strike", "beat", "hit"},
+    "slay": {"kill"}, "slew": {"kill"}, "kill": {"slay"},
+    "fear": {"afraid", "dread"}, "afraid": {"fear", "dread"},
+    "beseech": {"ask", "beg", "pray", "entreat"}, "entreat": {"ask", "beg", "pray"},
+    "dwell": {"live", "stay", "abide"}, "abide": {"dwell", "stay", "remain"},
+    "commandment": {"command", "law", "order"}, "commandments": {"command", "law"},
+    "wicked": {"bad", "evil"}, "evil": {"bad", "wicked"},
+    "servant": {"slave", "serve"}, "servants": {"slave", "serve"},
+}
 VARIANTS = {"far": {"afar"}, "afar": {"far"},
             "among": {"amongst"}, "amongst": {"among"},
             "while": {"whilst"}, "whilst": {"while"},
@@ -182,7 +206,22 @@ def stems(word: str) -> set[str]:
         out.add(word + "ed")
     out |= VARIANTS.get(word, set())
     out |= IRREGULAR_NUMBER.get(word, set())
+    # the strong verbs: a gloss "behold" is carried by a verse that says
+    # "beheld", "see" by "saw" and "seen" -- the base and its past forms and
+    # participles are one word
+    # -- but not the copulas and auxiliaries: "is" and "was" are different
+    # tenses, and equating them would let "there is not" pass for "there was not"
+    if word not in _TENSE_BEARING:
+        out |= set(BASE_TO_PAST.get(word, ()))
+        if word in PAST_TO_BASE:
+            out.add(PAST_TO_BASE[word])
+            out |= set(BASE_TO_PAST.get(PAST_TO_BASE[word], ()))
+        out |= PARTICIPLES.get(word, set())
     return out
+
+
+_TENSE_BEARING = {"is", "are", "am", "was", "were", "be", "been", "have", "has", "hath", "hast",
+                  "had", "do", "did", "does", "doth", "dost", "done"}
 
 
 def in_english(word: str, verse_words: set[str]) -> bool:
@@ -302,6 +341,32 @@ BASE_TO_PAST = {
     "is": ["was"], "are": ["were"], "am": ["was"],
 }
 PAST_TO_BASE = {p: b for b, ps in BASE_TO_PAST.items() for p in ps}
+# the strong participles that differ from the past: see / saw / SEEN
+_PARTICIPLE_PAIRS = [
+    ("see", "seen"), ("give", "given"), ("take", "taken"), ("speak", "spoken"),
+    ("write", "written"), ("know", "known"), ("go", "gone"), ("do", "done"),
+    ("come", "come"), ("become", "become"), ("eat", "eaten"), ("fall", "fallen"),
+    ("rise", "risen"), ("arise", "arisen"), ("choose", "chosen"), ("draw", "drawn"),
+    ("drive", "driven"), ("forget", "forgotten"), ("forsake", "forsaken"),
+    ("hide", "hidden"), ("shake", "shaken"), ("slay", "slain"), ("smite", "smitten"),
+    ("steal", "stolen"), ("swear", "sworn"), ("throw", "thrown"), ("bear", "born"),
+    ("bear", "borne"), ("break", "broken"), ("beget", "begotten"), ("bid", "bidden"),
+    ("ride", "ridden"), ("sing", "sung"), ("tread", "trodden"), ("wake", "woken"),
+    ("wear", "worn"), ("weave", "woven"), ("drink", "drunk"), ("blow", "blown"),
+    ("overcome", "overcome"), ("forgive", "forgiven"), ("partake", "partaken"),
+    ("lie", "lain"), ("fly", "flown"), ("grow", "grown"), ("strive", "striven"),
+    ("bind", "bound"), ("begin", "begun"), ("spring", "sprung"), ("swim", "swum"),
+    ("shine", "shone"), ("stand", "stood"), ("sit", "sat"), ("hold", "held"),
+    ("is", "been"), ("are", "been"), ("am", "been"), ("have", "had"),
+]
+PARTICIPLES: dict[str, set[str]] = {}
+for _b, _p in _PARTICIPLE_PAIRS:
+    PARTICIPLES.setdefault(_b, set()).add(_p)
+    PARTICIPLES.setdefault(_p, set()).add(_b)
+    for _past in BASE_TO_PAST.get(_b, ()):
+        PARTICIPLES.setdefault(_p, set()).add(_past)
+        PARTICIPLES.setdefault(_past, set()).add(_p)
+del _b, _p
 _TENSE_SKIP = {
     "the", "a", "an", "of", "to", "in", "on", "and", "or", "but", "he", "she",
     "it", "they", "we", "i", "you", "ye", "thou", "thee", "him", "her", "them",

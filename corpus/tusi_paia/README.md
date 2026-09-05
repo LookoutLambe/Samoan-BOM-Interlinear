@@ -79,3 +79,11 @@ only the boundary guide, the OCR spelling reference, and the FALLBACK where an 1
 or fails the KJV-length sanity check; `build_tusi_paia_dual.py` lists those in the index under
 `fallback`. First pass: 99.0% of verses from the 1887 text. Known gaps: Psalms 18/37/78/119 (both
 editions damaged there), a few chapter starts whose numeral the OCR swallowed.
+
+**OCR: `ie` for `le` (2026-09-05).** The scan's text layer reads the article `le` as
+`ie` in hundreds of places (`o ie Alo o le Atua`, John 1:49). `ie` is a real word
+(cloth; `fale ie` a tent), so the known-word test kept it. `repair()` now reads `ie` as
+`le` in ARTICLE position — after a phrase-heading particle (o, i, a, e, ma, mo, mai,
+ia, ai) or a marker with a word following, or where the later edition's aligned word
+is `le` — and leaves `le ie`, `se ie`, `fale ie`. 366 tokens in 348 verses; 464 `ie`
+remain, the noun. Note `--book` never writes the corpus file; only `--all` does.

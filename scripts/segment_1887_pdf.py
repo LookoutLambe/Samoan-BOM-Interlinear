@@ -986,6 +986,21 @@ def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter, kno
             x = strip(tok).lower()
             if not x:
                 continue
+        # `ie` FOR `le` (user, 2026-09-05: "you have an i in for the le"). `ie`
+        # is a word -- cloth; `fale ie` a tent -- so the known-word test kept
+        # the misread article: `o ie Alo o le Atua` (John 1:49). In ARTICLE
+        # position it is `le`: after a particle that heads a phrase (o, i, a, e,
+        # ma, mo, mai, ia, ai) or a marker, with a word following; or where the
+        # later edition's aligned word is `le`. `le ie`, `fale ie`, `se ie` --
+        # the cloth -- keep their `ie`.
+        if x == "ie" and i + 1 < len(a) and ka[i + 1]:
+            prev = ka[i - 1] if i else ""
+            j = aligned.get(i)
+            if (prev in ("o", "i", "a", "e", "ma", "mo", "mai", "ia", "ai", "ua", "sa", "na", "ona", "ina", "pe", "po")
+                    and not re.search(r"[,;:.?!]$", a[i - 1] if i else "")) or (j is not None and kb[j] == "le"):
+                out[i] = rebuild(tok, "le")
+                fixes += 1
+                continue
         if x in known or x.translate(demacron) in known_plain:
             continue          # a macron is spelling, never an OCR slip (māna / mana)
         # 1. the aligned word of the later edition, when close

@@ -54,7 +54,7 @@ def main(argv: list[str] | None = None) -> int:
     if hits:
         path.write_text(json.dumps(data, ensure_ascii=False), encoding="utf-8")
         print(f"wrote {path}")
-        print("NOW RE-RUN: generate_overrides_dc_pgp.py, then build_web_data.py")
+        print("NOW RE-RUN: gloss_corpus.py, then build_web_data.py")
     return 0
 
 
