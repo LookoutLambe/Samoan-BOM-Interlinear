@@ -662,7 +662,7 @@ def merge_punctuation(cands: Counter) -> Counter:
 # it. Those were the biggest blanks in the corpus: `o` 3,063, `e` 2,162,
 # `ua` 1,499, `i` 963.
 LEANS_BACK = {"ai", "lava", "uma", "foi", "fo’i", "atu", "mai", "ifo", "a’e",
-              "aʻe", "ane", "pea", "lea"}
+              "aʻe", "ane", "pea", "lea", "aʻi", "a’i", "a'i"}
 
 
 # English words that are never a leftover's partner: auxiliaries, the light
