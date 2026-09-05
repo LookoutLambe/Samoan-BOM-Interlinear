@@ -759,6 +759,9 @@ TRANSLITERATED = {
 # word is in the verses carrying the form than in the corpus at large. The
 # figure after each is that lift.
 VOCABULARY = {
+    # a fixed idiom of the Bible register: one unit, one English (the shorter
+    # `ua faapea lava` is NOT it -- `ua faapea lava ona alofa` is "so loved")
+    'i le ua faapea lava': 'and it was so',
     'perisitua':   'priesthood',      #  86x
     'peresitene':  'president',       # 143x
     'epikopo':     'bishop',          # 158x
@@ -819,7 +822,12 @@ def _dictionary():
         # Pratt FIRST and in its own order -- it is a dictionary of Samoan and
         # this corpus is 19th-century scripture register -- then EALD for the
         # ordinary modern words Pratt's scan mangles.
-        for name in ("samoan_dictionary.json", "samoan_dictionary_eald.json"):
+        # then the lexicon LEARNED from the verse-aligned corpus (O le Tusi
+        # Paia beside the KJV; scripts/learn_bible_lexicon.py), last: only
+        # words the two dictionaries lack, each sense confirmed by the verse
+        # before the generator writes it
+        for name in ("samoan_dictionary.json", "samoan_dictionary_eald.json",
+                     "samoan_dictionary_bible.json"):
             try:
                 d = json.loads((res / name).read_text(encoding="utf-8"))["entries"]
             except Exception:
@@ -1033,6 +1041,13 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
         if p in LE_NEG_BEFORE or (p == 'e' and n == 'o') or n in LE_NEG_AFTER:
             return 'not'
         return None
+
+    if f == 'ia' and clause_initial and n and n not in PRONOUNS and n not in ('te',):
+        # THE OPTATIVE. Clause-initial `Ia malamalama` is "Let there be light",
+        # `Ia salamo outou` "repent ye": the curation puts the imperative on the
+        # verb and the marker says "let" where English has it, nothing where it
+        # does not. Left to its readings it printed "that" and "it".
+        return 'let'
 
     if f == 'na':
         # THE PAST-TENSE MARKER before anything else. `na` sits in three tables

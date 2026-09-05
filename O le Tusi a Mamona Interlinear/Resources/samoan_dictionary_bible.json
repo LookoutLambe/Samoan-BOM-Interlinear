@@ -1,0 +1,10203 @@
+{
+"source": "learned from the verse-aligned corpus (O le Tusi Paia + KJV, and the Book of Mormon volumes + official English) by scripts/learn_bible_lexicon.py; merged after Pratt and EALD; thresholds both>=3, P(e|s)>=0.25, lift>=8 (0.5 / 20 under 8 verses); English forms stem-merged",
+"entries": {
+"500": [
+"disciples"
+],
+"a6o": [
+"dwell"
+],
+"aa0": [
+"stretched",
+"anger"
+],
+"aami": [
+"called"
+],
+"aano": [
+"flesh"
+],
+"aapa": [
+"touch"
+],
+"aasa": [
+"ahaz"
+],
+"aati": [
+"fretting"
+],
+"aau": [
+"send"
+],
+"adada": [
+"spirit"
+],
+"aega": [
+"going"
+],
+"aemaise": [
+"especially"
+],
+"aeto": [
+"eagle",
+"eagles"
+],
+"afa": [
+"tempest",
+"half"
+],
+"afafine": [
+"daughters"
+],
+"afaina": [
+"matter",
+"hurt"
+],
+"afe": [
+"thousand"
+],
+"afea": [
+"long"
+],
+"afeafe": [
+"chambers"
+],
+"afei": [
+"round"
+],
+"afi": [
+"fire"
+],
+"afiafi": [
+"evening"
+],
+"afifio": [
+"descending"
+],
+"afioaga": [
+"habitation"
+],
+"afu": [
+"herb"
+],
+"afā": [
+"storm",
+"tempest",
+"whirlwind"
+],
+"aga": [
+"span"
+],
+"agaaga": [
+"spies"
+],
+"agaalofa": [
+"compassion"
+],
+"agaga": [
+"spirit"
+],
+"agai": [
+"towards"
+],
+"agaleagaina": [
+"wrong"
+],
+"agalelei": [
+"goodness"
+],
+"agamalu": [
+"meekness",
+"meek"
+],
+"agasala": [
+"sin"
+],
+"agasalamo": [
+"contrite"
+],
+"agavaa": [
+"worthy"
+],
+"agavale": [
+"left"
+],
+"aga’i": [
+"towards"
+],
+"agelu": [
+"angel"
+],
+"agi": [
+"wind",
+"blow"
+],
+"aia": [
+"right"
+],
+"aila": [
+"hart",
+"hinds",
+"roebuck"
+],
+"ailona": [
+"aijalon",
+"ajalon"
+],
+"aina": [
+"eat"
+],
+"ainā": [
+"inhabited"
+],
+"aitalafu": [
+"debt"
+],
+"aitu": [
+"familiar",
+"wizards"
+],
+"aivao": [
+"ferocious",
+"wild"
+],
+"aiā": [
+"right"
+],
+"akarava": [
+"scorpions"
+],
+"akerise": [
+"locusts"
+],
+"ala": [
+"way"
+],
+"alafau": [
+"cheek"
+],
+"alaga": [
+"cried",
+"cry"
+],
+"alagalima": [
+"shoulder",
+"wave"
+],
+"alalaga": [
+"cried"
+],
+"alalo": [
+"lower"
+],
+"alapasa": [
+"alabaster"
+],
+"alatele": [
+"highway"
+],
+"alavai": [
+"conduit",
+"fuller's"
+],
+"alei": [
+"divorcement",
+"bill"
+],
+"aleka": [
+"cankerworm",
+"caterpiller"
+],
+"alemuka": [
+"algum"
+],
+"alia": [
+"brook"
+],
+"aliali": [
+"discovered"
+],
+"aliitai": [
+"exercise"
+],
+"aloaia": [
+"servant"
+],
+"aloalii": [
+"michael",
+"prince"
+],
+"aloe": [
+"aloes"
+],
+"alofafine": [
+"daughters"
+],
+"alofagia": [
+"grace",
+"sight"
+],
+"alofaina": [
+"favour"
+],
+"alofateleina": [
+"greatly",
+"beloved"
+],
+"alofilima": [
+"oil"
+],
+"alofivae": [
+"sole",
+"soles"
+],
+"aloiafi": [
+"sparks"
+],
+"aloivae": [
+"thigh"
+],
+"alolofa": [
+"love"
+],
+"alope": [
+"foxes"
+],
+"alualu": [
+"progress"
+],
+"aluga": [
+"pillows"
+],
+"aluna": [
+"oak"
+],
+"ama": [
+"ammah"
+],
+"amanaia": [
+"heed"
+],
+"amata": [
+"began"
+],
+"amataga": [
+"beginning"
+],
+"amataina": [
+"begun"
+],
+"amene": [
+"amen"
+],
+"amia": [
+"called"
+],
+"aminoa": [
+"amnor"
+],
+"amio": [
+"wicked"
+],
+"amioatua": [
+"ungodly"
+],
+"amioga": [
+"doings"
+],
+"amioleaga": [
+"wickedness",
+"wicked"
+],
+"amioletonu": [
+"iniquity",
+"iniquities"
+],
+"amiomama": [
+"virtue"
+],
+"amiomamā": [
+"virtue"
+],
+"amiotonu": [
+"righteousness",
+"righteous"
+],
+"amo": [
+"yoke",
+"staves"
+],
+"amuia": [
+"blessed"
+],
+"amuli": [
+"generation"
+],
+"anamua": [
+"old"
+],
+"anamuā": [
+"ancient"
+],
+"ananafi": [
+"yesterday",
+"today"
+],
+"anapo": [
+"night"
+],
+"anapogi": [
+"fasting",
+"fast"
+],
+"anapopogi": [
+"fast"
+],
+"anatema": [
+"accursed"
+],
+"aneti-nifae-liae": [
+"anti"
+],
+"anetikeriso": [
+"antichrist"
+],
+"anufe": [
+"worm"
+],
+"aoaiina": [
+"chastened"
+],
+"aoao": [
+"teach"
+],
+"aoaoga": [
+"doctrine"
+],
+"aoaoina": [
+"taught",
+"learn"
+],
+"aoauli": [
+"noon",
+"noonday"
+],
+"aofaga": [
+"eagles",
+"wheresoever"
+],
+"aofai": [
+"number"
+],
+"aofia": [
+"gathered"
+],
+"aogā": [
+"vain"
+],
+"aoina": [
+"night",
+"morning",
+"lie"
+],
+"aotelega": [
+"fine"
+],
+"apa": [
+"brass"
+],
+"apaau": [
+"wings"
+],
+"apamemea": [
+"brass",
+"engraven",
+"plates"
+],
+"apeafi": [
+"flames"
+],
+"apefai": [
+"ladders"
+],
+"api": [
+"lodging"
+],
+"apiapi": [
+"strait"
+],
+"apili": [
+"appeal",
+"decision"
+],
+"apitaga": [
+"tabernacles"
+],
+"apoapoai": [
+"exhort"
+],
+"apoapoaiga": [
+"admonition"
+],
+"apogaleveleve": [
+"web"
+],
+"aposetolo": [
+"apostles"
+],
+"aputi": [
+"chaff"
+],
+"arasi": [
+"cedar"
+],
+"areto": [
+"bread"
+],
+"ario": [
+"silver",
+"gold"
+],
+"asa": [
+"asa"
+],
+"asaga": [
+"fords"
+],
+"aselama": [
+"amethyst"
+],
+"asia": [
+"asia"
+],
+"asiasi": [
+"visit"
+],
+"asiasia": [
+"visit"
+],
+"asiasiga": [
+"visitation"
+],
+"asini": [
+"ass"
+],
+"asiosio": [
+"whirlwind"
+],
+"asipi": [
+"asps"
+],
+"asoa": [
+"ornaments",
+"chains",
+"neck"
+],
+"asoaso": [
+"rib"
+],
+"asu": [
+"smoke"
+],
+"asò": [
+"morrow"
+],
+"asō": [
+"today",
+"yesterday"
+],
+"ata": [
+"shadow"
+],
+"atai": [
+"attai"
+],
+"atamai": [
+"understanding",
+"wisdom"
+],
+"atamamai": [
+"wise"
+],
+"atamu-onai-amani": [
+"ondi",
+"ahman"
+],
+"atasema": [
+"lentiles"
+],
+"atasi": [
+"myrtle"
+],
+"ate": [
+"liver"
+],
+"ati": [
+"build"
+],
+"atia": [
+"moth"
+],
+"atiae": [
+"build"
+],
+"atia’e": [
+"built",
+"build"
+],
+"atigivae": [
+"hoof",
+"cud",
+"cheweth"
+],
+"atiina": [
+"build",
+"built"
+],
+"ato": [
+"basket"
+],
+"atoaga": [
+"dispensation"
+],
+"atoatoa": [
+"perfect"
+],
+"atoatoaga": [
+"fulness"
+],
+"atofa": [
+"appointed"
+],
+"atofaina": [
+"appointed"
+],
+"atolaau": [
+"ark"
+],
+"atualalaina": [
+"embalmed"
+],
+"atuatuvale": [
+"troubled"
+],
+"atugaluga": [
+"concerns"
+],
+"atunuu": [
+"nations"
+],
+"auai": [
+"belong"
+],
+"auaiga": [
+"household"
+],
+"auala": [
+"way"
+],
+"aualatetele": [
+"highway"
+],
+"aualofa": [
+"lamentation"
+],
+"auau": [
+"evening"
+],
+"auauna": [
+"servant"
+],
+"auaunaga": [
+"ministry"
+],
+"aue": [
+"alas"
+],
+"auega": [
+"lamentation",
+"mourning",
+"weeping"
+],
+"aueseina": [
+"camp"
+],
+"aufaatasi": [
+"united",
+"joined"
+],
+"aufana": [
+"bow",
+"arrows"
+],
+"aufanaua": [
+"sword"
+],
+"aufono": [
+"council"
+],
+"aufuaina": [
+"empty"
+],
+"auga": [
+"generation"
+],
+"augani": [
+"oath"
+],
+"augatupulaga": [
+"generation"
+],
+"augátupulaga": [
+"generation"
+],
+"aui": [
+"wrapped"
+],
+"auiliili": [
+"expound"
+],
+"auina": [
+"send"
+],
+"aulelei": [
+"goodly"
+],
+"aulia": [
+"attain",
+"honourable"
+],
+"aulotu": [
+"church"
+],
+"aumatua": [
+"fatherless"
+],
+"aumatuá": [
+"fatherless"
+],
+"aumau": [
+"sojourn"
+],
+"aumea": [
+"friends"
+],
+"aupa": [
+"pisseth"
+],
+"aupitoalalo": [
+"lower"
+],
+"aupitoaluga": [
+"upper"
+],
+"auro": [
+"gold",
+"silver"
+],
+"ausa": [
+"vapour"
+],
+"ausage": [
+"indeed",
+"widow"
+],
+"autasi": [
+"consent",
+"united",
+"common"
+],
+"autau": [
+"armies",
+"army"
+],
+"autu": [
+"principles",
+"principle"
+],
+"auupega": [
+"weapons"
+],
+"auvaa": [
+"mariners",
+"pilots"
+],
+"auvae": [
+"jaws",
+"jawbone"
+],
+"auvai": [
+"bank"
+],
+"avanoa": [
+"opened"
+],
+"ava’e": [
+"brethren"
+],
+"aveesea": [
+"taken"
+],
+"aveeseina": [
+"taken"
+],
+"avefeau": [
+"messengers"
+],
+"avega": [
+"burden"
+],
+"avemamaoina": [
+"far"
+],
+"avá": [
+"daughters"
+],
+"avā": [
+"wives"
+],
+"a’a": [
+"root"
+],
+"a’oa’i": [
+"reprove"
+],
+"a’oa’ia": [
+"upbraid"
+],
+"a’oa’iina": [
+"chastened"
+],
+"a’oa’o": [
+"teach"
+],
+"a’oa’oga": [
+"doctrine"
+],
+"a’oa’oina": [
+"taught"
+],
+"a’oga": [
+"school"
+],
+"cono": [
+"refrain"
+],
+"efa": [
+"ephah"
+],
+"efota": [
+"ephod"
+],
+"efu": [
+"dust"
+],
+"efuefu": [
+"dust"
+],
+"ekalesia": [
+"church"
+],
+"ele": [
+"elah"
+],
+"eleele": [
+"ground",
+"earth"
+],
+"eleelea": [
+"filthy",
+"filthiness"
+],
+"elefane": [
+"ivory"
+],
+"elemene": [
+"elements",
+"fervent"
+],
+"eli": [
+"eli",
+"digged"
+],
+"elia": [
+"elijah"
+],
+"elo": [
+"stink"
+],
+"emo": [
+"moment"
+],
+"ena": [
+"anah",
+"zibeon"
+],
+"epikopo": [
+"bishop"
+],
+"eseese": [
+"manner"
+],
+"eseesega": [
+"between"
+],
+"ete": [
+"basket"
+],
+"etoeto": [
+"lick"
+],
+"eunuka": [
+"eunuchs",
+"chamberlains"
+],
+"faa-levi": [
+"levitical"
+],
+"faaae": [
+"turn",
+"moses"
+],
+"faaafu": [
+"wood",
+"order"
+],
+"faaagi": [
+"blow",
+"wind"
+],
+"faaaimago": [
+"weight"
+],
+"faaalia": [
+"revealed"
+],
+"faaaliali": [
+"openly"
+],
+"faaaliga": [
+"revelation",
+"vision"
+],
+"faaaloalo": [
+"reverence",
+"respect"
+],
+"faaalu": [
+"spent"
+],
+"faaamuia": [
+"blessed"
+],
+"faaaoga": [
+"use"
+],
+"faaaogaina": [
+"use"
+],
+"faaapefai": [
+"stairs",
+"steps"
+],
+"faaata": [
+"glass"
+],
+"faaatoa": [
+"fulfilled"
+],
+"faaatoatoaina": [
+"perfect"
+],
+"faaatuatuvale": [
+"trouble"
+],
+"faaatuatuvaleina": [
+"troubled"
+],
+"faaatusolo": [
+"ranges"
+],
+"faaauau": [
+"continue"
+],
+"faaauauga": [
+"continuation"
+],
+"faaaumeaina": [
+"fellowship"
+],
+"faaauupegaina": [
+"arm",
+"weapons"
+],
+"faaavanoa": [
+"opened",
+"door"
+],
+"faaavanoaina": [
+"opened"
+],
+"faaa’oa’o": [
+"followers"
+],
+"faace": [
+"lay"
+],
+"faaea": [
+"exalted"
+],
+"faaeaga": [
+"exaltation"
+],
+"faaeaina": [
+"exalted"
+],
+"faaee": [
+"hands"
+],
+"faaeega": [
+"endowment"
+],
+"faaeeina": [
+"endowed"
+],
+"faaeetia": [
+"yoke",
+"heavy"
+],
+"faaeleeleaina": [
+"pollute"
+],
+"faaeseese": [
+"language",
+"confounded",
+"tower"
+],
+"faaeseeseina": [
+"language",
+"confounded"
+],
+"faaeteete": [
+"beware",
+"heed"
+],
+"faae’e": [
+"priesthood",
+"baptized",
+"ordained"
+],
+"faafaatau": [
+"pledge"
+],
+"faafailele": [
+"nursing"
+],
+"faafano": [
+"curse"
+],
+"faafanoga": [
+"destruction"
+],
+"faafanoina": [
+"cursed",
+"curse"
+],
+"faafaupue": [
+"heap"
+],
+"faafeao": [
+"guard",
+"nebuzar",
+"adan"
+],
+"faafefete": [
+"leaven"
+],
+"faafefeteina": [
+"unleavened"
+],
+"faafeiloa’i": [
+"salute"
+],
+"faafememeaiina": [
+"confounded"
+],
+"faafememea’iina": [
+"confounded"
+],
+"faafenumia’ia": [
+"jared",
+"confounded"
+],
+"faafesagai": [
+"talked"
+],
+"faafesuiai": [
+"exchange"
+],
+"faafetai": [
+"thanks"
+],
+"faafetaia": [
+"blessed"
+],
+"faafetaiai": [
+"meet"
+],
+"faafetaia’i": [
+"meet"
+],
+"faafia": [
+"hen",
+"chickens",
+"oft"
+],
+"faafiaamiotonu": [
+"hypocrites"
+],
+"faafiafiaina": [
+"rejoice"
+],
+"faafiapopoto": [
+"wise"
+],
+"faafifilemu": [
+"ease"
+],
+"faafilifili": [
+"wreathen"
+],
+"faafiti": [
+"denied",
+"deny"
+],
+"faafitia": [
+"deny"
+],
+"faafitu": [
+"sprinkle",
+"times"
+],
+"faafitugafulu": [
+"seventy"
+],
+"faafofogaina": [
+"prayer"
+],
+"faafogafoga": [
+"hearken"
+],
+"faafouina": [
+"renewed"
+],
+"faafo’ia": [
+"recall"
+],
+"faafualoaina": [
+"prolong"
+],
+"faafuasei": [
+"suddenly"
+],
+"faafuata": [
+"shoulder"
+],
+"faafuataina": [
+"shoulder"
+],
+"faagaeetia": [
+"moved"
+],
+"faagaganaina": [
+"dumb"
+],
+"faagalogalo": [
+"forgotten",
+"forget"
+],
+"faagalogaloina": [
+"forgotten"
+],
+"faagaloina": [
+"forgotten"
+],
+"faagaogaoina": [
+"waste",
+"desolate"
+],
+"faagataina": [
+"cease"
+],
+"faagatasia": [
+"ground"
+],
+"faagateteina": [
+"shake"
+],
+"faagutu": [
+"bridle"
+],
+"faaigoa": [
+"called"
+],
+"faaigoaina": [
+"called"
+],
+"faaili": [
+"sackbut",
+"flute",
+"organ"
+],
+"faailoa": [
+"known"
+],
+"faailoaina": [
+"known"
+],
+"faailoga": [
+"sign"
+],
+"faailogaina": [
+"person",
+"respect"
+],
+"faainu": [
+"drink",
+"flocks"
+],
+"faainua": [
+"drink"
+],
+"faainumia": [
+"drink"
+],
+"faaipoipo": [
+"marry",
+"marriage",
+"married"
+],
+"faaipoipoga": [
+"marriage"
+],
+"faaipoipoina": [
+"married"
+],
+"faaitiiti": [
+"little"
+],
+"faaitiitia": [
+"dwindle",
+"unbelief"
+],
+"faaiu": [
+"end"
+],
+"faaiuga": [
+"decision"
+],
+"faaiuina": [
+"end"
+],
+"faai’u": [
+"close"
+],
+"faalagolago": [
+"trust"
+],
+"faalalafi": [
+"themselves"
+],
+"faalanu": [
+"curious",
+"badgers'",
+"rams'"
+],
+"faalapotopotoga": [
+"combinations"
+],
+"faalata": [
+"traitors"
+],
+"faalataina": [
+"betray"
+],
+"faalatalata": [
+"near"
+],
+"faalatalataina": [
+"near",
+"tribe"
+],
+"faalauaitele": [
+"abroad"
+],
+"faalaulelei": [
+"prepare"
+],
+"faalauleleiina": [
+"way"
+],
+"faalautele": [
+"enlarge",
+"magnify"
+],
+"faalauteleina": [
+"enlarged"
+],
+"faalava": [
+"bars",
+"beam",
+"boards"
+],
+"faalavalava": [
+"bruised",
+"stripes"
+],
+"faalavelave": [
+"trouble"
+],
+"faaleagaga": [
+"spiritual"
+],
+"faaleatoa": [
+"part"
+],
+"faaleeleele": [
+"earthy"
+],
+"faalelagi": [
+"heavenly"
+],
+"faalelagona": [
+"sensual",
+"devilish"
+],
+"faalelalolagi": [
+"earthly",
+"godly"
+],
+"faalelei": [
+"reconciled"
+],
+"faaleleia": [
+"reconcile"
+],
+"faalelotu": [
+"religious",
+"opinions"
+],
+"faalemalo": [
+"civil"
+],
+"faalematau": [
+"ungodly"
+],
+"faalenatura": [
+"natural"
+],
+"faalepo": [
+"dream",
+"interpretation"
+],
+"faalepoloaiga": [
+"commandments",
+"way"
+],
+"faaletagata": [
+"human"
+],
+"faaletatau": [
+"unworthily",
+"balances"
+],
+"faaletaupulea": [
+"wicked"
+],
+"faaletiapolo": [
+"devilish",
+"sensual"
+],
+"faaletino": [
+"temporal",
+"carnal"
+],
+"faaletonu": [
+"doubt"
+],
+"faaletulafono": [
+"legal",
+"literal"
+],
+"faalevaleva": [
+"prolong"
+],
+"faalevalevaina": [
+"prolong"
+],
+"faalia": [
+"trance"
+],
+"faalili": [
+"provoked"
+],
+"faaliliu": [
+"translate"
+],
+"faaliliueseina": [
+"turn",
+"gods"
+],
+"faaliliuga": [
+"translation"
+],
+"faalilo": [
+"secret",
+"hide",
+"hid"
+],
+"faalilolilo": [
+"secret"
+],
+"faaloaloa": [
+"stretched"
+],
+"faaloaloaina": [
+"stretched"
+],
+"faalogoina": [
+"voice"
+],
+"faaloloa": [
+"stretched"
+],
+"faalologo": [
+"hold",
+"peace"
+],
+"faaloloto": [
+"glut"
+],
+"faalotolotolua": [
+"double"
+],
+"faalotomaualalalo": [
+"humble"
+],
+"faalotomaualalaloina": [
+"humble"
+],
+"faalotomaualaloina": [
+"humbled",
+"humble"
+],
+"faalototele": [
+"good"
+],
+"faalua": [
+"second"
+],
+"faaluaina": [
+"double"
+],
+"faaluma": [
+"reproach"
+],
+"faalumaina": [
+"reproach"
+],
+"faama": [
+"shame"
+],
+"faamaaa": [
+"hardened"
+],
+"faamaaaina": [
+"hardened"
+],
+"faamaaia": [
+"furbished",
+"sharpened"
+],
+"faamaasiasi": [
+"confounded"
+],
+"faamaasiasia": [
+"confounded"
+],
+"faamafanafana": [
+"comfort"
+],
+"faamafanafanaga": [
+"consolation"
+],
+"faamafanafanaina": [
+"comfort"
+],
+"faamafolafola": [
+"earth"
+],
+"faamaga": [
+"opened",
+"mouth"
+],
+"faamagalo": [
+"forgive"
+],
+"faamagaloga": [
+"remission",
+"forgiveness"
+],
+"faamagaloina": [
+"forgiven"
+],
+"faamai": [
+"pestilence"
+],
+"faamaina": [
+"confounded",
+"ashamed"
+],
+"faamalama": [
+"windows"
+],
+"faamalamalama": [
+"expound"
+],
+"faamalamalamaina": [
+"enlightened"
+],
+"faamalie": [
+"demanded"
+],
+"faamaligi": [
+"shed"
+],
+"faamaligiina": [
+"shed"
+],
+"faamalilieina": [
+"pacified"
+],
+"faamalolo": [
+"healed"
+],
+"faamalologa": [
+"healing"
+],
+"faamaloloina": [
+"healed"
+],
+"faamalolosi": [
+"strengthen"
+],
+"faamalolosia": [
+"compelled",
+"strengthen"
+],
+"faamalosia": [
+"strengthen"
+],
+"faamalosiga": [
+"army"
+],
+"faamaluluina": [
+"soften"
+],
+"faamalumalu": [
+"cloud"
+],
+"faamalumaluina": [
+"overshadowed"
+],
+"faamalūlūina": [
+"soften"
+],
+"faamamafaina": [
+"lighter",
+"heavy"
+],
+"faamamaga": [
+"opened",
+"mouth"
+],
+"faamamaina": [
+"cleansed"
+],
+"faamamalu": [
+"sober"
+],
+"faamamaluina": [
+"glorified"
+],
+"faamamanuina": [
+"knop",
+"shaft",
+"beaten"
+],
+"faamamao": [
+"far"
+],
+"faamamá": [
+"cleanse"
+],
+"faamamáina": [
+"cleansed"
+],
+"faamamā": [
+"cleanse",
+"purify"
+],
+"faamamāina": [
+"cleansed"
+],
+"faamanatu": [
+"remembrance"
+],
+"faamanatuga": [
+"memorial"
+],
+"faamanatuina": [
+"remembrance",
+"partake"
+],
+"faamanu": [
+"blessed"
+],
+"faamanuia": [
+"blessed"
+],
+"faamanuiaga": [
+"blessing"
+],
+"faamanuiaina": [
+"blessed"
+],
+"faamanuina": [
+"hosanna"
+],
+"faamanu’alia": [
+"wounded"
+],
+"faamanù": [
+"blessed"
+],
+"faamanú": [
+"blessed"
+],
+"faamanūina": [
+"blessed"
+],
+"faamaoni": [
+"faithful"
+],
+"faamaoniga": [
+"evidences"
+],
+"faamasaa": [
+"bloodshed"
+],
+"faamasaaina": [
+"shedding"
+],
+"faamasaatoto": [
+"bloodshed"
+],
+"faamasani": [
+"acquainted"
+],
+"faamasiasiga": [
+"shame",
+"heathen"
+],
+"faamasimaina": [
+"salt"
+],
+"faamasino": [
+"judges",
+"judge"
+],
+"faamasinoga": [
+"judgment"
+],
+"faamasinoina": [
+"judges",
+"judge"
+],
+"faamasinoletonu": [
+"injustice"
+],
+"faamasinotonu": [
+"justice"
+],
+"faamatagofie": [
+"ornaments"
+],
+"faamatalaga": [
+"interpretation"
+],
+"faamatalaina": [
+"interpreted"
+],
+"faamatalaloto": [
+"comfort"
+],
+"faamatau": [
+"afraid"
+],
+"faamatautia": [
+"afraid"
+],
+"faamata’u": [
+"threatenings"
+],
+"faamata’uina": [
+"threatened"
+],
+"faamateina": [
+"dried"
+],
+"faamativaina": [
+"poverty"
+],
+"faamatuu": [
+"war"
+],
+"faamaualalalo": [
+"humble"
+],
+"faamaualalaloina": [
+"themselves"
+],
+"faamaualalo": [
+"humble"
+],
+"faamaualaloina": [
+"humbled",
+"humble"
+],
+"faamaualuga": [
+"pride"
+],
+"faamaualugaina": [
+"exalted"
+],
+"faamaualuluga": [
+"pride",
+"proud"
+],
+"faamaualulugaina": [
+"exalted"
+],
+"faamaufaailoga": [
+"sealed"
+],
+"faamaufaailogaina": [
+"sealed"
+],
+"faamaufaalava": [
+"bars",
+"locks"
+],
+"faamaufaalave": [
+"loops",
+"coupling"
+],
+"faamauina": [
+"sealed"
+],
+"faamaulalo": [
+"humbled",
+"humble"
+],
+"faamaulaloina": [
+"low"
+],
+"faamaumama": [
+"rings"
+],
+"faamaumau": [
+"lose"
+],
+"faamautu": [
+"established"
+],
+"faamautuina": [
+"established"
+],
+"faama’i": [
+"pestilence"
+],
+"faama’umauina": [
+"wasted"
+],
+"faameanoa": [
+"naught"
+],
+"faamisa": [
+"contentious"
+],
+"faamoega": [
+"sheath"
+],
+"faamoemoe": [
+"hope"
+],
+"faamoemoega": [
+"purposes"
+],
+"faamomomoina": [
+"broken"
+],
+"faamu": [
+"incense"
+],
+"faamuina": [
+"burn",
+"fire"
+],
+"faamumūina": [
+"kindled"
+],
+"faamáina": [
+"shame"
+],
+"faamāmāina": [
+"ease"
+],
+"faanaseri": [
+"nazarite",
+"separation"
+],
+"faanatinati": [
+"haste"
+],
+"faanatinatia": [
+"haste"
+],
+"faaneenee": [
+"praise"
+],
+"faaneeneega": [
+"honour"
+],
+"faaneeneeina": [
+"haman",
+"delight"
+],
+"faanenefu": [
+"dark",
+"somewhat",
+"skin"
+],
+"faanifo": [
+"tenons"
+],
+"faaniutu": [
+"pillars"
+],
+"faanoanoa": [
+"mourn",
+"sorrow"
+],
+"faanoanoaga": [
+"mourning",
+"sorrow"
+],
+"faanofo": [
+"throne"
+],
+"faanofoa": [
+"saddled"
+],
+"faanofoaina": [
+"saddled"
+],
+"faanofoina": [
+"throne"
+],
+"faanoi": [
+"pilate"
+],
+"faano’uno’u": [
+"bow"
+],
+"faanunununu": [
+"uproar"
+],
+"faaofu": [
+"clothes"
+],
+"faaofuina": [
+"clothe"
+],
+"faaofuofu": [
+"knop",
+"almonds",
+"flower"
+],
+"faaola": [
+"save"
+],
+"faaolaina": [
+"saved"
+],
+"faaolaola": [
+"judgment"
+],
+"faaolataga": [
+"salvation"
+],
+"faaoleolega": [
+"flatteries"
+],
+"faaoloaina": [
+"hired"
+],
+"faaoloátauaina": [
+"chariots"
+],
+"faaonoono": [
+"provoke"
+],
+"faaoofu": [
+"clothe"
+],
+"faaoofuina": [
+"clothe",
+"nakedness"
+],
+"faaootia": [
+"milk",
+"honey"
+],
+"faaopoopo": [
+"add"
+],
+"faaopoopoga": [
+"appendages"
+],
+"faaopoopoina": [
+"add",
+"beside"
+],
+"faaoso": [
+"stir"
+],
+"faaosooso": [
+"tempted",
+"satan"
+],
+"faaosoosoga": [
+"temptation"
+],
+"faaosoosoina": [
+"tempted"
+],
+"faaoti": [
+"slew"
+],
+"faapa": [
+"thunder"
+],
+"faapagota": [
+"prisoners"
+],
+"faapaia": [
+"sanctify"
+],
+"faapaiaga": [
+"consecration"
+],
+"faapaiaina": [
+"sanctified",
+"sanctify"
+],
+"faapaie": [
+"slothful"
+],
+"faapaleina": [
+"crown"
+],
+"faapalepale": [
+"longsuffering"
+],
+"faapaologa": [
+"porch"
+],
+"faapapa": [
+"wafers"
+],
+"faapaupau": [
+"heathen"
+],
+"faapauu": [
+"sackbut",
+"flute",
+"cornet"
+],
+"faapauufao": [
+"faces"
+],
+"faapaù": [
+"fell"
+],
+"faapaú": [
+"fell"
+],
+"faapaúfao": [
+"fell"
+],
+"faapaŭ": [
+"worshipped",
+"fell"
+],
+"faapa’umatuina": [
+"dry"
+],
+"faapa’upa’u": [
+"scab"
+],
+"faapa’u’ū": [
+"worship",
+"fall"
+],
+"faapa’ū": [
+"fall"
+],
+"faapca": [
+"pharaoh"
+],
+"faapelepele": [
+"spare"
+],
+"faapelepeleina": [
+"pity",
+"spare"
+],
+"faapena": [
+"such"
+],
+"faapenei": [
+"time"
+],
+"faaperitomeina": [
+"circumcise"
+],
+"faapeteriaka": [
+"patriarchal"
+],
+"faapiopio": [
+"froward",
+"perverse"
+],
+"faapiopioina": [
+"crooked",
+"pervert"
+],
+"faapipii": [
+"cleave"
+],
+"faapipiiina": [
+"graffed"
+],
+"faapisipisia": [
+"stain"
+],
+"faapi’opi’o": [
+"pervert",
+"perverse"
+],
+"faapogisaina": [
+"moon"
+],
+"faapologaina": [
+"bondage"
+],
+"faapolopolo": [
+"firstfruits"
+],
+"faapolopoloina": [
+"firstfruits"
+],
+"faapotopoto": [
+"gathered",
+"together"
+],
+"faapotopotoga": [
+"congregation"
+],
+"faapotopotoina": [
+"gathered"
+],
+"faapouliuligia": [
+"darkened"
+],
+"faapuapuagatia": [
+"afflicted"
+],
+"faapuapuagatiaina": [
+"afflicted"
+],
+"faapuga": [
+"couch"
+],
+"faapupula": [
+"blind"
+],
+"faapupulaina": [
+"opened",
+"eyes"
+],
+"faaputu": [
+"gathered"
+],
+"faaputuga": [
+"heap"
+],
+"faaputuina": [
+"gathered"
+],
+"faaputuputu": [
+"gathered",
+"together"
+],
+"faapuupuuina": [
+"shortened"
+],
+"faapāpā": [
+"cakes"
+],
+"faasa": [
+"believe"
+],
+"faasagatau": [
+"lamanites"
+],
+"faasaina": [
+"forbidden"
+],
+"faasala": [
+"condemned"
+],
+"faasalaga": [
+"punishment"
+],
+"faasalalafaina": [
+"beaten"
+],
+"faasalalauina": [
+"scattered"
+],
+"faasamasama": [
+"plague",
+"skin"
+],
+"faasao": [
+"spare"
+],
+"faasaogalemuina": [
+"lose"
+],
+"faasaoloto": [
+"free"
+],
+"faasaolotoga": [
+"release"
+],
+"faasaolotoina": [
+"free",
+"liberty"
+],
+"faasatauro": [
+"crucify"
+],
+"faasatauroina": [
+"crucified"
+],
+"faasauaga": [
+"slaughter"
+],
+"faasauaina": [
+"oppressed"
+],
+"faasauā": [
+"oppressor"
+],
+"faasavili": [
+"fan"
+],
+"faasa’osa’o": [
+"straight"
+],
+"faasee": [
+"flatters"
+],
+"faasefulu": [
+"times",
+"ten"
+],
+"faaseseina": [
+"deceived"
+],
+"faasesēina": [
+"flattering"
+],
+"faasili": [
+"usury"
+],
+"faasilisili": [
+"above"
+],
+"faasilisiliina": [
+"exalted"
+],
+"faasinasina": [
+"white"
+],
+"faasinasinaina": [
+"white"
+],
+"faasinoala": [
+"director"
+],
+"faasoa": [
+"impart"
+],
+"faasoesa": [
+"trouble"
+],
+"faasoifua": [
+"farewell",
+"bid"
+],
+"faasolo": [
+"wax"
+],
+"faasologa": [
+"present",
+"order"
+],
+"faasoo": [
+"repaired",
+"breach"
+],
+"faasooina": [
+"coupled"
+],
+"faasotoma": [
+"sodomites"
+],
+"faasusu": [
+"suck"
+],
+"faasúsú": [
+"water"
+],
+"faasúsúina": [
+"water"
+],
+"faasūsū": [
+"water"
+],
+"faataafiti": [
+"spirit"
+],
+"faataaliolio": [
+"round"
+],
+"faataaliolioina": [
+"bells",
+"hem"
+],
+"faataalise": [
+"haste"
+],
+"faataamilo": [
+"round",
+"about"
+],
+"faataamilomilo": [
+"round",
+"about"
+],
+"faataamilosaga": [
+"about"
+],
+"faataapeape": [
+"scattered"
+],
+"faataapeapeina": [
+"scattered"
+],
+"faataatia": [
+"foundation",
+"laid"
+],
+"faataatiaina": [
+"laying"
+],
+"faataatitia": [
+"lay"
+],
+"faataavalevale": [
+"chariots"
+],
+"faatafafa": [
+"foursquare"
+],
+"faatafe": [
+"rock"
+],
+"faatafeaina": [
+"carried"
+],
+"faatafuna": [
+"spoiler"
+],
+"faatafunaga": [
+"desolation"
+],
+"faatafunaina": [
+"desolate"
+],
+"faatagaina": [
+"permitted"
+],
+"faatagata": [
+"image",
+"mark"
+],
+"faatagataotaua": [
+"captive"
+],
+"faatagataotauaina": [
+"captivity",
+"captive"
+],
+"faatagitagi": [
+"cymbals"
+],
+"faatagā": [
+"pretended"
+],
+"faataimuaga": [
+"body"
+],
+"faataitaiga": [
+"example",
+"ensample"
+],
+"faatali": [
+"wait"
+],
+"faatalitali": [
+"wait"
+],
+"faatalitonu": [
+"convince",
+"convincing"
+],
+"faatalitonuina": [
+"convincing"
+],
+"faatalofa": [
+"shake"
+],
+"faatamala": [
+"neglect"
+],
+"faatamaoaigaina": [
+"riches"
+],
+"faatamatane": [
+"strong"
+],
+"faataoto": [
+"parable"
+],
+"faataotoina": [
+"foundation"
+],
+"faatasia": [
+"joined"
+],
+"faatasiina": [
+"gathered",
+"died",
+"aaron"
+],
+"faatatagaina": [
+"plant"
+],
+"faatatau": [
+"concerning"
+],
+"faatauanau": [
+"mightily"
+],
+"faatauanauga": [
+"persuasions"
+],
+"faatauanauina": [
+"persuade"
+],
+"faatauaso": [
+"blind"
+],
+"faatauasoina": [
+"blind"
+],
+"faatauemu": [
+"mocked"
+],
+"faataugaina": [
+"destroy"
+],
+"faataugaoa": [
+"traded"
+],
+"faataugáoa": [
+"fair"
+],
+"faatauina": [
+"sold",
+"redeemed"
+],
+"faataulaitu": [
+"divination"
+],
+"faataulia": [
+"sold"
+],
+"faatauláitu": [
+"enchantments"
+],
+"faataulāitu": [
+"enchantments"
+],
+"faataumaoi": [
+"destroy"
+],
+"faataunuuga": [
+"fulfilment"
+],
+"faataunuuina": [
+"fulfilled"
+],
+"faatauoa": [
+"merchants"
+],
+"faatausuai": [
+"offend"
+],
+"faatausuaiina": [
+"offend"
+],
+"faatautaia": [
+"administer"
+],
+"faatautau": [
+"hanged"
+],
+"faatautauina": [
+"gallows",
+"hanged"
+],
+"faatauvaa": [
+"vanity"
+],
+"faateaina": [
+"cast"
+],
+"faatelega": [
+"multiplicity"
+],
+"faatelenoa": [
+"uncover",
+"nakedness"
+],
+"faateteleina": [
+"wax",
+"increase"
+],
+"faatetetete": [
+"alarm"
+],
+"faate’aina": [
+"cause"
+],
+"faate’ia": [
+"hell"
+],
+"faatiapolo": [
+"devilish"
+],
+"faatiau": [
+"child"
+],
+"faatietie": [
+"ride"
+],
+"faatino": [
+"exercise"
+],
+"faatoa": [
+"moon",
+"new"
+],
+"faatoafaiava": [
+"bridegroom",
+"bride"
+],
+"faatoafaiavā": [
+"bridegroom"
+],
+"faatoaga": [
+"garden",
+"eden"
+],
+"faatoanofotane": [
+"bride"
+],
+"faatoateleina": [
+"multiply",
+"increased"
+],
+"faatoe": [
+"remaining"
+],
+"faatoeina": [
+"smote",
+"left"
+],
+"faatofuina": [
+"immersion"
+],
+"faatofutofusia": [
+"partakers"
+],
+"faatoilalo": [
+"overthrow"
+],
+"faatoina": [
+"accursed"
+],
+"faatolu": [
+"thrice"
+],
+"faatonu": [
+"caused"
+],
+"faatosaga": [
+"midwives",
+"midwife"
+],
+"faatosina": [
+"enticed"
+],
+"faatotoe": [
+"leave"
+],
+"faatotoeina": [
+"leave"
+],
+"faatotoina": [
+"rain"
+],
+"faatotō": [
+"rain"
+],
+"faatuatua": [
+"faith"
+],
+"faatuatuaga": [
+"faith"
+],
+"faatuatuai": [
+"time"
+],
+"faatuatuaina": [
+"entrusted"
+],
+"faatuaupua": [
+"talebearer"
+],
+"faatuiese": [
+"dissenters"
+],
+"faatuiesega": [
+"dissensions"
+],
+"faatulafonoina": [
+"fulness"
+],
+"faatulaga": [
+"organize",
+"organized"
+],
+"faatulagaga": [
+"order"
+],
+"faatulagaina": [
+"organized"
+],
+"faatulai": [
+"raise"
+],
+"faatulaiina": [
+"raised"
+],
+"faatumau": [
+"raise"
+],
+"faatumauina": [
+"established"
+],
+"faatumu": [
+"filled"
+],
+"faatumuina": [
+"filled"
+],
+"faatumulia": [
+"filled"
+],
+"faatupu": [
+"jeroboam"
+],
+"faatuputeleina": [
+"increase"
+],
+"faatusaina": [
+"liken"
+],
+"faatutu": [
+"pitched",
+"tent"
+],
+"faatutuina": [
+"law"
+],
+"faatutumu": [
+"filled"
+],
+"faatutumuina": [
+"filled"
+],
+"faatutumulia": [
+"filled"
+],
+"faatutúina": [
+"raised"
+],
+"faatutū": [
+"pitched",
+"tent"
+],
+"faatutūina": [
+"established"
+],
+"faatáfeaina": [
+"carried"
+],
+"faatáfuna": [
+"dunghill"
+],
+"faaua": [
+"brimstone"
+],
+"faaui": [
+"fire"
+],
+"faaulufalega": [
+"dedication"
+],
+"faaulufaleina": [
+"dedicated"
+],
+"faauluolaina": [
+"fruitful",
+"multiply"
+],
+"faauma": [
+"finished"
+],
+"faaumaina": [
+"finished"
+],
+"faaumatia": [
+"destroy"
+],
+"faaumatiaga": [
+"destruction"
+],
+"faaumatiaina": [
+"destroy",
+"destruction"
+],
+"faaupega": [
+"chapiters",
+"network",
+"pomegranates"
+],
+"faautauta": [
+"understanding",
+"wisdom"
+],
+"faauu": [
+"ordained",
+"anointed"
+],
+"faauuga": [
+"ordination",
+"anointing"
+],
+"faauuina": [
+"anointed",
+"ordained"
+],
+"faavaa": [
+"stones"
+],
+"faavae": [
+"foundation"
+],
+"faavaega": [
+"foundation"
+],
+"faavaeina": [
+"foundation"
+],
+"faavaivai": [
+"faint"
+],
+"faavaivaia": [
+"weakened"
+],
+"faavalea": [
+"foolishly"
+],
+"faavauvau": [
+"mourning",
+"sorrow",
+"mourn"
+],
+"faavavau-tumau": [
+"everlasting"
+],
+"faavavega": [
+"miraculous"
+],
+"faaviivii": [
+"flattering"
+],
+"fad": [
+"face"
+],
+"fafaga": [
+"feed"
+],
+"fafagaina": [
+"nourished",
+"feed"
+],
+"fafagu": [
+"awake"
+],
+"fafano": [
+"wash"
+],
+"fafao": [
+"bag"
+],
+"fafasi": [
+"smote"
+],
+"fafati": [
+"waves"
+],
+"fafie": [
+"wood"
+],
+"fafinc": [
+"woman"
+],
+"fafine": [
+"woman"
+],
+"fafo": [
+"cast"
+],
+"faga": [
+"sea"
+],
+"fagafulu": [
+"forty"
+],
+"fagaga": [
+"herds",
+"grain"
+],
+"fagaina": [
+"feed"
+],
+"fagatua": [
+"wrestled"
+],
+"fagu": [
+"wine"
+],
+"fagua": [
+"awakened"
+],
+"fagufagu": [
+"pipe",
+"pipes",
+"tabret"
+],
+"faiaina": [
+"prevail"
+],
+"faiaoga": [
+"teachers"
+],
+"faifaia": [
+"blasphemed"
+],
+"faifeau": [
+"minister"
+],
+"faiga": [
+"work"
+],
+"faigaai": [
+"feast"
+],
+"faigaluega": [
+"work"
+],
+"faigata": [
+"hard"
+],
+"faigofie": [
+"simple"
+],
+"failauga": [
+"preacher",
+"spokesman"
+],
+"failautusi": [
+"clerks"
+],
+"failele": [
+"suck"
+],
+"faimiti": [
+"dreamer"
+],
+"faipule": [
+"ruler"
+],
+"faitaaga": [
+"whoredoms",
+"fornication"
+],
+"faitau": [
+"read",
+"number"
+],
+"faitauga": [
+"reckoning"
+],
+"faitauina": [
+"read",
+"number"
+],
+"faitaulaga": [
+"priest",
+"altar"
+],
+"faitaulia": [
+"number"
+],
+"faitele": [
+"public"
+],
+"faititili": [
+"thunder",
+"lightnings",
+"thunderings"
+],
+"faitogafiti": [
+"cunning",
+"craftiness"
+],
+"faitotoa": [
+"door",
+"gate"
+],
+"faitulafono": [
+"lawgiver"
+],
+"faiva": [
+"office"
+],
+"falaoa": [
+"flour",
+"mingled"
+],
+"falata": [
+"mules",
+"mule"
+],
+"faleie": [
+"tent",
+"pitched"
+],
+"falelauasiga": [
+"burial"
+],
+"faleoloa": [
+"mercantile",
+"whitney",
+"establishment"
+],
+"falepuipui": [
+"prison"
+],
+"falesa": [
+"sanctuaries"
+],
+"faleteuoloa": [
+"storehouse",
+"treasury"
+],
+"faletua": [
+"bury"
+],
+"faliu": [
+"turn"
+],
+"faloina": [
+"wings",
+"stretched"
+],
+"falò": [
+"wings"
+],
+"fana": [
+"arrows",
+"shoot"
+],
+"fanafana": [
+"arrows"
+],
+"fanafanau": [
+"replenish",
+"fruitful",
+"subdue"
+],
+"fananau": [
+"born"
+],
+"fanaua": [
+"begat"
+],
+"fanauina": [
+"begat"
+],
+"fano": [
+"perish"
+],
+"fanoga": [
+"destruction"
+],
+"fanoia": [
+"destroy"
+],
+"fanua": [
+"field"
+],
+"faoa": [
+"villages"
+],
+"faomea": [
+"robbers"
+],
+"faresaio": [
+"pharisees"
+],
+"fasa": [
+"mad"
+],
+"fasefulu": [
+"forty"
+],
+"fasefulu-fa": [
+"forty",
+"four"
+],
+"fasia": [
+"slain"
+],
+"fasiga": [
+"slaughter"
+],
+"fasimate": [
+"beasts"
+],
+"fasiotia": [
+"slain"
+],
+"fata": [
+"altar"
+],
+"fatafaitaulaga": [
+"altar",
+"pharaoh"
+],
+"fatafata": [
+"bosom",
+"breasts"
+],
+"fatu": [
+"seed"
+],
+"fatuaiupu": [
+"shebna",
+"joah",
+"recorder"
+],
+"fatua’iupu": [
+"ahilud",
+"recorder"
+],
+"fatuga’o": [
+"kidneys",
+"liver",
+"caul"
+],
+"fatulaau": [
+"seed"
+],
+"fau": [
+"northward",
+"ship"
+],
+"faufautane": [
+"betrothed",
+"espoused"
+],
+"faufautua": [
+"counsel"
+],
+"fauina": [
+"ship"
+],
+"faulai": [
+"riches",
+"grace"
+],
+"faupuega": [
+"heap"
+],
+"faupuegamaa": [
+"heap"
+],
+"faupuegámaa": [
+"heap"
+],
+"fausa": [
+"woof",
+"warp"
+],
+"fausia": [
+"built",
+"build"
+],
+"fausiaina": [
+"building"
+],
+"fautua": [
+"councilors"
+],
+"fautuaga": [
+"counsel"
+],
+"fautuaina": [
+"recommended"
+],
+"faò": [
+"himself"
+],
+"faó": [
+"fell",
+"ground"
+],
+"faō": [
+"fall"
+],
+"fa’asoa": [
+"dollars",
+"stock",
+"permitted"
+],
+"fa’i": [
+"pluck",
+"branches"
+],
+"fa’iesea": [
+"pluck",
+"branches"
+],
+"fa’iga": [
+"thigh"
+],
+"feaei": [
+"climb"
+],
+"feafeai": [
+"door"
+],
+"feagai": [
+"side"
+],
+"feagaiga": [
+"covenant"
+],
+"feai": [
+"beasts"
+],
+"feala": [
+"awake"
+],
+"fealofani": [
+"love",
+"another"
+],
+"fealualuai": [
+"walk"
+],
+"feanu": [
+"spit"
+],
+"feanuga": [
+"spittle"
+],
+"feasofai": [
+"rage"
+],
+"feasogi": [
+"kissed"
+],
+"featani": [
+"laugh"
+],
+"feauina": [
+"called"
+],
+"feaveai": [
+"dwelt"
+],
+"feaveaveai": [
+"talebearer"
+],
+"fefaamafanafanai": [
+"another"
+],
+"fefasiai": [
+"another"
+],
+"fefe": [
+"fear",
+"afraid"
+],
+"fefefe": [
+"afraid",
+"fear"
+],
+"fefete": [
+"puffed"
+],
+"fefiloi": [
+"mingled"
+],
+"fefinauaiga": [
+"strife"
+],
+"fefinaua’i": [
+"contend"
+],
+"fegaoioiai": [
+"moved"
+],
+"feiloai": [
+"meet"
+],
+"feiloa’i": [
+"meet"
+],
+"feinu": [
+"drink"
+],
+"feita": [
+"angry"
+],
+"feitagai": [
+"enmity"
+],
+"feitai": [
+"angry"
+],
+"felafoaiina": [
+"tossed"
+],
+"felafolafoai": [
+"reason"
+],
+"felatai": [
+"rings"
+],
+"felefele": [
+"boughs",
+"thick"
+],
+"felelei": [
+"fowls",
+"air"
+],
+"feliuai": [
+"changed"
+],
+"feliuliuai": [
+"flaming",
+"eden"
+],
+"femalagaai": [
+"traveling"
+],
+"femalagaa’i": [
+"traveling"
+],
+"femaliuai": [
+"walk",
+"jesus"
+],
+"femisai": [
+"strife"
+],
+"feoi": [
+"groan",
+"groaning"
+],
+"feoloolo": [
+"tolerable"
+],
+"feooai": [
+"walk"
+],
+"feoti": [
+"die",
+"died"
+],
+"fepulafi": [
+"darkened",
+"stars",
+"shine"
+],
+"fesagai": [
+"jericho"
+],
+"fesili": [
+"ask"
+],
+"fesiligia": [
+"question"
+],
+"fesoasoani": [
+"help"
+],
+"fesootai": [
+"joined"
+],
+"fesootaiga": [
+"correspondence"
+],
+"fesusui": [
+"sucklings",
+"babes",
+"suck"
+],
+"fetafai": [
+"tabernacle",
+"congregation"
+],
+"fetagisi": [
+"wept",
+"weep"
+],
+"fetagofi": [
+"lay",
+"hands"
+],
+"fetaiai": [
+"met",
+"meet"
+],
+"fetaia’i": [
+"meet",
+"met"
+],
+"fetalai": [
+"says"
+],
+"fetalaia": [
+"spoken"
+],
+"fetaliai": [
+"ten",
+"saul"
+],
+"fetaomi": [
+"throng",
+"pressing",
+"press"
+],
+"fetaufetuliai": [
+"fro",
+"run"
+],
+"fetaui": [
+"met"
+],
+"fetautalatalaai": [
+"another"
+],
+"fetautalatalaa’i": [
+"conversed"
+],
+"fetautalatalai": [
+"another"
+],
+"fetautalatala’i": [
+"another"
+],
+"fetinaiina": [
+"thorns"
+],
+"fetogi": [
+"stones",
+"stone"
+],
+"fetogia": [
+"stones"
+],
+"fetolofi": [
+"creeping",
+"creeps"
+],
+"fetu": [
+"stars"
+],
+"fetuleni": [
+"press"
+],
+"fetuu": [
+"curse",
+"cursed"
+],
+"fetuuina": [
+"cursed"
+],
+"fevaaiai": [
+"another"
+],
+"fevaevacai": [
+"divided"
+],
+"fevaevaeai": [
+"divided"
+],
+"fevaevaeaiga": [
+"divisions"
+],
+"fe’ai": [
+"wild",
+"driven"
+],
+"fiasili": [
+"vain"
+],
+"filemu": [
+"peace"
+],
+"fili": [
+"enemies"
+],
+"filifilia": [
+"chosen"
+],
+"filifiliga": [
+"counsel"
+],
+"filiga": [
+"diligence",
+"diligently"
+],
+"filigā": [
+"diligence",
+"diligently"
+],
+"filogia": [
+"mixed"
+],
+"fimalie": [
+"pleasing"
+],
+"finafinau": [
+"prayer"
+],
+"finauga": [
+"contentions"
+],
+"finauvale": [
+"stubbornness",
+"stubborn"
+],
+"fiso": [
+"rush",
+"tail"
+],
+"fitafita": [
+"mighty"
+],
+"fitu": [
+"seven",
+"seventh"
+],
+"fituga": [
+"seventh",
+"month"
+],
+"fitugafulu": [
+"seventy",
+"charger",
+"bowls"
+],
+"fitusefulu": [
+"seventy"
+],
+"foa": [
+"hewn",
+"sepulchre"
+],
+"foafoa": [
+"creator",
+"created"
+],
+"foafoaga": [
+"creation"
+],
+"foafoaina": [
+"created"
+],
+"foaifuaina": [
+"gift"
+],
+"foaiina": [
+"given"
+],
+"foe": [
+"oars"
+],
+"foeuli": [
+"wind"
+],
+"fofo": [
+"remedy"
+],
+"fofoga": [
+"mouth"
+],
+"fofogaina": [
+"spoken"
+],
+"fofoina": [
+"healed"
+],
+"fofola": [
+"spread"
+],
+"fofolaina": [
+"spread",
+"stretched"
+],
+"fogaeleele": [
+"face"
+],
+"fogafale": [
+"court"
+],
+"fogatai": [
+"deep"
+],
+"fogavai": [
+"water"
+],
+"fogáeleele": [
+"ark",
+"face",
+"ground"
+],
+"fogāeleele": [
+"face"
+],
+"fola": [
+"floor"
+],
+"folafola": [
+"gospel"
+],
+"folafolaga": [
+"promise",
+"promised"
+],
+"folafolaina": [
+"promised",
+"promise"
+],
+"folasia": [
+"spread",
+"net"
+],
+"folau": [
+"sailed"
+],
+"fole": [
+"fail"
+],
+"folo": [
+"swallowed"
+],
+"foloina": [
+"swallowed",
+"belly"
+],
+"fomai": [
+"physician"
+],
+"fono": [
+"council"
+],
+"fonoa": [
+"piece",
+"rent"
+],
+"fotu": [
+"blossom"
+],
+"fou": [
+"new"
+],
+"foua": [
+"conspired"
+],
+"fouvalega": [
+"rebellion"
+],
+"fua": [
+"fruit"
+],
+"fuafua": [
+"saints"
+],
+"fuafuaga": [
+"plan"
+],
+"fuafuaina": [
+"design"
+],
+"fuafuati": [
+"locks"
+],
+"fuagafulu": [
+"pound"
+],
+"fuaina": [
+"mete"
+],
+"fuaiupu": [
+"verse",
+"chapter",
+"verses"
+],
+"fualaau": [
+"fruit"
+],
+"fuata": [
+"staff",
+"spear"
+],
+"fuataga": [
+"measure"
+],
+"fuatia": [
+"measured"
+],
+"fuatiaifo": [
+"conscience",
+"weak"
+],
+"fufui": [
+"dip",
+"dipped"
+],
+"fufulu": [
+"wash"
+],
+"fufuluina": [
+"vessels"
+],
+"fufusi": [
+"gird"
+],
+"fuga": [
+"flower"
+],
+"fuifui": [
+"clusters",
+"grapes"
+],
+"fula": [
+"rot",
+"swell"
+],
+"fulafula": [
+"boil",
+"rising",
+"bright"
+],
+"fuli": [
+"roll"
+],
+"fulieseina": [
+"roll"
+],
+"fulisia": [
+"anger"
+],
+"fulufulu": [
+"hair"
+],
+"fusi": [
+"gird"
+],
+"fusia": [
+"gird"
+],
+"fusifusi": [
+"bound",
+"bind"
+],
+"fusifusia": [
+"bound"
+],
+"fusisaito": [
+"sheaves",
+"laden"
+],
+"futi": [
+"pluck",
+"hair"
+],
+"futu": [
+"width"
+],
+"fuá": [
+"jealousy"
+],
+"fuā": [
+"jealous",
+"jealousy"
+],
+"fu’a": [
+"banners"
+],
+"fu’e": [
+"basket"
+],
+"fáliu": [
+"turn"
+],
+"fāsi": [
+"mote"
+],
+"fāsia": [
+"syrians"
+],
+"gaafe": [
+"thousand",
+"five",
+"three"
+],
+"gaau": [
+"bowels"
+],
+"gafa": [
+"genealogy"
+],
+"gafatia": [
+"abide"
+],
+"gafatiaina": [
+"tolerable"
+],
+"gafoa": [
+"break"
+],
+"gafua": [
+"loaves"
+],
+"gagae": [
+"east"
+],
+"gagaifo": [
+"west"
+],
+"gagana": [
+"language",
+"tongues"
+],
+"gagase": [
+"sleep",
+"deep"
+],
+"gagau": [
+"break"
+],
+"galala": [
+"thirst"
+],
+"galau": [
+"six",
+"hundred"
+],
+"galo": [
+"forget",
+"forgotten"
+],
+"galu": [
+"waves"
+],
+"galue": [
+"work"
+],
+"galueaiina": [
+"ground"
+],
+"galuea’iina": [
+"began"
+],
+"galuega": [
+"work"
+],
+"galulu": [
+"quake"
+],
+"galulue": [
+"labor"
+],
+"gao": [
+"derision"
+],
+"gaogao": [
+"desolate"
+],
+"gaoi": [
+"steal",
+"thief"
+],
+"gaoia": [
+"stolen"
+],
+"gaoioi": [
+"move"
+],
+"gaosi": [
+"molten",
+"instruments"
+],
+"gaosiga": [
+"workmanship",
+"curious"
+],
+"gaoā": [
+"rough",
+"smooth"
+],
+"garava": [
+"willows"
+],
+"garova": [
+"swarms"
+],
+"gase": [
+"deep",
+"sleep"
+],
+"gasolo": [
+"flow"
+],
+"gataaga": [
+"last"
+],
+"gatasi": [
+"accord"
+],
+"gatasitasi": [
+"square"
+],
+"gatete": [
+"tremble"
+],
+"gau": [
+"issue"
+],
+"gaua’i": [
+"yield"
+],
+"gaugau": [
+"broken"
+],
+"gauia": [
+"yoke",
+"broken"
+],
+"gauieseina": [
+"broken"
+],
+"gausia": [
+"staff",
+"yoke",
+"break"
+],
+"ga’o": [
+"fat"
+],
+"genogeno": [
+"beckoned"
+],
+"gese": [
+"slow"
+],
+"gogoto": [
+"sunk"
+],
+"goto": [
+"sun"
+],
+"gugu": [
+"dumb"
+],
+"gugū": [
+"dumb"
+],
+"gutu": [
+"mouth"
+],
+"gúgú": [
+"dumb"
+],
+"gūgū": [
+"dumb"
+],
+"iaena": [
+"owl"
+],
+"ialoma": [
+"diamond",
+"emerald",
+"sapphire"
+],
+"iasepi": [
+"jasper"
+],
+"ifa": [
+"fish"
+],
+"iila": [
+"bright"
+],
+"iinei": [
+"here",
+"hither"
+],
+"ila": [
+"plague",
+"leprosy"
+],
+"ilaila": [
+"speckled",
+"ringstraked",
+"spotted"
+],
+"ili": [
+"trumpet",
+"sound"
+],
+"ilia": [
+"trumpet",
+"blow",
+"sound"
+],
+"iligapu": [
+"trumpet"
+],
+"iliili": [
+"gravel"
+],
+"iliti": [
+"dry"
+],
+"ilo": [
+"worm"
+],
+"iloaina": [
+"knows"
+],
+"iloilo": [
+"two"
+],
+"iloiloga": [
+"decision",
+"hearing",
+"case"
+],
+"imoa": [
+"mice",
+"emerods"
+],
+"inoino": [
+"hate"
+],
+"inosia": [
+"abominations"
+],
+"inu": [
+"drink"
+],
+"inuina": [
+"drink"
+],
+"inumia": [
+"cup"
+],
+"iofi": [
+"tongs"
+],
+"iona": [
+"jonah",
+"jonas"
+],
+"iota": [
+"jot",
+"tittle"
+],
+"ipu": [
+"vessels",
+"cup"
+],
+"isopo": [
+"hyssop"
+],
+"isu": [
+"nose"
+],
+"ita": [
+"enemies"
+],
+"itagia": [
+"hated"
+],
+"itagofie": [
+"angry"
+],
+"iti": [
+"little"
+],
+"itiiti": [
+"little"
+],
+"itu-laueleele": [
+"eastern"
+],
+"ituaiga": [
+"kind",
+"manner"
+],
+"itula": [
+"hour"
+],
+"itulagi": [
+"regions"
+],
+"itumalo": [
+"county"
+],
+"itutino": [
+"body"
+],
+"iuga": [
+"end"
+],
+"iupeli": [
+"jubile"
+],
+"iuta": [
+"judah"
+],
+"iuvale": [
+"fail"
+],
+"iva": [
+"nine",
+"ninth"
+],
+"ivagafulu": [
+"ninety"
+],
+"ivasefulu": [
+"ninety"
+],
+"ivi": [
+"bones"
+],
+"i’a": [
+"fish"
+],
+"i’u": [
+"judges",
+"reign",
+"end"
+],
+"i’uga": [
+"end"
+],
+"i’uvale": [
+"fail"
+],
+"jinei": [
+"here"
+],
+"jou": [
+"eyes"
+],
+"jua": [
+"two"
+],
+"juga": [
+"end"
+],
+"kamela": [
+"camels"
+],
+"kani": [
+"calamus"
+],
+"kapetala": [
+"chapiters",
+"network"
+],
+"kapeteni": [
+"captains",
+"chief"
+],
+"kariota": [
+"chariots"
+],
+"karite": [
+"barley"
+],
+"kasama": [
+"palmerworm"
+],
+"kaseme": [
+"barley",
+"wheat"
+],
+"kasili": [
+"caterpiller"
+],
+"kasita": [
+"stork"
+],
+"kate": [
+"pitcher"
+],
+"kati": [
+"cormorant"
+],
+"kerisiano": [
+"christians"
+],
+"kerupi": [
+"cherubims"
+],
+"kesia": [
+"cassia"
+],
+"kifota": [
+"bittern"
+],
+"kikaiona": [
+"gourd"
+],
+"kinamomi": [
+"cinnamon"
+],
+"kiona": [
+"snow"
+],
+"kiperota-atava": [
+"kibroth",
+"hattaavah"
+],
+"kire": [
+"gerahs"
+],
+"kiriata-iarima": [
+"jearim",
+"kirjath"
+],
+"kiriata-sapera": [
+"sepher"
+],
+"kitara": [
+"harp",
+"psalteries"
+],
+"kome": [
+"water"
+],
+"konafesi": [
+"conference"
+],
+"konetineta": [
+"continent"
+],
+"kopa": [
+"copper"
+],
+"korama": [
+"quorum"
+],
+"kori": [
+"kore"
+],
+"kovana": [
+"governor"
+],
+"kumina": [
+"cummin"
+],
+"kupita": [
+"cubits",
+"breadth"
+],
+"laasaga": [
+"steps"
+],
+"laasia": [
+"passed"
+],
+"laau": [
+"tree"
+],
+"laau-afu": [
+"herb"
+],
+"laaupese": [
+"musick"
+],
+"laeli": [
+"jael"
+],
+"laena": [
+"wormwood"
+],
+"laesa": [
+"jahaz",
+"jahazah"
+],
+"lafeta": [
+"japheth",
+"shem"
+],
+"lafi": [
+"hide",
+"hid"
+],
+"lafitaga": [
+"hiding"
+],
+"lafo": [
+"cast"
+],
+"lafoai": [
+"cast"
+],
+"lafoaiina": [
+"cast"
+],
+"lafoa’i": [
+"forsake"
+],
+"lafoa’iina": [
+"cast"
+],
+"lafoga": [
+"publicans",
+"tribute"
+],
+"lafoia": [
+"cast"
+],
+"lafoina": [
+"cast"
+],
+"lafotuina": [
+"cast"
+],
+"lafu": [
+"flocks"
+],
+"lafulafua": [
+"desert"
+],
+"lafulafuā": [
+"spot"
+],
+"lafulemu": [
+"fruitful"
+],
+"laga": [
+"rise"
+],
+"lagaina": [
+"graves"
+],
+"lagi": [
+"heaven"
+],
+"lago": [
+"sockets"
+],
+"lagolago": [
+"support"
+],
+"lagolagoina": [
+"support"
+],
+"lagomeli": [
+"bees"
+],
+"lagomumu": [
+"hornet"
+],
+"lagonaina": [
+"feel"
+],
+"lailoa": [
+"weary",
+"faint"
+],
+"laina": [
+"line",
+"bountiful",
+"hungry"
+],
+"lairo": [
+"jair"
+],
+"laiti": [
+"little"
+],
+"laitiiti": [
+"small",
+"little"
+],
+"lakinu": [
+"jachin"
+],
+"lakopo": [
+"jacob"
+],
+"lala": [
+"branches",
+"natural"
+],
+"lalafi": [
+"hide",
+"hid"
+],
+"lalaga": [
+"weaver's"
+],
+"lalagaina": [
+"woven"
+],
+"lalelei": [
+"fair"
+],
+"lalo": [
+"under"
+],
+"lalolagi": [
+"earth",
+"world"
+],
+"laló": [
+"above"
+],
+"lalō": [
+"beneath"
+],
+"lamalama": [
+"wait"
+],
+"lamatia": [
+"such",
+"life"
+],
+"lamepa": [
+"lamps",
+"candlestick"
+],
+"lamolemole": [
+"smooth"
+],
+"lanu": [
+"needlework",
+"broidered",
+"purple"
+],
+"laoai": [
+"table"
+],
+"laolao": [
+"spacious"
+],
+"lapatai": [
+"warn",
+"warning"
+],
+"lapataiga": [
+"warning"
+],
+"lapata’ia": [
+"warn"
+],
+"lapese": [
+"jabesh"
+],
+"lapese-kiliata": [
+"jabesh"
+],
+"lapoka": [
+"jabbok"
+],
+"lapotopoto": [
+"chapiters"
+],
+"laremuta": [
+"jarmuth"
+],
+"lareto": [
+"jared"
+],
+"lasaru": [
+"jazer"
+],
+"latalata": [
+"near"
+],
+"latira": [
+"jattir"
+],
+"lauaitu": [
+"lamentation"
+],
+"lauao": [
+"snow",
+"flame"
+],
+"lauapi": [
+"pitched",
+"encamped"
+],
+"laufofoga": [
+"lips"
+],
+"laugatasi": [
+"plain"
+],
+"laugutu": [
+"lips"
+],
+"lauiloa": [
+"popular"
+],
+"lauitiiti": [
+"narrow",
+"strait"
+],
+"laulau": [
+"table"
+],
+"laulaufaiva": [
+"tongue"
+],
+"laulauina": [
+"shewbread"
+],
+"laulaututu": [
+"judges",
+"stand"
+],
+"laulaututú": [
+"stood"
+],
+"laulaututū": [
+"judges",
+"stand",
+"judgment"
+],
+"laumata": [
+"eyelids"
+],
+"lauolaola": [
+"green"
+],
+"laupapa": [
+"boards"
+],
+"lautele": [
+"breadth",
+"cubits",
+"length"
+],
+"lautetele": [
+"broad"
+],
+"lauulu": [
+"hair"
+],
+"lavalava": [
+"sackcloth",
+"naked"
+],
+"lavalavá": [
+"naked"
+],
+"lavalavā": [
+"naked"
+],
+"lavatia": [
+"bear"
+],
+"lavea": [
+"smote"
+],
+"laveai": [
+"deliver"
+],
+"laveaiina": [
+"deliver"
+],
+"lavea’i": [
+"bondage"
+],
+"lavea’ia": [
+"bondage"
+],
+"lavea’iga": [
+"deliverance"
+],
+"lavea’iina": [
+"bondage"
+],
+"leaga": [
+"evil"
+],
+"lefata": [
+"jephthah"
+],
+"lefulefu": [
+"ashes"
+],
+"leielu": [
+"jehiel"
+],
+"leiloa": [
+"lost"
+],
+"leiloloa": [
+"lost",
+"mankind"
+],
+"lela": [
+"jordan",
+"side"
+],
+"lelci": [
+"meat"
+],
+"lelea": [
+"chaff"
+],
+"lelei": [
+"good"
+],
+"leleiga": [
+"peace"
+],
+"leo": [
+"voice"
+],
+"leoiata": [
+"jehoiada"
+],
+"leoleoga": [
+"garrison"
+],
+"leoleoina": [
+"keep"
+],
+"leona": [
+"lion"
+],
+"leotele": [
+"aloud",
+"loud"
+],
+"lepa": [
+"lake",
+"brimstone"
+],
+"lepela": [
+"leprosy",
+"leper"
+],
+"lepeti": [
+"destroy"
+],
+"lepusé": [
+"jebusite",
+"jebusites",
+"amorite"
+],
+"leremia": [
+"jeremiah"
+],
+"leremota": [
+"jeremoth"
+],
+"lerepoamo": [
+"jeroboam",
+"nebat"
+],
+"leriko": [
+"jericho"
+],
+"lerusalema": [
+"jerusalem"
+],
+"lese": [
+"jesse"
+],
+"lesu": [
+"jesus"
+],
+"lesua": [
+"jeshua"
+],
+"letaia": [
+"jedaiah"
+],
+"leu": [
+"jehu"
+],
+"leva": [
+"long"
+],
+"leviatana": [
+"leviathan"
+],
+"liae-nifae": [
+"shilom"
+],
+"liaiina": [
+"pluck",
+"root"
+],
+"lialiai": [
+"despised",
+"head"
+],
+"liligi": [
+"poured"
+],
+"liligiina": [
+"bottom"
+],
+"liliu": [
+"turn"
+],
+"liliueseina": [
+"anger",
+"turn"
+],
+"liliuina": [
+"hearing",
+"converted"
+],
+"lilivau": [
+"gnashing",
+"teeth"
+],
+"lilo": [
+"secret"
+],
+"liloia": [
+"covered"
+],
+"lima": [
+"hands"
+],
+"limagaafe": [
+"five",
+"thousand"
+],
+"limagafulu": [
+"fifty"
+],
+"limasefulu": [
+"dollars"
+],
+"lino": [
+"linen"
+],
+"lipano": [
+"frankincense"
+],
+"lipi": [
+"lib"
+],
+"liu": [
+"water"
+],
+"liua": [
+"turn"
+],
+"liuga": [
+"change"
+],
+"liusuavai": [
+"fervent",
+"elements",
+"melt"
+],
+"liutuaina": [
+"back"
+],
+"loa": [
+"immediately",
+"straightway"
+],
+"loaa": [
+"joah",
+"shebna",
+"eliakim"
+],
+"loakima": [
+"jehoiakim"
+],
+"loanana": [
+"johanan"
+],
+"loane": [
+"john"
+],
+"loapo": [
+"joab"
+],
+"loasa": [
+"joash"
+],
+"loelu": [
+"joel"
+],
+"lofia": [
+"water"
+],
+"lofituina": [
+"sunk",
+"overcome",
+"overpower"
+],
+"logo": [
+"fame"
+],
+"logoleleia": [
+"report"
+],
+"logona": [
+"david"
+],
+"loia": [
+"lawyers"
+],
+"loimata": [
+"tears"
+],
+"loka": [
+"log"
+],
+"lolo": [
+"flood"
+],
+"lologa": [
+"flood",
+"beat",
+"descended"
+],
+"lololo": [
+"fatness"
+],
+"loloto": [
+"depths",
+"deep"
+],
+"lolou": [
+"bent",
+"shoot"
+],
+"lolo’u": [
+"bend"
+],
+"lomiga": [
+"printing"
+],
+"lomitusi": [
+"printing"
+],
+"lonatana": [
+"jonathan"
+],
+"lonatapa": [
+"jonadab"
+],
+"loomatua": [
+"sarah",
+"age"
+],
+"loomatutua": [
+"woman"
+],
+"lopapa": [
+"jobab"
+],
+"lopu": [
+"job"
+],
+"loramo": [
+"joram",
+"jezreel"
+],
+"loritana": [
+"jordan"
+],
+"losapata": [
+"jozabad"
+],
+"lose": [
+"joses"
+],
+"losefa": [
+"joseph"
+],
+"losefatu": [
+"jehoshaphat"
+],
+"losia": [
+"josiah"
+],
+"losilosivalega": [
+"envyings"
+],
+"losua": [
+"joshua"
+],
+"lota": [
+"lot"
+],
+"lotama": [
+"jotham"
+],
+"loto": [
+"heart"
+],
+"loto-maaa": [
+"stiffnecked"
+],
+"lotoa": [
+"court"
+],
+"lotofale": [
+"floor"
+],
+"lotofuatiaifo": [
+"conscience"
+],
+"lotogatasi": [
+"united"
+],
+"lotoifale": [
+"width"
+],
+"lotolotoi": [
+"midst"
+],
+"lotomaualalalo": [
+"followers",
+"humble",
+"humility"
+],
+"lotomaualalo": [
+"humility",
+"humble"
+],
+"lototetele": [
+"courage"
+],
+"lotoà": [
+"court"
+],
+"lotoá": [
+"court"
+],
+"lotoā": [
+"court"
+],
+"lotu": [
+"sects",
+"religion"
+],
+"lotulotu": [
+"bitterly"
+],
+"lua": [
+"two"
+],
+"luafulu": [
+"twenty"
+],
+"luai": [
+"mouth",
+"first"
+],
+"luasefulu": [
+"twenty"
+],
+"luasefulu-tolu": [
+"twenty"
+],
+"lua’i": [
+"first"
+],
+"lugā": [
+"above"
+],
+"luko": [
+"wolves",
+"wolf",
+"dragon"
+],
+"lulu": [
+"sow"
+],
+"luluu": [
+"handful"
+],
+"lumanai": [
+"time"
+],
+"lupe": [
+"dove"
+],
+"lusa": [
+"luz",
+"lystra",
+"iconium"
+],
+"luso": [
+"jeush"
+],
+"luta": [
+"judah"
+],
+"lutaia": [
+"jews"
+],
+"lutana": [
+"jeduthun"
+],
+"lutá": [
+"jews"
+],
+"luutaga": [
+"handful"
+],
+"luā": [
+"third",
+"morrow"
+],
+"lālā": [
+"branches",
+"graft",
+"natural"
+],
+"lūlū": [
+"shake"
+],
+"lūlūina": [
+"shook",
+"shaken",
+"shake"
+],
+"maa": [
+"stones",
+"stone"
+],
+"maaa": [
+"stiffnecked",
+"hardness"
+],
+"maai": [
+"sharp",
+"sharper",
+"edges"
+],
+"maalili": [
+"winter",
+"cold"
+],
+"maalofia": [
+"unavoidably"
+],
+"maamaai": [
+"sharp"
+],
+"maaolo": [
+"millstone"
+],
+"maaomea": [
+"brick"
+],
+"maasiasi": [
+"ashamed",
+"shame"
+],
+"maata": [
+"sling"
+],
+"maatulimanu": [
+"cornerstone"
+],
+"maatā": [
+"sling"
+],
+"maea": [
+"cords"
+],
+"maelega": [
+"zeal"
+],
+"maeli-sala-asa-pasa": [
+"shalal",
+"maher",
+"hash"
+],
+"maemaea": [
+"anger"
+],
+"mae’a": [
+"finished"
+],
+"mafaamatalaina": [
+"unspeakable"
+],
+"mafaatusalia": [
+"matchless"
+],
+"mafaitauina": [
+"number"
+],
+"mafaitaulia": [
+"innumerable"
+],
+"mafanafana": [
+"warm"
+],
+"mafatia": [
+"suffer"
+],
+"mafatiaga": [
+"suffering"
+],
+"mafaufau": [
+"mind"
+],
+"mafaufauga": [
+"thought"
+],
+"mafiafia": [
+"thick"
+],
+"mafu": [
+"healed"
+],
+"mafua": [
+"caused",
+"cause"
+],
+"mafuaaga": [
+"reason"
+],
+"mafuatiaina": [
+"measure",
+"beyond"
+],
+"mafuie": [
+"earthquake",
+"earthquakes"
+],
+"mafuli": [
+"mountains",
+"fall"
+],
+"mafuta": [
+"fellowship"
+],
+"maga": [
+"knop"
+],
+"magaala": [
+"paths"
+],
+"magagana": [
+"dumb"
+],
+"magalo": [
+"salt"
+],
+"magalua": [
+"cud",
+"cheweth",
+"hoof"
+],
+"magiagia": [
+"sour"
+],
+"mago": [
+"withered",
+"dried",
+"fig"
+],
+"magumagu": [
+"withered"
+],
+"magáala": [
+"paths"
+],
+"maifea": [
+"whence"
+],
+"mailei": [
+"snare"
+],
+"maileia": [
+"snares"
+],
+"maimoa": [
+"look"
+],
+"maitaga": [
+"child"
+],
+"makoi": [
+"herod"
+],
+"mala": [
+"plagues",
+"plague"
+],
+"malae": [
+"streets"
+],
+"malaga": [
+"journey"
+],
+"malala": [
+"coals"
+],
+"malama": [
+"morning"
+],
+"malamalama": [
+"light"
+],
+"malamalamaaga": [
+"enlightened",
+"understanding"
+],
+"malelemo": [
+"drowned"
+],
+"malena": [
+"swell"
+],
+"maliega": [
+"agreement"
+],
+"maligi": [
+"tears"
+],
+"malili": [
+"fruit"
+],
+"malilie": [
+"drink"
+],
+"maliliu": [
+"baptism",
+"dead"
+],
+"malo": [
+"kingdom"
+],
+"malolo": [
+"rest"
+],
+"malologa": [
+"rest"
+],
+"malolosi": [
+"strong",
+"mighty"
+],
+"malosi": [
+"strength"
+],
+"malosiaga": [
+"strength"
+],
+"malu": [
+"refuge"
+],
+"malualii": [
+"majesty"
+],
+"maluka": [
+"malluch"
+],
+"malumalu": [
+"temple"
+],
+"malō": [
+"flint"
+],
+"mama": [
+"clean"
+],
+"mamae": [
+"withered"
+],
+"mamago": [
+"dry",
+"bones"
+],
+"mamai": [
+"sick"
+],
+"mamalu": [
+"glory"
+],
+"mamana": [
+"powerful"
+],
+"mamao": [
+"far"
+],
+"mama’i": [
+"sick",
+"hungry",
+"needy"
+],
+"mami": [
+"clean"
+],
+"mamoe": [
+"lamb",
+"sheep"
+],
+"mamá": [
+"clean"
+],
+"mamā": [
+"pure"
+],
+"mana": [
+"power"
+],
+"manai": [
+"manna"
+],
+"manamea": [
+"beloved"
+],
+"mananaia": [
+"fine"
+],
+"manana’o": [
+"desirous"
+],
+"manaoga": [
+"want",
+"desired"
+],
+"manaomia": [
+"need"
+],
+"manatua": [
+"remember"
+],
+"manatuaina": [
+"remembrance"
+],
+"manatunatuga": [
+"thought"
+],
+"manava": [
+"belly",
+"womb"
+],
+"manifinifi": [
+"nails",
+"temples"
+],
+"manino": [
+"plainly"
+],
+"mano": [
+"ten",
+"thousand"
+],
+"manoa": [
+"twined",
+"manoah",
+"blue"
+],
+"manogi": [
+"incense",
+"sweet"
+],
+"manomano": [
+"ten",
+"thousand"
+],
+"manu": [
+"beasts"
+],
+"manua": [
+"wounded"
+],
+"manufelelei": [
+"fowls",
+"creeps",
+"air"
+],
+"manulauti": [
+"mark"
+],
+"manumalo": [
+"prevail"
+],
+"manumanu": [
+"covetousness"
+],
+"manunu": [
+"boil"
+],
+"manunua": [
+"wounded"
+],
+"manutagi": [
+"pigeons",
+"turtledoves"
+],
+"manu’a": [
+"wounded"
+],
+"manù": [
+"lest"
+],
+"manú": [
+"water"
+],
+"manū": [
+"sickle",
+"treasure"
+],
+"maoae": [
+"must"
+],
+"maoona": [
+"filled"
+],
+"maopoopo": [
+"order",
+"joined"
+],
+"maota": [
+"palace"
+],
+"mao’i": [
+"pure"
+],
+"mapeva": [
+"feet"
+],
+"mapu": [
+"rest"
+],
+"mapuitiga": [
+"sigh"
+],
+"mapumapu": [
+"hiss"
+],
+"mapusaga": [
+"rest"
+],
+"mara": [
+"marah"
+],
+"masaa": [
+"loss",
+"faint"
+],
+"masae": [
+"rent",
+"net"
+],
+"masaesae": [
+"rags"
+],
+"masalo": [
+"thought"
+],
+"masalosalo": [
+"doubt"
+],
+"maseesee": [
+"slippery"
+],
+"masiasi": [
+"ashamed",
+"confounded",
+"shame"
+],
+"masima": [
+"salt"
+],
+"masina": [
+"month"
+],
+"masino": [
+"number"
+],
+"masinoga": [
+"judgment"
+],
+"masiofo": [
+"queen"
+],
+"masuesueina": [
+"unsearchable"
+],
+"mata": [
+"eyes"
+],
+"mata-lua": [
+"sharper",
+"edges",
+"marrow"
+],
+"mataala": [
+"watch"
+],
+"matafaga": [
+"seashore"
+],
+"matafaioi": [
+"stewardship"
+],
+"matagi": [
+"wind"
+],
+"matai": [
+"master",
+"chief"
+],
+"mataitusi": [
+"tittle",
+"jot"
+],
+"matala": [
+"opened"
+],
+"matamata": [
+"look"
+],
+"mataoge": [
+"eye"
+],
+"matapeapea": [
+"covetousness",
+"covetous"
+],
+"matape’ape’a": [
+"covetousness"
+],
+"matapogia": [
+"faint",
+"loss"
+],
+"matasele": [
+"snare"
+],
+"matatau": [
+"fear"
+],
+"matata’u": [
+"fear"
+],
+"mataua": [
+"envy"
+],
+"matauina": [
+"brethren"
+],
+"matautia": [
+"terrible"
+],
+"matautu": [
+"point"
+],
+"matau’a": [
+"envyings"
+],
+"mata’u": [
+"fear"
+],
+"mata’uleagaina": [
+"blameless"
+],
+"mata’utia": [
+"awful",
+"terrible"
+],
+"matea": [
+"riddle"
+],
+"matelaina": [
+"hungry",
+"hunger"
+],
+"mati": [
+"fig"
+],
+"matineia": [
+"unquenchable"
+],
+"matitiva": [
+"poor"
+],
+"mativa": [
+"poor"
+],
+"mato": [
+"rock"
+],
+"matu": [
+"north",
+"northward"
+],
+"matuamoa": [
+"chickens",
+"hen"
+],
+"matuaoti": [
+"fatherless",
+"widow"
+],
+"matua’i": [
+"exceedingly"
+],
+"matuitui": [
+"thorns",
+"briers"
+],
+"maturo": [
+"martyr"
+],
+"matutu": [
+"dry"
+],
+"matutua": [
+"upward"
+],
+"matámatagi": [
+"wind",
+"scattered"
+],
+"matásele": [
+"snare"
+],
+"matāmatagi": [
+"wind"
+],
+"mauaa": [
+"root"
+],
+"mauaina": [
+"received"
+],
+"maualalalo": [
+"low"
+],
+"maualalo": [
+"lesser"
+],
+"maualuga": [
+"high"
+],
+"maualuluga": [
+"places",
+"high"
+],
+"mauga": [
+"mountains",
+"mount"
+],
+"maui": [
+"water"
+],
+"mauli": [
+"astonied"
+],
+"maumau": [
+"lose"
+],
+"maumausolo": [
+"fugitive",
+"vagabond"
+],
+"mauoa": [
+"riches"
+],
+"maupuepue": [
+"hill"
+],
+"maupu’epu’e": [
+"hill"
+],
+"mausali": [
+"faith"
+],
+"mausalī": [
+"firmness"
+],
+"mautietie": [
+"forts"
+],
+"mautofi": [
+"inherit",
+"officers"
+],
+"mautonu": [
+"confounded"
+],
+"mau’oa": [
+"riches"
+],
+"mavaega": [
+"covenant"
+],
+"mavaevae": [
+"rock",
+"rent"
+],
+"ma’alofia": [
+"imperative",
+"owe"
+],
+"ma’i": [
+"sick"
+],
+"ma’ona": [
+"satisfied"
+],
+"ma’umau": [
+"lose",
+"grieved"
+],
+"mea-tausi": [
+"stewardship"
+],
+"meaai": [
+"food"
+],
+"meaalofa": [
+"gift"
+],
+"meafaigaluega": [
+"tool"
+],
+"mealilo": [
+"mysteries"
+],
+"meamea": [
+"sucklings",
+"infant"
+],
+"meanoa": [
+"naught"
+],
+"meaola": [
+"creature",
+"fowls"
+],
+"meatotino": [
+"property",
+"properties"
+],
+"meatuaolō": [
+"swine"
+],
+"meia": [
+"astonishment"
+],
+"meli": [
+"honey"
+],
+"memea": [
+"brass"
+],
+"migao": [
+"reverence"
+],
+"milo": [
+"twined",
+"purple",
+"blue"
+],
+"miloa": [
+"silk"
+],
+"mimi": [
+"scarlet"
+],
+"mina": [
+"pound"
+],
+"minerale": [
+"ore"
+],
+"misa": [
+"strife"
+],
+"misiona": [
+"mission"
+],
+"mitamita": [
+"glory"
+],
+"mitamitavale": [
+"boasting",
+"boast"
+],
+"miti": [
+"dream"
+],
+"moa": [
+"cock",
+"crow",
+"thrice"
+],
+"moana": [
+"deep",
+"depths"
+],
+"moe": [
+"sleep"
+],
+"moega": [
+"bed"
+],
+"moegase": [
+"sleep"
+],
+"moemoe": [
+"branches"
+],
+"mogamoga": [
+"moth"
+],
+"mole": [
+"drink"
+],
+"molemole": [
+"mouth"
+],
+"moli": [
+"light"
+],
+"molimau": [
+"witness"
+],
+"molimauina": [
+"record",
+"witness",
+"bear"
+],
+"molitino": [
+"testify",
+"testified"
+],
+"momomo": [
+"contrite"
+],
+"momo’e": [
+"ran",
+"run"
+],
+"moni": [
+"verily"
+],
+"moomia": [
+"delightsome"
+],
+"moto": [
+"sour",
+"grape"
+],
+"motu": [
+"multitude"
+],
+"motusi": [
+"brake",
+"break"
+],
+"motusia": [
+"bands",
+"broken"
+],
+"muai": [
+"first"
+],
+"muamua": [
+"first"
+],
+"muaulu": [
+"forehead"
+],
+"mua’i": [
+"prepared",
+"tree"
+],
+"muimui": [
+"murmur"
+],
+"muimuiga": [
+"murmurings"
+],
+"muina": [
+"burning"
+],
+"muli": [
+"youth"
+],
+"muliai": [
+"last"
+],
+"mulilua": [
+"adultery"
+],
+"muliluaga": [
+"whoredoms"
+],
+"mulilulua": [
+"adulterers"
+],
+"mulimuli": [
+"follow"
+],
+"mulivae": [
+"heel"
+],
+"muli’au": [
+"rereward"
+],
+"mulumulu": [
+"wash",
+"laver"
+],
+"mulumuluga": [
+"washing"
+],
+"mulumuluina": [
+"wash"
+],
+"mumi": [
+"flame"
+],
+"mumu": [
+"scarlet",
+"purple",
+"linen"
+],
+"mumulu": [
+"warm"
+],
+"mumusu": [
+"refused"
+],
+"mumutu": [
+"maimed"
+],
+"mumù": [
+"fire"
+],
+"mumú": [
+"flame"
+],
+"mumū": [
+"flame"
+],
+"muro": [
+"myrrh"
+],
+"musu": [
+"refuse",
+"refused"
+],
+"musuia": [
+"inspired"
+],
+"musumusu": [
+"whisper"
+],
+"mutia": [
+"grass"
+],
+"mutimuti": [
+"compassion",
+"mercies"
+],
+"mutimutivale": [
+"merciful",
+"mercy"
+],
+"mutu": [
+"maimed"
+],
+"mu’a": [
+"grass",
+"herb",
+"green"
+],
+"mu’amu’a": [
+"tender"
+],
+"málie": [
+"satisfied"
+],
+"mánava": [
+"breath"
+],
+"mátua": [
+"fathers"
+],
+"mátuaoti": [
+"fatherless"
+],
+"máumau": [
+"lose"
+],
+"múmú": [
+"scarlet",
+"purple",
+"blue"
+],
+"mālie": [
+"acceptable"
+],
+"māmā": [
+"lightly"
+],
+"mānava": [
+"breath"
+],
+"mātau": [
+"hooks"
+],
+"mātua": [
+"parents"
+],
+"mătau": [
+"axe"
+],
+"mūmū": [
+"scarlet",
+"red"
+],
+"nameri": [
+"leopard"
+],
+"nana": [
+"hid",
+"hide"
+],
+"nanamu": [
+"smell"
+],
+"nanei": [
+"night"
+],
+"naná": [
+"hid"
+],
+"nanā": [
+"hide"
+],
+"nao": [
+"only"
+],
+"napeli": [
+"psalteries",
+"harp",
+"cymbals"
+],
+"naseri": [
+"nazarite",
+"separation"
+],
+"natia": [
+"hid",
+"hide"
+],
+"natiaina": [
+"hide",
+"hid"
+],
+"nato": [
+"spikenard"
+],
+"natura": [
+"nature"
+],
+"naumati": [
+"dry"
+],
+"naunauga": [
+"desired"
+],
+"naunautai": [
+"determination"
+],
+"naunautaiga": [
+"desired"
+],
+"na’o": [
+"only"
+],
+"nesa": [
+"hawk"
+],
+"netini": [
+"nethinims"
+],
+"ne’i": [
+"lest"
+],
+"nifo": [
+"horns",
+"teeth"
+],
+"nimonimo": [
+"firmament"
+],
+"nini": [
+"wafers",
+"cakes"
+],
+"ninii": [
+"tears",
+"dust",
+"pieces"
+],
+"niu": [
+"york"
+],
+"noa": [
+"noah"
+],
+"noanoa": [
+"bound"
+],
+"noanoaga": [
+"bonds"
+],
+"noanoataga": [
+"bonds"
+],
+"noanoatia": [
+"prisoners",
+"bound"
+],
+"noataga": [
+"bands"
+],
+"noatia": [
+"bound"
+],
+"nofeka": [
+"emerald",
+"diamond",
+"sapphire"
+],
+"nofoa": [
+"seat"
+],
+"nofoa-faamasino": [
+"seat"
+],
+"nofoaga": [
+"place"
+],
+"nofoaiga": [
+"reign",
+"judges"
+],
+"nofoalii": [
+"throne"
+],
+"nofoa’iga": [
+"judges",
+"reign",
+"alma"
+],
+"nofoia": [
+"empty",
+"seat"
+],
+"nofonofo": [
+"still",
+"sit"
+],
+"nofopologa": [
+"bondage"
+],
+"nofotupu": [
+"reign",
+"stead"
+],
+"nofoálii": [
+"sitteth",
+"throne"
+],
+"nofoālii": [
+"throne"
+],
+"nono": [
+"borrow",
+"lend"
+],
+"nonoa": [
+"bind"
+],
+"nonofo": [
+"inhabitants"
+],
+"nonō": [
+"borrow"
+],
+"nuanua": [
+"cloud",
+"bow"
+],
+"numera": [
+"number"
+],
+"nutililii": [
+"pieces",
+"iron",
+"break"
+],
+"nutililiia": [
+"broken"
+],
+"nutininii": [
+"pieces"
+],
+"nutipalaina": [
+"pieces",
+"broken"
+],
+"nuuese": [
+"gentiles"
+],
+"ode": [
+"famine"
+],
+"ofaga": [
+"nest"
+],
+"ofaofatai": [
+"hen",
+"chickens"
+],
+"ofoina": [
+"worship"
+],
+"ofoofogia": [
+"marvelous"
+],
+"ofu": [
+"garments",
+"clothes"
+],
+"ofuina": [
+"wearing"
+],
+"ofutau": [
+"armor"
+],
+"ofuvae": [
+"breeches"
+],
+"ogapa": [
+"piece",
+"repaired"
+],
+"ogaumu": [
+"furnace",
+"oven"
+],
+"ogavae": [
+"thigh"
+],
+"oge": [
+"famine"
+],
+"ogoogo": [
+"nettles"
+],
+"ogotia": [
+"sun"
+],
+"ola": [
+"life"
+],
+"olaga": [
+"life"
+],
+"olaola": [
+"flourish"
+],
+"olataga": [
+"salvation"
+],
+"ole": [
+"ask"
+],
+"olega": [
+"petition"
+],
+"olegia": [
+"deceive"
+],
+"olioli": [
+"joy",
+"rejoice"
+],
+"olive": [
+"olive"
+],
+"olo": [
+"tower"
+],
+"olopalaina": [
+"destruction"
+],
+"omea": [
+"clay"
+],
+"omera": [
+"omer",
+"tenth",
+"flour"
+],
+"omo": [
+"deeper",
+"scall"
+],
+"omomi": [
+"spunge"
+],
+"onanā": [
+"drunken"
+],
+"oneone": [
+"sand"
+],
+"oneti": [
+"onti"
+],
+"ono": [
+"six"
+],
+"onogafulu": [
+"threescore",
+"sixty"
+],
+"onosai": [
+"patience"
+],
+"onosaia": [
+"afflictions",
+"suffer"
+],
+"onosefulu": [
+"sixty"
+],
+"onosefulu-lima": [
+"width"
+],
+"onu": [
+"poti",
+"pherah",
+"asenath"
+],
+"onā": [
+"drunken"
+],
+"oofu": [
+"clothes"
+],
+"oona": [
+"bitter"
+],
+"ooti": [
+"pluck",
+"corn"
+],
+"opete-etoma": [
+"obed"
+],
+"oreva": [
+"raven"
+],
+"osana": [
+"hosanna"
+],
+"osi": [
+"offer",
+"covenant"
+],
+"osia": [
+"covenant",
+"offer"
+],
+"osifeagaiga": [
+"covenant"
+],
+"ositaulaga": [
+"priest"
+],
+"osofai": [
+"lamanites"
+],
+"osofaia": [
+"lamanites"
+],
+"osofaiga": [
+"attack"
+],
+"osofia": [
+"spirit",
+"david"
+],
+"osooso": [
+"leap"
+],
+"otaota": [
+"dung"
+],
+"otata": [
+"summer"
+],
+"oti": [
+"dead",
+"death"
+],
+"otootoga": [
+"abridgment"
+],
+"oute": [
+"praise"
+],
+"ove": [
+"famine"
+],
+"pae": [
+"array"
+],
+"paeee": [
+"leanfleshed",
+"ill",
+"kine"
+],
+"paepae": [
+"pavement"
+],
+"pafu": [
+"skin"
+],
+"pagatia": [
+"misery"
+],
+"pagota": [
+"prisoners"
+],
+"pagotata": [
+"malefactors"
+],
+"pai": [
+"touch"
+],
+"paia": [
+"holy"
+],
+"paie": [
+"slothful"
+],
+"paita": [
+"bath",
+"homer"
+],
+"palake": [
+"concubines",
+"concubine"
+],
+"palapala": [
+"mire"
+],
+"palasi": [
+"dash"
+],
+"pale": [
+"crown"
+],
+"palealii": [
+"crown"
+],
+"palua": [
+"mingled",
+"flour",
+"charger"
+],
+"paluga": [
+"lump"
+],
+"palugafalaoa": [
+"dough"
+],
+"palugáfalaoa": [
+"dough"
+],
+"pama": [
+"palm"
+],
+"paneta": [
+"planet"
+],
+"pani": [
+"bani"
+],
+"panisina": [
+"morter",
+"daubed",
+"untempered"
+],
+"paolo": [
+"shadow"
+],
+"papa": [
+"rock"
+],
+"papai": [
+"touch"
+],
+"papala": [
+"sores",
+"boil"
+],
+"papamaa": [
+"tables"
+],
+"papatiso": [
+"baptized",
+"baptize"
+],
+"papatisoga": [
+"baptism"
+],
+"papatisoina": [
+"baptized"
+],
+"papatua": [
+"loins"
+],
+"papatusi": [
+"plates"
+],
+"papa’e": [
+"white"
+],
+"paranesi": [
+"branches"
+],
+"parataiso": [
+"paradise"
+],
+"pasama": [
+"balm"
+],
+"paseka": [
+"passover"
+],
+"pati": [
+"fall"
+],
+"patino": [
+"strict"
+],
+"patu": [
+"skin"
+],
+"pauli": [
+"purple",
+"scarlet"
+],
+"pauu": [
+"fall"
+],
+"paù": [
+"fall",
+"fell"
+],
+"paú": [
+"fall"
+],
+"paŭ": [
+"fall"
+],
+"pa’epa’e": [
+"white"
+],
+"pa’i": [
+"touch"
+],
+"pa’u": [
+"skin"
+],
+"pa’upa’ua": [
+"scall",
+"deeper",
+"yellow"
+],
+"pa’u’ū": [
+"fallen",
+"fall"
+],
+"pa’ū": [
+"fall",
+"fallen"
+],
+"peau": [
+"waves"
+],
+"peio": [
+"like"
+],
+"peka": [
+"pekah",
+"remaliah"
+],
+"pele": [
+"beloved"
+],
+"peleue": [
+"coat"
+],
+"pelogia": [
+"deceived",
+"mocked"
+],
+"pelu": [
+"sword"
+],
+"pena": [
+"pieces"
+],
+"peni": [
+"pen"
+],
+"penina": [
+"pearls",
+"rubies"
+],
+"pepese": [
+"singers",
+"sing"
+],
+"pepeti": [
+"fatlings",
+"fat"
+],
+"pereketa": [
+"carbuncle",
+"sardius",
+"topaz"
+],
+"peresitene": [
+"president",
+"presidency"
+],
+"perisitua": [
+"priesthood"
+],
+"peritome": [
+"circumcision",
+"uncircumcision"
+],
+"peritomeina": [
+"uncircumcised",
+"circumcised",
+"circumcision"
+],
+"perofeta": [
+"prophets"
+],
+"perosi": [
+"fir"
+],
+"pese": [
+"song",
+"sing"
+],
+"pesega": [
+"sing"
+],
+"pesi": [
+"whirlwind",
+"beat",
+"wind"
+],
+"petala": [
+"bdellium"
+],
+"peteriaka": [
+"patriarch"
+],
+"peti": [
+"calf"
+],
+"pe’a": [
+"bat"
+],
+"pe’ape’a": [
+"swallowed"
+],
+"piilima": [
+"hands"
+],
+"pine": [
+"work"
+],
+"piopio": [
+"crooked"
+],
+"pipii": [
+"cleave"
+],
+"pipili": [
+"lame"
+],
+"pisia": [
+"stain",
+"spotted"
+],
+"pisinisi": [
+"business"
+],
+"pisipisia": [
+"garments",
+"having"
+],
+"pito": [
+"end"
+],
+"poa": [
+"ram",
+"bullock",
+"goats"
+],
+"pogai": [
+"cause"
+],
+"pogaiisu": [
+"nostrils"
+],
+"pogisa": [
+"darkness"
+],
+"polo": [
+"ball"
+],
+"poloai": [
+"commanded"
+],
+"poloaia": [
+"commanded"
+],
+"poloaiga": [
+"commandments"
+],
+"poloaiina": [
+"commanded"
+],
+"poloa’iina": [
+"commanded"
+],
+"polofesa": [
+"professors"
+],
+"pologa": [
+"bondage"
+],
+"polopologa": [
+"mildew",
+"blasting"
+],
+"pona": [
+"knop",
+"blemish",
+"spot"
+],
+"ponatia": [
+"hinder"
+],
+"ponā": [
+"spotless",
+"blameless"
+],
+"popoto": [
+"wise"
+],
+"poto": [
+"wisdom"
+],
+"potoi": [
+"cake",
+"cakes"
+],
+"potopoto": [
+"together",
+"gathered"
+],
+"potopotogámati": [
+"fig"
+],
+"potu": [
+"chambers"
+],
+"pou": [
+"pillars",
+"posts",
+"sockets"
+],
+"pouliuli": [
+"darkness"
+],
+"poutu": [
+"pillars"
+],
+"povi": [
+"bullock"
+],
+"po’a": [
+"kind"
+],
+"puaa": [
+"swine"
+],
+"puai": [
+"vomit"
+],
+"puaiga": [
+"vomit"
+],
+"puaiina": [
+"smell"
+],
+"puao": [
+"mist",
+"vapor"
+],
+"puaoa": [
+"dim"
+],
+"puapuaga": [
+"afflictions"
+],
+"puapuagaina": [
+"poor"
+],
+"puapuagatia": [
+"afflicted"
+],
+"puea": [
+"taken",
+"babylon"
+],
+"puipuia": [
+"shut"
+],
+"puipuiga": [
+"protection",
+"defence"
+],
+"pulatoa": [
+"stedfastly"
+],
+"puleaga": [
+"dominion"
+],
+"pulefaamalumalu": [
+"preside",
+"presiding"
+],
+"pulelaa": [
+"stand"
+],
+"pulepule": [
+"speckled",
+"grisled",
+"ringstraked"
+],
+"pule’aga": [
+"dominion"
+],
+"pulou": [
+"mitre"
+],
+"puloutau": [
+"helmet"
+],
+"pulu": [
+"frankincense"
+],
+"pulupulu": [
+"garments"
+],
+"puluvaga": [
+"mediator"
+],
+"puna": [
+"fountain"
+],
+"punavai": [
+"fountain"
+],
+"punipu": [
+"kidneys",
+"liver",
+"caul"
+],
+"punipù": [
+"kidneys",
+"liver",
+"caul"
+],
+"punitia": [
+"shut"
+],
+"punonou": [
+"worshipped",
+"bow"
+],
+"punou": [
+"bow"
+],
+"pupula": [
+"glory"
+],
+"pupuni": [
+"shut"
+],
+"puputa": [
+"fat"
+],
+"pupū": [
+"riches"
+],
+"pusa": [
+"smoke"
+],
+"puta": [
+"fatness"
+],
+"pute": [
+"navel"
+],
+"puupuu": [
+"short"
+],
+"pu’e": [
+"catch"
+],
+"páuli": [
+"purple",
+"blue",
+"scarlet"
+],
+"pāuli": [
+"purple",
+"blue",
+"scarlet"
+],
+"pōnā": [
+"blameless"
+],
+"raja": [
+"preach"
+],
+"rama": [
+"ramah"
+],
+"ramota-kiliata": [
+"ramoth"
+],
+"rane": [
+"frogs"
+],
+"rapi": [
+"rabbi"
+],
+"ratami": [
+"juniper"
+],
+"rema": [
+"unicorn"
+],
+"rimoni": [
+"pomegranates",
+"rimmon"
+],
+"saasaa": [
+"danced",
+"short"
+],
+"saeeseina": [
+"flay"
+],
+"saei": [
+"rent"
+],
+"saeia": [
+"rent"
+],
+"saeluaina": [
+"veil"
+],
+"safaira": [
+"sapphire",
+"sapphires",
+"emerald"
+],
+"saili": [
+"seek"
+],
+"sailia": [
+"seek",
+"sought"
+],
+"sailiili": [
+"seek"
+],
+"saini": [
+"church"
+],
+"saisai": [
+"bound",
+"prison"
+],
+"saisaia": [
+"prison",
+"bound"
+],
+"salaeseina": [
+"cut"
+],
+"salafa": [
+"pan",
+"baken"
+],
+"salaina": [
+"cut"
+],
+"salalafa": [
+"dish",
+"spoons"
+],
+"salalau": [
+"spread",
+"abroad"
+],
+"salamo": [
+"repent"
+],
+"salamò": [
+"repent"
+],
+"salamó": [
+"repent"
+],
+"salefu": [
+"censer",
+"firepans",
+"basons"
+],
+"saleka": [
+"bashan"
+],
+"sali": [
+"offend",
+"pluck"
+],
+"salikea": [
+"sardius",
+"topaz",
+"carbuncle"
+],
+"salu": [
+"quails"
+],
+"salāmo": [
+"psalms"
+],
+"samala": [
+"hammer"
+],
+"sami": [
+"sea"
+],
+"samira": [
+"shamir"
+],
+"saniteri": [
+"sackbut",
+"flute",
+"dulcimer"
+],
+"saofaga": [
+"stock"
+],
+"saofaiga": [
+"assembly"
+],
+"saogalemu": [
+"safety"
+],
+"saoloto": [
+"free"
+],
+"saolotoga": [
+"liberty",
+"freedom"
+],
+"sapati": [
+"sabbath"
+],
+"sapeka": [
+"sackbut",
+"flute",
+"dulcimer"
+],
+"sasaa": [
+"poured"
+],
+"sasaaina": [
+"poured",
+"fury"
+],
+"sasae": [
+"east"
+],
+"sasaina": [
+"beaten"
+],
+"sasali": [
+"eyes"
+],
+"sasao": [
+"kindled"
+],
+"sasau": [
+"sickle",
+"reap",
+"thrust"
+],
+"sasa’e": [
+"eastern"
+],
+"satauro": [
+"cross"
+],
+"satukaio": [
+"sadducees"
+],
+"sauaga": [
+"persecution"
+],
+"sauai": [
+"monster"
+],
+"sauaina": [
+"persecuted",
+"persecute"
+],
+"saunia": [
+"prepared"
+],
+"sauniaina": [
+"prepared"
+],
+"sauniga-lotu": [
+"meetings"
+],
+"sauniuni": [
+"prepare"
+],
+"sauniuniga": [
+"preparations"
+],
+"saunoa": [
+"councilors"
+],
+"sausau": [
+"sprinkle",
+"sprinkled"
+],
+"sausauina": [
+"sprinkle",
+"sprinkled"
+],
+"saute": [
+"south",
+"southward",
+"west"
+],
+"sautuafā": [
+"fold"
+],
+"sautuaselau": [
+"fold"
+],
+"savali": [
+"walk"
+],
+"savaliga": [
+"march"
+],
+"savavali": [
+"walk"
+],
+"sa’o": [
+"right"
+],
+"sa’oloto": [
+"free"
+],
+"sa’olotoga": [
+"liberty"
+],
+"sea": [
+"measured"
+],
+"seanoa": [
+"must"
+],
+"see": [
+"feet"
+],
+"seevae": [
+"shoes",
+"shoe"
+],
+"sefulu": [
+"thousand",
+"years"
+],
+"sefuluai": [
+"tithing"
+],
+"sefulufitu": [
+"seventeenth"
+],
+"sefululima": [
+"fifteen"
+],
+"sefululua": [
+"twelfth"
+],
+"sefulutasi": [
+"eleventh"
+],
+"segia": [
+"caught"
+],
+"segisegi": [
+"twilight"
+],
+"sekati": [
+"almonds"
+],
+"sekeli": [
+"shekels"
+],
+"sela": [
+"selah"
+],
+"selau": [
+"hundred"
+],
+"sele": [
+"head"
+],
+"selei": [
+"cut"
+],
+"selelamepa": [
+"snuffers",
+"snuffdishes"
+],
+"selemamaina": [
+"baldness"
+],
+"selesaito": [
+"sickle"
+],
+"selesele": [
+"reap"
+],
+"seleselega": [
+"harvest"
+],
+"seleselegasaito": [
+"harvest"
+],
+"seleselegásaito": [
+"harvest"
+],
+"seleselegāsaito": [
+"harvest"
+],
+"seleseleina": [
+"labourers",
+"reap"
+],
+"selesitila": [
+"celestial"
+],
+"sema": [
+"brethren"
+],
+"semanū": [
+"received"
+],
+"senine": [
+"senine"
+],
+"senuma": [
+"senum"
+],
+"seoli": [
+"hell"
+],
+"seone": [
+"seon"
+],
+"serafi": [
+"seraphims"
+],
+"sesa": [
+"shiz",
+"coriantumr"
+],
+"sesega": [
+"pale"
+],
+"sesele": [
+"skirt"
+],
+"sesē": [
+"wrong",
+"traditions"
+],
+"setara-posenai": [
+"tatnai",
+"boznai",
+"shethar"
+],
+"setete": [
+"york",
+"stated",
+"county"
+],
+"setima": [
+"shittim"
+],
+"setu": [
+"seth"
+],
+"seturo": [
+"shedeur",
+"elizur"
+],
+"setusetu": [
+"halt"
+],
+"sevi": [
+"hart",
+"roe",
+"roes"
+],
+"sii": [
+"lifted"
+],
+"siilima": [
+"vote"
+],
+"siitia": [
+"lifted"
+],
+"sila": [
+"silas",
+"shelah"
+],
+"silafaga": [
+"sight"
+],
+"silailalo": [
+"emerods",
+"mice"
+],
+"silika": [
+"silk"
+],
+"silisiliese": [
+"greatness"
+],
+"sima": [
+"cement"
+],
+"simetea": [
+"cimeters"
+],
+"sinapi": [
+"mustard"
+],
+"sinasina": [
+"white"
+],
+"sini": [
+"sidney",
+"rigdon"
+],
+"sinu": [
+"hin"
+],
+"sio": [
+"compass"
+],
+"siomia": [
+"surrounded"
+],
+"siosio": [
+"compass",
+"round"
+],
+"siosioina": [
+"round",
+"about"
+],
+"siosiomia": [
+"about"
+],
+"sipai": [
+"spies"
+],
+"sipelona": [
+"shiblon"
+],
+"sisi": [
+"standard"
+],
+"sisifo": [
+"west"
+],
+"sisii": [
+"lifted",
+"hands"
+],
+"sisila": [
+"eyes"
+],
+"sisina": [
+"white"
+],
+"sisiva": [
+"dance"
+],
+"sisi’o": [
+"cut",
+"off"
+],
+"siteki": [
+"stakes",
+"stake"
+],
+"siufofoga": [
+"voice"
+],
+"siva": [
+"danced"
+],
+"si’o": [
+"siege"
+],
+"si’ofatafata": [
+"breastwork"
+],
+"soa": [
+"companions"
+],
+"soama": [
+"onyx"
+],
+"soatau": [
+"armourbearer"
+],
+"sofaia": [
+"break"
+],
+"sogi": [
+"kissed"
+],
+"sogisogi": [
+"smell"
+],
+"soifua": [
+"lives",
+"living"
+],
+"sola": [
+"fled",
+"flee"
+],
+"solaaga": [
+"flight"
+],
+"sola’aga": [
+"flight"
+],
+"sole": [
+"friends"
+],
+"soliga": [
+"transgression"
+],
+"soligatulafono": [
+"transgression"
+],
+"soligavine": [
+"winepress",
+"press",
+"tread"
+],
+"soligávine": [
+"winepress"
+],
+"solisolia": [
+"muzzle"
+],
+"solitulafono": [
+"transgression"
+],
+"solo": [
+"about"
+],
+"soloai": [
+"stead",
+"slept",
+"buried"
+],
+"solofanua": [
+"horses",
+"chariots",
+"horsemen"
+],
+"soloia": [
+"wall"
+],
+"soloiesea": [
+"blot",
+"blotted"
+],
+"solomuli": [
+"retreat"
+],
+"solosolo": [
+"napkin"
+],
+"somera": [
+"homer"
+],
+"sooga": [
+"sharper",
+"edges",
+"marrow"
+],
+"sopoia": [
+"jordan"
+],
+"soso": [
+"kissed",
+"near"
+],
+"sosola": [
+"fled",
+"flee"
+],
+"sosolo": [
+"spread",
+"skin",
+"plague"
+],
+"sosoo": [
+"morrow"
+],
+"sosopo": [
+"houses"
+],
+"sousou": [
+"sea"
+],
+"soátau": [
+"armourbearer"
+],
+"soātau": [
+"saul"
+],
+"suamalie": [
+"sweet"
+],
+"suasami": [
+"sea",
+"water"
+],
+"suasusu": [
+"milk",
+"flowing",
+"honey"
+],
+"suatia": [
+"plow"
+],
+"suauu": [
+"oil"
+],
+"suavai": [
+"water"
+],
+"suavine": [
+"wine"
+],
+"suega": [
+"question"
+],
+"suesue": [
+"search"
+],
+"suesuea": [
+"search"
+],
+"suesuega": [
+"search"
+],
+"suesueina": [
+"search"
+],
+"sufi": [
+"zuph"
+],
+"suiga": [
+"change"
+],
+"suikonesula": [
+"deputy"
+],
+"suilapalapa": [
+"thigh"
+],
+"suitulaga": [
+"stead"
+],
+"sukamoru": [
+"sycomore"
+],
+"suli": [
+"heirs"
+],
+"sulufaiga": [
+"refuge",
+"slayer"
+],
+"sulugatiti": [
+"loins"
+],
+"sulugātiti": [
+"loins",
+"gird"
+],
+"suluina": [
+"graft"
+],
+"sumefono": [
+"dulcimer",
+"sackbut",
+"flute"
+],
+"sumepalo": [
+"cymbals"
+],
+"sunako": [
+"synagogues",
+"synagogue"
+],
+"sunua": [
+"burn"
+],
+"suo": [
+"shovels",
+"fleshhooks"
+],
+"suotosina": [
+"spear",
+"beat"
+],
+"supa": [
+"palsy"
+],
+"susana": [
+"shushan",
+"lilies"
+],
+"susu": [
+"breasts"
+],
+"susue": [
+"skirt"
+],
+"susulu": [
+"light",
+"darkness"
+],
+"susunu": [
+"burn"
+],
+"susunuina": [
+"burn"
+],
+"suásusu": [
+"butter"
+],
+"suáuu": [
+"oil"
+],
+"suávai": [
+"melt"
+],
+"suāsusu": [
+"milk"
+],
+"suāuu": [
+"oil"
+],
+"suāvai": [
+"melt"
+],
+"sávali": [
+"messengers"
+],
+"sóloia": [
+"altar"
+],
+"sóloiesea": [
+"sin"
+],
+"súsú": [
+"wet"
+],
+"sāvali": [
+"ambassadors",
+"messengers"
+],
+"taaalo": [
+"play"
+],
+"taafili": [
+"wallow"
+],
+"taaga": [
+"pastures"
+],
+"taai": [
+"roll"
+],
+"taaligoligoa": [
+"silence"
+],
+"taalili": [
+"noise"
+],
+"taalo": [
+"asps",
+"sucking",
+"weaned"
+],
+"taamilo": [
+"sidon"
+],
+"taamilosaga": [
+"course"
+],
+"taanoa": [
+"bullock",
+"young",
+"lion"
+],
+"taapeape": [
+"scattered"
+],
+"taataai": [
+"platted"
+],
+"taatele": [
+"common"
+],
+"taatia": [
+"slain"
+],
+"taatitia": [
+"fallen",
+"lie"
+],
+"taavale": [
+"wheels"
+],
+"taavalevale": [
+"cart",
+"wheels"
+],
+"taavavale": [
+"wheels"
+],
+"tacao": [
+"morning"
+],
+"taeao": [
+"morning",
+"morrow"
+],
+"taei": [
+"brasen"
+],
+"taele": [
+"bathe",
+"wash"
+],
+"taelea": [
+"wash"
+],
+"taelega": [
+"pool"
+],
+"tafa": [
+"dawn"
+],
+"tafatafa": [
+"border"
+],
+"tafe": [
+"river",
+"water"
+],
+"tafea": [
+"carried",
+"captivity",
+"babylon"
+],
+"tafeaga": [
+"captivity"
+],
+"tafega": [
+"flood"
+],
+"tafi": [
+"shave"
+],
+"tafitafi": [
+"find"
+],
+"tafola": [
+"water"
+],
+"tafu": [
+"fire"
+],
+"tafu’e": [
+"hewn"
+],
+"taga": [
+"sacks",
+"bag"
+],
+"tagata-o-tupu": [
+"freedom"
+],
+"tagata-saoloto": [
+"freemen"
+],
+"tagatanuu": [
+"citizens"
+],
+"tagatavāai": [
+"seer"
+],
+"tagatánuu": [
+"small"
+],
+"tagavai": [
+"standard"
+],
+"taga’i": [
+"look"
+],
+"tagi": [
+"cry"
+],
+"tagiaue": [
+"gnashing",
+"wailing"
+],
+"tagiauē": [
+"gnashing",
+"lamentation"
+],
+"tagitagi": [
+"bells",
+"hem"
+],
+"tagitu’i": [
+"wailing",
+"mourning",
+"weeping"
+],
+"tagolima": [
+"needy"
+],
+"tagotago": [
+"feel"
+],
+"tagutugutu": [
+"stubble"
+],
+"tai": [
+"sea"
+],
+"taia": [
+"smite"
+],
+"taiaina": [
+"smitten"
+],
+"taie": [
+"vultures"
+],
+"taifa": [
+"four"
+],
+"taifitu": [
+"seven"
+],
+"taigaafi": [
+"grate",
+"hearth"
+],
+"tailima": [
+"five"
+],
+"tailua": [
+"two"
+],
+"taimi": [
+"time"
+],
+"taimua": [
+"head",
+"lamanites"
+],
+"taiono": [
+"six"
+],
+"taisautuaselau": [
+"hundredfold"
+],
+"taisefulu": [
+"ten"
+],
+"taiselau": [
+"hundredfold"
+],
+"taitai": [
+"leader",
+"led",
+"lead"
+],
+"taitaia": [
+"led",
+"lead"
+],
+"taitaiau": [
+"commander"
+],
+"taitaieseina": [
+"led"
+],
+"taitaiga": [
+"directions"
+],
+"taitaiina": [
+"led"
+],
+"taitoaafe": [
+"hundreds"
+],
+"taitoalimagafulu": [
+"hundreds"
+],
+"taitoalua": [
+"two"
+],
+"taitoasefulu": [
+"hundreds"
+],
+"taitoaselau": [
+"hundreds"
+],
+"taitolu": [
+"three"
+],
+"taitolugafulu": [
+"ground",
+"fruit"
+],
+"taja": [
+"proclaim"
+],
+"tak": [
+"sickness"
+],
+"takesa": [
+"badgers'"
+],
+"talafaamaumau": [
+"record"
+],
+"talafaasolopito": [
+"history"
+],
+"talai": [
+"preach",
+"gospel"
+],
+"talaia": [
+"delaiah"
+],
+"talaiga": [
+"preaching"
+],
+"talaina": [
+"told"
+],
+"talalelei": [
+"gospel"
+],
+"talaloa": [
+"robe"
+],
+"talanoa": [
+"talked"
+],
+"talatala": [
+"sackcloth"
+],
+"talatalaina": [
+"told",
+"old"
+],
+"talavou": [
+"youth",
+"young"
+],
+"tala’i": [
+"preach"
+],
+"tala’iga": [
+"preaching"
+],
+"tala’iina": [
+"preach"
+],
+"taleni": [
+"talents"
+],
+"tali": [
+"answered"
+],
+"tali-tiga": [
+"suffering"
+],
+"tali-tigā": [
+"suffering"
+],
+"talia": [
+"receive",
+"received"
+],
+"taliaina": [
+"received",
+"receive"
+],
+"talifaaaliga": [
+"revelator"
+],
+"taliga": [
+"ears"
+],
+"talileleia": [
+"acceptable",
+"accepted"
+],
+"talipupuni": [
+"buckler",
+"shield"
+],
+"talisuaga": [
+"supper"
+],
+"talita": [
+"shield"
+],
+"talitalia": [
+"patience"
+],
+"talitane": [
+"harlot"
+],
+"talitonu": [
+"believe"
+],
+"talitonuga": [
+"belief"
+],
+"talitā": [
+"breastplates"
+],
+"talo": [
+"solemn",
+"assembly"
+],
+"talofa": [
+"woe"
+],
+"talosaga": [
+"prayer"
+],
+"talosia": [
+"forever",
+"grant",
+"amen"
+],
+"talotalo": [
+"pray"
+],
+"talotaloga": [
+"prayer"
+],
+"talu": [
+"since"
+],
+"tamaalii": [
+"princes"
+],
+"tamafafine": [
+"aholibamah",
+"anah"
+],
+"tamafai": [
+"adoption"
+],
+"tamai": [
+"lamb"
+],
+"tamaiti": [
+"woman",
+"little"
+],
+"tamaitiiti": [
+"child"
+],
+"tamaloa": [
+"fellow"
+],
+"tamaoaiga": [
+"riches"
+],
+"tamatamai": [
+"finger"
+],
+"tamatamaiaao": [
+"finger",
+"veil"
+],
+"tamatamailima": [
+"finger"
+],
+"tamà": [
+"fathers"
+],
+"tamā": [
+"fathers"
+],
+"tana": [
+"war"
+],
+"tanea": [
+"male",
+"lying"
+],
+"tanimo": [
+"dragon"
+],
+"tanoa": [
+"charger",
+"bowls",
+"laver"
+],
+"tanu": [
+"dan",
+"buried"
+],
+"tanuga": [
+"burial"
+],
+"tanuma’i": [
+"linen"
+],
+"tanumia": [
+"buried"
+],
+"tao": [
+"spear"
+],
+"taooto": [
+"lie"
+],
+"tapapa": [
+"cieled"
+],
+"tapasā": [
+"compass"
+],
+"tapeneto": [
+"oak"
+],
+"tapili": [
+"blow"
+],
+"tapisa": [
+"scorn",
+"laugh"
+],
+"tapua": [
+"tappuah"
+],
+"tapuai": [
+"worship"
+],
+"tapuaiga": [
+"religion"
+],
+"tapua’i": [
+"worship"
+],
+"tapulima": [
+"hands"
+],
+"tapuni": [
+"shut"
+],
+"tapunia": [
+"shut"
+],
+"tapuvae": [
+"clay"
+],
+"tara": [
+"terah"
+],
+"tarako": [
+"dragon"
+],
+"tareki": [
+"drams"
+],
+"tasesa": [
+"tarshish",
+"beryl"
+],
+"tasura": [
+"pine",
+"box"
+],
+"tataa": [
+"fowls"
+],
+"tatala": [
+"opened"
+],
+"tatalaina": [
+"opened"
+],
+"tatalo": [
+"prayer",
+"pray"
+],
+"tatanu": [
+"stopped"
+],
+"tatao": [
+"snare"
+],
+"tatapuvae": [
+"long"
+],
+"tatatuli": [
+"please",
+"awake",
+"stir"
+],
+"tatu": [
+"told"
+],
+"tatuamiotonuina": [
+"justified"
+],
+"tatupu": [
+"branches"
+],
+"tatuu": [
+"hewn"
+],
+"tatuuina": [
+"choice",
+"hewn",
+"cedar"
+],
+"taua": [
+"war"
+],
+"tauagavale": [
+"left",
+"right"
+],
+"taualo": [
+"sea"
+],
+"taualumaga": [
+"proceedings"
+],
+"tauamiotonuina": [
+"justified"
+],
+"tauaso": [
+"blind"
+],
+"tauau": [
+"about"
+],
+"tauave": [
+"bear"
+],
+"tauaveina": [
+"shoulder"
+],
+"tauemu": [
+"mocked"
+],
+"tauemuga": [
+"derision"
+],
+"taufaaiuiuga": [
+"latter"
+],
+"taufaamatau": [
+"fear"
+],
+"taufaasese": [
+"deceivings"
+],
+"taufaifai": [
+"revilings"
+],
+"taufaiofo": [
+"amazed",
+"astonished"
+],
+"taufaitagi": [
+"wailing",
+"weeping"
+],
+"taufaitagiaue": [
+"outer",
+"gnashing"
+],
+"taufaitagitu’i": [
+"lament"
+],
+"taufeasogi": [
+"kissed"
+],
+"taufetuli": [
+"run",
+"ran"
+],
+"taufulufulu": [
+"hairy",
+"rough"
+],
+"taugata": [
+"costly",
+"apparel"
+],
+"taui": [
+"reward"
+],
+"tauiatua": [
+"require"
+],
+"tauimasui": [
+"vengeance"
+],
+"taula": [
+"anchors"
+],
+"taulaga": [
+"offering",
+"offer",
+"burnt"
+],
+"taulagaina": [
+"sacrifice"
+],
+"taulai": [
+"forward"
+],
+"taulaitu": [
+"magicians",
+"wizards",
+"familiar"
+],
+"taulalo": [
+"ahab"
+],
+"tauleagaina": [
+"condemned"
+],
+"taulealea": [
+"young"
+],
+"taulelea": [
+"young"
+],
+"tauleleia": [
+"good"
+],
+"taulima": [
+"bracelets"
+],
+"taulimaina": [
+"administering"
+],
+"taulogologo": [
+"report",
+"hearing"
+],
+"taulotoaiga": [
+"midst"
+],
+"taulotoa’iga": [
+"midst"
+],
+"tauluulu": [
+"top"
+],
+"tauláitu": [
+"magicians"
+],
+"taulāitu": [
+"magicians",
+"wizards",
+"familiar"
+],
+"taumafa": [
+"meat",
+"eat"
+],
+"taumafaiga": [
+"attempt"
+],
+"taumafanafana": [
+"summer"
+],
+"taumafataga": [
+"banquet"
+],
+"taumailei": [
+"hunt"
+],
+"taumamafa": [
+"partake"
+],
+"taumamao": [
+"far"
+],
+"taumatau": [
+"right"
+],
+"taumua": [
+"sea"
+],
+"taunuu": [
+"fulfilled"
+],
+"taunuuga": [
+"right"
+],
+"taupou": [
+"virgin"
+],
+"taupule": [
+"counsel",
+"gods"
+],
+"taupulega": [
+"council"
+],
+"taupulepule": [
+"counsel"
+],
+"taupulepulega": [
+"hide",
+"counsel",
+"secret"
+],
+"tausaga": [
+"years"
+],
+"tausalaga": [
+"condemnation"
+],
+"tausalaina": [
+"condemned"
+],
+"tausamaaga": [
+"wedding",
+"marriage"
+],
+"tausamiga": [
+"feast"
+],
+"tausi": [
+"keep",
+"commandments"
+],
+"tausia": [
+"kept",
+"keep"
+],
+"tausiga": [
+"keeping"
+],
+"tausimea": [
+"steward"
+],
+"tausisi": [
+"observe",
+"follow"
+],
+"tausitama": [
+"nursing"
+],
+"tausiusi": [
+"statutes",
+"keep"
+],
+"tausuai": [
+"offend"
+],
+"tautai": [
+"pilots",
+"mariners"
+],
+"tautalaga": [
+"speech"
+],
+"tautalagia": [
+"spoken"
+],
+"tautatala": [
+"spoken"
+],
+"tautau": [
+"hanging",
+"hanged"
+],
+"tautauina": [
+"hanged"
+],
+"tautevateva": [
+"stumble"
+],
+"tautiga": [
+"labour"
+],
+"tautino": [
+"declare"
+],
+"tautinoga": [
+"appointed"
+],
+"tautoga": [
+"oath"
+],
+"tautotogo": [
+"spring"
+],
+"tautu": [
+"butler"
+],
+"tautua": [
+"servant"
+],
+"tautulu": [
+"drop"
+],
+"tautuu": [
+"carry",
+"wall"
+],
+"tauvae": [
+"tinkling"
+],
+"tau’au": [
+"shoulder"
+],
+"taw": [
+"recompense"
+],
+"tawada": [
+"lamb",
+"offering",
+"burnt"
+],
+"ta’i": [
+"times",
+"ten"
+],
+"ta’ita’ia": [
+"led"
+],
+"ta’u": [
+"told",
+"tell"
+],
+"ta’ua": [
+"called"
+],
+"ta’uamiotonuina": [
+"justified"
+],
+"ta’uaogaina": [
+"worthy",
+"counted"
+],
+"ta’ufaatauvaa": [
+"despise"
+],
+"ta’ufaatauvaaina": [
+"despise"
+],
+"ta’uina": [
+"told"
+],
+"ta’uleagaina": [
+"evil"
+],
+"ta’uleleia": [
+"report"
+],
+"ta’umamaina": [
+"cleansed"
+],
+"ta’usalaga": [
+"condemnation"
+],
+"ta’usalaina": [
+"condemned"
+],
+"ta’uta’u": [
+"confess"
+],
+"ta’uta’ua": [
+"mention"
+],
+"ta’utino": [
+"confess"
+],
+"ta’uvaleina": [
+"profaned"
+],
+"teena": [
+"rejected"
+],
+"teine": [
+"damsel"
+],
+"teio": [
+"brimstone"
+],
+"teisi": [
+"little"
+],
+"teiō": [
+"lake",
+"brimstone"
+],
+"telenoa": [
+"uncover",
+"nakedness"
+],
+"telesitila": [
+"telestial"
+],
+"tema": [
+"tema",
+"demas"
+],
+"temoni": [
+"devil"
+],
+"tenari": [
+"penny",
+"pence"
+],
+"tepa": [
+"lifted",
+"look",
+"eyes"
+],
+"terasitila": [
+"terrestrial"
+],
+"tetemu": [
+"trembling"
+],
+"tetepa": [
+"eyes",
+"look",
+"lifted"
+],
+"teua": [
+"laid",
+"lay"
+],
+"teuga": [
+"ornaments",
+"jewels"
+],
+"teuina": [
+"vineyard",
+"lay"
+],
+"teuoloa": [
+"treasurer"
+],
+"teuteu": [
+"prepare"
+],
+"teuteua": [
+"messengers",
+"prepare"
+],
+"teuteuina": [
+"adorned"
+],
+"te’a": [
+"departed"
+],
+"tiai": [
+"cast"
+],
+"tiakono": [
+"deacons"
+],
+"tiapolo": [
+"devil"
+],
+"tietie": [
+"horsemen",
+"chariots"
+],
+"tigā": [
+"pain"
+],
+"tikila-pilesa": [
+"tiglath",
+"pileser"
+],
+"tima’ia": [
+"admonished"
+],
+"timu": [
+"rain"
+],
+"timuga": [
+"showers"
+],
+"tinei": [
+"quenched"
+],
+"tineia": [
+"quenched"
+],
+"tino": [
+"flesh"
+],
+"tiná": [
+"mother's",
+"sheba"
+],
+"tioata": [
+"glass",
+"crystal"
+],
+"tipiesea": [
+"drew",
+"smote",
+"ears"
+],
+"tiresa": [
+"tirzah"
+],
+"tisipenisione": [
+"dispensation"
+],
+"titania": [
+"tares"
+],
+"titina": [
+"strangled"
+],
+"tito": [
+"titus"
+],
+"tiute": [
+"duty"
+],
+"tiutetauave": [
+"responsibility"
+],
+"toa": [
+"mighty"
+],
+"toaafe": [
+"thousand"
+],
+"toaaga": [
+"industrious"
+],
+"toafa": [
+"four"
+],
+"toafagafulu": [
+"forty"
+],
+"toafitu": [
+"seven"
+],
+"toafitugafulu": [
+"seventy"
+],
+"toagalauapi": [
+"camp"
+],
+"toagálauapi": [
+"camp"
+],
+"toagālauapi": [
+"camp"
+],
+"toaitiiti": [
+"number"
+],
+"toaiva": [
+"nine"
+],
+"toaivagafulu": [
+"ninety"
+],
+"toalima": [
+"five"
+],
+"toalimagafulu": [
+"fifty"
+],
+"toalua": [
+"two"
+],
+"toaluafulu": [
+"twenty"
+],
+"toaono": [
+"six"
+],
+"toaonogafulu": [
+"threescore"
+],
+"toasa": [
+"wrath",
+"anger"
+],
+"toasefulu": [
+"twelve"
+],
+"toasefululua": [
+"twelve",
+"apostles"
+],
+"toaselau": [
+"centurion"
+],
+"toatamai": [
+"indignation"
+],
+"toatasi": [
+"only"
+],
+"toatinoagafulu": [
+"twelve",
+"ten"
+],
+"toatolu": [
+"three"
+],
+"toatolugafulu": [
+"thirty"
+],
+"toavalu": [
+"eight"
+],
+"toavalugafulu": [
+"fourscore"
+],
+"toeaina": [
+"elders"
+],
+"toefuatai": [
+"restored",
+"restore"
+],
+"toefuataiga": [
+"restoration"
+],
+"toefuataiina": [
+"restored"
+],
+"toefuata’iina": [
+"restored"
+],
+"toega": [
+"residue"
+],
+"toeitiiti": [
+"nearly"
+],
+"toele": [
+"bow",
+"ground"
+],
+"toesea": [
+"loss"
+],
+"toeseina": [
+"clothes"
+],
+"toetoe": [
+"almost"
+],
+"toetu": [
+"resurrection"
+],
+"toetutu": [
+"resurrection"
+],
+"toetutū": [
+"resurrection"
+],
+"toetuufaatasia": [
+"reunited"
+],
+"tofa": [
+"farewell",
+"asleep"
+],
+"tofatumoanaina": [
+"swallowed"
+],
+"tofi": [
+"inheritance"
+],
+"tofia": [
+"appointed"
+],
+"tofiaina": [
+"appointed"
+],
+"tofiga": [
+"office"
+],
+"tofitofi": [
+"brake"
+],
+"tofo": [
+"tasted",
+"taste"
+],
+"tofotofoga": [
+"trial",
+"temptation"
+],
+"tofotofoina": [
+"tried"
+],
+"tofusia": [
+"partakers"
+],
+"tofì": [
+"tribe",
+"families"
+],
+"toga": [
+"south"
+],
+"togalauapi": [
+"camp"
+],
+"togi": [
+"stone",
+"die"
+],
+"togiola": [
+"atonement"
+],
+"togiolaina": [
+"redemption",
+"redeemed"
+],
+"togitogi": [
+"gold"
+],
+"togitogia": [
+"engraven"
+],
+"togitogiga": [
+"engravings"
+],
+"togitogiina": [
+"carved"
+],
+"togálauapi": [
+"camp"
+],
+"togālauapi": [
+"camp"
+],
+"togāolive": [
+"vineyard",
+"natural",
+"nourished"
+],
+"toilalo": [
+"subdued"
+],
+"toina": [
+"opened"
+],
+"tolauapi": [
+"march",
+"camp"
+],
+"tolauapiga": [
+"camp"
+],
+"toloai": [
+"hen",
+"chickens"
+],
+"tolotolo": [
+"night"
+],
+"tolu": [
+"three",
+"third"
+],
+"tolugafulu": [
+"thirty"
+],
+"tolusefulu": [
+"thirty"
+],
+"tomai": [
+"arts"
+],
+"tomua": [
+"prevented"
+],
+"tomumumu": [
+"murmur"
+],
+"toolive": [
+"oliveyards"
+],
+"tootoo": [
+"rod",
+"staff"
+],
+"tootuli": [
+"kneeled",
+"knees"
+],
+"tootutuli": [
+"knelt",
+"kneeled"
+],
+"topa": [
+"tabret",
+"timbrel",
+"harp"
+],
+"topasi": [
+"topaz",
+"sardius",
+"carbuncle"
+],
+"topito": [
+"least"
+],
+"toro": [
+"dor"
+],
+"tosaito": [
+"pluck",
+"corn"
+],
+"tosiluaina": [
+"clovenfooted",
+"cud",
+"cheweth"
+],
+"tosina": [
+"drawn",
+"draw"
+],
+"toto": [
+"blood"
+],
+"totoa": [
+"valiant"
+],
+"totoe": [
+"remnant"
+],
+"totofi": [
+"appointed"
+],
+"totoga": [
+"legs",
+"inward"
+],
+"totogo": [
+"beginneth",
+"swell"
+],
+"totoina": [
+"plant"
+],
+"totolima": [
+"bloody"
+],
+"totolo": [
+"unclean"
+],
+"totonugalemu": [
+"midst"
+],
+"totoo": [
+"lean"
+],
+"totototo": [
+"raw"
+],
+"toto’a": [
+"rest"
+],
+"totò": [
+"plant"
+],
+"totóina": [
+"plant"
+],
+"totō": [
+"plant"
+],
+"toulu": [
+"flower",
+"withered",
+"grass"
+],
+"tovine": [
+"vineyard"
+],
+"to’a": [
+"butter"
+],
+"to’asā": [
+"wrath"
+],
+"to’atama’i": [
+"anger"
+],
+"tu3a": [
+"law"
+],
+"tua": [
+"back"
+],
+"tuafafine": [
+"sister"
+],
+"tuafafo": [
+"chambers"
+],
+"tuafanua": [
+"suburbs"
+],
+"tuagane": [
+"brethren"
+],
+"tuai": [
+"old"
+],
+"tuanai": [
+"passed"
+],
+"tuaoi": [
+"border"
+],
+"tuapa": [
+"wall"
+],
+"tua’ā": [
+"forefathers"
+],
+"tufaaga": [
+"flesh"
+],
+"tufatufaina": [
+"divided",
+"spoil"
+],
+"tufuga": [
+"work"
+],
+"tugia": [
+"fire"
+],
+"tugā": [
+"sore"
+],
+"tuia": [
+"heart"
+],
+"tuinanau": [
+"lusts"
+],
+"tuitui": [
+"thorns",
+"briers"
+],
+"tula": [
+"bald"
+],
+"tulafale": [
+"counsellors"
+],
+"tulafono": [
+"law"
+],
+"tulaga": [
+"state"
+],
+"tulagavae": [
+"steps"
+],
+"tula’i": [
+"arose",
+"stood"
+],
+"tulei": [
+"voice"
+],
+"tuleia": [
+"driven"
+],
+"tulemoe": [
+"slumber"
+],
+"tuli": [
+"cast"
+],
+"tulia": [
+"cast"
+],
+"tulieseina": [
+"chased"
+],
+"tuliloa": [
+"pursued",
+"pursue"
+],
+"tuliloaga": [
+"return"
+],
+"tuliloaina": [
+"pursue",
+"pursued"
+],
+"tulimanu": [
+"corners"
+],
+"tulimatai": [
+"looking"
+],
+"tulimata’i": [
+"forward"
+],
+"tulitatao": [
+"philistines"
+],
+"tulituli": [
+"drive"
+],
+"tulituliloa": [
+"pursued",
+"pursue"
+],
+"tulivae": [
+"knees"
+],
+"tuloto": [
+"inner"
+],
+"tulua": [
+"midnight"
+],
+"tuluiga": [
+"end"
+],
+"tulula": [
+"boat"
+],
+"tulu’i": [
+"prolong"
+],
+"tulu’iga": [
+"end",
+"earth"
+],
+"tumu": [
+"full",
+"filled"
+],
+"tumuai": [
+"scalp"
+],
+"tumutumu": [
+"top"
+],
+"tunoa": [
+"grace"
+],
+"tunua": [
+"roast"
+],
+"tupe": [
+"money"
+],
+"tupua": [
+"idols"
+],
+"tupuga": [
+"descendant"
+],
+"tupulaga": [
+"generation"
+],
+"tupuo": [
+"assyria"
+],
+"tupuolaola": [
+"flourish"
+],
+"tuputupu": [
+"grow"
+],
+"tusi": [
+"book"
+],
+"tusia": [
+"written"
+],
+"tusiaina": [
+"written"
+],
+"tusifaamaumauina": [
+"revelation",
+"record",
+"book"
+],
+"tusilima": [
+"province"
+],
+"tusitaai": [
+"scroll"
+],
+"tusitalafaamaumau": [
+"recorder"
+],
+"tusitusi": [
+"writing",
+"write"
+],
+"tusitusiga": [
+"scriptures"
+],
+"tusiupu": [
+"scribes",
+"scribe"
+],
+"tuta": [
+"judah"
+],
+"tutaima": [
+"mandrakes"
+],
+"tutii": [
+"stood"
+],
+"tutonu": [
+"noon"
+],
+"tutu": [
+"stood",
+"stand"
+],
+"tutulai": [
+"stand"
+],
+"tutula’i": [
+"stand"
+],
+"tutuli": [
+"cast"
+],
+"tutulia": [
+"driven"
+],
+"tutuliesea": [
+"driven"
+],
+"tutulu": [
+"weep",
+"wept",
+"enoch"
+],
+"tutumau": [
+"stand"
+],
+"tutumu": [
+"full"
+],
+"tutusa": [
+"equal"
+],
+"tutu’i": [
+"thrust"
+],
+"tutù": [
+"stood",
+"stand"
+],
+"tutú": [
+"stood"
+],
+"tutū": [
+"stood",
+"stand"
+],
+"tuua": [
+"left"
+],
+"tuuaao": [
+"footstool"
+],
+"tuua’ia": [
+"accused"
+],
+"tuueseeseina": [
+"divided"
+],
+"tuueseina": [
+"evil"
+],
+"tuufaatasia": [
+"together"
+],
+"tuufeanu": [
+"spit"
+],
+"tuufeaugani": [
+"bound"
+],
+"tuufua": [
+"desolate"
+],
+"tuuga": [
+"bases",
+"base",
+"laver"
+],
+"tuugalamepa": [
+"candlestick"
+],
+"tuugamau": [
+"grave",
+"sepulchre"
+],
+"tuugamoli": [
+"candlestick"
+],
+"tuugatanoa": [
+"bases"
+],
+"tuugauaina": [
+"winepress"
+],
+"tuugálamepa": [
+"candlestick"
+],
+"tuugámoli": [
+"candlestick"
+],
+"tuugátanoa": [
+"bases"
+],
+"tuugālamepa": [
+"candlestick",
+"lamps"
+],
+"tuulafoai": [
+"forsake"
+],
+"tuulafoaiina": [
+"forsaken"
+],
+"tuulima": [
+"generation",
+"record",
+"hands"
+],
+"tuumavaega": [
+"transgressed"
+],
+"tuumuli": [
+"backward"
+],
+"tuupao": [
+"garments",
+"touch",
+"border"
+],
+"tuupoina": [
+"appointed"
+],
+"tuusao": [
+"sharpness"
+],
+"tuusaolotoina": [
+"free"
+],
+"tuusaunoa": [
+"free"
+],
+"tuutuu": [
+"cords"
+],
+"tuutuuga": [
+"conditions"
+],
+"tuuvaa": [
+"launched"
+],
+"tuáfanua": [
+"suburbs",
+"slayer"
+],
+"tuāfanua": [
+"suburbs"
+],
+"tu’i": [
+"beat"
+],
+"tu’ia": [
+"block",
+"stumbling"
+],
+"tu’iga": [
+"buffetings"
+],
+"tu’imomoia": [
+"images",
+"brake",
+"pieces"
+],
+"tu’imomomo": [
+"pieces"
+],
+"tu’imomomoina": [
+"pieces",
+"break"
+],
+"tu’inanau": [
+"lusts"
+],
+"tu’ininiia": [
+"images"
+],
+"tu’iolo": [
+"fortify"
+],
+"tu’itu’i": [
+"knock"
+],
+"tàua": [
+"precious"
+],
+"táfea": [
+"captive",
+"captivity"
+],
+"táua": [
+"precious"
+],
+"tùlei": [
+"voice"
+],
+"túlei": [
+"voice",
+"saying"
+],
+"tútú": [
+"candle"
+],
+"tāfea": [
+"captive",
+"carried"
+],
+"tālā": [
+"dollars"
+],
+"tāua": [
+"precious"
+],
+"tăpapa": [
+"cedar"
+],
+"tūtū": [
+"shake",
+"dust",
+"testimony"
+],
+"uaga": [
+"rain"
+],
+"uai": [
+"ears",
+"hearken"
+],
+"uaina": [
+"wine"
+],
+"uamea": [
+"iron"
+],
+"uatoa": [
+"hail"
+],
+"uatogi": [
+"clubs"
+],
+"uato’a": [
+"hail"
+],
+"ua’i": [
+"heed",
+"ears"
+],
+"ufanafana": [
+"arrows",
+"sling"
+],
+"ufi": [
+"overlaid"
+],
+"ufifatafata": [
+"breastplate",
+"breastplates"
+],
+"ufimata": [
+"locks"
+],
+"ufitia": [
+"covered"
+],
+"ufiufi": [
+"covered"
+],
+"ufiufitia": [
+"covered"
+],
+"uia": [
+"passed",
+"wilderness"
+],
+"uiga": [
+"concerning"
+],
+"uii": [
+"youngest"
+],
+"uila": [
+"lightnings"
+],
+"uio": [
+"howl"
+],
+"uisa": [
+"hissing",
+"hiss"
+],
+"uiō": [
+"howl"
+],
+"ula": [
+"mocked"
+],
+"ulagia": [
+"mocked"
+],
+"ulaula": [
+"red"
+],
+"ulavale": [
+"lewdness"
+],
+"ulavavale": [
+"belial"
+],
+"uli": [
+"blue",
+"dogs",
+"purple"
+],
+"uliuli": [
+"black"
+],
+"ulo": [
+"pot",
+"caldron"
+],
+"ulu": [
+"head"
+],
+"uluai": [
+"first"
+],
+"ulua’i": [
+"resurrection"
+],
+"ulufale": [
+"enter"
+],
+"uluga": [
+"pigeons",
+"turtledoves",
+"turtles"
+],
+"uluitino": [
+"swine"
+],
+"uluitinoina": [
+"devil",
+"possess",
+"healed"
+],
+"ulumatua": [
+"firstborn"
+],
+"uluola": [
+"fruitful"
+],
+"ulupoo": [
+"skull",
+"golgotha"
+],
+"ulusinà": [
+"old"
+],
+"uluuluola": [
+"multiply"
+],
+"ulī": [
+"dogs"
+],
+"umi": [
+"length",
+"cubits",
+"breadth"
+],
+"umia": [
+"keys",
+"hold",
+"priesthood"
+],
+"umu": [
+"oven",
+"furnace"
+],
+"una": [
+"scales",
+"fins"
+],
+"uogo": [
+"poisonous",
+"serpent"
+],
+"upega": [
+"net"
+],
+"upuleaga": [
+"revile"
+],
+"upuleagaina": [
+"blasphemed"
+],
+"upumoni": [
+"truth"
+],
+"upusii": [
+"quotation"
+],
+"uputuu": [
+"traditions"
+],
+"urosa": [
+"lion",
+"bear"
+],
+"usa": [
+"uzza"
+],
+"usi": [
+"uzzi"
+],
+"usiusitai": [
+"obey"
+],
+"usiusitaia": [
+"obey",
+"gods"
+],
+"uso": [
+"brethren"
+],
+"uso-a-tagata": [
+"fellow"
+],
+"usu": [
+"early"
+],
+"usuusu": [
+"early",
+"rose"
+],
+"uta": [
+"ship"
+],
+"utia": [
+"bitten"
+],
+"utu": [
+"water"
+],
+"utufia": [
+"bottles"
+],
+"utupoto": [
+"mote",
+"beam"
+],
+"utuutu": [
+"flags"
+],
+"uumau": [
+"satan"
+],
+"uumi": [
+"lebanon",
+"cedar"
+],
+"uunai": [
+"heart"
+],
+"uunaia": [
+"constrained"
+],
+"uunaiga": [
+"influence"
+],
+"u’amea": [
+"ore",
+"copper",
+"iron"
+],
+"vaa": [
+"ship"
+],
+"vaafaatau": [
+"astrologers",
+"magicians",
+"soothsayers"
+],
+"vaaia": [
+"seen"
+],
+"vaaiga": [
+"scene",
+"view"
+],
+"vaapiapi": [
+"strait",
+"narrow"
+],
+"vaavaai": [
+"look"
+],
+"vaavaaia": [
+"probation",
+"probationary"
+],
+"vae": [
+"feet"
+],
+"vaefa": [
+"fowls",
+"beasts",
+"air"
+],
+"vaega": [
+"part"
+],
+"vaegamea": [
+"israel's"
+],
+"vaeloto": [
+"middle"
+],
+"vaelua": [
+"divided"
+],
+"vaeluaga": [
+"meridian"
+],
+"vaeluagalemu": [
+"half"
+],
+"vaeluaina": [
+"divided"
+],
+"vaeselau": [
+"hundredth"
+],
+"vaetofia": [
+"apart"
+],
+"vaetoluina": [
+"part"
+],
+"vaevae": [
+"divide"
+],
+"vaevaeina": [
+"divided",
+"divide"
+],
+"vagaia": [
+"besieged"
+],
+"vagana": [
+"except",
+"save"
+],
+"vaganā": [
+"except"
+],
+"vagavagai": [
+"round",
+"about"
+],
+"vagavagaia": [
+"round",
+"statutes",
+"about"
+],
+"vai": [
+"water"
+],
+"vaiaai": [
+"neighborhood"
+],
+"vaiaso": [
+"weeks"
+],
+"vaiasosa": [
+"weeks"
+],
+"vaieli": [
+"well"
+],
+"vailepa": [
+"pool"
+],
+"vaio": [
+"water"
+],
+"vaipuna": [
+"fountain"
+],
+"vaisapati": [
+"weeks",
+"magdalene"
+],
+"vaitafe": [
+"river"
+],
+"vaitaimi": [
+"period"
+],
+"vaitau": [
+"season"
+],
+"vaita’i": [
+"river"
+],
+"vaito’a": [
+"ice"
+],
+"vaitusi": [
+"ink"
+],
+"vaivai": [
+"weak"
+],
+"vaivaiga": [
+"infirmities",
+"weakness"
+],
+"valaau": [
+"called"
+],
+"valaauga": [
+"calling"
+],
+"valaauina": [
+"called"
+],
+"valaaulia": [
+"called"
+],
+"valalata": [
+"immediate",
+"connections"
+],
+"vale": [
+"fool"
+],
+"valea": [
+"foolish"
+],
+"valelea": [
+"fool"
+],
+"vali": [
+"daubed",
+"painted",
+"untempered"
+],
+"valia": [
+"plaister"
+],
+"valoaga": [
+"prophecy"
+],
+"valoia": [
+"prophesied"
+],
+"valu": [
+"eight",
+"eighth"
+],
+"valugafulu": [
+"fourscore"
+],
+"valusefulu": [
+"eighty"
+],
+"vanimonimo": [
+"firmament",
+"expanse"
+],
+"vanu": [
+"valley"
+],
+"vao": [
+"wilderness"
+],
+"vaogata": [
+"stubborn"
+],
+"vaomatua": [
+"forest"
+],
+"vasa": [
+"ship",
+"sea"
+],
+"vasega": [
+"course"
+],
+"vatele": [
+"wide",
+"broad"
+],
+"vava": [
+"far"
+],
+"vavae": [
+"cut",
+"off"
+],
+"vavaeeseina": [
+"cut",
+"off"
+],
+"vavaeina": [
+"water"
+],
+"vavalo": [
+"prophesy",
+"prophesied"
+],
+"vavau": [
+"old"
+],
+"vavave": [
+"swift"
+],
+"vavaò": [
+"noise"
+],
+"vavega": [
+"miracles",
+"wonders"
+],
+"velavela": [
+"famine",
+"sore"
+],
+"veli": [
+"veil"
+],
+"velo": [
+"javelin"
+],
+"vete": [
+"spoil",
+"prey"
+],
+"vetea": [
+"spoil",
+"prey"
+],
+"vetega": [
+"plundering"
+],
+"veteina": [
+"spoil"
+],
+"vevela": [
+"heat"
+],
+"viia": [
+"praise"
+],
+"viiga": [
+"praise",
+"glory"
+],
+"vili": [
+"lot"
+],
+"vine": [
+"vine"
+],
+"vineka": [
+"spunge",
+"vinegar"
+],
+"vineta": [
+"vinegar"
+],
+"vivii": [
+"praise"
+],
+"vivini": [
+"cock",
+"crow",
+"thrice"
+],
+"vyao": [
+"wilderness"
+],
+"válea": [
+"foolish"
+],
+"vālea": [
+"foolish"
+],
+"vāvāō": [
+"excitement",
+"methodists"
+],
+"yae": [
+"feet"
+],
+"yanu": [
+"valley"
+],
+"yao": [
+"wilderness"
+],
+"yna": [
+"blessed"
+],
+"áumau": [
+"sojourn"
+],
+"āiā": [
+"claim"
+],
+"ālagālima": [
+"shoulder"
+],
+"āumau": [
+"sojourn"
+],
+"’ai": [
+"eat",
+"meat"
+],
+"’aia": [
+"tree",
+"eat"
+],
+"’aiga": [
+"feast"
+],
+"’aina": [
+"eat"
+],
+"’ainā": [
+"inhabited"
+],
+"’aioi": [
+"plead"
+],
+"’aisi": [
+"beggar"
+],
+"’aivao": [
+"wild"
+],
+"’alo": [
+"face"
+],
+"’alofaga": [
+"excuse"
+],
+"’alu": [
+"lees",
+"dregs"
+],
+"’apa": [
+"brass",
+"brasen"
+],
+"’apa’apa": [
+"fins",
+"scales"
+],
+"’aso’aso": [
+"rib"
+],
+"’ata’ata": [
+"laugh",
+"sarah"
+],
+"’ato": [
+"scrip"
+],
+"’au": [
+"hosts"
+],
+"’autau": [
+"army"
+],
+"’auupega": [
+"weapons"
+],
+"’ava": [
+"beard"
+],
+"’ea": [
+"air"
+],
+"’ili": [
+"axes"
+],
+"’oa": [
+"riches"
+],
+"’olo": [
+"tower"
+],
+"’ona": [
+"poison"
+],
+"’onā": [
+"drunken"
+],
+"’oti": [
+"goats",
+"kid"
+],
+"’utu": [
+"lice"
+],
+"’u’u": [
+"held"
+],
+"’’ino’ino": [
+"hate"
+]
+}
+}

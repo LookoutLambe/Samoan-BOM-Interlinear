@@ -197,6 +197,10 @@ def build_names(books) -> set:
     return {t for t, n in up.items() if n >= 2 and low.get(t, 0) == 0}
 
 
+VOCAB_MAXLEN = max(max(len(k.split()) for k in SG.VOCABULARY),
+                   max((len(k.split()) for k in getattr(SG, "TRANSLITERATED", {})), default=1), 3)
+
+
 def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
     """(length, source) of the unit starting at i, or (0, '').
 
@@ -223,6 +227,16 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
                 if k + m > b and k + m <= len(toks) and n(k, k + m) in SG.MULTI_FORMS:
                     return True
         return False
+
+    # 0. A REGISTERED TERM OR IDIOM IS ITS OWN UNIT, BEFORE MEMORY. `i le ua
+    #    faapea lava` is "and it was so"; the inventory knows `i le ua` (on the
+    #    neck) and would take it first. A transliterated term likewise, even
+    #    where nothing in the curation ever glossed it -- `sume` and `eseroma`
+    #    head no unit in the Book of Mormon. Longest span first, up to the
+    #    longest registered key.
+    for span in range(min(VOCAB_MAXLEN, len(toks) - i), 0, -1):
+        if SG.transliterated(n(i, i + span)) or SG.vocabulary(n(i, i + span)):
+            return span, "term"
 
     def eats_a_name(a, b):
         """A NAME OPENS ITS OWN PHRASE — always, not just after a verb.
@@ -320,14 +334,7 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
         if SG.primary_gloss(key):
             return span, "rule"
 
-    # 3. a transliterated term is always its own unit, even where nothing in
-    #    the curation ever glossed it -- `sume` and `eseroma` head no unit in
-    #    the Book of Mormon, so without this they stay invisible
-    # a registered word may be more than one token: `tamai mamoe` is "the Lamb"
-    for span in (3, 2, 1):
-        if i + span <= len(toks) and (SG.transliterated(n(i, i + span))
-                                      or SG.vocabulary(n(i, i + span))):
-            return span, "term"
+    # 3. (see the top of this function: registered terms are matched first)
 
     # 4. a closed-class form the grammar can gloss on its own
     if SG.primary_gloss(n(i)):
@@ -529,6 +536,10 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
         return "", "silent-by-frame"
     if framed and in_english(framed, ew):
         return framed, "frame"
+    if framed and form in FRAME_OR_SILENT:
+        # the frame identified the construction; the verse has no word for
+        # the marker, so the marker says nothing rather than a stray reading
+        return "", "silent-by-frame"
     def carried(reading):
         # a reading of more than one word is present only if ALL of it is --
         # "to him" must not win on the "to" alone
@@ -548,6 +559,11 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     if len(readings) == 1:
         return readings[0], "particle-sole"
     return "", "particle-undecided"
+
+
+# markers whose frame reading, when the verse lacks it, means SILENT -- never
+# a fall-through to the positional readings (`Ia tutupu` is not "that grow")
+FRAME_OR_SILENT = {'ia'}
 
 
 def merge_punctuation(cands: Counter) -> Counter:
@@ -589,6 +605,15 @@ def merge_punctuation(cands: Counter) -> Counter:
 # `ua` 1,499, `i` 963.
 LEANS_BACK = {"ai", "lava", "uma", "foi", "fo’i", "atu", "mai", "ifo", "a’e",
               "aʻe", "ane", "pea"}
+
+
+# English words that are never a leftover's partner: auxiliaries, the light
+# verbs, and the copulas the Samoan says with a particle or not at all.
+LEFTOVER_STOP = {"be", "been", "being", "is", "are", "was", "were", "am", "do", "does", "did",
+                 "done", "have", "has", "had", "hath", "hast", "shall", "will", "would", "should",
+                 "may", "might", "can", "could", "let", "said", "saith", "say", "says", "came",
+                 "come", "went", "pass", "unto", "thereof", "therein", "thereto", "also", "even",
+                 "yea", "behold", "now", "then", "there", "thus", "very", "own", "same"}
 
 
 def attach_particles(out, toks):
@@ -675,11 +700,20 @@ def align_to_verse(gloss: str, english: str) -> str:
     return gloss
 
 
-def choose(cands: Counter, english: str, want_tense: str | None = None) -> tuple[str, str]:
+def choose(cands: Counter, english: str, want_tense: str | None = None,
+           strict: bool = False) -> tuple[str, str]:
     cands = merge_punctuation(cands)
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
         only = cands.most_common(1)[0][0]
+        # IN THE BIBLE THE VERSE STILL DECIDES. A unanimous curated reading is a
+        # human decision about the Book of Mormon's usage; O le Tusi Paia uses
+        # the same word elsewhere -- `uiga` is "concerning" in every curated
+        # verse and "kind" in "after his kind" -- so there a unanimous reading
+        # the verse does not carry is vetoed, and the dictionaries and the
+        # learned lexicon get their turn.
+        if strict and vetoed(only, english):
+            return trim_absent_tail(only, english), "settled-unconfirmed"
         # A UNANIMOUS CURATED READING IS A HUMAN DECISION about this exact
         # Samoan string, and the veto exists to arbitrate between COMPETING
         # readings -- not to overrule one. `sa ia faapa’ū ifo` is glossed "he
@@ -736,7 +770,7 @@ def choose(cands: Counter, english: str, want_tense: str | None = None) -> tuple
         return "", "vetoed"
     total = sum(cands.values())
     if n / total >= 0.90:
-        return trim_absent_tail(dom, english), "dominant"
+        return trim_absent_tail(dom, english), ("dominant-unconfirmed" if strict else "dominant")
     return "", "undecided"
 
 
@@ -793,7 +827,7 @@ def main(argv: list[str] | None = None) -> int:
     # (modernised) English, gloss it: grammar first, then the curated
     # inventory, the lexicon, the dictionary, the dominant lemma. The Book of
     # Mormon volumes and O le Tusi Paia both come through here.
-    def gloss_tokens(toks, en_text):
+    def gloss_tokens(toks, en_text, strict=False):
         nonlocal stats
         out = [{"sm": t, "en": ""} for t in toks]
         i = 0
@@ -801,9 +835,15 @@ def main(argv: list[str] | None = None) -> int:
         while i < len(toks):
             hit, src = frame_at(toks, i, inv, maxlen, lex, names)
             if not hit:
+                # A WORD NOBODY HAS SEEN IS STILL A WORD. Nothing in the
+                # curation, the lexicon or the grammar frames it, so it used to
+                # be skipped before the dictionaries were ever asked -- and the
+                # Bible is full of words the Book of Mormon never used
+                # (fegaoioiai, nunumi). It stands as its own unit and goes
+                # through the later stages: Pratt, EALD, the learned lexicon,
+                # the leftover pairing.
                 stats["token: no unit"] += 1
-                i += 1
-                continue
+                hit, src = 1, "none"
             key_sm = norm(" ".join(toks[i:i + hit]))
             if src == "absorbed" and key_sm not in inv:
                 # the particle carries no English; the gloss belongs to
@@ -886,10 +926,10 @@ def main(argv: list[str] | None = None) -> int:
             elif key_sm in inv:
                 gloss, why = choose(inv[key_sm], en_text,
                                     SG.tense_of_tam(prev_key)
-                                    or unit_tense(key_sm))
+                                    or unit_tense(key_sm), strict)
                 why = why + "/" + src
             elif key_sm in lex:
-                gloss, why = choose(lex[key_sm], en_text)
+                gloss, why = choose(lex[key_sm], en_text, strict=strict)
                 why = why + "/lex"
 
             else:
@@ -915,14 +955,26 @@ def main(argv: list[str] | None = None) -> int:
             # where the corpus has nothing to say. The verse still has
             # to carry the sense, so a dictionary entry that does not
             # fit the verse is not written.
-            if not gloss and hit == 1 and key_sm not in SG.CLOSED_CLASS \
-                    and key_sm not in SG.AMBIGUOUS:
+            provisional = None
+            if gloss and why.split("/")[0].endswith("-unconfirmed"):
+                provisional = (gloss, why)
+                gloss = ""
+            dict_word = key_sm if hit == 1 else None
+            if hit > 1:
+                # a unit of particles around ONE content word -- `na fegaoioiai
+                # foi`, `i le fogatai` -- is looked up by that word
+                opens_ = [t for t in key_sm.split()
+                          if t not in SG.CLOSED_CLASS and t not in SG.AMBIGUOUS and t not in SG.TAM]
+                if len(opens_) == 1:
+                    dict_word = opens_[0]
+            if not gloss and dict_word and dict_word not in SG.CLOSED_CLASS \
+                    and dict_word not in SG.AMBIGUOUS:
                 ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
                 # A dictionary sense is often several alternatives in
                 # one string -- Pratt writes `maua` as "get, to obtain,
                 # to acquire" -- and the verse will carry one of them,
                 # not all three. Each alternative is tried on its own.
-                for sense in SG.dictionary(key_sm):
+                for sense in SG.dictionary(dict_word):
                     for alt in re.split(r"[,;]", sense):
                         alt = re.sub(r"^\s*to\s+", "", alt).strip()
                         words = [w for w in re.findall(r"[a-z']+", alt)
@@ -948,7 +1000,7 @@ def main(argv: list[str] | None = None) -> int:
                              and t not in SG.AMBIGUOUS]
                 if len(open_toks) == 1 and open_toks[0] in lex:
                     d = lex[open_toks[0]]
-                    back, bwhy = choose(d, en_text)
+                    back, bwhy = choose(d, en_text, strict=strict)
                     # A COMMON WORD'S RARE READING needs more than one
                     # verse happening to contain it. `mea` is "thing"
                     # 1,714 times and was read "own" off 3 witnesses,
@@ -956,7 +1008,10 @@ def main(argv: list[str] | None = None) -> int:
                     total = sum(d.values())
                     share = d.get(back, 0) / total if total else 0
                     if back and not (total >= 500 and share < 0.01):
-                        gloss, why = back, bwhy + "/backoff"
+                        if bwhy.endswith("-unconfirmed"):
+                            provisional = provisional or (back, bwhy + "/backoff")
+                        else:
+                            gloss, why = back, bwhy + "/backoff"
             # UNDER AN EXPLICIT TENSE MARKER, A VERB SAYS ITS WORD. `Na faia e le
             # Atua` reads "created" in the KJV, and the curation has faia only as
             # made / wrought / did / done, so every reading was vetoed and the verb
@@ -978,6 +1033,10 @@ def main(argv: list[str] | None = None) -> int:
                     if tensed:
                         tensed.sort(reverse=True)
                         gloss, why = tensed[0][1], "tensed-plurality/" + src
+            if not gloss and provisional:
+                # the curation's word stands where no verse-confirmed sense
+                # replaced it: `gaogao` "empty" beside the KJV's "void"
+                gloss, why = provisional[0], provisional[1].replace("-unconfirmed", "-kept")
             prev_key = key_sm
             stats["unit: " + why] += 1
             if gloss:
@@ -988,6 +1047,33 @@ def main(argv: list[str] | None = None) -> int:
                 out[i + hit - 1]["en"] = gloss
             i += hit
         attach_particles(out, toks)
+        # THE LAST WORD PAIRS ITSELF. When exactly one open-class token of the
+        # verse is still blank and exactly one content word of the verse's
+        # English is carried by no gloss, they are each other's: a verse is a
+        # closed system, and one Samoan word left over against one English word
+        # left over is an alignment the verse itself makes. `Sa soona nunumi le
+        # lalolagi` -- nunumi occurs once in the whole corpus, and "form" is the
+        # one word of Genesis 1:2 nothing else accounts for. Names pair the same
+        # way (Samita / Smith) when they are the verse's only leftovers.
+        blanks = [j for j, w in enumerate(out)
+                  if not w["en"] and len(norm(w["sm"])) >= 3
+                  and norm(w["sm"]) not in SG.CLOSED_CLASS and norm(w["sm"]) not in SG.AMBIGUOUS
+                  and norm(w["sm"]) not in SG.TAM and norm(w["sm"]) not in SG.PRONOUNS]
+        if len(blanks) == 1:
+            said = set()
+            for w in out:
+                if w["en"] and w["en"] != CONT:
+                    for x in re.findall(r"[a-z']+", w["en"].lower()):
+                        said.add(x); said |= _stems(x)
+            left = []
+            for x in re.findall(r"[A-Za-z][a-z']+", en_text or ""):
+                lx = x.lower()
+                if lx in FUNCTION_ONLY or lx in LEFTOVER_STOP or len(lx) < 3: continue
+                if lx in said or (_stems(lx) & said): continue
+                if x not in left: left.append(x)
+            if len(left) == 1:
+                out[blanks[0]]["en"] = left[0] if left[0][0].isupper() and norm(out[blanks[0]]["sm"]) in names else left[0].lower()
+                stats["unit: leftover-pair"] += 1
         return out
 
     if a.bible:
@@ -1009,7 +1095,7 @@ def main(argv: list[str] | None = None) -> int:
                     toks = [w["sm"] for w in verse["words"]]
                     en_text = modernise(bible_english.get(
                         f"{meta['nameEn']}|{ch['num']}|{verse['num']}", ""))
-                    out = gloss_tokens(toks, en_text)
+                    out = gloss_tokens(toks, en_text, strict=True)
                     verse["words"] = out
                     ntok += len(out)
                     ngl += sum(1 for w in out if (w["en"] or "").strip())

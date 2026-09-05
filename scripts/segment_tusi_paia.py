@@ -373,6 +373,7 @@ def clean(text):
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+1\s+(?=[a-z])', ' i ', text)     # "1" for the particle i
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+0\s+(?=[a-z])', ' o ', text)     # "0" for the particle o
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+l\s+(?=[a-z])', ' i ', text)
+    text = re.sub(r'(^|[.;:,!?”]\s+)la(?=\s)', r'\1Ia', text)                # "la" for the marker Ia at a clause start
     return re.sub(r'\s+', ' ', text).strip()
 out = {k: {'sm': clean(verses[k]), 'est': k in est_keys} for k in verses}
 json.dump({'ratio': R, 'verses': out, 'notes': notes, 'spans': [(ENG[k], how) for k, b, e2, how in spans]},
