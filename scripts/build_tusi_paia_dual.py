@@ -9,17 +9,43 @@ import json, re
 from pathlib import Path
 D = Path(__file__).resolve().parent.parent / 'corpus' / 'tusi_paia'
 OUT = D / 'dual'; OUT.mkdir(exist_ok=True)
-V = json.load(open(D / 'tusi_paia_verses.json', encoding='utf8'))['verses']
+# THE TEXT IS THE 1887 EDITION (BFBS, Blackfriars; archive.org oletusipaiaole00lond),
+# segmented from the PDF's text layer by scripts/segment_1887_pdf.py -- the edition
+# the user wants the app to carry ("Lokou", "Ieova"). The later revision segmented
+# earlier (tusi_paia_verses.json) stands in only where the 1887 verse is missing or
+# obviously broken (empty, or far from the KJV's length), and every such verse is
+# listed in the index under "fallback".
+LATER = json.load(open(D / 'tusi_paia_verses.json', encoding='utf8'))['verses']
+E1887 = json.load(open(D / 'tusi_paia_verses_1887.json', encoding='utf8'))['verses']
+KJV_TEXT = json.load(open(D / 'english_ot_nt.json', encoding='utf8'))['verses']
+V = {}
+FALLBACK = []
+for key, later in LATER.items():
+    rec = E1887.get(key)
+    ok = False
+    if rec and rec.get('sm', '').strip():
+        ratio = len(rec['sm']) / max(1, len(KJV_TEXT.get(key, '')))
+        ok = 0.35 <= ratio <= 3.0 and len(rec['sm'].split()) >= 2
+    if ok:
+        V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}
+    else:
+        V[key] = dict(later, src='later')
+        FALLBACK.append(key)
+print(f"1887 text for {len(V) - len(FALLBACK)} verses; later edition stands in for {len(FALLBACK)}")
 K = json.load(open(D / 'english_ot_nt.json', encoding='utf8')); KV = K['verses']; KC = K['counts']
 OT = [('Genesis','Kenese'),('Exodus','Esoto'),('Leviticus','Levitiko'),('Numbers','Numera'),('Deuteronomy','Teuteronome'),('Joshua','Iosua'),('Judges','Faamasino'),('Ruth','Ruta'),('1 Samuel','1 Samuelu'),('2 Samuel','2 Samuelu'),('1 Kings','1 Tupu'),('2 Kings','2 Tupu'),('1 Chronicles','1 Nofoaiga a Tupu'),('2 Chronicles','2 Nofoaiga a Tupu'),('Ezra','Esera'),('Nehemiah','Neemia'),('Esther','Eseta'),('Job','Iopu'),('Psalms','Salamo'),('Proverbs','Faataoto'),('Ecclesiastes','Failauga'),('Song of Solomon','Pese a Solomona'),('Isaiah','Isaia'),('Jeremiah','Ieremia'),('Lamentations','Auega'),('Ezekiel','Esekielu'),('Daniel','Tanielu'),('Hosea','Hosea'),('Joel','Ioelu'),('Amos','Amosa'),('Obadiah','Opetaia'),('Jonah','Iona'),('Micah','Mika'),('Nahum','Nauma'),('Habakkuk','Sapakuka'),('Zephaniah','Sefanaia'),('Haggai','Hakai'),('Zechariah','Sakaria'),('Malachi','Malaki')]
 NT = [('Matthew','Mataio'),('Mark','Mareko'),('Luke','Luka'),('John','Ioane'),('Acts','Galuega'),('Romans','Roma'),('1 Corinthians','1 Korinito'),('2 Corinthians','2 Korinito'),('Galatians','Kalatia'),('Ephesians','Efeso'),('Philippians','Filipi'),('Colossians','Kolose'),('1 Thessalonians','1 Tesalonia'),('2 Thessalonians','2 Tesalonia'),('1 Timothy','1 Timoteo'),('2 Timothy','2 Timoteo'),('Titus','Tito'),('Philemon','Filemoni'),('Hebrews','Eperu'),('James','Iakopo'),('1 Peter','1 Peteru'),('2 Peter','2 Peteru'),('1 John','1 Ioane'),('2 John','2 Ioane'),('3 John','3 Ioane'),('Jude','Iuta'),('Revelation','Faaaliga')]
-index = {'volumes': [{'id': 'ot', 'nameSm': 'O le Feagaiga Tuai', 'nameEn': 'Old Testament'},
+index = {'fallback': FALLBACK, 'volumes': [{'id': 'ot', 'nameSm': 'O le Feagaiga Tuai', 'nameEn': 'Old Testament'},
                      {'id': 'nt', 'nameSm': 'O le Feagaiga Fou', 'nameEn': 'New Testament'}],
          'books': [], 'estimated': [], 'missing': [],
          'source': 'corpus/tusi_paia: archive.org samoan-bible OCR segmented by scripts/segment_tusi_paia.py; English = KJV (KJV versification) from the Spanish app'}
 # hand-curated verses (tusi_paia_hand.json): their Samoan is the corrected text
 hand_path = Path(__file__).resolve().parent.parent / 'O le Tusi a Mamona Interlinear' / 'Resources' / 'tusi_paia_hand.json'
 HAND = json.load(open(hand_path, encoding='utf8'))['verses'] if hand_path.exists() else {}
+# per-verse OCR repairs (tusi_paia_text_fixes.json): {"john|1|20": [["Onata'utinoleao", "Ona ta‘utino lea o"]]}
+# -- text only; the generator glosses the repaired verse like any other
+fix_path = hand_path.parent / 'tusi_paia_text_fixes.json'
+FIX = json.load(open(fix_path, encoding='utf8'))['verses'] if fix_path.exists() else {}
 english = {}
 tot_v = tot_w = 0
 for vol, books in (('ot', OT), ('nt', NT)):
@@ -32,6 +58,13 @@ for vol, books in (('ot', OT), ('nt', NT)):
                 key = f'{en}|{c}|{v}'; english[key] = KV[key]
                 rec = V.get(key)
                 hkey = f'{bid}|{c}|{v}'
+                if rec is not None and hkey in FIX:
+                    fixed = rec['sm']          # NOT `sm`: that is the book's Samoan name in this loop
+                    for bad, good in FIX[hkey]:
+                        if bad not in fixed:
+                            print(f'  text fix {hkey}: {bad!r} not in verse (edition changed?) -> skipped'); continue
+                        fixed = fixed.replace(bad, good, 1)
+                    rec = {'sm': fixed, 'est': rec['est']}
                 if hkey in HAND:
                     rec = {'sm': ' '.join(w['sm'] for w in HAND[hkey]['words']), 'est': False}
                 if rec is None or not rec['sm'].strip():

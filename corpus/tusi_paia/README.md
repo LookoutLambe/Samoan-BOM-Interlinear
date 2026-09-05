@@ -68,3 +68,14 @@ or entry for the Bible on the landing page, hand review of the estimated verses;
 aligned Bible as evidence for the D&C/PGP blanks
 (`scripts/diag_blanks_dc_pgp.py`, `scripts/name_matcher_proto.py`): names like Enoka, Lameko,
 Metusela, Peteru, Paulo, Mekaeli now have direct witnesses.
+
+## The 1887 edition is the text (2026-09-05)
+The app's Samoan Bible is now the **1887 BFBS printing** (archive.org `oletusipaiaole00lond`,
+the PDF on the user's Desktop, never in the repo): `scripts/segment_1887_pdf.py` reads the PDF's
+text layer with word positions (PyMuPDF), ties the margin verse numerals to their lines, and cuts
+verses on the edition's own evidence -> `tusi_paia_verses_1887.json` (with per-verse `sim` against
+the later edition and `flags`). The later revision (`tusi_paia_verses.json`, `Upu`/`le ALII`) is now
+only the boundary guide, the OCR spelling reference, and the FALLBACK where an 1887 verse is missing
+or fails the KJV-length sanity check; `build_tusi_paia_dual.py` lists those in the index under
+`fallback`. First pass: 99.0% of verses from the 1887 text. Known gaps: Psalms 18/37/78/119 (both
+editions damaged there), a few chapter starts whose numeral the OCR swallowed.

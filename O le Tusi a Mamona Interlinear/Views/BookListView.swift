@@ -185,21 +185,21 @@ private struct SourceNotice: View {
     private let english = """
     The Old and New Testament in this app are O le Tusi Paia, the Samoan Bible \
     translated by the London Missionary Society. That translation is in the \
-    public domain. The copy used here is the edition distributed and sold by The \
-    Church of Jesus Christ of Latter-day Saints, which carries the same public \
-    domain London Missionary Society text. The English beside it is the King \
-    James Version, also in the public domain.
+    public domain. The text used here is the 1887 printing by the British and \
+    Foreign Bible Society, the same London Missionary Society text that The \
+    Church of Jesus Christ of Latter-day Saints distributes and sells. The \
+    English beside it is the King James Version, also in the public domain.
     """
 
     private let samoan = """
     O le Feagaiga Tuai ma le Feagaiga Fou i lenei polokalama, o le Tusi Paia lea \
     na fa\u{02bb}aliliuina e le London Missionary Society. O lena fa\u{02bb}aliliuga \
-    e leai sona puletaofia. O le kopi o lo\u{02bb}o fa\u{02bb}aaog\u{0101}ina i \
-    lenei mea, o le lomiga lea e tufatufaina ma fa\u{02bb}atauina atu e Le Ekalesia \
-    a Iesu Keriso o le Au Paia o Aso e Gata Ai, o lo\u{02bb}o i ai le tusitusiga \
-    lava lea a le London Missionary Society e leai sona puletaofia. O le \
-    fa\u{02bb}aPeretania i ona tafatafa o le King James Version, e leai fo\u{02bb}i \
-    sona puletaofia.
+    e leai sona puletaofia. O le tusitusiga o lo\u{02bb}o fa\u{02bb}aaog\u{0101}ina i \
+    lenei mea, o le lomiga lea i le 1887 e le British and Foreign Bible Society, o \
+    le tusitusiga lava lea a le London Missionary Society e tufatufaina ma \
+    fa\u{02bb}atauina atu e Le Ekalesia a Iesu Keriso o le Au Paia o Aso e Gata Ai. \
+    O le fa\u{02bb}aPeretania i ona tafatafa o le King James Version, e leai \
+    fo\u{02bb}i sona puletaofia.
     """
 
     // Word-by-word interlinear (Samoan surface phrase, concise English gloss).
@@ -212,18 +212,18 @@ private struct SourceNotice: View {
         ("e le London Missionary Society.", "by the London Missionary Society."),
         ("O lena fa\u{02bb}aliliuga", "That translation"),
         ("e leai sona puletaofia.", "has no copyright: public domain."),
-        ("O le kopi", "The copy"),
+        ("O le tusitusiga", "The text"),
         ("o lo\u{02bb}o fa\u{02bb}aaog\u{0101}ina", "used"),
         ("i lenei mea,", "here,"),
-        ("o le lomiga lea", "is the edition"),
+        ("o le lomiga lea", "is the printing"),
+        ("i le 1887", "of 1887"),
+        ("e le British and Foreign Bible Society,", "by the British and Foreign Bible Society,"),
+        ("o le tusitusiga lava lea", "the same text"),
+        ("a le London Missionary Society", "of the London Missionary Society"),
         ("e tufatufaina", "distributed"),
         ("ma fa\u{02bb}atauina atu", "and sold"),
         ("e Le Ekalesia a Iesu Keriso", "by The Church of Jesus Christ"),
-        ("o le Au Paia o Aso e Gata Ai,", "of Latter-day Saints,"),
-        ("o lo\u{02bb}o i ai", "which carries"),
-        ("le tusitusiga lava lea", "the same text"),
-        ("a le London Missionary Society", "of the London Missionary Society"),
-        ("e leai sona puletaofia.", "that has no copyright."),
+        ("o le Au Paia o Aso e Gata Ai.", "of Latter-day Saints."),
         ("O le fa\u{02bb}aPeretania", "The English"),
         ("i ona tafatafa", "beside it"),
         ("o le King James Version,", "is the King James Version,"),

@@ -246,3 +246,144 @@ if __name__ == "__main__":
     for g in sys.argv[1:] or ["cometh", "giveth", "bringeth", "doeth",
                               "thou goest", "O ye", "thy God", "unto all"]:
         print("%-16r -> %r" % (g, modernise(g)))
+
+
+# ── TENSE AGREEMENT ─────────────────────────────────────────────────────────
+# The tense marker in front of a Samoan verb (`na`/`sa` past, `ua` perfect,
+# `e`/`te`/`o loo` present) is a grammar fact, and the gloss has to say it.
+# The curation remembers a verb in whatever form its verses happened to use,
+# so `na ia avatu` came out "give" beside "gave he power", and `e lei iloa`
+# "know" beside "knew him not" (John 1, user 2026-09-05: "grammar rules for
+# past tense are not being followed"). Nothing is invented here: the verb's
+# form is swapped only for a form of the SAME verb that the verse's English
+# carries. Base -> past for the strong verbs scripture English uses; regular
+# -ed / -d / -ied forms are derived and, again, accepted only if the verse
+# has them.
+BASE_TO_PAST = {
+    "go": ["went"], "say": ["said"], "come": ["came"], "see": ["saw"],
+    "make": ["made"], "take": ["took"], "give": ["gave"], "know": ["knew"],
+    "speak": ["spake", "spoke"], "write": ["wrote"], "tell": ["told"],
+    "find": ["found"], "bring": ["brought"], "send": ["sent"], "leave": ["left"],
+    "begin": ["began"], "become": ["became"], "fall": ["fell"], "rise": ["rose"],
+    "arise": ["arose"], "stand": ["stood"], "sit": ["sat"], "hold": ["held"],
+    "keep": ["kept"], "lead": ["led"], "meet": ["met"], "run": ["ran"],
+    "hear": ["heard"], "build": ["built"], "buy": ["bought"], "catch": ["caught"],
+    "choose": ["chose"], "draw": ["drew"], "drive": ["drove"], "eat": ["ate"],
+    "feel": ["felt"], "fight": ["fought"], "forget": ["forgot"], "get": ["got", "gat"],
+    "grow": ["grew"], "hide": ["hid"], "lie": ["lay"], "lose": ["lost"],
+    "pay": ["paid"], "shake": ["shook"], "slay": ["slew"], "smite": ["smote"],
+    "seek": ["sought"], "sell": ["sold"], "spend": ["spent"], "spring": ["sprang"],
+    "steal": ["stole"], "strike": ["struck"], "swear": ["sware", "swore"],
+    "teach": ["taught"], "think": ["thought"], "throw": ["threw"],
+    "understand": ["understood"], "weep": ["wept"], "win": ["won"],
+    "work": ["wrought"], "behold": ["beheld"], "bear": ["bare", "bore"],
+    "break": ["brake", "broke"], "beget": ["begat"], "dig": ["digged"],
+    "forsake": ["forsook"], "abide": ["abode"], "cleave": ["clave"],
+    "awake": ["awoke"], "bid": ["bade"], "bind": ["bound"], "burn": ["burnt"],
+    "dwell": ["dwelt"], "flee": ["fled"], "fly": ["flew"], "hang": ["hung"],
+    "kneel": ["knelt"], "lay": ["laid"], "light": ["lit"], "mean": ["meant"],
+    "ride": ["rode"], "sing": ["sang"], "sink": ["sank"], "shine": ["shone"],
+    "shoot": ["shot"], "sleep": ["slept"], "strive": ["strove"], "swim": ["swam"],
+    "sweep": ["swept"], "tear": ["tore"], "tread": ["trod"], "wake": ["woke"],
+    "wear": ["wore"], "weave": ["wove"], "drink": ["drank"], "blow": ["blew"],
+    "overcome": ["overcame"], "forgive": ["forgave"], "partake": ["partook"],
+    "bleed": ["bled"], "feed": ["fed"], "creep": ["crept"], "deal": ["dealt"],
+    "lend": ["lent"], "bend": ["bent"], "rend": ["rent"], "cling": ["clung"],
+    "do": ["did"], "have": ["had"], "hath": ["had"], "has": ["had"],
+    "is": ["was"], "are": ["were"], "am": ["was"],
+}
+PAST_TO_BASE = {p: b for b, ps in BASE_TO_PAST.items() for p in ps}
+_TENSE_SKIP = {
+    "the", "a", "an", "of", "to", "in", "on", "and", "or", "but", "he", "she",
+    "it", "they", "we", "i", "you", "ye", "thou", "thee", "him", "her", "them",
+    "us", "me", "his", "its", "their", "our", "my", "thy", "your", "that",
+    "which", "who", "whom", "not", "no", "there", "this", "these", "those",
+    "unto", "upon", "with", "by", "for", "from", "as", "at", "into", "out", "up",
+    "down", "so", "then", "when", "all", "every", "also", "be", "been", "being",
+    "shall", "will", "would", "should", "may", "might", "let", "yet", "even",
+}
+
+
+def _past_forms(base: str) -> list[str]:
+    out = list(BASE_TO_PAST.get(base, []))
+    if base.endswith("e"):
+        out.append(base + "d")
+    elif base.endswith("y") and len(base) > 2 and base[-2] not in "aeiou":
+        out.append(base[:-1] + "ied")
+    else:
+        out += [base + "ed", base + base[-1] + "ed"]
+    return out
+
+
+def _bases(word: str) -> list[str]:
+    """A present-form word back to its base: comes/cometh -> come, lighteth -> light."""
+    out = [word]
+    for suf in ("eth", "ies", "es", "th", "s"):
+        if word.endswith(suf) and len(word) > len(suf) + 2:
+            stem = word[:-len(suf)]
+            out.append(stem)
+            if suf in ("eth", "es"):
+                out.append(stem + "e")
+            if suf == "ies":
+                out.append(stem + "y")
+    return out
+
+
+def _present_forms(base: str) -> list[str]:
+    return [base + "eth", base + "th", base + "es", base + "s", base]
+
+
+def agree_tense(gloss: str, want: str, english: str) -> str:
+    """The gloss with its verb in the marker's tense, IF the verse carries that form.
+
+    PAST/PERFECT: a base or present verb becomes the past form the verse has
+    (give -> gave, receive -> received); under the perfect `ua` the verse's
+    -eth form stands in when it has no past form (ua maliu mai / cometh).
+    PRESENT: a strong past form becomes the -eth/-s/base form the verse has.
+    Anything the verse does not carry is left exactly as it was.
+    """
+    if not gloss or not want or not english:
+        return gloss
+    ew = set(re.findall(r"[a-z']+", english.lower()))
+    words = gloss.split()
+    for k, w in enumerate(words):
+        core = re.sub(r"[^a-z']", "", w.lower())
+        if not core or core in _TENSE_SKIP:
+            continue
+        t = tense_of(core)
+        swap = None
+        if want in ("PAST", "PERFECT") and t in (None, "PRESENT"):
+            for base in _bases(core):
+                for pf in _past_forms(base):
+                    if pf in ew and pf != core:
+                        swap = pf
+                        break
+                if swap:
+                    break
+            if not swap and want == "PERFECT" and t is None:
+                for pf in _present_forms(core):
+                    if pf in ew and pf != core and pf.endswith("th"):
+                        swap = pf
+                        break
+            if not swap and t is None:
+                # THE MARKER IS DECISIVE (user, 2026-09-05: "Sa and Na are past
+                # tense particles"). When the verse has no form of this verb to
+                # copy, the past is still written: the strong verbs from the
+                # table (come -> came), and a regular verb the verse attests in
+                # some form (believe / believeth -> believed). A word the verse
+                # never uses at all is left alone -- it may be a noun.
+                for base in _bases(core):
+                    if base in BASE_TO_PAST and base not in ("is", "are", "am", "hath", "has", "have"):
+                        swap = BASE_TO_PAST[base][0]
+                        break
+                    if any(f in ew for f in _present_forms(base)):
+                        swap = _past_forms(base)[0]
+                        break
+        elif want == "PRESENT" and t == "PAST" and core in PAST_TO_BASE:
+            for pf in _present_forms(PAST_TO_BASE[core]):
+                if pf in ew and pf != core:
+                    swap = pf
+                    break
+        if swap:
+            words[k] = w.replace(core, swap) if core in w else w.lower().replace(core, swap)
+    return " ".join(words)

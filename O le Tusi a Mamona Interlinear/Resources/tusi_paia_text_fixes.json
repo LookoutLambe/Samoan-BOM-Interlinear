@@ -1,0 +1,4 @@
+{
+ "note": "Per-verse OCR repairs of the segmented 1887 O le Tusi Paia text, applied by scripts/build_tusi_paia_dual.py before glossing. Each entry is [bad, good] on the verse's Samoan text; a fix whose 'bad' string is absent is skipped with a warning. Text only -- glosses come from the generator.",
+ "verses": {}
+}

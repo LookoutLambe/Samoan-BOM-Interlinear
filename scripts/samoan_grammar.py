@@ -467,8 +467,9 @@ POSTVERBAL = {
 NEGATION = {
     'le': 'not (verbal negator -- NOT the article; position decides)',
     'lē': 'not (verbal negator)',
-    'leai': 'no, there is not',
-    'le’i': 'not yet',  'lei': 'not yet',                 #  188
+    'leai': 'not',   # `e leai se mea` "not any thing", `e leai` "no / none": contextual_reading picks
+    'le’i': 'not',  'lei': 'not',   # `e lei X` is the PAST negative -- "knew him not", "hath not seen";
+    # "not yet" only where the verse says yet (contextual_reading)  #  188
     'aua': 'prohibitive: do not',                         #  see the note below
 }
 # `le` is the single most dangerous string in the language for this corpus:
@@ -767,6 +768,10 @@ VOCABULARY = {
     # words of the Bible register that occur too rarely for the learned lexicon
     # to reach; hand entries (user, 2026-09-05: nunumi = confused, without form)
     'nunumi': 'without form',
+    'le lokou': 'the Word',          # the article folds into the term, as it does into any noun unit
+    'lokou': 'Word',                 # John 1 in the 1887 edition: the Logos (user: "Word is Lokou"); `le Lokou` = the Word
+    'maliu mai': 'come',            # the chiefly "come" (John 1:9, 1:11); agree_tense makes it came/cometh
+    'liu tino tagata': 'was made flesh',   # John 1:14; `liu` alone is the canoe's bilge in the curation
     'perisitua':   'priesthood',      #  86x
     'peresitene':  'president',       # 143x
     'epikopo':     'bishop',          # 158x
@@ -848,6 +853,18 @@ def _dictionary():
 def dictionary(form):
     """Every sense the two lexicons give this Samoan word, or ()."""
     return tuple(_dictionary().get((form or '').strip().lower(), ()))
+
+
+# Readings the BIBLE takes that the Book of Mormon curation renders otherwise
+# (`o ia lava` is "himself" there; John 1:2 reads "He also", user 2026-09-05).
+# Consulted only when the generator glosses O le Tusi Paia.
+BIBLE_VOCABULARY = {
+    'o ia lava': 'he also',
+}
+
+
+def bible_vocabulary(form):
+    return BIBLE_VOCABULARY.get((form or '').strip().lower())
 
 
 def vocabulary(form):
@@ -1056,6 +1073,34 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
     if f == 'ai' and n == 'lea' and 'ona' in before[-6:]:
         return ''
     if f == 'lea' and (p == 'ai' or 'ona' in before[-6:]) and (p == 'ai' or p not in ('o', 'i', 'e', 'a')):
+        return ''
+
+    if f == 'leai':
+        # THE EXISTENTIAL NEGATIVE: `e leai se mea` "there was not any thing"
+        # (John 1:3), `e leai` alone "no" / "none".
+        return 'not any|none|no|not'
+
+    if f in ('lei', 'le’i', 'leʻi'):
+        # THE PAST NEGATIVE. `e lei iloa` is "knew not", `e lei vaaia lava` "hath
+        # not seen": the verb carries the tense (agree_tense), the particle says
+        # "not", and "not yet" only where the verse itself says yet.
+        return 'not yet|not'
+
+    if f == 'a' and clause_initial:
+        # CLAUSE-INITIAL `a` IS THE CONJUNCTION "but" (or "and"), never the
+        # A-class possessive: `a e lei manumalo` "but the darkness comprehended
+        # it not", `A o i latou uma` "But as many as". The possessive follows a
+        # noun mid-clause and keeps its reading there.
+        return 'but|and'
+
+    if f == 'sa':
+        # THE PAST MARKER. Before a locative it is the copula the English has
+        # -- `Sa i le amataga le Upu` "In the beginning WAS the Word", `Sa ia
+        # te ia le ola` "In him WAS life" -- and before anything else it says
+        # nothing: the tense rides on the verb. It never takes a remembered
+        # reading (John 1:1 printed `Sa` = "and").
+        if n in ('i', 'ia', 'iā', 'iā'):
+            return 'was|were'
         return ''
 
     if f == 'po':

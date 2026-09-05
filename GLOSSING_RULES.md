@@ -208,3 +208,43 @@ User, 2026-09-05: *"ma can also mean embarrassed... but mai is from"* and
 Genesis 1, 47 Bible sites). `ma` reads **and** or **with**; **from** is
 always `mai`. In *va aʻi X ma Y* the English "divide X from Y" is rendered by
 the construction, and `ma` still glosses *and*.
+
+## 20. The text is the 1887 edition; the later revision is the fallback
+
+User, 2026-09-05: *"you didn't use the Samoan in the internet archives... Lokou
+logos... it has to match it."* The Bible the app carries is the 1887 BFBS printing
+(archive.org `oletusipaiaole00lond`, the PDF on the Desktop), segmented from the
+PDF's text layer by `scripts/segment_1887_pdf.py` (verse numerals are read from
+the page margins). The later revision (`Upu`, `le ALII`) stands in only where an
+1887 verse is missing or fails the KJV-length check, and the index lists every
+such verse under `fallback`. `Lokou` is the Word (Christ).
+
+## 21. Simple sentences: the marker's phrase carries the copula
+
+User, 2026-09-05, on John 1: *"Sa i le amataga - in the beginning was... its pretty
+simple"*; *"sa i le Atua le Lokou ... the word was with God"*; *"O le Atua foi le
+Lokou - God is the word"*; *"Sa ia te ia le ola - in him was life"*; *"o le
+malamalama lea - which is the light"*; *"Na sau o ia - he came"*; *"ina ia
+molimau - to witness"*; *"E le'o le malamalama ia - he was not the light"*;
+*"i lea lava malamalama - of that light"*; *"lona igoa - his name"*; *"o ia - he"*.
+Read in Samoan order, no smoothing. `simple_sentences()` in the generator (Bible
+only) does this:
+
+- **TAM + phrase + subject** (`Sa i le amataga | le Lokou`): the phrase says its
+  English with the copula -- placed where the KJV clause places it ("in the
+  beginning was", "was with God") -- and the subject says its own. The marker is
+  NOT silent: its "was" is in the phrase's gloss; the dot only means the word
+  belongs to the unit whose gloss follows. The English clause supplies the
+  copula's tense, the preposition the memory dropped ("with God", "in him"), and
+  the "and" that opens it.
+- **`o` + noun (+ foi) + noun**: the equative, "God is" | "also" | "the Word".
+- **`E le o` + noun + pronoun**: the negative equative, "he was not the light".
+- **`i/o lea (lava)` + noun**: "of that light" -- preposition from the English.
+- **verb + `o ia` / `o i latou`**: "he came" -- the pronoun unit takes the verb,
+  nominative first; a copular predicate keeps its subject apart ("was in the
+  world" | "he").
+- **`ina ia` + verb**: purposive, "to witness".
+- **possessive + noun** (`lona igoa`): "his name", whatever memory offered.
+- a trailing `foi` says "also" on its own; a clause-opening `o le X` is the noun,
+  not "of X"; every `i`-phrase takes the English's preposition.
+- `o ia lava` = "he also" (Bible-only vocabulary; the BOM curation has "himself").
