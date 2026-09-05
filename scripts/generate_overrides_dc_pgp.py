@@ -1327,7 +1327,10 @@ def simple_sentences(out, toks, en_text):
     OBJ = {"he": "him", "she": "her", "they": "them", "we": "us", "i": "me", "thou": "thee", "ye": "you"}
     for idx in range(1, len(units)):
         u = units[idx]
-        if norm(toks[u[0]]) == "e" and u[1] - u[0] >= 2 and " ".join(norm(x) for x in toks[u[0]:u[1]]) not in NEG_UNITS \
+        ukey = " ".join(norm(x) for x in toks[u[0]:u[1]])
+        if norm(toks[u[0]]) == "e" and u[1] - u[0] >= 2 and ukey not in NEG_UNITS and ukey not in ("e le", "e lē") \
+                and not (norm(toks[u[0] + 1]) in ("le", "lē") and (u[1] - u[0] == 2 or norm(toks[u[0] + 2]) in ("o", "lei", "mafai", "toe"))) \
+                and not re.match(r"^not\b", gloss_of(u).lower()) \
                 and (norm(toks[u[0] + 1]) in AGENT_PRONOUNS | {"ona", "lona", "lana", "ana", "le", "se"} or toks[u[0] + 1][:1].isupper()):
             g = gloss_of(u)
             if g and g != CONT and not re.match(r"^(by|of|to|for|with|from|in|unto)\b", g.lower()) \
@@ -1374,6 +1377,66 @@ def simple_sentences(out, toks, en_text):
                 if g2 == g and not re.match(r"^" + PREPS + r"\b", g.lower()) and norm(toks[u[0] + 1]) in POSSESSIVE:
                     g2 = "in " + g
                 set_gloss(u, g2)
+    # THE ARTICLE: `le` is the definite singular and says "the" in every unit
+    # that carries it; `se` the indefinite, "a" (user, John 1:7: `i le
+    # malamalama` "of THE light"). The negator `le` (`e le o`) is not the article.
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    DET = r"^(the|a|an|his|her|its|their|my|thy|your|our|this|that|these|those|every|all|any|no|some|one|which|who|what)\b"
+    for u in units:
+        g = gloss_of(u)
+        if not g or g == CONT or ER.tense_of(g):
+            continue
+        arts = [q for q in range(u[0], u[1]) if norm(toks[q]) in ("le", "se")
+                and not (q > u[0] and norm(toks[q - 1]) in ("e", "te", "lei", "ua", "sa", "na", "ou", "tou", "matou", "latou", "tatou", "outou"))
+                and not (q + 1 < u[1] and norm(toks[q + 1]) in ("o", "lei", "mafai", "toe", "iloa"))]
+        if not arts:
+            # NO DETERMINER -> PLURAL (user: "o le tagata" the man, "o se tagata" a
+            # man, "ni tagata" some men, "o tagata" men). A bare noun unit takes
+            # the plural the verse has (man -> men), else a regular one; mass
+            # nouns and names stay.
+            keys = [norm(t).strip(",;.") for t in toks[u[0]:u[1]]]
+            if any(k in ("lea", "lenei", "lena", "lo", "la", "lona", "lana", "lou", "lau", "lo’u", "la’u", "loʻu", "laʻu", "ona", "ana", "ou", "au",
+                         "tasi", "lua", "tolu", "fa", "lima", "ono", "fitu", "valu", "iva", "sefulu", "selau", "afe", "uma", "nisi", "isi", "se", "le") for k in keys):
+                continue
+            some = "ni" in keys
+            m = re.match(r"^((?:and|but|for|then|so)\s+)?((?:with|in|at|to|unto|for|by|from|on|upon|among|into|before|after|over|under|of|through|against)\s+)?(.*)$", g.strip(), flags=re.I)
+            lead = (m.group(1) or "") + (m.group(2) or "")
+            rest = m.group(3).rstrip(" ,;.")
+            tail = m.group(3)[len(rest):]
+            words_ = rest.split()
+            if not words_ or re.match(DET, rest.lower()) or re.match(r"^[A-Z]", rest) or ER.tense_of(rest):
+                continue
+            head = words_[-1].lower()
+            MASS = {"light", "darkness", "water", "grace", "truth", "life", "love", "faith", "glory", "world", "earth", "heaven", "flesh", "blood",
+                    "peace", "power", "spirit", "wisdom", "fulness", "beginning", "name", "law", "bosom", "witness", "record", "salvation", "sin", "fire", "wine", "bread", "gold", "silver"}
+            if head in MASS or head.endswith(("s", "ss")) or not head.isalpha():
+                continue
+            ewords = set(re.findall(r"[a-z']+", en_text.lower()))
+            plural = None
+            for cand in ER.IRREGULAR_NUMBER.get(head, set()) | {head + "s", head + "es", (head[:-1] + "ies") if head.endswith("y") else head + "s"}:
+                if cand != head and cand in ewords:
+                    plural = cand
+                    break
+            if plural is None and some:
+                plural = next(iter(ER.IRREGULAR_NUMBER.get(head, set())), None) or (head[:-1] + "ies" if head.endswith("y") else head + "s")
+            if plural:
+                words_[-1] = plural
+                set_gloss(u, f"{lead}{'some ' if some else ''}{' '.join(words_)}{tail}")
+            continue
+        art = "the" if norm(toks[arts[0]]) == "le" else "a"
+        m = re.match(r"^((?:and|but|for|then|so)\s+)?((?:with|in|at|to|unto|for|by|from|on|upon|among|into|before|after|over|under|of|through|against)\s+)?(.*)$", g.strip(), flags=re.I)
+        lead = (m.group(1) or "") + (m.group(2) or "")
+        rest = m.group(3)
+        if not rest or re.match(DET, rest.lower()) or re.match(r"^(was|were|is|are|be|not|it|he|she|they|we|i|you|ye|thou|there|let|to)\b", rest.lower()) \
+                or re.search(r"\b(is|are|was|were|am|be|hath|have|had)\b", rest.lower()):
+            continue
+        if re.match(r"^[A-Z]", rest) and rest.split()[0].rstrip(",;.") not in ("God", "Word", "Light", "Lord"):
+            continue          # a name takes no article
+        set_gloss(u, f"{lead}{art} {rest}")
     for w in out:
         if w["en"] and w["en"] != CONT:
             w["en"] = tidy(w["en"])
@@ -1969,8 +2032,11 @@ def main(argv: list[str] | None = None) -> int:
             # from the curation and the tense from the marker -- the verse only
             # failed to confirm which English word, not that the verb was there.
             if not gloss and strict and not name_blocked and dict_word and dict_word not in SG.CLOSED_CLASS \
-                    and dict_word not in SG.AMBIGUOUS and dict_word not in SG.TAM:
-                # THE FORM TAKEN APART: prefix, root, suffix (faamalamalamaina)
+                    and dict_word not in SG.AMBIGUOUS and dict_word not in SG.TAM \
+                    and not SG.dictionary(dict_word) and dict_word not in lex:
+                # THE FORM TAKEN APART: prefix, root, suffix (faamalamalamaina) --
+                # only for a form the lexicons do not hold at all: `manuia` is a
+                # word (blessing), not manu + ia, and came out "beasts"
                 want_m = SG.tense_of_tam(prev_key) or unit_tense(key_sm) or clause_tense(toks, i)
                 mg = morph_gloss(dict_word, en_text, lex, want_m)
                 if mg:
@@ -2027,7 +2093,12 @@ def main(argv: list[str] | None = None) -> int:
                 if m:
                     gloss = f"{m.group(1)} {gloss}"
             want_t = None
-            if gloss and gloss != CONT and is_open:
+            # a unit headed by a preposition or a determiner is a NOUN PHRASE:
+            # the marker's tense is not written on it (`i lea lava malamalama`
+            # "of that light", never "lit")
+            noun_phrase = (prev_key.split() or [""])[-1] in ("le", "se", "lea", "lenei", "lena", "lo", "la", "ni", "lava", "lona", "lana", "ona", "ana") \
+                or (key_sm.split() or [""])[0] in ("i", "ia", "iā", "o", "a", "mai", "mo", "le", "se", "lea", "lenei", "lena", "lo", "la", "ni", "ona", "lona", "lana", "lou", "lau", "lo’u", "la’u", "loʻu", "laʻu")
+            if gloss and gloss != CONT and is_open and not noun_phrase:
                 # THE MARKER'S TENSE IS WRITTEN ON THE VERB, in the verse's own
                 # form: the unit's marker, the marker in front of it, the
                 # narrative frame, the past negative `e lei`, or the last marker

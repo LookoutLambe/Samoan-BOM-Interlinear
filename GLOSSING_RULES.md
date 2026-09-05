@@ -311,3 +311,18 @@ kind of thing; none names a verse.
 - **After `e lei` the word is a verb**, and the negative is past: a bare form takes
   the past even where the KJV chose another word ("not received" beside
   "comprehended it not").
+
+### 21e. Article and number (user, 2026-09-05)
+
+- `le` is the definite singular and says "the" in every unit that carries it
+  (`i le malamalama` "of THE light"); `se` is "a". The negator `le` (`e le o`) is
+  not the article.
+- No determiner is plural: `o le tagata` the man, `o se tagata` a man, `ni tagata`
+  some men, bare `tagata` men. A bare noun unit takes the plural the verse has
+  (man -> men) or a regular one; mass nouns and names stay.
+- `ia` right after a tense marker is the pronoun: `na ia avatu` "he gave".
+- Morphology only for forms the lexicons do not hold at all: `manuia` is a word
+  (blessing), not manu + ia.
+- Reference the user pointed to: *Samoan for Missionaries* (Scott C. Dunn, 1983,
+  BYU thesis) -- for the particle and TAM tables; read it from the Desktop when
+  the user puts it there.

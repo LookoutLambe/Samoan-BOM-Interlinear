@@ -1117,6 +1117,11 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
             return 'not'
         return None
 
+    if f == 'ia' and p in ('na', 'ua', 'sa') and n and n not in ('te',):
+        # THE PRONOUN after a tense marker: `na ia avatu` "he gave", `ua ia faia`
+        # "he made" -- never the preposition "to"
+        return 'he'
+
     if f == 'ia' and clause_initial and n and n not in PRONOUNS and n not in ('te',):
         # THE OPTATIVE. Clause-initial `Ia malamalama` is "Let there be light",
         # `Ia salamo outou` "repent ye": the curation puts the imperative on the
