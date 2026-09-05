@@ -199,3 +199,12 @@ words"*.
 - The Book of Mormon score against its curation is unchanged through all of
   this (F1 85.0 all / 86.1 content); the Bible runs at 94.2% tokens carrying
   text.
+
+## 19. `ma` is *and / with* — never *from*
+
+User, 2026-09-05: *"ma can also mean embarrassed... but mai is from"* and
+*"ma is with and not from"*. The alternatives table gave `ma` the reading
+*from* whenever the English had one nearby (the divide constructions in
+Genesis 1, 47 Bible sites). `ma` reads **and** or **with**; **from** is
+always `mai`. In *va aʻi X ma Y* the English "divide X from Y" is rendered by
+the construction, and `ma` still glosses *and*.

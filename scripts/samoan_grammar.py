@@ -885,7 +885,7 @@ READINGS = {
     # five of them behind the sixth: coordinator "and" 12,968, comitative
     # "with" 501 (and 227 of 1,404 in the `ma le` frame alone), plus the
     # phrasal frames below where the preceding word selects the reading.
-    'ma':   ['and', 'with', 'as', 'to', 'from'],  # 12,968 / 501 / ...
+    'ma':   ['and', 'with'],                          # user 2026-09-05: ma is and/with, NEVER from (mai is from)
     'mo':   ['for', 'to'],
     'le':   ['the'],                             # 4,513
     'se':   ['a', 'an', 'one', 'any'],           #   735 / 99 / 58 / 45

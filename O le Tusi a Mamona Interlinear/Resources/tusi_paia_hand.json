@@ -1,5 +1,5 @@
 {
- "note": "Hand-curated O le Tusi Paia verses, keyed bookId|chapter|verse. The Samoan is the corrected text (OCR errors mended) and the glosses read in Samoan order per GLOSSING_RULES.md; both build_tusi_paia_dual.py and the generator take these verses as written. Genesis 1 by Claude with the user, 2026-09-05.",
+ "note": "Hand-curated O le Tusi Paia verses, keyed bookId|chapter|verse. The Samoan is the corrected text (OCR errors mended) and the glosses read in Samoan order per GLOSSING_RULES.md; both build_tusi_paia_dual.py and the generator take these verses as written. Genesis 1 by Claude with the user, 2026-09-05. Genesis 1:7 reads 'mai le vai i luga' by the translator's decision (both printed editions read 'ma vai'); the Dual's English supplied the missing 'from the'.",
  "verses": {
   "genesis|1|1": {
    "words": [
@@ -305,7 +305,7 @@
     },
     {
      "sm": "ma",
-     "en": "from"
+     "en": "and"
     },
     {
      "sm": "le",
@@ -616,8 +616,12 @@
      "en": "the firmament"
     },
     {
-     "sm": "ma",
+     "sm": "mai",
      "en": "from"
+    },
+    {
+     "sm": "le",
+     "en": "·"
     },
     {
      "sm": "vai",
@@ -1613,7 +1617,7 @@
     },
     {
      "sm": "ma",
-     "en": "from"
+     "en": "and"
     },
     {
      "sm": "le",
@@ -2021,7 +2025,7 @@
     },
     {
      "sm": "ma",
-     "en": "from"
+     "en": "and"
     },
     {
      "sm": "le",
@@ -2057,7 +2061,7 @@
     },
     {
      "sm": "ma",
-     "en": "from"
+     "en": "and"
     },
     {
      "sm": "le",
