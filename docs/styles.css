@@ -722,6 +722,11 @@ body.no-gloss .unit .en { display: none; }
 
 .front-body.en { color: var(--gloss-ink); font-style: italic; }
 
+/* Front matter paragraphs follow the verse modes; the block classes (.flow,
+   .dual-cols, .prose) carry the look, this only spaces the paragraphs. */
+.front-para { margin: 0 0 18px; }
+.front-para .prose { white-space: pre-wrap; }
+
 .section-list { list-style: none; margin: 0; padding: 0; }
 
 .section-list button {

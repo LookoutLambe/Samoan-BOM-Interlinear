@@ -27,6 +27,9 @@ struct BookListView: View {
 
                     DisclaimerNotice()
                         .padding(.top, 36)
+
+                    SourceNotice()
+                        .padding(.top, 12)
                 }
                 .frame(maxWidth: 560)
                 .frame(maxWidth: .infinity, alignment: .center)
@@ -167,6 +170,77 @@ private struct DisclaimerNotice: View {
         ("o le Au Paia", "of the Saints"),
         ("o Aso e Gata Ai.", "of the Last Days."),
     ]
+
+    var body: some View {
+        NoticeBlock(english: english, samoan: samoan, gloss: gloss)
+    }
+}
+
+/// Where the Old and New Testament text comes from, under the license notice
+/// in the same three registers. The Samoan Bible in the app is O le Tusi Paia,
+/// the London Missionary Society translation, which is in the public domain;
+/// the copy used is the Church's own printing of that text (user, 2026-09-05).
+/// build_web_data.py lifts these strings for the web landing too.
+private struct SourceNotice: View {
+    private let english = """
+    The Old and New Testament in this app are O le Tusi Paia, the Samoan Bible \
+    translated by the London Missionary Society. That translation is in the \
+    public domain. The copy used here is the edition distributed and sold by The \
+    Church of Jesus Christ of Latter-day Saints, which carries the same public \
+    domain London Missionary Society text. The English beside it is the King \
+    James Version, also in the public domain.
+    """
+
+    private let samoan = """
+    O le Feagaiga Tuai ma le Feagaiga Fou i lenei polokalama, o le Tusi Paia lea \
+    na fa\u{02bb}aliliuina e le London Missionary Society. O lena fa\u{02bb}aliliuga \
+    e leai sona puletaofia. O le kopi o lo\u{02bb}o fa\u{02bb}aaog\u{0101}ina i \
+    lenei mea, o le lomiga lea e tufatufaina ma fa\u{02bb}atauina atu e Le Ekalesia \
+    a Iesu Keriso o le Au Paia o Aso e Gata Ai, o lo\u{02bb}o i ai le tusitusiga \
+    lava lea a le London Missionary Society e leai sona puletaofia. O le \
+    fa\u{02bb}aPeretania i ona tafatafa o le King James Version, e leai fo\u{02bb}i \
+    sona puletaofia.
+    """
+
+    // Word-by-word interlinear (Samoan surface phrase, concise English gloss).
+    private let gloss: [(String, String)] = [
+        ("O le Feagaiga Tuai", "The Old Testament"),
+        ("ma le Feagaiga Fou", "and the New Testament"),
+        ("i lenei polokalama,", "in this app,"),
+        ("o le Tusi Paia lea", "are the Holy Bible"),
+        ("na fa\u{02bb}aliliuina", "translated"),
+        ("e le London Missionary Society.", "by the London Missionary Society."),
+        ("O lena fa\u{02bb}aliliuga", "That translation"),
+        ("e leai sona puletaofia.", "has no copyright: public domain."),
+        ("O le kopi", "The copy"),
+        ("o lo\u{02bb}o fa\u{02bb}aaog\u{0101}ina", "used"),
+        ("i lenei mea,", "here,"),
+        ("o le lomiga lea", "is the edition"),
+        ("e tufatufaina", "distributed"),
+        ("ma fa\u{02bb}atauina atu", "and sold"),
+        ("e Le Ekalesia a Iesu Keriso", "by The Church of Jesus Christ"),
+        ("o le Au Paia o Aso e Gata Ai,", "of Latter-day Saints,"),
+        ("o lo\u{02bb}o i ai", "which carries"),
+        ("le tusitusiga lava lea", "the same text"),
+        ("a le London Missionary Society", "of the London Missionary Society"),
+        ("e leai sona puletaofia.", "that has no copyright."),
+        ("O le fa\u{02bb}aPeretania", "The English"),
+        ("i ona tafatafa", "beside it"),
+        ("o le King James Version,", "is the King James Version,"),
+        ("e leai fo\u{02bb}i sona puletaofia.", "also with no copyright."),
+    ]
+
+    var body: some View {
+        NoticeBlock(english: english, samoan: samoan, gloss: gloss)
+    }
+}
+
+/// The three-register notice block both landing notices share: the English,
+/// a hairline, the Samoan, a hairline, then the word-by-word interlinear.
+private struct NoticeBlock: View {
+    let english: String
+    let samoan: String
+    let gloss: [(String, String)]
 
     var body: some View {
         VStack(spacing: 12) {

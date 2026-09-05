@@ -25,8 +25,10 @@ index, as the Spanish app has). Regenerate the data with `segment_tusi_paia.py` 
 | `tusi_paia_numbered_pages.txt` + `.epub` | archive.org `samoan-bible` (undated later revision, `le ALII`, inline verse numbers) — the edition segmented |
 | `tusi_paia_1887_*` | archive.org `SMOOLD_DBS_HS`, the 1887 BFBS/LMS edition (`Ieova`, public domain); its verse numbers sit in the margins and the OCR lost them (the 84 MB djvu.xml with word coordinates, not committed, could recover them) |
 
-Copyright: the 1887 text is public domain. The numbered edition's date and status are unknown —
-it is here as structure and evidence; the user decides before any of its text ships.
+Copyright: O le Tusi Paia is the London Missionary Society translation, which is in the public
+domain. The numbered edition segmented here is, per the user (2026-09-05), the Church's own printing
+of that same LMS text, distributed and sold by the Church; it ships, and the landing pages of both
+apps carry a source notice saying so under the license notice (`SourceNotice` in BookListView.swift).
 
 ## How it was segmented — `scripts/segment_tusi_paia.py`
 

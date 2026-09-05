@@ -69,35 +69,40 @@ def swift_unescape(text: str) -> str:
     return text.strip()
 
 
-def extract_disclaimer() -> dict:
-    """Pull the license notice straight out of BookListView.swift.
+def extract_notice(struct: str) -> dict:
+    """Pull one landing notice straight out of BookListView.swift.
 
-    The English wording is prescribed verbatim by the Standard Scripture License
-    Agreement, and the landing page has to carry it exactly as the app does.
-    Reading it from the Swift source instead of retyping it means the two can't
-    drift apart — and a rename or edit here fails loudly rather than silently
-    publishing stale license text.
+    `DisclaimerNotice` is the license notice (English prescribed verbatim by the
+    Standard Scripture License Agreement); `SourceNotice` says where the Old and
+    New Testament text comes from. Each struct holds `english`, `samoan` and a
+    `gloss` table. Reading them from the Swift source instead of retyping means
+    the app and the web landing can't drift apart -- and a rename or edit there
+    fails loudly rather than silently publishing stale text.
     """
-    src = BOOKLIST.read_text(encoding="utf-8")
+    whole = BOOKLIST.read_text(encoding="utf-8")
+    scope = re.search(rf"private struct {struct}: View \{{\n(.*?)\n\}}\n", whole, re.S)
+    if not scope:
+        raise SystemExit(f"build_web_data: no `{struct}` struct in {BOOKLIST.name}")
+    src = scope.group(1)
 
     def block(name: str) -> str:
         match = re.search(rf'private let {name} = """(.*?)"""', src, re.S)
         if not match:
-            raise SystemExit(f"build_web_data: no `{name}` block in {BOOKLIST.name}")
+            raise SystemExit(f"build_web_data: no `{name}` block in {struct}")
         return swift_unescape(match.group(1))
 
     gloss_match = re.search(
         r"private let gloss: \[\(String, String\)\] = \[(.*?)\n    \]", src, re.S
     )
     if not gloss_match:
-        raise SystemExit(f"build_web_data: no `gloss` table in {BOOKLIST.name}")
+        raise SystemExit(f"build_web_data: no `gloss` table in {struct}")
 
     pairs = [
         [swift_unescape(sm), swift_unescape(en)]
         for sm, en in re.findall(r'\("((?:[^"\\]|\\.)*)",\s*"((?:[^"\\]|\\.)*)"\)', gloss_match.group(1))
     ]
     if not pairs:
-        raise SystemExit("build_web_data: gloss table parsed empty")
+        raise SystemExit(f"build_web_data: gloss table parsed empty in {struct}")
 
     return {"english": block("english"), "samoan": block("samoan"), "gloss": pairs}
 
@@ -217,7 +222,8 @@ def main() -> None:
     )
     assets.append("data/diacritics.json")
 
-    disclaimer = extract_disclaimer()
+    disclaimer = extract_notice("DisclaimerNotice")
+    source_notice = extract_notice("SourceNotice")
     total += write(
         OUT / "index.json",
         {
@@ -236,6 +242,7 @@ def main() -> None:
                 for s in frontmatter
             ],
             "disclaimer": disclaimer,
+            "sourceNotice": source_notice,
         },
     )
     assets.append("data/index.json")
@@ -286,7 +293,7 @@ def main() -> None:
     print(f"chapters   {chapters}")
     print(f"front      {len(frontmatter)}")
     print(f"data size  {total / 1_048_576:.1f} MB across {len(assets)} files")
-    print(f"disclaimer {len(disclaimer['gloss'])} gloss pairs, verbatim from {BOOKLIST.name}")
+    print(f"disclaimer {len(disclaimer['gloss'])} + source notice {len(source_notice['gloss'])} gloss pairs, verbatim from {BOOKLIST.name}")
     if missing_english:
         print(f"WARNING    {len(missing_english)} verses have no official English "
               f"(dual mode will show —); first: {missing_english[:3]}")

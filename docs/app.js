@@ -517,8 +517,7 @@
      wording the license prescribes), the official Samoan, and a word-by-word
      interlinear. The strings come from data/index.json, which build_web_data.py
      lifts straight out of BookListView.swift so the two can't diverge. */
-  function disclaimer() {
-    const source = state.index && state.index.disclaimer;
+  function notice(source) {
     const wrap = el('div', 'disclaimer');
     if (!source) return wrap;
 
@@ -701,14 +700,72 @@
 
     const frag = document.createDocumentFragment();
     frag.append(el('h2', 'book-title', section.titleSm));
-    frag.append(el('div', 'front-body', section.sm || ''));
-    if (section.en) frag.append(el('div', 'front-body en', section.en));
+    // The same three modes as a chapter, one block per paragraph (the app's
+    // FrontMatterBody does the same); before this the page showed Samoan prose
+    // over English prose whatever the mode, and hid the dock that switches it.
+    frontParagraphs(section).forEach((para, i) => {
+      frag.append(renderBlock(para, 'front-para', `front|${id}|${i}`));
+    });
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
-    $('dock').hidden = true;
-    document.body.classList.remove('has-dock');
+    $('dock').hidden = false;
+    document.body.classList.add('has-dock');
+    buildFrontDock(id);
     selection.clear();
     $('actionbar').hidden = true;
+  }
+
+  /* The front matter's word stream is flat, so paragraphs come back by token
+     count against the \n\n breaks in the Samoan (FrontMatterBody.paragraphs
+     in the app), and the English paragraphs pair with them by index -- every
+     section carries the same count on both sides. */
+  function frontTokenCount(text) {
+    // the builder's tokenizer: whitespace split, and X—Y splits at the em dash
+    return text.replace(/\u2014(?=\S)/g, '\u2014 ').split(/\s+/).filter(Boolean).length;
+  }
+
+  function frontParagraphs(section) {
+    const words = section.words || [];
+    const smParas = (section.sm || '').split('\n\n').filter((p) => p.trim());
+    const enParas = (section.en || '').split('\n\n').filter((p) => p.trim());
+    if (smParas.length < 2) return [{ sm: section.sm || '', en: section.en || '', words }];
+    const out = [];
+    let idx = 0;
+    smParas.forEach((sm, i) => {
+      const end = Math.min(idx + frontTokenCount(sm), words.length);
+      out.push({ sm, en: enParas[i] || '', words: words.slice(idx, end) });
+      idx = end;
+    });
+    if (idx < words.length) out[out.length - 1].words.push(...words.slice(idx));
+    return out;
+  }
+
+  /* The dock on a front-matter page walks the front sections in order, and
+     the last one hands off to the first chapter, so a reader can page from the
+     title page into 1 Nifae 1 without opening the drawer. */
+  function buildFrontDock(id) {
+    const fronts = state.index.frontmatter || [];
+    const at = fronts.findIndex((s) => s.id === id);
+    const set = (btnId, target, dir) => {
+      const btn = $(btnId);
+      btn.disabled = !target;
+      btn.setAttribute('aria-label', target ? `${dir}: ${target.label}` : dir);
+      if (target) {
+        btn.setAttribute('title', target.label);
+        btn.onclick = () => { location.hash = target.hash; };
+      } else {
+        btn.removeAttribute('title');
+      }
+    };
+    const asTarget = (s) => s && { label: s.titleSm, hash: `#/front/${s.id}` };
+    let next = asTarget(fronts[at + 1]);
+    if (!next) {
+      const first = flatChapters()[0];
+      const b = first && bookById(first.id);
+      if (b) next = { label: `${b.nameSm} ${first.num}`, hash: `#/b/${first.id}/${first.num}` };
+    }
+    set('dock-prev', asTarget(fronts[at - 1]), 'Mataupu mu\u2019a');
+    set('dock-next', next, 'Mataupu sosoo');
   }
 
   /* Matches BookListView: the cover is the way in, a continue-reading button
@@ -727,7 +784,10 @@
     home.append(volumeCovers());
     home.append(continueButton());
     home.append(appStoreButton());
-    home.append(disclaimer());
+    // The license notice, then where the Old and New Testament text comes
+    // from, both lifted from BookListView.swift by build_web_data.py.
+    home.append(notice(state.index && state.index.disclaimer));
+    home.append(notice(state.index && state.index.sourceNotice));
     frag.append(home);
     view.replaceChildren(frag);
     window.scrollTo(0, 0);
