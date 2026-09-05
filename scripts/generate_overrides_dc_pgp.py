@@ -307,9 +307,30 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
         # knows -- `ae ui i lea` is "nevertheless", not "but" plus three words
         return not SG.primary_gloss(n(a, b))
 
+    def crosses_a_stop(a, b):
+        """A UNIT ENDS WHERE THE SENTENCE ENDS. Punctuation is stripped when a
+        span is keyed, so `po. O le afiafi` matched the curated unit `po o`
+        ("or") straight across the full stop. No token but the last may close a
+        sentence."""
+        return any(re.search(r"[.;:?!][”’\"')]*$", toks[k]) for k in range(a, b - 1))
+
+    def ends_on_frame_close(a, b):
+        """`ai lea` closes the `ona …` frame and belongs to no verb: a span
+        that swallows the `ai` (`malamalama ai`) lands the verb's English on
+        the particle."""
+        if b - a <= 1:
+            return False
+        last = n(b - 1); after = n(b) if b < len(toks) else ""
+        before = [n(k) for k in range(max(0, a - 6), b - 1)]
+        if last == "ai" and after == "lea" and "ona" in before:
+            return True
+        if last == "lea" and n(b - 2) == "ai":
+            return True
+        return False
+
     def legal(span):
         key = n(i, i + span)
-        if joins_two_clauses(i, i + span):
+        if joins_two_clauses(i, i + span) or crosses_a_stop(i, i + span) or ends_on_frame_close(i, i + span):
             return False
         # `o` heads the phrase that follows it, so no unit ends on one
         return (not SG.ends_mid_phrase(key)
@@ -510,7 +531,7 @@ def capitalise_names(gloss: str, key_sm: str, names) -> str:
 
 def choose_particle(form: str, english: str, inv, prev_key: str = "",
                     prev_tok: str = "", next_tok: str = "",
-                    clause_initial: bool = False) -> tuple[str, str]:
+                    clause_initial: bool = False, before=(), after=()) -> tuple[str, str]:
     """Gloss a one-vowel particle from its CLOSED set of readings.
 
     choose() cannot do this job: every reading of a particle is a function
@@ -531,11 +552,13 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     # THE FRAME PROPOSES, THE VERSE CONFIRMS. A frame-only reading is written
     # only when the verse actually carries it, so a 72%-reliable frame costs
     # nothing on the 28%.
-    framed = SG.contextual_reading(form, prev_tok, next_tok, clause_initial)
+    framed = SG.contextual_reading(form, prev_tok, next_tok, clause_initial, before, after)
     if framed == "":
         return "", "silent-by-frame"
-    if framed and in_english(framed, ew):
-        return framed, "frame"
+    if framed:
+        for alt in framed.split("|"):        # 'then|and': the first the verse carries
+            if in_english(alt, ew):
+                return alt, "frame"
     if framed and form in FRAME_OR_SILENT:
         # the frame identified the construction; the verse has no word for
         # the marker, so the marker says nothing rather than a stray reading
@@ -561,9 +584,15 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     return "", "particle-undecided"
 
 
+# particles whose positional frame outranks a curated unit they would open:
+# the sequential `ona … (ai) lea` and the noun `po`. Not `ia`, `tele`, `lava`:
+# their curated units stand whole (splitting them cost the Book of Mormon a
+# point of F1).
+HEAD_FRAMES = {'ona', 'po'}
+
 # markers whose frame reading, when the verse lacks it, means SILENT -- never
 # a fall-through to the positional readings (`Ia tutupu` is not "that grow")
-FRAME_OR_SILENT = {'ia'}
+FRAME_OR_SILENT = {'ia', 'ona'}
 
 
 def merge_punctuation(cands: Counter) -> Counter:
@@ -604,7 +633,7 @@ def merge_punctuation(cands: Counter) -> Counter:
 # it. Those were the biggest blanks in the corpus: `o` 3,063, `e` 2,162,
 # `ua` 1,499, `i` 963.
 LEANS_BACK = {"ai", "lava", "uma", "foi", "fo’i", "atu", "mai", "ifo", "a’e",
-              "aʻe", "ane", "pea"}
+              "aʻe", "ane", "pea", "lea"}
 
 
 # English words that are never a leftover's partner: auxiliaries, the light
@@ -844,6 +873,23 @@ def main(argv: list[str] | None = None) -> int:
                 # the leftover pairing.
                 stats["token: no unit"] += 1
                 hit, src = 1, "none"
+            def nxt_of(k):
+                """the next token for a frame, or '' when the unit ends a sentence"""
+                if re.search(r"[.;:?!][”’\"')]*$", toks[k - 1]) or k >= len(toks):
+                    return ""
+                return norm(toks[k])
+            if strict and hit > 1 and norm(toks[i]) in HEAD_FRAMES:   # the Bible: its curated units are the Book of Mormon's
+                # THE FRAME OUTRANKS MEMORY AT THE UNIT'S HEAD. `ona malamalama`
+                # is a curated unit, so the `ona … ai lea` frame was never asked;
+                # a particle the grammar can read in this position opens its own
+                # unit and the rest follows as before.
+                prev_raw = toks[i - 1] if i else ""
+                framed = SG.contextual_reading(
+                    norm(toks[i]), norm(prev_raw), nxt_of(i + 1),
+                    (i == 0 or prev_raw[-1:] in SG.CLAUSE_END),
+                    [norm(t) for t in toks[max(0, i - 6):i]], [norm(t) for t in toks[i + 1:i + 7]])
+                if framed:
+                    hit, src = 1, "frame"
             key_sm = norm(" ".join(toks[i:i + hit]))
             if src == "absorbed" and key_sm not in inv:
                 # the particle carries no English; the gloss belongs to
@@ -878,8 +924,9 @@ def main(argv: list[str] | None = None) -> int:
                 gloss, why = choose_particle(
                     key_sm, en_text, inv, prev_key,
                     prev_tok=norm(prev_raw),
-                    next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
-                    clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END))
+                    next_tok=nxt_of(i + hit),
+                    clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END),
+                        before=[norm(t) for t in toks[max(0, i - 6):i]], after=[norm(t) for t in toks[i + hit:i + hit + 6]])
                 why = "reading/" + why
                 stats["unit: " + why] += 1
                 prev_key = key_sm
@@ -892,6 +939,22 @@ def main(argv: list[str] | None = None) -> int:
                 continue
 
             gloss = SG.primary_gloss(key_sm)
+            if gloss and hit == 1:
+                # the frame outranks the fixed reading: `le po` is the night,
+                # not the particle "or"; `Ia` at a clause start is "let"
+                prev_raw = toks[i - 1] if i else ""
+                framed = SG.contextual_reading(
+                    key_sm, norm(prev_raw), nxt_of(i + 1),
+                    (i == 0 or prev_raw[-1:] in SG.CLAUSE_END),
+                    [norm(t) for t in toks[max(0, i - 6):i]], [norm(t) for t in toks[i + 1:i + 7]])
+                if framed:
+                    ew_ = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+                    for alt in framed.split("|"):
+                        if in_english(alt, ew_):
+                            gloss = alt
+                            break
+                elif framed == "":
+                    gloss = ""
             if gloss:
                 # A rule says what a form reads as EVERYWHERE, and the
                 # verse still gets a say at the edges: `faatasi` was
@@ -905,9 +968,9 @@ def main(argv: list[str] | None = None) -> int:
                 gloss, why = choose_particle(
                     key_sm, en_text, inv, prev_key,
                     prev_tok=norm(prev_raw),
-                    next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
-                    clause_initial=(i == 0 or
-                                    prev_raw[-1:] in SG.CLAUSE_END))
+                    next_tok=nxt_of(i + hit),
+                    clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END),
+                    before=[norm(t) for t in toks[max(0, i - 6):i]], after=[norm(t) for t in toks[i + hit:i + hit + 6]])
                 why = why + "/" + src
             elif False:
                 # THE ONE-VOWEL RADICALS. `o`, `e`, `a`, `i`, `le`,
@@ -1033,6 +1096,19 @@ def main(argv: list[str] | None = None) -> int:
                     if tensed:
                         tensed.sort(reverse=True)
                         gloss, why = tensed[0][1], "tensed-plurality/" + src
+            if not gloss and strict and hit == 1 and key_sm in lex \
+                    and key_sm not in SG.CLOSED_CLASS and key_sm not in SG.AMBIGUOUS:
+                # THE WORD'S USUAL ENGLISH, in the Bible only. `tagata` is people
+                # 591 times, men 329, man 262 in the curation; where the KJV
+                # says "inhabitants" nothing confirms any of them and the word
+                # printed nothing 1,182 times. A strongly attested word says its
+                # plurality reading -- the Samoan still says tagata -- and the
+                # reader sees the word rather than a hole.
+                d = merge_punctuation(lex[key_sm])
+                top, n = d.most_common(1)[0]
+                total = sum(d.values())
+                if total >= 20 and n / total >= 0.30 and len(top.split()) <= 2:
+                    gloss, why = top, "plurality/lex"
             if not gloss and provisional:
                 # the curation's word stands where no verse-confirmed sense
                 # replaced it: `gaogao` "empty" beside the KJV's "void"
@@ -1074,6 +1150,39 @@ def main(argv: list[str] | None = None) -> int:
             if len(left) == 1:
                 out[blanks[0]]["en"] = left[0] if left[0][0].isupper() and norm(out[blanks[0]]["sm"]) in names else left[0].lower()
                 stats["unit: leftover-pair"] += 1
+        elif strict and 2 <= len(blanks) <= 4:
+            # THE DUAL DECIDES THE REST. In the Bible, the verse's leftover
+            # English words are laid against its leftover Samoan words by
+            # position: the same number in the same order pairs one to one,
+            # and otherwise a blank takes the leftover nearest to its place in
+            # the verse, when one is clearly nearest. The English column is the
+            # translation of this very verse, so a word it has and the gloss
+            # line lacks belongs to a Samoan word that lacks a gloss.
+            said = set()
+            for w in out:
+                if w["en"] and w["en"] != CONT:
+                    for x in re.findall(r"[a-z']+", w["en"].lower()):
+                        said.add(x); said |= _stems(x)
+            en_words = re.findall(r"[A-Za-z][a-z']+", en_text or "")
+            left = [(k, x) for k, x in enumerate(en_words)
+                    if x.lower() not in FUNCTION_ONLY and x.lower() not in LEFTOVER_STOP and len(x) >= 3
+                    and x.lower() not in said and not (_stems(x.lower()) & said)]
+            seen = set(); left = [(k, x) for k, x in left if not (x.lower() in seen or seen.add(x.lower()))]
+            if left:
+                def put(j, x):
+                    out[j]["en"] = x if x[0].isupper() and norm(out[j]["sm"]) in names else x.lower()
+                if len(left) == len(blanks):
+                    for j, (k, x) in zip(blanks, left): put(j, x)
+                    stats["unit: leftover-aligned"] += len(blanks)
+                else:
+                    ne, ns = max(1, len(en_words)), max(1, len(out))
+                    taken = set()
+                    for j in blanks:
+                        pos = j / ns
+                        cands = sorted(((abs(k / ne - pos), k, x) for k, x in left if k not in taken))
+                        if cands and cands[0][0] <= 0.2 and (len(cands) == 1 or cands[1][0] - cands[0][0] >= 0.12):
+                            _, k, x = cands[0]; taken.add(k); put(j, x)
+                            stats["unit: leftover-nearest"] += 1
         return out
 
     if a.bible:

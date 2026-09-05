@@ -49,7 +49,7 @@ BOOKS = [
 ]
 for s, e, _ in BOOKS: assert e in KC, e
 ENG = [e for s, e, _ in BOOKS]; PSALMS = ENG.index('Psalms')
-CYR = {'о':'o','а':'a','е':'e','і':'i','п':'n','т':'t','А':'A','и':'u','ш':'w','р':'p','О':'O','й':'u','у':'y','с':'c','г':'r','І':'I','ї':'i','ё':'e','Т':'T','д':'d','ч':'4','л':'n','ќ':'k','Ш':'W','ә':'e','ѕ':'s','П':'P','Е':'E','ј':'j','М':'M','б':'6','з':'3','ц':'u','€':'E','Н':'H','К':'K','С':'C','В':'B','Р':'P','х':'x','к':'k','в':'v','н':'n','ь':'b','м':'m','Х':'X','У':'Y','Ј':'J','Ѕ':'S','Ф':'F','Л':'L','Д':'D','Б':'B','Г':'G','З':'3','И':'U'}
+CYR = {'о':'o','а':'a','е':'e','і':'i','п':'n','т':'t','А':'A','и':'u','ш':'w','р':'p','О':'O','й':'u','у':'u','с':'c','г':'r','І':'I','ї':'i','ё':'e','Т':'T','д':'d','ч':'4','л':'n','ќ':'k','Ш':'W','ә':'e','ѕ':'s','П':'P','Е':'E','ј':'j','М':'M','б':'6','з':'3','ц':'u','€':'E','Н':'H','К':'K','С':'C','В':'B','Р':'P','х':'x','к':'k','в':'v','н':'n','ь':'b','м':'m','Х':'X','У':'Y','Ј':'J','Ѕ':'S','Ф':'F','Л':'L','Д':'D','Б':'B','Г':'G','З':'3','И':'U'}
 def latin(s): return ''.join(CYR.get(c, c) for c in s)
 
 # ---------------------------------------------------------------- pages -> tokens
@@ -286,6 +286,13 @@ def split_prop(text, weights):
         if p is None: p = max(start + 1, min(L - 1, target))
         pieces.append(text[start:p].strip()); start = p
     pieces.append(text[start:].strip())
+    # a piece that is a bare number or a letter or two is a margin numeral or
+    # OCR grit, not a verse: it joins its neighbour
+    for k in range(len(pieces)):
+        if pieces[k] and (len(pieces[k]) < 4 or re.fullmatch(r'[\d\W]+', pieces[k])):
+            if k + 1 < len(pieces): pieces[k + 1] = (pieces[k] + ' ' + pieces[k + 1]).strip() if not re.fullmatch(r'[\d\W]+', pieces[k]) else pieces[k + 1]
+            elif k: pieces[k - 1] = (pieces[k - 1] + ' ' + pieces[k]).strip() if not re.fullmatch(r'[\d\W]+', pieces[k]) else pieces[k - 1]
+            pieces[k] = ''
     if any(not p for p in pieces):
         words = text.split(); n = len(weights); total = sum(weights) or 1
         if len(words) < n: return [text] + [''] * (n - 1)
@@ -374,6 +381,10 @@ def clean(text):
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+0\s+(?=[a-z])', ' o ', text)     # "0" for the particle o
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+l\s+(?=[a-z])', ' i ', text)
     text = re.sub(r'(^|[.;:,!?”]\s+)la(?=\s)', r'\1Ia', text)                # "la" for the marker Ia at a clause start
+    text = re.sub(r'\b[Ii]le\b', lambda m: m.group(0)[0] + ' le', text)      # "ile" is the fused "i le"
+    # the app's text is the unmarked orthography (the diacritics layer restores
+    # marks on demand): fold the edition's macrons and stray acutes
+    text = text.translate(str.maketrans('āēīōūáéíóúÁĀ', 'aeiouaeiouAA'))
     return re.sub(r'\s+', ' ', text).strip()
 out = {k: {'sm': clean(verses[k]), 'est': k in est_keys} for k in verses}
 json.dump({'ratio': R, 'verses': out, 'notes': notes, 'spans': [(ENG[k], how) for k, b, e2, how in spans]},

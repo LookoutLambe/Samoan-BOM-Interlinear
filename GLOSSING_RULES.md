@@ -162,3 +162,40 @@ with no verse-confirmed reading takes the curation's plurality reading in
 that tense (`na faia` → "made" where the KJV has "created"). The word is the
 curation's, the tense is the marker's; nothing is invented. Generator:
 `tensed-plurality` in `generate_overrides_dc_pgp.py`.
+
+## 18. The tool learns the Bible's words, and the frames the Book of Mormon never showed
+
+User, 2026-09-05: *"these are real Samoan words in genesis that are not in the
+dictionary side.... you're to be proactive to add them, make the tool work for
+you not you for the tool"*; and on `ona malamalama ai lea`: *"it's a grouping
+that means and there was light.... ona you're not following grammar at all...
+neither with ai lea"*; *"po means night, pouliuli dark, standard typical Samoan
+words"*.
+
+- **A learned lexicon** (`scripts/learn_bible_lexicon.py` →
+  `Resources/samoan_dictionary_bible.json`): a Samoan word's English is the
+  content word that keeps turning up in its verses far beyond chance, over the
+  42,000 aligned verses (O le Tusi Paia beside the KJV, the Book of Mormon
+  volumes beside their English); inflections stem-merged, thin evidence held
+  to a stricter bar; names learn too (Paulo → Paul). 95% agreement with the
+  hand-curated lexicon. Merged after Pratt and EALD, so a dictionary sense is
+  tried first. Words too rare to learn go by hand into `VOCABULARY`
+  (nunumi = without form).
+- **Every word reaches the dictionaries.** A token nothing frames stands as
+  its own unit; a unit of particles round one content word is looked up by
+  that word; in the Bible a unanimous curated reading the verse does not carry
+  is provisional and yields to a verse-confirmed sense, else stands (gaogao
+  keeps "empty" beside "void"); a strongly attested word says its plurality
+  reading rather than nothing; a registered idiom outranks memory (`i le ua
+  faapea lava` = "and it was so"); one leftover Samoan word pairs with one
+  leftover English word, and in the Bible n leftovers pair by position.
+- **Frames.** `ona VERB (ai) lea` is the sequential "then / and" (the
+  curation: then 75, and 13); `ai lea` closes it silently and may not be
+  swallowed by the verb's unit. Clause-initial `Ia` is the optative "let".
+  `po` after a determiner is the noun night. A unit never crosses a sentence
+  stop (`po. O le` is not `po o` "or"). In the Bible a particle with a frame
+  reading opens its own unit even where the curation recorded a longer one;
+  in the Book of Mormon the curated unit stands whole (splitting cost 0.3 F1).
+- The Book of Mormon score against its curation is unchanged through all of
+  this (F1 85.0 all / 86.1 content); the Bible runs at 94.2% tokens carrying
+  text.

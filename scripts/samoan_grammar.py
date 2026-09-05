@@ -762,6 +762,9 @@ VOCABULARY = {
     # a fixed idiom of the Bible register: one unit, one English (the shorter
     # `ua faapea lava` is NOT it -- `ua faapea lava ona alofa` is "so loved")
     'i le ua faapea lava': 'and it was so',
+    # words of the Bible register that occur too rarely for the learned lexicon
+    # to reach; hand entries (user, 2026-09-05: nunumi = confused, without form)
+    'nunumi': 'without form',
     'perisitua':   'priesthood',      #  86x
     'peresitene':  'president',       # 143x
     'epikopo':     'bishop',          # 158x
@@ -1027,15 +1030,38 @@ NA_TAM_BEFORE = {'ma', 'ona', 'a', 'ae', 'aua', 'auā', 'ina', 'lea', 'ia', 'foi
                  'afai', 'peitai', 'peita’i', 'peitaʻi'}
 
 
-def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
+def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(), after=()):
     """A reading this particle takes only in this frame, or None.
 
     Returning '' means SILENT: the frame carries the English already, and the
-    particle adds no word of its own.
+    particle adds no word of its own. A reading of the form 'a|b' lists
+    alternatives in order of preference; the verse picks the first it carries.
+    `before` and `after` are the few normalised tokens on either side, for the
+    frames that span more than a neighbour (`ona … ai lea`).
     """
     f = (form or '').strip().lower()
     p = (prev or '').strip().lower()
     n = (nxt or '').strip().lower()
+    before = [(b or '').strip().lower() for b in before]
+    after = [(a or '').strip().lower() for a in after]
+
+    # THE SEQUENTIAL FRAME `ona VERB (ai) lea` -- "then / and then VERB". The
+    # curation opens it "then" 75 times and "and" 13; `ai lea` closes it and
+    # says nothing of its own. `Ona malamalama ai lea` is "and there was light".
+    # `ona o …` is a different word ("because of"), and stays with its readings.
+    if f == 'ona' and (clause_initial or p in ('ma', 'a', 'ae')) and n != 'o' and 'lea' in after[:6]:
+        return 'then|and'
+    if f == 'ai' and n == 'lea' and 'ona' in before[-6:]:
+        return ''
+    if f == 'lea' and (p == 'ai' or 'ona' in before[-6:]) and (p == 'ai' or p not in ('o', 'i', 'e', 'a')):
+        return ''
+
+    if f == 'po':
+        # the alternative / interrogative particle (`po o` "or") -- but after a
+        # determiner it is the NOUN: `le po` "the night", `i le po` "by night"
+        if p in ('le', 'se', 'ni', 'lea', 'lenei', 'lena', 'lona', 'lo', 'la') and n != 'o':
+            return 'night'
+        return None
 
     if f == 'le':
         if p in LE_NEG_BEFORE or (p == 'e' and n == 'o') or n in LE_NEG_AFTER:

@@ -79,7 +79,7 @@ def stem(w):
 cs, ce, both = collections.Counter(), collections.Counter(), collections.defaultdict(collections.Counter)
 surface = collections.defaultdict(collections.Counter)   # stem -> surface forms seen
 for toks, en in verses:
-    S = {nsm(t) for t in toks}; S = {s for s in S if s and not is_closed(s) and s not in names}
+    S = {nsm(t) for t in toks}; S = {s for s in S if s and not is_closed(s)}   # names learn too: Paulo -> paul
     words = [w for w in re.findall(r"[a-z']+", ER.modernise(en).lower()) if w not in STOP and len(w) > 2]
     E = set()
     for w in words:
