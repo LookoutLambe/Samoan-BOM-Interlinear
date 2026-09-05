@@ -1175,6 +1175,25 @@
       return;
     }
 
+    // A returning reader's page was assembled by the previous build's worker
+    // before the new one activated (skipWaiting + clients.claim). When the new
+    // worker takes control of a page that already had a controller, reload
+    // once so the reader sees the deployed build, not a mix of old data and
+    // new shell. The session flag keeps this from ever looping.
+    const hadController = Boolean(navigator.serviceWorker.controller);
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (!hadController) return;
+      try {
+        // At most one reload a minute, so a misbehaving deploy cannot loop.
+        const last = Number(sessionStorage.getItem('sw-reloaded') || 0);
+        if (Date.now() - last < 60000) return;
+        sessionStorage.setItem('sw-reloaded', String(Date.now()));
+      } catch {
+        /* storage blocked: reload anyway; controllerchange fires once per takeover */
+      }
+      location.reload();
+    });
+
     navigator.serviceWorker
       .register(new URL('sw.js', BASE))
       .then(() => {

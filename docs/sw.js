@@ -9,14 +9,18 @@
 // Stamped by scripts/build_web_data.py from a hash of the published files, so
 // a redeploy always produces a new cache and never strands readers on an old
 // build. Do not edit by hand.
-const VERSION = 'e1ca286bf427';
+const VERSION = 'f8390c351994';
 const CACHE = `bom-${VERSION}`;
 const BATCH = 12;
 
 // The shell changes between deploys; the corpus does not, within a version.
 // Shell files go network-first so a reader picks up a new build immediately,
 // falling back to cache when offline. Everything else stays cache-first.
-const SHELL = /\/(index\.html|app\.js|styles\.css|manifest\.webmanifest|assets\.json)$/;
+// data/index.json is shell, not corpus: it lists the volumes and books, so the
+// landing cards and the drawer are drawn from it. Served cache-first it handed a
+// returning reader the new app.js with the previous build's index -- three
+// cards where the deploy had five -- until the next reload.
+const SHELL = /\/(index\.html|app\.js|styles\.css|manifest\.webmanifest|assets\.json|data\/index\.json)$/;
 const isShell = (url) => SHELL.test(url.pathname) || url.pathname.endsWith('/');
 
 self.addEventListener('install', (event) => {
