@@ -438,10 +438,13 @@ def english_names() -> set:
     if _EN_NAMES is None:
         from collections import Counter
         up, low = Counter(), Counter()
-        data = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
-        for v in data.values():
-            for w in re.findall(r"[A-Za-z][a-z']+", v):
-                (up if w[0].isupper() else low)[w.lower()] += 1
+        for name in ("bom_english.json", "tusi_paia_english.json"):
+            if not (RES / name).exists():
+                continue
+            data = json.loads((RES / name).read_text(encoding="utf-8"))
+            for v in data.values():
+                for w in re.findall(r"[A-Za-z][a-z']+", v):
+                    (up if w[0].isupper() else low)[w.lower()] += 1
         _EN_NAMES = {w for w, n in up.items() if n >= 2 and low.get(w, 0) == 0}
     return _EN_NAMES
 
@@ -741,6 +744,9 @@ def main(argv: list[str] | None = None) -> int:
     ap = argparse.ArgumentParser()
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--limit", type=int, default=0)
+    ap.add_argument("--bible", action="store_true",
+                    help="gloss O le Tusi Paia (book_<id>.json) instead of the Book of Mormon volumes")
+    ap.add_argument("--book", default="", help="with --bible: one book id, e.g. genesis")
     a = ap.parse_args(argv)
 
     ov = json.loads((RES / "bom_overrides.json").read_text(encoding="utf-8"))
@@ -758,7 +764,18 @@ def main(argv: list[str] | None = None) -> int:
     maxlen = max(len(k.split()) for k in inv)
     english = json.loads((RES / "bom_english.json").read_text(encoding="utf-8"))
     books = json.loads((RES / "bom_books.json").read_text(encoding="utf-8"))["books"]
-    names = build_names(books)
+    # O le Tusi Paia: its books are one file each. They join the name
+    # derivation whether or not they are being glossed, so a Bible name that
+    # the Book of Mormon never writes (Aperaamo, Hanoka) still counts as one.
+    bible_books = []
+    bible_index = None
+    if (RES / "tusi_paia_index.json").exists():
+        bible_index = json.loads((RES / "tusi_paia_index.json").read_text(encoding="utf-8"))
+        for meta in bible_index["books"]:
+            path = RES / f"book_{meta['id']}.json"
+            if path.exists():
+                bible_books.append(json.loads(path.read_text(encoding="utf-8")))
+    names = build_names(books + bible_books)
     print(f"proper names derived   {len(names)}")
 
     # EVERY VOLUME. The curated segmentation drew boundaries the grammar
@@ -771,6 +788,221 @@ def main(argv: list[str] | None = None) -> int:
     hand = set()
     stats = Counter()
     made = 0
+
+    # THE DECISION LOOP, once, for every volume. Given a verse's tokens and its
+    # (modernised) English, gloss it: grammar first, then the curated
+    # inventory, the lexicon, the dictionary, the dominant lemma. The Book of
+    # Mormon volumes and O le Tusi Paia both come through here.
+    def gloss_tokens(toks, en_text):
+        nonlocal stats
+        out = [{"sm": t, "en": ""} for t in toks]
+        i = 0
+        prev_key = ""
+        while i < len(toks):
+            hit, src = frame_at(toks, i, inv, maxlen, lex, names)
+            if not hit:
+                stats["token: no unit"] += 1
+                i += 1
+                continue
+            key_sm = norm(" ".join(toks[i:i + hit]))
+            if src == "absorbed" and key_sm not in inv:
+                # the particle carries no English; the gloss belongs to
+                # the word it attached to
+                for back in range(1, hit):
+                    tail = norm(" ".join(toks[i + back:i + hit]))
+                    if tail in inv:
+                        key_sm = tail
+                        break
+            # THE GRAMMAR FIRST. A rule states what a form reads as
+            # everywhere; the inventory only remembers what it read as
+            # somewhere. Where the grammar refuses -- the ambiguous
+            # forms, where position decides -- the inventory and the
+            # verse's English take over.
+            term = SG.transliterated(key_sm) or SG.vocabulary(key_sm)
+            if term:
+                stats["unit: transliterated"] += 1
+                prev_key = key_sm
+                for j in range(i, i + hit - 1):
+                    out[j]["en"] = CONT
+                out[i + hit - 1]["en"] = term
+                i += hit
+                continue
+
+            # A FORM WITH TWO REAL READINGS lets the verse choose;
+            # only a form with one gets a fixed answer. `i latou` is
+            # "them" 515 times and "they" 271, and the grammar has no
+            # business picking for a verse it can see.
+            if len(SG.particle_readings(key_sm)) > 1 \
+                    and key_sm not in SG.AMBIGUOUS:
+                prev_raw = toks[i - 1] if i else ""
+                gloss, why = choose_particle(
+                    key_sm, en_text, inv, prev_key,
+                    prev_tok=norm(prev_raw),
+                    next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
+                    clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END))
+                why = "reading/" + why
+                stats["unit: " + why] += 1
+                prev_key = key_sm
+                if gloss:
+                    gloss = modernise(align_number(gloss, en_text))
+                    for j in range(i, i + hit - 1):
+                        out[j]["en"] = CONT
+                    out[i + hit - 1]["en"] = gloss
+                i += hit
+                continue
+
+            gloss = SG.primary_gloss(key_sm)
+            if gloss:
+                # A rule says what a form reads as EVERYWHERE, and the
+                # verse still gets a say at the edges: `faatasi` was
+                # "together with" in a verse reading "listen together"
+                # because the grammar's answer went straight to the
+                # page, skipping the finishing every other path gets.
+                gloss = trim_absent_tail(gloss, en_text)
+                why = "grammar/" + src
+            elif key_sm in SG.AMBIGUOUS:
+                prev_raw = toks[i - 1] if i else ""
+                gloss, why = choose_particle(
+                    key_sm, en_text, inv, prev_key,
+                    prev_tok=norm(prev_raw),
+                    next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
+                    clause_initial=(i == 0 or
+                                    prev_raw[-1:] in SG.CLAUSE_END))
+                why = why + "/" + src
+            elif False:
+                # THE ONE-VOWEL RADICALS. `o`, `e`, `a`, `i`, `le`,
+                # `ma` each carry several grammatical jobs and the form
+                # cannot tell you which -- the same problem lamed, yod,
+                # he and mem pose in Hebrew. The inventory will happily
+                # answer anyway, because somewhere in 111,683 units a
+                # bare `o` was read as almost every English word, and
+                # then whichever reading the verse happens to contain
+                # wins. That is not evidence, it is drift: Alma 32:21
+                # came out `o`="as" three times and `le`="the
+                # knowledge" twice.
+                #
+                # These are glossed by POSITION or not at all.
+                gloss, why = "", "ambiguous/" + src
+            elif key_sm in inv:
+                gloss, why = choose(inv[key_sm], en_text,
+                                    SG.tense_of_tam(prev_key)
+                                    or unit_tense(key_sm))
+                why = why + "/" + src
+            elif key_sm in lex:
+                gloss, why = choose(lex[key_sm], en_text)
+                why = why + "/lex"
+
+            else:
+                gloss, why = "", "no-gloss/" + src
+            # BACK OFF TO THE CONTENT WORD. A remembered reading of a
+            # whole phrase is rejected when the verse does not carry
+            # all of it -- `o ona fofoga` is "of his eyes," somewhere
+            # in the Book of Mormon and D&C 1:1 says "whose eyes",
+            # so the "his" sank the whole unit and `fofoga` printed
+            # nothing. The unit's one open-class word still has a
+            # reading, and the verse still decides which: this can
+            # only ever produce a word the verse actually has.
+            # THE VERSE IS A GUIDE, NOT A GAG. `tusia` is "write"
+            # and 1 Nephi 1:3 reads "I make it with mine own hand" --
+            # the English chose another word, and the Samoan still
+            # says write. Where a lone open-class token would be left
+            # BLANK and its lexicon is overwhelmingly one reading,
+            # that reading is written. Nothing is invented: the word
+            # comes from the curation, and a token with a divided
+            # lexicon still says nothing.
+            # THE DICTIONARY, last. Everything above is evidence from
+            # this corpus; this is the two lexicons, and it speaks only
+            # where the corpus has nothing to say. The verse still has
+            # to carry the sense, so a dictionary entry that does not
+            # fit the verse is not written.
+            if not gloss and hit == 1 and key_sm not in SG.CLOSED_CLASS \
+                    and key_sm not in SG.AMBIGUOUS:
+                ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+                # A dictionary sense is often several alternatives in
+                # one string -- Pratt writes `maua` as "get, to obtain,
+                # to acquire" -- and the verse will carry one of them,
+                # not all three. Each alternative is tried on its own.
+                for sense in SG.dictionary(key_sm):
+                    for alt in re.split(r"[,;]", sense):
+                        alt = re.sub(r"^\s*to\s+", "", alt).strip()
+                        words = [w for w in re.findall(r"[a-z']+", alt)
+                                 if w not in FUNCTION_ONLY]
+                        if words and all(in_english(w, ew) for w in words):
+                            gloss, why = alt, "dictionary/" + src
+                            break
+                    if gloss:
+                        break
+
+            if not gloss:
+                opens = [t for t in key_sm.split()
+                         if t not in SG.CLOSED_CLASS
+                         and t not in SG.AMBIGUOUS and t in lex]
+                if len(opens) == 1:
+                    hit_g = dominant_lemma(lex[opens[0]])
+                    if hit_g:
+                        gloss, why = hit_g, "lexicon/" + src
+
+            if not gloss:
+                open_toks = [t for t in key_sm.split()
+                             if t not in SG.CLOSED_CLASS
+                             and t not in SG.AMBIGUOUS]
+                if len(open_toks) == 1 and open_toks[0] in lex:
+                    d = lex[open_toks[0]]
+                    back, bwhy = choose(d, en_text)
+                    # A COMMON WORD'S RARE READING needs more than one
+                    # verse happening to contain it. `mea` is "thing"
+                    # 1,714 times and was read "own" off 3 witnesses,
+                    # because the verse said "own" somewhere in it.
+                    total = sum(d.values())
+                    share = d.get(back, 0) / total if total else 0
+                    if back and not (total >= 500 and share < 0.01):
+                        gloss, why = back, bwhy + "/backoff"
+            prev_key = key_sm
+            stats["unit: " + why] += 1
+            if gloss:
+                gloss = modernise(align_number(gloss, en_text))
+                gloss = capitalise_names(gloss, key_sm, names)
+                for j in range(i, i + hit - 1):
+                    out[j]["en"] = CONT
+                out[i + hit - 1]["en"] = gloss
+            i += hit
+        attach_particles(out, toks)
+        return out
+
+    if a.bible:
+        if bible_index is None:
+            print("no tusi_paia_index.json in Resources"); return 1
+        bible_english = json.loads((RES / "tusi_paia_english.json").read_text(encoding="utf-8"))
+        dual_dir = HERE.parent / "corpus" / "tusi_paia" / "dual"
+        by_id = {b["id"]: b for b in bible_books}
+        grand_tok = grand_gl = 0
+        for meta in bible_index["books"]:
+            if a.book and meta["id"] != a.book:
+                continue
+            book = by_id.get(meta["id"])
+            if book is None:
+                continue
+            ntok = ngl = 0
+            for ch in book["chapters"]:
+                for verse in ch["verses"]:
+                    toks = [w["sm"] for w in verse["words"]]
+                    en_text = modernise(bible_english.get(
+                        f"{meta['nameEn']}|{ch['num']}|{verse['num']}", ""))
+                    out = gloss_tokens(toks, en_text)
+                    verse["words"] = out
+                    ntok += len(out)
+                    ngl += sum(1 for w in out if (w["en"] or "").strip())
+            grand_tok += ntok; grand_gl += ngl
+            print(f"  {meta['nameEn']:18} {ngl:7}/{ntok:<7} {100 * ngl / max(1, ntok):5.1f}% carrying text")
+            if not a.dry_run:
+                blob = json.dumps(book, ensure_ascii=False, separators=(",", ":"))
+                (RES / f"book_{meta['id']}.json").write_text(blob, encoding="utf-8")
+                if dual_dir.exists():
+                    (dual_dir / f"book_{meta['id']}.json").write_text(blob, encoding="utf-8")
+        print(f"O le Tusi Paia: {grand_gl} of {grand_tok} tokens carrying text ({100 * grand_gl / max(1, grand_tok):.1f}%)")
+        for k, n in stats.most_common(25):
+            print(f"   {k:24} {n}")
+        return 0
 
     for book in books:
         if book.get("volume") not in ("bom", "dc", "pgp"):
@@ -790,178 +1022,7 @@ def main(argv: list[str] | None = None) -> int:
                 # and nothing written to the page comes from it.
                 en_text = modernise(english.get(
                     f"{book['nameEn']}|{ch['num']}|{verse['num']}", ""))
-                out = [{"sm": t, "en": ""} for t in toks]
-                i = 0
-                prev_key = ""
-                while i < len(toks):
-                    hit, src = frame_at(toks, i, inv, maxlen, lex, names)
-                    if not hit:
-                        stats["token: no unit"] += 1
-                        i += 1
-                        continue
-                    key_sm = norm(" ".join(toks[i:i + hit]))
-                    if src == "absorbed" and key_sm not in inv:
-                        # the particle carries no English; the gloss belongs to
-                        # the word it attached to
-                        for back in range(1, hit):
-                            tail = norm(" ".join(toks[i + back:i + hit]))
-                            if tail in inv:
-                                key_sm = tail
-                                break
-                    # THE GRAMMAR FIRST. A rule states what a form reads as
-                    # everywhere; the inventory only remembers what it read as
-                    # somewhere. Where the grammar refuses -- the ambiguous
-                    # forms, where position decides -- the inventory and the
-                    # verse's English take over.
-                    term = SG.transliterated(key_sm) or SG.vocabulary(key_sm)
-                    if term:
-                        stats["unit: transliterated"] += 1
-                        prev_key = key_sm
-                        for j in range(i, i + hit - 1):
-                            out[j]["en"] = CONT
-                        out[i + hit - 1]["en"] = term
-                        i += hit
-                        continue
-
-                    # A FORM WITH TWO REAL READINGS lets the verse choose;
-                    # only a form with one gets a fixed answer. `i latou` is
-                    # "them" 515 times and "they" 271, and the grammar has no
-                    # business picking for a verse it can see.
-                    if len(SG.particle_readings(key_sm)) > 1 \
-                            and key_sm not in SG.AMBIGUOUS:
-                        prev_raw = toks[i - 1] if i else ""
-                        gloss, why = choose_particle(
-                            key_sm, en_text, inv, prev_key,
-                            prev_tok=norm(prev_raw),
-                            next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
-                            clause_initial=(i == 0 or prev_raw[-1:] in SG.CLAUSE_END))
-                        why = "reading/" + why
-                        stats["unit: " + why] += 1
-                        prev_key = key_sm
-                        if gloss:
-                            gloss = modernise(align_number(gloss, en_text))
-                            for j in range(i, i + hit - 1):
-                                out[j]["en"] = CONT
-                            out[i + hit - 1]["en"] = gloss
-                        i += hit
-                        continue
-
-                    gloss = SG.primary_gloss(key_sm)
-                    if gloss:
-                        # A rule says what a form reads as EVERYWHERE, and the
-                        # verse still gets a say at the edges: `faatasi` was
-                        # "together with" in a verse reading "listen together"
-                        # because the grammar's answer went straight to the
-                        # page, skipping the finishing every other path gets.
-                        gloss = trim_absent_tail(gloss, en_text)
-                        why = "grammar/" + src
-                    elif key_sm in SG.AMBIGUOUS:
-                        prev_raw = toks[i - 1] if i else ""
-                        gloss, why = choose_particle(
-                            key_sm, en_text, inv, prev_key,
-                            prev_tok=norm(prev_raw),
-                            next_tok=norm(toks[i + hit]) if i + hit < len(toks) else "",
-                            clause_initial=(i == 0 or
-                                            prev_raw[-1:] in SG.CLAUSE_END))
-                        why = why + "/" + src
-                    elif False:
-                        # THE ONE-VOWEL RADICALS. `o`, `e`, `a`, `i`, `le`,
-                        # `ma` each carry several grammatical jobs and the form
-                        # cannot tell you which -- the same problem lamed, yod,
-                        # he and mem pose in Hebrew. The inventory will happily
-                        # answer anyway, because somewhere in 111,683 units a
-                        # bare `o` was read as almost every English word, and
-                        # then whichever reading the verse happens to contain
-                        # wins. That is not evidence, it is drift: Alma 32:21
-                        # came out `o`="as" three times and `le`="the
-                        # knowledge" twice.
-                        #
-                        # These are glossed by POSITION or not at all.
-                        gloss, why = "", "ambiguous/" + src
-                    elif key_sm in inv:
-                        gloss, why = choose(inv[key_sm], en_text,
-                                            SG.tense_of_tam(prev_key)
-                                            or unit_tense(key_sm))
-                        why = why + "/" + src
-                    elif key_sm in lex:
-                        gloss, why = choose(lex[key_sm], en_text)
-                        why = why + "/lex"
-
-                    else:
-                        gloss, why = "", "no-gloss/" + src
-                    # BACK OFF TO THE CONTENT WORD. A remembered reading of a
-                    # whole phrase is rejected when the verse does not carry
-                    # all of it -- `o ona fofoga` is "of his eyes," somewhere
-                    # in the Book of Mormon and D&C 1:1 says "whose eyes",
-                    # so the "his" sank the whole unit and `fofoga` printed
-                    # nothing. The unit's one open-class word still has a
-                    # reading, and the verse still decides which: this can
-                    # only ever produce a word the verse actually has.
-                    # THE VERSE IS A GUIDE, NOT A GAG. `tusia` is "write"
-                    # and 1 Nephi 1:3 reads "I make it with mine own hand" --
-                    # the English chose another word, and the Samoan still
-                    # says write. Where a lone open-class token would be left
-                    # BLANK and its lexicon is overwhelmingly one reading,
-                    # that reading is written. Nothing is invented: the word
-                    # comes from the curation, and a token with a divided
-                    # lexicon still says nothing.
-                    # THE DICTIONARY, last. Everything above is evidence from
-                    # this corpus; this is the two lexicons, and it speaks only
-                    # where the corpus has nothing to say. The verse still has
-                    # to carry the sense, so a dictionary entry that does not
-                    # fit the verse is not written.
-                    if not gloss and hit == 1 and key_sm not in SG.CLOSED_CLASS \
-                            and key_sm not in SG.AMBIGUOUS:
-                        ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
-                        # A dictionary sense is often several alternatives in
-                        # one string -- Pratt writes `maua` as "get, to obtain,
-                        # to acquire" -- and the verse will carry one of them,
-                        # not all three. Each alternative is tried on its own.
-                        for sense in SG.dictionary(key_sm):
-                            for alt in re.split(r"[,;]", sense):
-                                alt = re.sub(r"^\s*to\s+", "", alt).strip()
-                                words = [w for w in re.findall(r"[a-z']+", alt)
-                                         if w not in FUNCTION_ONLY]
-                                if words and all(in_english(w, ew) for w in words):
-                                    gloss, why = alt, "dictionary/" + src
-                                    break
-                            if gloss:
-                                break
-
-                    if not gloss:
-                        opens = [t for t in key_sm.split()
-                                 if t not in SG.CLOSED_CLASS
-                                 and t not in SG.AMBIGUOUS and t in lex]
-                        if len(opens) == 1:
-                            hit_g = dominant_lemma(lex[opens[0]])
-                            if hit_g:
-                                gloss, why = hit_g, "lexicon/" + src
-
-                    if not gloss:
-                        open_toks = [t for t in key_sm.split()
-                                     if t not in SG.CLOSED_CLASS
-                                     and t not in SG.AMBIGUOUS]
-                        if len(open_toks) == 1 and open_toks[0] in lex:
-                            d = lex[open_toks[0]]
-                            back, bwhy = choose(d, en_text)
-                            # A COMMON WORD'S RARE READING needs more than one
-                            # verse happening to contain it. `mea` is "thing"
-                            # 1,714 times and was read "own" off 3 witnesses,
-                            # because the verse said "own" somewhere in it.
-                            total = sum(d.values())
-                            share = d.get(back, 0) / total if total else 0
-                            if back and not (total >= 500 and share < 0.01):
-                                gloss, why = back, bwhy + "/backoff"
-                    prev_key = key_sm
-                    stats["unit: " + why] += 1
-                    if gloss:
-                        gloss = modernise(align_number(gloss, en_text))
-                        gloss = capitalise_names(gloss, key_sm, names)
-                        for j in range(i, i + hit - 1):
-                            out[j]["en"] = CONT
-                        out[i + hit - 1]["en"] = gloss
-                    i += hit
-                attach_particles(out, toks)
+                out = gloss_tokens(toks, en_text)
                 ov["verses"][key] = out
                 already.add(key)
                 made += 1
