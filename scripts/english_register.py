@@ -142,10 +142,19 @@ def tense_of(gloss: str):
     """
     g = " " + (gloss or "").lower().strip() + " "
     for rx, name in ((_FUTURE, "FUTURE"), (_PROG, "PROGRESSIVE"),
-                     (_PERF, "PERFECT"), (_PAST, "PAST"), (_IRREG, "PAST"),
-                     (_PRES, "PRESENT")):
+                     (_PERF, "PERFECT"), (_PAST, "PAST"), (_IRREG, "PAST")):
         if rx.search(g):
             return name
+    # PRESENT: a word in -s that is a verb, not a noun -- "the darkness",
+    # "his witness", "righteousness" carry no tense
+    for m in re.finditer(r"\b(\w+)\s+(\w{3,}s)\b|\b(\w{3,}s)\b", g):
+        prev = m.group(1) or ""
+        word = m.group(2) or m.group(3)
+        if word.endswith(("ss", "us", "is", "ness", "ous", "eous", "ious")):
+            continue
+        if prev in ("the", "a", "an", "his", "her", "its", "their", "my", "thy", "your", "our", "of", "all", "every", "these", "those", "many", "two", "three", "seven"):
+            continue
+        return "PRESENT"
     return None
 
 
@@ -350,6 +359,11 @@ def agree_tense(gloss: str, want: str, english: str) -> str:
         core = re.sub(r"[^a-z']", "", w.lower())
         if not core or core in _TENSE_SKIP:
             continue
+        # a word after an article or possessive is a noun: "the light" is never
+        # "the lit" (John 1:5), "his name" never "his named"
+        if k > 0 and re.sub(r"[^a-z']", "", words[k - 1].lower()) in ("the", "a", "an", "his", "her", "its", "their", "my", "thy", "your", "our", "this", "that", "these", "those", "every", "all", "no",
+                                                                    "of", "in", "at", "on", "upon", "with", "by", "from", "unto", "to", "into", "for", "through", "among", "over", "under", "before", "after"):
+            continue          # after a determiner or preposition the word is a noun: "in darkness", never "in darknesed"
         t = tense_of(core)
         swap = None
         if want in ("PAST", "PERFECT") and t in (None, "PRESENT"):
@@ -376,7 +390,11 @@ def agree_tense(gloss: str, want: str, english: str) -> str:
                     if base in BASE_TO_PAST and base not in ("is", "are", "am", "hath", "has", "have"):
                         swap = BASE_TO_PAST[base][0]
                         break
-                    if any(f in ew for f in _present_forms(base)):
+                    # a regular verb only when the verse shows it CONJUGATED
+                    # (-eth / -s); the bare word proves nothing -- "grace" and
+                    # "priest" are nouns and came out "graced", "priested"
+                    if any(f in ew for f in _present_forms(base) if f != base and f != core and f.endswith(("eth", "th", "s"))) \
+                            and base not in ("grace", "priest", "witness", "light", "life", "name", "word", "world", "truth", "peace", "glass", "cross", "house"):
                         swap = _past_forms(base)[0]
                         break
         elif want == "PRESENT" and t == "PAST" and core in PAST_TO_BASE:

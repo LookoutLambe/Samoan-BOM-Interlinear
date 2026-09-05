@@ -861,6 +861,7 @@ def dictionary(form):
 BIBLE_VOCABULARY = {
     'o ia lava': 'he also',
     'pupula mai': 'shine',           # John 1:5 `Ua pupula mai foi le malamalama` -- a verb, not "brightness"
+    'a e': 'but',                    # the 1887 edition spaces aʻe: `a e lei talia` "but received not" (user, John 1:11)
 }
 
 

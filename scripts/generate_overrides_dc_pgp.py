@@ -57,7 +57,13 @@ FUNCTION_ONLY = ER.FUNCTION_ONLY
 NEGATIONS = ER.PROTECTED
 _stems = ER.stems
 in_english = ER.in_english
-modernise = ER.modernise
+def modernise(text: str) -> str:
+    """Archaic English out of a gloss -- for the Book of Mormon volumes. O le
+    Tusi Paia keeps the KJV's forms (user, 2026-09-05: "putting modern for
+    this is going to make it hard because it will break the rules")."""
+    if MODE["bible"]:
+        return text
+    return ER.modernise(text)
 english_vocabulary = ER.vocabulary
 
 RES = HERE.parent / "O le Tusi a Mamona Interlinear" / "Resources"
@@ -198,6 +204,7 @@ def build_names(books) -> set:
 
 
 MODE = {"bible": False}   # set while O le Tusi Paia is glossed: its own readings apply
+RAW_EN = {"text": ""}     # the verse's KJV English before modernise(): "lighteth" lives here
 
 
 def term_of(key):
@@ -265,6 +272,11 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
         span = seq_frame_span(toks, i)
         if span:
             return span, "seqframe"
+
+    # 00b. THE NEGATIVE FRAME `e lei` / `e le` IS A UNIT before the lone `e` can
+    #      take its ergative reading ("by") -- John 1:3 printed `e=by lei=not`.
+    if MODE["bible"] and i + 1 < len(toks) and n(i, i + 2) in NEG_UNITS:
+        return 2, "neg"
 
     # 0. A REGISTERED TERM OR IDIOM IS ITS OWN UNIT, BEFORE MEMORY. `i le ua
     #    faapea lava` is "and it was so"; the inventory knows `i le ua` (on the
@@ -395,11 +407,20 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
                 return True
         return False
 
+    def swallows_an_agent(a, b):
+        """`faia e ia` was one remembered unit ("made"): the ergative agent `e` +
+        pronoun / name after a verb says its own "by him" (user, John 1:3)."""
+        for k in range(a + 1, b - 1):
+            if n(k) == "e" and (n(k + 1) in AGENT_PRONOUNS or (toks[k + 1][:1].isupper() and n(k + 1) not in SG.CLOSED_CLASS)) \
+                    and n(k - 1) not in SG.TAM and n(k - 1) not in ("e", "le", "lē", "lei"):
+                return True
+        return False
+
     def legal(span):
         key = n(i, i + span)
         if joins_two_clauses(i, i + span) or crosses_a_stop(i, i + span) or ends_on_frame_close(i, i + span):
             return False
-        if MODE["bible"] and spans_predicate_and_subject(i, i + span):
+        if MODE["bible"] and (spans_predicate_and_subject(i, i + span) or swallows_an_agent(i, i + span)):
             return False
         # `o` heads the phrase that follows it, so no unit ends on one
         return (not SG.ends_mid_phrase(key)
@@ -554,6 +575,9 @@ def english_names() -> set:
 # up, the English composed -- and the verse's own inflection preferred
 # ("lighteth"). User, 2026-09-05: "the tool needs to be able to conjugate words".
 MORPH_SUFFIXES = ["aina", "ina", "ia", "ga", "aʻi", "a‘i", "a’i", "ai", "a", "na"]
+# a verb fused with its directional particle, the verb's final vowel elided:
+# ave + atu -> avatu (give away / to), au + mai -> aumai (bring hither)
+DIRECTIONALS = [("atu", "away"), ("mai", "hither"), ("ane", "along"), ("ifo", "down"), ("aʻe", "up"), ("a‘e", "up"), ("ae", "up")]
 MORPH_PREFIXES = [("faʻa", "cause"), ("fa‘a", "cause"), ("fa’a", "cause"), ("faa", "cause"),
                   ("fe", "reciprocal"), ("ta", "plain"), ("ma", "stative")]
 
@@ -582,24 +606,40 @@ def morph_gloss(word: str, en_text: str, lex, want_tense=None) -> str:
     "light" -> the KJV's "lighteth"); only then is the English composed from the
     stem's first sense, or from the root under its prefix's frame."""
     w = word.lower()
-    ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+    raw = set(re.findall(r"[a-z']+", (RAW_EN["text"] or "").lower()))
+    ew = set(re.findall(r"[a-z']+", (en_text or "").lower())) | raw
 
     def verse_form(base: str):
         """The verse's own inflection of a candidate word: under a present
         marker the -eth/-s form first (lighteth), under a past one the past
-        form first, the bare word last."""
+        form first, the bare word last. The KJV's own form ("lighteth") beats
+        the modernised one ("lights")."""
         base = re.sub(r"[^a-z]", "", base)
         if not base:
             return None
         pres, past = ER._present_forms(base), ER._past_forms(base)
         order = (pres + past + [base]) if want_tense == "PRESENT" else (past + pres + [base]) if want_tense in ("PAST", "PERFECT") else ([base] + pres + past)
-        for form in order:
-            if form in ew:
-                return form
+        for pool in (raw, ew):
+            for form in order:
+                if form in pool:
+                    return form
         return None
 
     parts = []          # (cands, frame) in order of preference
+    # 0. a fused directional: the verb with its elided vowel restored
+    for suf, _sense in DIRECTIONALS:
+        if w.endswith(suf) and len(w) - len(suf) >= 2:
+            stem = w[:-len(suf)]
+            for stem2 in (stem, stem + "e", stem + "a", stem + "i", stem + "o", stem + "u"):
+                c = _senses(stem2, lex)
+                if c:
+                    parts.append((c, "plain"))
+                    break
+            if parts:
+                break
     for suf in MORPH_SUFFIXES:
+        if parts:
+            break
         if w.endswith(suf) and len(w) - len(suf) >= 3:
             stem = w[:-len(suf)]
             c = _senses(stem, lex)
@@ -814,6 +854,12 @@ CONNECTIVE_START = ("and ", "but ", "for ", "then ", "so ", "yet ", "nor ", "or 
 
 
 NOMINATIVE = {"him": "he", "her": "she", "them": "they", "us": "we", "me": "I"}
+INTRANSITIVE = {"came", "come", "cometh", "went", "go", "goeth", "arose", "rose", "stood", "sat", "fell", "died",
+                "lived", "dwelt", "departed", "returned", "passed", "fled", "ran", "walked", "entered", "ascended",
+                "descended", "remained", "abode", "tarried", "journeyed", "slept", "wept", "rejoiced", "said", "saith",
+                "spake", "answered", "cried", "prayed", "wondered", "marvelled", "feared", "trembled", "rested",
+                "stayed", "turned", "looked", "appeared", "was", "were", "is", "became", "grew", "waxed", "laboured",
+                "labored", "sinned", "repented", "fasted", "sailed", "escaped", "arrived", "fainted", "perished"}
 PRON_PP = {"ia te ia": "him", "ia te au": "me", "ia te a’u": "me", "ia te aʻu": "me", "ia te oe": "thee",
            "ia te i latou": "them", "ia te i laua": "them", "ia te i matou": "us", "ia te i tatou": "us",
            "ia te i maua": "us", "ia te i taua": "us", "ia te outou": "you", "ia te oulua": "you"}
@@ -905,6 +951,9 @@ def simple_sentences(out, toks, en_text):
         if not m:
             return g
         tail = g[len(g.rstrip(" ,;.")):]
+        art = (m.group(2) or "").strip()
+        if art and not re.match(r"^(the|a|an|his|her|their|my|thy|our|your)\b", rest.lower()):
+            rest = f"{art} {rest}"                # "of THE light", the article the memory dropped
         return f"{m.group(1)} {rest}{tail}"      # `to him` under "In him was life" -> "in him"
 
     def copula_first(core, cop, ec):
@@ -959,7 +1008,35 @@ def simple_sentences(out, toks, en_text):
             core = re.sub(r"^(be|the|a|an)\s+", "", g.strip(" ,;."))
             if poss == "his" and re.search(r"\bher\b", en_text.lower()) and not re.search(r"\bhis\b", en_text.lower()):
                 poss = "her"
+            # a possessive before a VERB nominalises it: `lona maliu mai` "his coming"
+            head = core.split()[-1] if core else ""
+            if head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make"):
+                ger = head[:-1] + "ing" if head.endswith("e") and not head.endswith("ee") else head + "ing"
+                core = " ".join(core.split()[:-1] + [ger])
             out[u[1] - 1]["en"] = f"{poss} {core}" + g[len(g.rstrip(" ,;.")):]
+        # a possessive left blank INSIDE this unit, before its head: `i lona maliu
+        # mai` -> "his coming" (the blank did not close a unit, so the possessive
+        # sits inside the phrase headed by `i`)
+        inner = [q for q in range(u[0], u[1] - 1) if norm(toks[q]) in POSSESSIVE and out[q]["en"] in ("", CONT)
+                 and (q == u[0] or norm(toks[q - 1]) in ("i", "ia", "iā", "o", "e", "ma", "mo", "mai"))]
+        if inner and g and g != CONT and not re.search(r"\b(his|her|its|their|my|thy|your|our)\b", g.lower()):
+            poss = POSSESSIVE[norm(toks[inner[0]])]
+            core = re.sub(r"^(to|be|the|a|an)\s+", "", g.strip(" ,;."))
+            head = core.split()[-1] if core else ""
+            if head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make"):
+                ger = head[:-1] + "ing" if head.endswith("e") and not head.endswith("ee") else head + "ing"
+                core = " ".join(core.split()[:-1] + [ger])
+            out[inner[0]]["en"] = CONT
+            out[u[1] - 1]["en"] = f"{poss} {core}" + g[len(g.rstrip(" ,;.")):]
+            g = out[u[1] - 1]["en"]
+        # the quantifier `uma` says every / all as the English has it: `tagata uma lava` "every man"
+        if "uma" in [norm(x).strip(",;.") for x in toks[u[0]:u[1]]] and g and g != CONT \
+                and not re.search(r"\b(all|every|whole|each)\b", g.lower()) and not ER.tense_of(g):
+            core = re.sub(r"^(the|a|an)\s+", "", g.strip(" ,;.").lower())
+            if core and re.search(r"\bevery\s+" + re.escape(core.split()[0]) + r"\b", en_text.lower()):
+                out[u[1] - 1]["en"] = "every " + core + g[len(g.rstrip(" ,;.")):]
+            elif core and re.search(r"\ball\s+(the\s+)?" + re.escape(core.split()[0]) + r"\b", en_text.lower()):
+                out[u[1] - 1]["en"] = "all " + g.strip(" ,;.") + g[len(g.rstrip(" ,;.")):]
         if first == "o" and last == "lea" and u[1] - u[0] >= 3 and g and g != CONT and not ER.tense_of(g) \
                 and not re.match(r"^(which|that|who)\b", g.lower()):
             core = re.sub(r"^(this|that|which|the)\s+", "", g.strip(" ,;."))
@@ -983,6 +1060,18 @@ def simple_sentences(out, toks, en_text):
         clause_start = t == 0 or re.search(r"[,;:.?!][”’\"')]*$", toks[t - 1])
         if tt in ("sa", "na", "ua", "e") and norm(toks[t + 1]) in ("i", "ia", "iā") \
                 and out[t]["en"] in ("", CONT, "was", "were", "is", "are"):
+            # not the ergative agent (`e i tatou` "by us"), and not after a verb
+            # in this clause (`ua maua ai e i tatou uma lava`: have received we all)
+            agent_key = " ".join(norm(x) for x in toks[t + 1:t + 4]).strip(",;.")
+            if tt == "e" and any(agent_key.startswith(k) for k in AGENT_PRONOUNS | set(PRON_PP)):
+                t += 1
+                continue
+            cs = t
+            while cs > 0 and not re.search(r"[,;:.?!][”’\"')]*$", toks[cs - 1]):
+                cs -= 1
+            if any(out[x]["en"] not in ("", CONT) and ER.tense_of(out[x]["en"]) in ("PAST", "PRESENT", "PERFECT") for x in range(cs, t)):
+                t += 1
+                continue
             # the predicate phrase runs to the noun that opens the subject
             e = t + 2
             while e < n and not np_head(e) and not re.search(r"[,;:.?!][”’\"')]*$", toks[e - 1]):
@@ -1165,11 +1254,24 @@ def simple_sentences(out, toks, en_text):
         if out[k]["en"] and out[k]["en"] != CONT:
             units.append((start, k + 1))
             start = k + 1
+    def agent_follows(idx):
+        """An ergative `e` + pronoun / name later in this clause: then the `o ia`
+        after the verb is its OBJECT (`e lei talia o ia e ona lava tagata`:
+        received him not, by his own people)."""
+        for w in units[idx + 2:]:
+            if re.search(r"[,;:.?!][”’\"')]*$", toks[w[0] - 1]) if w[0] else False:
+                break
+            if norm(toks[w[0]]) == "e" and w[1] - w[0] >= 2 and (norm(toks[w[0] + 1]) in AGENT_PRONOUNS | {"ona", "lona", "lana", "ana", "le", "se"} or toks[w[0] + 1][:1].isupper()):
+                return True
+        return False
+
     for idx in range(len(units) - 1):
         u, v = units[idx], units[idx + 1]
         vkey = " ".join(norm(x) for x in toks[v[0]:v[1]]).strip(",;.")
         g = gloss_of(u)
-        if vkey in SUBJ_PRON and g and g != CONT and ER.tense_of(g) in ("PAST", "PRESENT", "PERFECT") \
+        verb_head = re.sub(r"[^a-z]", "", (g.split()[-1] if g else "").lower())
+        if vkey in SUBJ_PRON and g and g != CONT and ER.tense_of(g) in ("PAST", "PRESENT", "PERFECT") and not agent_follows(idx) \
+                and verb_head in INTRANSITIVE \
                 and not re.match(r"^(he|she|they|we|i|you|ye|thou)\b", g.lower()) \
                 and not re.search(r"\b(was|were|is|are|am|be)\b", g.lower()):   # a copular predicate keeps its subject apart: "was in the world" | "he"
             verb = re.sub(r"^(who|which|that|and)\s+", "", g.strip(" ,;."))
@@ -1190,6 +1292,13 @@ def simple_sentences(out, toks, en_text):
                 out[k]["en"] = CONT
                 out[k + 1]["en"] = CONT
                 out[m]["en"] = "to " + re.sub(r"^(may|might|should|shall|will)\s+", "", out[m]["en"])
+                # `ina ia talitonu i ai` is ONE unit (user): the anaphoric `i ai`
+                # folds into the verb; the explicit phrase later says "in him"
+                if m + 2 < n and norm(toks[m + 1]) == "i" and norm(toks[m + 2]).strip(",;.") == "ai":
+                    g = out[m]["en"]
+                    out[m]["en"] = CONT
+                    out[m + 1]["en"] = CONT
+                    out[m + 2]["en"] = g + toks[m + 2][len(toks[m + 2].rstrip(",;.")):] * 0
     # `o le NOUN` right after a verb clause takes the English's own preposition:
     # "came FOR a witness" (the user reads "as a witness"; the KJV says for)
     units, start = [], 0
@@ -1208,6 +1317,48 @@ def simple_sentences(out, toks, en_text):
                 if m:
                     art = f" {m.group(2)}" if m.group(2) else ""
                     set_gloss(u, f"{m.group(1)}{art} {core}" + g[len(g.rstrip(' ,;.')):])
+    # THE ERGATIVE AGENT: `e ia` after a verb is "by him" (user, John 1:3), `e ona
+    # lava tagata` "by his own people" -- the `e` says "by" when the memory dropped it
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    OBJ = {"he": "him", "she": "her", "they": "them", "we": "us", "i": "me", "thou": "thee", "ye": "you"}
+    for idx in range(1, len(units)):
+        u = units[idx]
+        if norm(toks[u[0]]) == "e" and u[1] - u[0] >= 2 and " ".join(norm(x) for x in toks[u[0]:u[1]]) not in NEG_UNITS \
+                and (norm(toks[u[0] + 1]) in AGENT_PRONOUNS | {"ona", "lona", "lana", "ana", "le", "se"} or toks[u[0] + 1][:1].isupper()):
+            g = gloss_of(u)
+            if g and g != CONT and not re.match(r"^(by|of|to|for|with|from|in|unto)\b", g.lower()) \
+                    and not re.match(r"^(he|she|they|we|i|you|ye|thou)\s+\w+ed\b", g.lower()):
+                w = g.split()
+                if w and w[0].lower() in OBJ:
+                    w[0] = OBJ[w[0].lower()]
+                set_gloss(u, "by " + " ".join(w))
+    # THE NEGATIVE FOLDS INTO ITS VERB: `e lei faia` is "not made" (user, John 1:3)
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    for idx in range(len(units) - 1):
+        u, v = units[idx], units[idx + 1]
+        if " ".join(norm(x) for x in toks[u[0]:u[1]]) in NEG_PAST_UNITS and gloss_of(u).strip(" ,;.").lower() in ("not", "not yet"):
+            vg = gloss_of(v)
+            if vg and vg != CONT and not re.match(r"^(not|never)\b", vg.lower()) and norm(toks[v[0]]) not in SG.CLOSED_CLASS:
+                # after `e lei` the word IS a verb, and the negative is past: a
+                # bare form takes the past even where the KJV chose another word
+                # (`e lei talia` "not received" beside "comprehended it not")
+                if ER.tense_of(vg) is None and len(vg.split()) <= 2:
+                    head = vg.split()[-1].lower()
+                    past = ER.BASE_TO_PAST.get(head, [None])[0] or (ER._past_forms(head)[0] if head.isalpha() else None)
+                    if past:
+                        vg = " ".join(vg.split()[:-1] + [past])
+                if ER.tense_of(vg) in ("PAST", "PRESENT", "PERFECT"):
+                    neg = gloss_of(u).strip(" ,;.")
+                    set_gloss(u, CONT)
+                    set_gloss(v, f"{neg} {vg}")
     # every phrase headed by i / ia says the preposition the English gives it
     units, start = [], 0
     for k in range(n):
@@ -1218,7 +1369,11 @@ def simple_sentences(out, toks, en_text):
         if norm(toks[u[0]]) in ("i", "ia", "iā") and u[1] - u[0] >= 2:
             g = gloss_of(u)
             if g and g != CONT and not ER.tense_of(g) and not re.search(r"\b(was|were|is|are)\b", g.lower()):
-                set_gloss(u, with_prep(g, en_text.lower()))
+                g2 = with_prep(g, en_text.lower())
+                # no preposition anywhere: `i` before a possessive phrase reads "in" (`i lona maliu mai` "in his coming")
+                if g2 == g and not re.match(r"^" + PREPS + r"\b", g.lower()) and norm(toks[u[0] + 1]) in POSSESSIVE:
+                    g2 = "in " + g
+                set_gloss(u, g2)
     for w in out:
         if w["en"] and w["en"] != CONT:
             w["en"] = tidy(w["en"])
@@ -1266,6 +1421,7 @@ def attach_particles(out, toks):
 
 NEG_PAST_UNITS = {"e lei", "e le’i", "e leʻi", "lei", "le’i", "leʻi"}
 NEG_UNITS = NEG_PAST_UNITS | {"leai", "e leai"}
+AGENT_PRONOUNS = {"ia", "i latou", "i laua", "i matou", "i tatou", "i maua", "i taua", "oe", "au", "a’u", "aʻu", "outou", "oulua", "latou", "laua", "matou", "tatou"}
 DEBUG = {"key": ""}   # the verse being glossed, for --debug
 
 
@@ -1303,7 +1459,7 @@ def clause_tense(toks, i):
         if toks[k][-1:] in SG.CLAUSE_END:
             return None
         t = norm(toks[k])
-        if t in SG.TAM and t != "e":
+        if t in SG.TAM and t != "e" and SG.tense_of_tam(t):   # `ia` is a marker with no tense: keep looking
             return SG.tense_of_tam(t)
     return None
 
@@ -1570,6 +1726,10 @@ def main(argv: list[str] | None = None) -> int:
             # verse's English take over.
             term = SG.transliterated(key_sm) or term_of(key_sm)
             if term:
+                if strict and not SG.transliterated(key_sm):
+                    want_t = SG.tense_of_tam(prev_key) or unit_tense(key_sm) or clause_tense(toks, i)
+                    if want_t:
+                        term = ER.agree_tense(term, want_t, en_text)   # `ua maliu mai` -> came
                 stats["unit: transliterated"] += 1
                 prev_key = key_sm
                 for j in range(i, i + hit - 1):
@@ -1991,10 +2151,12 @@ def main(argv: list[str] | None = None) -> int:
                         stats["verse: hand-curated (Bible)"] += 1
                         continue
                     toks = [w["sm"] for w in verse["words"]]
-                    en_text = modernise(bible_english.get(
+                    MODE["bible"] = True
+                    en_text = (bible_english.get(
                         f"{meta['nameEn']}|{ch['num']}|{verse['num']}", ""))
                     DEBUG["key"] = hkey
                     MODE["bible"] = True
+                    RAW_EN["text"] = bible_english.get(f"{meta['nameEn']}|{ch['num']}|{verse['num']}", "")
                     out = gloss_tokens(toks, en_text, strict=True)
                     verse["words"] = out
                     ntok += len(out)

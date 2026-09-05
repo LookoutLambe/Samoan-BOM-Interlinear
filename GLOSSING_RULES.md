@@ -248,3 +248,66 @@ only) does this:
 - a trailing `foi` says "also" on its own; a clause-opening `o le X` is the noun,
   not "of X"; every `i`-phrase takes the English's preposition.
 - `o ia lava` = "he also" (Bible-only vocabulary; the BOM curation has "himself").
+
+### 21b. More from John 1 (2026-09-05, same session)
+
+- `a e` is the printed spacing of aʻe, "but" (`a e lei talia` "but ... not received").
+- `e lei VERB` folds into the verb: "not made", "not received" -- as the user groups it.
+- The ergative agent after a verb is its own unit and says "by": `e ia` "by him",
+  `e ona lava tagata` "by his own people"; a remembered span may not swallow it.
+- When an agent phrase follows in the clause, the `o ia` after the verb is the
+  OBJECT ("received him not"), so the verb + subject inversion stands down.
+- `ina ia talitonu i ai` is ONE unit: the anaphoric `i ai` folds into the purposive
+  verb; the explicit `ia te ia` later says "in him".
+- Registered terms take the marker's tense too (`ua maliu mai` -> came).
+- A rule-derived past needs the verse to show the verb CONJUGATED (-eth / -s); the
+  bare word proves nothing ("grace", "priest" are nouns).
+- The simple-sentence rule never fires on the ergative `e i tatou` ("by us") or
+  after a verb in the same clause.
+
+### 21c. The order is threefold, and the pass adapts per clause
+
+User, 2026-09-05: *"its mixed the grammar its three fold... there is no set so it
+needs to adapt... the language can be spoke like english, like TAM, or backwards."*
+Every clause is read for its OWN shape; nothing assumes one order:
+
+| shape | Samoan | read as |
+|---|---|---|
+| English-like (subject first) | `O ia lava \| sa i le Atua \| i le amataga` | he also \| was with God \| in the beginning |
+| marker-first (TAM leads) | `Na sau o ia`; `Sa i le amataga \| le Lokou` | he came; in the beginning was \| the Word |
+| inverted / predicate-first | `O le Atua foi \| le Lokou`; `E le o le malamalama ia` | God is \| also \| the Word; he was not the light |
+
+The shape is decided from where the marker and the subject stand relative to the
+predicate; the KJV clause decides where the copula or verb sits inside the unit
+("in the beginning WAS" after the phrase, "WAS with God" before it). Units keep
+Samoan order and are never re-sorted into English.
+
+Also this round: the Bible keeps the KJV's forms -- no modernising of its English
+or its glosses ("lighteth", "cometh"); a possessive before a verb is the gerund
+(`i lona maliu mai` "in his coming"); the quantifier `uma` surfaces as every / all as
+the verse has it (`tagata uma lava` "every man"); a carried preposition brings the
+English's article ("of the light").
+
+### 21d. Grammar, not patches (2026-09-05, user: "because you're not teaching the tool GRAMMAR!")
+
+Each of these is a rule about the language, placed where the tool decides that
+kind of thing; none names a verse.
+
+- **Fused directionals** (`morph_gloss`): a verb and its directional particle fuse
+  with the verb's final vowel elided -- `ave` + `atu` = `avatu` (give), `au` +
+  `mai` = `aumai` (bring). The morphology restores the vowel and looks the verb up.
+- **The ergative agent** is a noun phrase: `e le pouliuli` "by the darkness", `e
+  ia` "by him"; `e` says "by" whatever the memory dropped, and the English tense
+  test has no say over a noun phrase.
+- **Tense of the clause**: the nearest marker WITH a tense; `ia` (optative) and
+  `e` (general / ergative) are passed over (`na ia avatu` -> gave).
+- **A noun is not a verb**: an English word in -s after a determiner or a
+  preposition, or ending in -ss / -us / -is / -ness / -ous, carries no tense
+  ("the darkness", "in darkness", "his witness"); the tense step never inflects a
+  word after a determiner or a preposition ("the light", never "the lit").
+- **Subject inversion only for intransitives**: `Na sau o ia` "he came", but with a
+  transitive verb the absolutive `o ia` is the object -- `e na talia o ia`
+  "received him".
+- **After `e lei` the word is a verb**, and the negative is past: a bare form takes
+  the past even where the KJV chose another word ("not received" beside
+  "comprehended it not").

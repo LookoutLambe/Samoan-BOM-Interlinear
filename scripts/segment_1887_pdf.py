@@ -1055,7 +1055,7 @@ def main(argv=None):
     # KNOWN SAMOAN WORDS: anything the later edition writes twice, anything the
     # 1887 text itself writes often (a systematic misread is never that common
     # once the later edition disagrees), and the curated Book of Mormon
-    known = {w for w, n in freq_ref.items() if n >= 2 and w} | {w for w, n in freq_1887.items() if n >= 25 and w and freq_ref.get(w, 0) > 0}
+    known = {w for w, n in freq_ref.items() if n >= 2 and w} | {w for w, n in freq_1887.items() if n >= 25 and w and freq_ref.get(w, 0) >= 3}
     try:
         bom = json.load(open(ROOT / "O le Tusi a Mamona Interlinear" / "Resources" / "bom_books.json", encoding="utf8"))
         for bk in bom["books"]:
