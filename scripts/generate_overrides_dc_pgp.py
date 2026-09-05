@@ -698,9 +698,13 @@ def attach_particles(out, toks):
             # curation's own unit-final convention (`o le mea lea` = therefore,
             # glossed on `lea`). Left to right, a chain (`ai lea`) walks the
             # gloss to its last particle.
-            if j >= 1 and glossed(j - 1):
-                out[j]["en"] = out[j - 1]["en"]
-                out[j - 1]["en"] = CONT
+            k = j - 1
+            while k >= 0 and out[k]["en"] == CONT:     # over the unit's own particles: `silasila atu i ai`
+                k -= 1
+            if k >= 0 and glossed(k):
+                out[j]["en"] = out[k]["en"]
+                for m in range(k, j):
+                    out[m]["en"] = CONT
         else:
             k = j + 1
             while k < n and not out[k]["en"]:
