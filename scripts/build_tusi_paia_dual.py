@@ -18,24 +18,37 @@ OUT = D / 'dual'; OUT.mkdir(exist_ok=True)
 LATER = json.load(open(D / 'tusi_paia_verses.json', encoding='utf8'))['verses']
 E1887 = json.load(open(D / 'tusi_paia_verses_1887.json', encoding='utf8'))['verses']
 KJV_TEXT = json.load(open(D / 'english_ot_nt.json', encoding='utf8'))['verses']
+# THE TYPED 1887 TEXT (corpus/tusi_paia/sov/, pasted by the user chapter by chapter)
+# stands in before the later edition where the scan lost or garbled a verse: same
+# words as the print, typed, not scanned. See sov_reference.py.
+import sys as _sys
+_sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sov_reference import load_sov
+SOV = load_sov()
 V = {}
 FALLBACK = []
+TYPED = []
 for key, later in LATER.items():
     rec = E1887.get(key)
     ok = False
     if rec and rec.get('sm', '').strip():
         ratio = len(rec['sm']) / max(1, len(KJV_TEXT.get(key, '')))
-        ok = 0.35 <= ratio <= 3.0 and len(rec['sm'].split()) >= 2
+        ok = 0.35 <= ratio <= 3.0 and len(rec['sm'].split()) >= 2 and 'low-sim' not in rec.get('flags', [])
     if ok:
         V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}
+    elif key in SOV:
+        V[key] = {'sm': SOV[key], 'est': False, 'src': 'sov'}
+        TYPED.append(key)
+    elif rec and rec.get('sm', '').strip() and 0.35 <= len(rec['sm']) / max(1, len(KJV_TEXT.get(key, ''))) <= 3.0 and len(rec['sm'].split()) >= 2:
+        V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}      # low-sim, but the scan is still the 1887 print
     else:
         V[key] = dict(later, src='later')
         FALLBACK.append(key)
-print(f"1887 text for {len(V) - len(FALLBACK)} verses; later edition stands in for {len(FALLBACK)}")
+print(f"1887 text for {len(V) - len(FALLBACK) - len(TYPED)} verses (scan); typed 1887 stands in for {len(TYPED)}; later edition for {len(FALLBACK)}")
 K = json.load(open(D / 'english_ot_nt.json', encoding='utf8')); KV = K['verses']; KC = K['counts']
 OT = [('Genesis','Kenese'),('Exodus','Esoto'),('Leviticus','Levitiko'),('Numbers','Numera'),('Deuteronomy','Teuteronome'),('Joshua','Iosua'),('Judges','Faamasino'),('Ruth','Ruta'),('1 Samuel','1 Samuelu'),('2 Samuel','2 Samuelu'),('1 Kings','1 Tupu'),('2 Kings','2 Tupu'),('1 Chronicles','1 Nofoaiga a Tupu'),('2 Chronicles','2 Nofoaiga a Tupu'),('Ezra','Esera'),('Nehemiah','Neemia'),('Esther','Eseta'),('Job','Iopu'),('Psalms','Salamo'),('Proverbs','Faataoto'),('Ecclesiastes','Failauga'),('Song of Solomon','Pese a Solomona'),('Isaiah','Isaia'),('Jeremiah','Ieremia'),('Lamentations','Auega'),('Ezekiel','Esekielu'),('Daniel','Tanielu'),('Hosea','Hosea'),('Joel','Ioelu'),('Amos','Amosa'),('Obadiah','Opetaia'),('Jonah','Iona'),('Micah','Mika'),('Nahum','Nauma'),('Habakkuk','Sapakuka'),('Zephaniah','Sefanaia'),('Haggai','Hakai'),('Zechariah','Sakaria'),('Malachi','Malaki')]
 NT = [('Matthew','Mataio'),('Mark','Mareko'),('Luke','Luka'),('John','Ioane'),('Acts','Galuega'),('Romans','Roma'),('1 Corinthians','1 Korinito'),('2 Corinthians','2 Korinito'),('Galatians','Kalatia'),('Ephesians','Efeso'),('Philippians','Filipi'),('Colossians','Kolose'),('1 Thessalonians','1 Tesalonia'),('2 Thessalonians','2 Tesalonia'),('1 Timothy','1 Timoteo'),('2 Timothy','2 Timoteo'),('Titus','Tito'),('Philemon','Filemoni'),('Hebrews','Eperu'),('James','Iakopo'),('1 Peter','1 Peteru'),('2 Peter','2 Peteru'),('1 John','1 Ioane'),('2 John','2 Ioane'),('3 John','3 Ioane'),('Jude','Iuta'),('Revelation','Faaaliga')]
-index = {'fallback': FALLBACK, 'volumes': [{'id': 'ot', 'nameSm': 'O le Feagaiga Tuai', 'nameEn': 'Old Testament'},
+index = {'fallback': FALLBACK, 'typed': TYPED, 'volumes': [{'id': 'ot', 'nameSm': 'O le Feagaiga Tuai', 'nameEn': 'Old Testament'},
                      {'id': 'nt', 'nameSm': 'O le Feagaiga Fou', 'nameEn': 'New Testament'}],
          'books': [], 'estimated': [], 'missing': [],
          'source': 'corpus/tusi_paia: archive.org samoan-bible OCR segmented by scripts/segment_tusi_paia.py; English = KJV (KJV versification) from the Spanish app'}

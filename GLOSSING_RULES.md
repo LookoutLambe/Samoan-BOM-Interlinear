@@ -569,7 +569,7 @@ preposition, a curated imperative's capital is lowercased mid-sentence.
 ### 22s. The Bible pipeline, in order
 
 `segment_1887_pdf.py --all` (the PDF on the Desktop → `corpus/tusi_paia/tusi_paia_verses_1887.json`;
-`--book` never writes the file) → `build_tusi_paia_dual.py` (tokens, fallbacks, hand layer,
+`--book` never writes the file; pasted typed chapters in `corpus/tusi_paia/sov/` are the reference, see the corpus README) → `build_tusi_paia_dual.py` (tokens, fallbacks, hand layer,
 text fixes → `corpus/tusi_paia/dual/`, THE TOKEN MASTER) → `gloss_corpus.py --bible` (reads
 the dual tokens, syncs the dual index and English into Resources, writes the glossed
 `Resources/book_<id>.json`) → `build_web_data.py` → the iOS build. The glosser used to read

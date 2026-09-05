@@ -87,3 +87,16 @@ editions damaged there), a few chapter starts whose numeral the OCR swallowed.
 ia, ai) or a marker with a word following, or where the later edition's aligned word
 is `le` — and leaves `le ie`, `se ie`, `fale ie`. 366 tokens in 348 verses; 464 `ie`
 remain, the noun. Note `--book` never writes the corpus file; only `--all` does.
+
+**The typed 1887 text as reference (`sov/`, 2026-09-05).** bible.com's SOV (2203) is the 1887
+text typed; its publisher claims copyright on the edition and layout, and the words are the
+1887 words (the user's ruling). The user PASTES the chapters where the scan has trouble --
+the tool never fetches them -- into `corpus/tusi_paia/sov/<USFM>.<chapter>.txt` (e.g.
+`JHN.1.txt`, `PSA.119.txt`), verse numbers glued to the first word as pasted.
+`scripts/sov_reference.py` parses them; the segmenter uses a pasted chapter as the boundary
+guide and the aligned-word reference (`lesu` -> `Iesu`, glued words split, `ie` -> `le`), and
+the dual builder stands a typed verse in where the scan lost or garbled one (index key
+`typed`), before the later edition (`fallback`). The scan stays the text where it is sound;
+where the typed text has its own slip (`o lo sau`, John 1:47) the scan's `o loo sau` is kept.
+The list of chapters to paste, worst first, is on the Desktop:
+`Samoan Bible chapters to paste (SOV).txt` (346 chapters).

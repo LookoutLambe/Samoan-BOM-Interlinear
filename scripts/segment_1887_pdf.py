@@ -52,6 +52,17 @@ OUT = D / "tusi_paia_verses_1887.json"
 K = json.load(open(D / "english_ot_nt.json", encoding="utf8"))
 KC = K["counts"]                                   # {"John": {"1": 51, ...}}
 NUMBERED = json.load(open(D / "tusi_paia_verses.json", encoding="utf8"))["verses"]
+# THE TYPED 1887 TEXT, where the user has pasted a chapter (corpus/tusi_paia/sov/):
+# the better reference -- same words as the print -- for the boundary guide, the
+# aligned word in repair, and the known-word set. See sov_reference.py.
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from sov_reference import load_sov  # noqa: E402
+SOV = load_sov()
+
+
+def reference(key: str) -> str:
+    """The reference text for a verse: the typed 1887 chapter when pasted, else the later edition."""
+    return SOV.get(key) or NUMBERED.get(key, {}).get("sm", "")
 
 
 def _books():
@@ -462,7 +473,7 @@ def split_point(toks, prev_ended: bool, ref_start=None) -> int:
 
 def ref_start(en: str, chapter: int, verse: int):
     """The later edition's opening tokens of a verse, the boundary guide."""
-    sm = NUMBERED.get(f"{en}|{chapter}|{verse}", {}).get("sm", "")
+    sm = reference(f"{en}|{chapter}|{verse}")
     return sm.split()[:4] if sm else None
 
 
@@ -911,6 +922,7 @@ class Segmenter:
 # OCR letter confusions seen in this scan: each maps a misread run to what was
 # printed. Applied to a token only when the result is a KNOWN word.
 known_plain: set = set()
+SOV_WORDS: set = set()
 CAPITALISED: Counter = Counter()
 LOWERCASED: Counter = Counter()
 CONFUSIONS = [("rn", "m"), ("fc", "t"), ("ii", "li"), ("ll", "ll"), ("l", "i"), ("i", "l"), ("I", "l"),
@@ -1001,8 +1013,39 @@ def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter, kno
                 out[i] = rebuild(tok, "le")
                 fixes += 1
                 continue
+        # `lesu` FOR `Iesu`: the capital I read as l. The misread is frequent enough
+        # in the scan to pass as a known word, so it is caught by shape: a token
+        # opening on lowercase l whose I-form is a name the references capitalise
+        if x[:1] == "l" and x not in SOV_WORDS and CAPITALISED.get("i" + x[1:], 0) >= 3 \
+                and CAPITALISED.get("i" + x[1:], 0) > 3 * LOWERCASED.get(x, 0) + 3 * CAPITALISED.get(x, 0):
+            out[i] = rebuild(tok, "I" + strip(tok)[1:])
+            fixes += 1
+            continue
         if x in known or x.translate(demacron) in known_plain:
             continue          # a macron is spelling, never an OCR slip (māna / mana)
+        # 0. GLUED WORDS: the OCR ran two or three words together, sometimes with
+        #    a stray mark between (`uigapea`, `faamatalaina.le`, John 1:38). An
+        #    unknown token that is exactly a run of reference words, joined, is
+        #    that run.
+        glued = None
+        xs = re.sub(r"[^a-zāēīōū’ʻ‘]", "", x)
+        for j0 in range(len(kb)):
+            for L in (2, 3):
+                run = kb[j0:j0 + L]
+                if len(run) == L and all(run) and "".join(run) == xs:
+                    glued = [strip(t) for t in b[j0:j0 + L]]
+                    break
+            if glued:
+                break
+        if glued:
+            lead = re.match(r"^[^\wāēīōū’ʻ‘]*", tok).group(0)
+            trail = re.search(r"[^\wāēīōū’ʻ‘]*$", tok).group(0)
+            words = list(glued)
+            if strip(tok)[:1].isupper():
+                words[0] = words[0][:1].upper() + words[0][1:]
+            out[i] = lead + " ".join(words) + trail
+            fixes += 1
+            continue
         # 1. the aligned word of the later edition, when close
         j = aligned.get(i)
         if j is not None:
@@ -1067,10 +1110,18 @@ def main(argv=None):
     for key, rec in NUMBERED.items():
         for t in rec["sm"].split():
             freq_ref[re.sub(r"[^a-zāēīōū’ʻ‘]", "", t.lower())] += 1
+    sov_words = Counter()
+    for key, text in SOV.items():
+        for t in text.split():
+            w = re.sub(r"[^a-zāēīōū’ʻ‘]", "", t.lower())
+            if w:
+                sov_words[w] += 1
+                freq_ref[w] += 1
     # KNOWN SAMOAN WORDS: anything the later edition writes twice, anything the
     # 1887 text itself writes often (a systematic misread is never that common
-    # once the later edition disagrees), and the curated Book of Mormon
-    known = {w for w, n in freq_ref.items() if n >= 2 and w} | {w for w, n in freq_1887.items() if n >= 25 and w and freq_ref.get(w, 0) >= 3}
+    # once the later edition disagrees), every word of the typed 1887 chapters,
+    # and the curated Book of Mormon
+    known = {w for w, n in freq_ref.items() if n >= 2 and w} | {w for w, n in freq_1887.items() if n >= 25 and w and freq_ref.get(w, 0) >= 3} | set(sov_words)
     try:
         bom = json.load(open(ROOT / "O le Tusi a Mamona Interlinear" / "Resources" / "bom_books.json", encoding="utf8"))
         for bk in bom["books"]:
@@ -1086,11 +1137,14 @@ def main(argv=None):
     known_plain = {w.translate(str.maketrans("āēīōū", "aeiou")) for w in known}
     # how the later edition capitalises each word, for repaired names
     CAPITALISED, LOWERCASED = Counter(), Counter()
-    for key, rec in NUMBERED.items():
-        for t in rec["sm"].split():
+    for text in [rec["sm"] for rec in NUMBERED.values()] + list(SOV.values()):
+        for t in text.split():
             core = re.sub(r"[^A-Za-zāēīōūĀĒĪŌŪ’ʻ‘]", "", t)
             if len(core) >= 3:
                 (CAPITALISED if core[0].isupper() else LOWERCASED)[core.lower()] += 1
+    global SOV_WORDS
+    SOV_WORDS = set(sov_words)
+    print(f"typed 1887 chapters (sov/): {len(SOV)} verses")
     print(f"known Samoan words: {len(known)}")
 
     # report + repair
@@ -1104,7 +1158,7 @@ def main(argv=None):
                 key = f"{en}|{c}|{v}"
                 nb += 1
                 rec = seg.verses.get(key)
-                ref = NUMBERED.get(key, {}).get("sm", "")
+                ref = reference(key)
                 if rec and rec["sm"]:
                     nf += 1
                     if not a.no_repair:
@@ -1140,14 +1194,14 @@ def main(argv=None):
                 key = f"{en}|{c}|{v}"; rec = seg.verses.get(key)
                 if rec and "low-sim" in rec["flags"] and shown < (a.show_low or 0):
                     shown += 1
-                    print(f"\n  LOW {c}:{v} sim={rec['sim']}\n   1887: {rec['sm'][:220]}\n   later: {NUMBERED.get(key, {}).get('sm', '')[:220]}")
+                    print(f"\n  LOW {c}:{v} sim={rec['sim']}\n   1887: {rec['sm'][:220]}\n   ref:   {reference(key)[:220]}")
         for c in ([a.chapter] if a.chapter else []):
             for v in range(1, KC[en][c] + 1):
                 key = f"{en}|{c}|{v}"
                 rec = seg.verses.get(key)
                 print(f"\n[{c}:{v}] sim={rec['sim'] if rec else '-'} {rec['flags'] if rec else ''}")
                 print("  1887:", rec["sm"] if rec else "(missing)")
-                print("  later:", NUMBERED.get(key, {}).get("sm", ""))
+                print("  ref:  ", reference(key))
     if a.all:
         json.dump({"source": "archive.org oletusipaiaole00lond (BFBS 1887), text layer of the PDF; segmented by scripts/segment_1887_pdf.py",
                    "verses": seg.verses, "notes": seg.notes},
