@@ -620,9 +620,17 @@ MORPH_PREFIXES = [("faʻa", "cause"), ("fa‘a", "cause"), ("fa’a", "cause"), 
                   ("fe", "reciprocal"), ("ta", "plain"), ("ma", "stative")]
 
 
+# the copulas and auxiliaries are never nominalised: "which is" is not "which ising"
+_NO_GERUND = {"is", "are", "was", "were", "am", "be", "been", "being", "have", "has", "hath", "had",
+              "do", "does", "did", "shall", "will", "may", "might", "can", "could", "should", "would",
+              "not", "the", "a", "an", "of", "to", "and", "that", "which", "who"}
+
+
 def _gerund(base: str) -> str:
-    """come -> coming, begin -> beginning, see -> seeing."""
+    """come -> coming, begin -> beginning, see -> seeing; a copula stays itself."""
     b = base.lower()
+    if b in _NO_GERUND:
+        return base
     if b.endswith("ie"):
         return b[:-2] + "ying"
     if b.endswith("e") and not b.endswith("ee"):
@@ -1249,9 +1257,8 @@ def simple_sentences(out, toks, en_text):
                 poss = "her"
             # a possessive before a VERB nominalises it: `lona maliu mai` "his coming"
             head = core.split()[-1] if core else ""
-            if head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make"):
-                ger = head[:-1] + "ing" if head.endswith("e") and not head.endswith("ee") else head + "ing"
-                core = " ".join(core.split()[:-1] + [ger])
+            if (head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make")) and head not in _NO_GERUND:
+                core = " ".join(core.split()[:-1] + [_gerund(head)])
             core = nominal(core)
             out[u[1] - 1]["en"] = f"{poss} {core}" + g[len(g.rstrip(" ,;.")):]
         # a possessive left blank INSIDE this unit, before its head: `i lona maliu
@@ -1268,9 +1275,8 @@ def simple_sentences(out, toks, en_text):
             poss = POSSESSIVE[norm(toks[inner[0]])]
             core = re.sub(r"^(to|be|the|a|an)\s+", "", g.strip(" ,;."))
             head = core.split()[-1] if core else ""
-            if head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make"):
-                ger = head[:-1] + "ing" if head.endswith("e") and not head.endswith("ee") else head + "ing"
-                core = " ".join(core.split()[:-1] + [ger])
+            if (head in ER.BASE_TO_PAST or head in ("come", "go", "believe", "witness", "speak", "hear", "see", "know", "die", "live", "rise", "fall", "return", "sit", "stand", "walk", "eat", "drink", "give", "take", "make")) and head not in _NO_GERUND:
+                core = " ".join(core.split()[:-1] + [_gerund(head)])
             core = nominal(core)
             out[inner[0]]["en"] = CONT
             out[u[1] - 1]["en"] = f"{poss} {core}" + g[len(g.rstrip(" ,;.")):]
