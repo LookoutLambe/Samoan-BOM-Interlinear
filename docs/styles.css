@@ -802,8 +802,11 @@ body.no-gloss .unit .en { display: none; }
 
 .cover-cell { display: flex; flex-direction: column; gap: 1px; }
 
+/* The plate is indigo chrome, so the title takes the BRIGHT accent — the
+   bronze --accent is the mark colour for paper and sits at 3:1 (light) and
+   2.4:1 (sepia) on the navy; --accent-light clears 9:1 in every theme. */
 .cover-title .sm {
-  color: var(--accent);
+  color: var(--accent-light);
   font-size: 1.5rem;
   font-weight: 600;
   letter-spacing: .094em;
@@ -822,7 +825,7 @@ body.no-gloss .unit .en { display: none; }
 }
 
 .cover-sub .en {
-  color: color-mix(in srgb, var(--accent-light) 70%, transparent);
+  color: color-mix(in srgb, var(--accent-light) 80%, transparent);   /* 70% sat at 4.47:1 on the plate's darker end */
   font-size: .563rem;
   font-style: italic;
 }
@@ -842,7 +845,7 @@ body.no-gloss .unit .en { display: none; }
 }
 
 .continue-kicker {
-  color: var(--accent);
+  color: var(--accent-light);   /* on the navy plate: the bright accent, as the covers */
   font-size: .75rem;
   font-weight: 600;
   letter-spacing: .031em;
