@@ -957,6 +957,27 @@ def main(argv: list[str] | None = None) -> int:
                     share = d.get(back, 0) / total if total else 0
                     if back and not (total >= 500 and share < 0.01):
                         gloss, why = back, bwhy + "/backoff"
+            # UNDER AN EXPLICIT TENSE MARKER, A VERB SAYS ITS WORD. `Na faia e le
+            # Atua` reads "created" in the KJV, and the curation has faia only as
+            # made / wrought / did / done, so every reading was vetoed and the verb
+            # printed nothing while its past marker fired for nothing. The marker's
+            # tense is a grammar fact; the verb's plurality reading in that tense is
+            # the curation's own word for it. Nothing is invented: the word comes
+            # from the curation and the tense from the marker -- the verse only
+            # failed to confirm which English word, not that the verb was there.
+            if not gloss and hit <= 2:
+                want = SG.tense_of_tam(prev_key) or unit_tense(key_sm)
+                opens = [t for t in key_sm.split()
+                         if t not in SG.CLOSED_CLASS and t not in SG.AMBIGUOUS]
+                if want and len(opens) == 1 and (key_sm in inv or opens[0] in lex):
+                    d = inv.get(key_sm) or lex[opens[0]]
+                    tensed = [(n, g) for g, n in merge_punctuation(d).items()
+                              if ER.tense_of(g) == want and len(g.split()) <= 2
+                              and not any(w in ("which", "who", "that", "there")
+                                          for w in g.lower().split())]
+                    if tensed:
+                        tensed.sort(reverse=True)
+                        gloss, why = tensed[0][1], "tensed-plurality/" + src
             prev_key = key_sm
             stats["unit: " + why] += 1
             if gloss:

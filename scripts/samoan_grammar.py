@@ -1013,6 +1013,12 @@ def token_class(tok):
     return "OPEN"
 
 
+# What stands before a main-clause past marker: conjunctions, the linkers that
+# open a clause, and the fronted subject pronoun (`o ia na fai` "he did").
+NA_TAM_BEFORE = {'ma', 'ona', 'a', 'ae', 'aua', 'auā', 'ina', 'lea', 'ia', 'foi',
+                 'afai', 'peitai', 'peita’i', 'peitaʻi'}
+
+
 def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
     """A reading this particle takes only in this frame, or None.
 
@@ -1026,6 +1032,26 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False):
     if f == 'le':
         if p in LE_NEG_BEFORE or (p == 'e' and n == 'o') or n in LE_NEG_AFTER:
             return 'not'
+        return None
+
+    if f == 'na':
+        # THE PAST-TENSE MARKER before anything else. `na` sits in three tables
+        # -- the TAM (past), the bound pronoun (`ua na fai` "he did", `na te
+        # fai` "he does"), and the curation's relative readings which/who/that
+        # -- and only the position tells them apart. Left to the readings, a
+        # clause-initial `Na alu` came out "that": 410 main-clause past
+        # markers in the Bible glossed as relatives, and `Na faia e le Atua`
+        # firing for nothing. Clause-initial, or after a conjunction or a
+        # fronted subject, it opens a main clause: the tense rides on the verb
+        # and the marker says no word of its own. After a TAM it is the
+        # pronoun. Before `te` the inventory's frame decides. After a noun it
+        # may open a relative clause, where which/who/that still stand.
+        if n == 'te':
+            return None
+        if clause_initial or p in NA_TAM_BEFORE:   # before the TAM test: `ia` is
+            return ''                                # the fronted pronoun here
+        if p in TAM or p == 'te':
+            return 'he'
         return None
 
     if f == 'o':

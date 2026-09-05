@@ -137,3 +137,28 @@ Seed phrases in `extract_phrases.py:USER_SEED_PHRASES` win against extracted one
 order: `extract_phrases.py` → `build_phrase_overrides.py` → per-verse
 `build_overrides_<book><n>.py`. Each per-verse script validates alignment (no gaps, spec
 covers exactly the source-token count) before writing to `bom_overrides.json`.
+
+## 17. `na` is the past-tense marker, and position decides its other jobs
+
+`na` sits in three tables — the TAM (past), the bound pronoun (`ua na fai`
+"he did", `na te fai` "he does"), and the curation's relative readings
+which/who/that — and left to the readings a clause-initial `Na alu` came out
+"that": 410 main-clause past markers in the Bible glossed as relatives, and
+`Na faia e le Atua` firing for nothing (user, 2026-09-05: *"the past tense
+particle... na faia is not firing"*). The rule, in `samoan_grammar.
+contextual_reading`:
+
+- clause-initial, or after a conjunction / clause linker / the fronted
+  subject pronoun (`ma`, `ona`, `a`, `ae`, `aua`, `ina`, `lea`, `ia`, `foi`,
+  `afai`, `peitai`): the past marker — silent (`·`), the tense rides on the
+  verb;
+- after a TAM or `te`: the pronoun "he";
+- before `te`: the inventory's `na te` frame decides;
+- after a noun: it may open a relative clause, where the curation's
+  which/who/that still stand.
+
+And the verb it marks says its word: under an explicit tense marker, a verb
+with no verse-confirmed reading takes the curation's plurality reading in
+that tense (`na faia` → "made" where the KJV has "created"). The word is the
+curation's, the tense is the marker's; nothing is invented. Generator:
+`tensed-plurality` in `generate_overrides_dc_pgp.py`.
