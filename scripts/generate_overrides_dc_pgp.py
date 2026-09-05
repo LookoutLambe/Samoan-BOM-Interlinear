@@ -547,6 +547,100 @@ def english_names() -> set:
     return _EN_NAMES
 
 
+# ── MORPHOLOGY ──────────────────────────────────────────────────────────────────
+# `faamalamalamaina` = faʻa- (causative) + malamalama (light) + -ina (transitive /
+# passive). The lexicons hold the stem, not every conjugated form, so a form
+# nobody glossed is taken apart: suffix off, prefix off, the stem or root looked
+# up, the English composed -- and the verse's own inflection preferred
+# ("lighteth"). User, 2026-09-05: "the tool needs to be able to conjugate words".
+MORPH_SUFFIXES = ["aina", "ina", "ia", "ga", "aʻi", "a‘i", "a’i", "ai", "a", "na"]
+MORPH_PREFIXES = [("faʻa", "cause"), ("fa‘a", "cause"), ("fa’a", "cause"), ("faa", "cause"),
+                  ("fe", "reciprocal"), ("ta", "plain"), ("ma", "stative")]
+
+
+def _senses(word: str, lex) -> list[str]:
+    out = []
+    if lex is not None and word in lex:
+        top = dominant_lemma(lex[word])
+        if top:
+            out.append(top)
+        for g, n in lex[word].most_common(3):
+            if g and g not in out and len(g.split()) <= 2:
+                out.append(g)
+    for sense in SG.dictionary(word):
+        for alt in re.split(r"[,;]", sense):
+            alt = re.sub(r"^\s*to\s+", "", alt).strip()
+            if alt and alt not in out and len(alt.split()) <= 3:
+                out.append(alt)
+    return out
+
+
+def morph_gloss(word: str, en_text: str, lex, want_tense=None) -> str:
+    """A gloss for a form the lexicons do not hold, by its parts; '' if none.
+
+    The verse's own inflection of ANY part's sense wins first (root malamalama
+    "light" -> the KJV's "lighteth"); only then is the English composed from the
+    stem's first sense, or from the root under its prefix's frame."""
+    w = word.lower()
+    ew = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+
+    def verse_form(base: str):
+        """The verse's own inflection of a candidate word: under a present
+        marker the -eth/-s form first (lighteth), under a past one the past
+        form first, the bare word last."""
+        base = re.sub(r"[^a-z]", "", base)
+        if not base:
+            return None
+        pres, past = ER._present_forms(base), ER._past_forms(base)
+        order = (pres + past + [base]) if want_tense == "PRESENT" else (past + pres + [base]) if want_tense in ("PAST", "PERFECT") else ([base] + pres + past)
+        for form in order:
+            if form in ew:
+                return form
+        return None
+
+    parts = []          # (cands, frame) in order of preference
+    for suf in MORPH_SUFFIXES:
+        if w.endswith(suf) and len(w) - len(suf) >= 3:
+            stem = w[:-len(suf)]
+            c = _senses(stem, lex)
+            if c:
+                parts.append((c, "noun" if suf == "ga" else "plain"))
+            for pre, frame in MORPH_PREFIXES:
+                if stem.startswith(pre) and len(stem) - len(pre) >= 3:
+                    c = _senses(stem[len(pre):], lex)
+                    if c:
+                        parts.append((c, frame))
+            if parts:
+                break
+    if not parts:
+        for pre, frame in MORPH_PREFIXES:
+            if w.startswith(pre) and len(w) - len(pre) >= 3:
+                c = _senses(w[len(pre):], lex)
+                if c:
+                    parts.append((c, frame))
+    if not parts:
+        return ""
+    # 1. the verse's own form of any sense
+    for cands, frame in parts:
+        for c in cands:
+            for piece in c.split():
+                vf = verse_form(piece)
+                if vf and piece not in ("the", "a", "an", "of", "to", "be", "is", "was"):
+                    return vf
+    # 2. composed
+    cands, frame = parts[0]
+    c = cands[0]
+    if frame == "cause":
+        g = "give light" if c in ("light", "clear", "bright", "brighten") else (f"cause to {c}" if ER.tense_of(c) else f"make {c}")
+    elif frame == "reciprocal":
+        g = f"{c} one another"
+    else:
+        g = c
+    if g and want_tense:
+        g = ER.agree_tense(g, want_tense, en_text)
+    return g
+
+
 def dominant_lemma(dist) -> str:
     """The one word a token means, when its lexicon agrees on the word and
     only disagrees on the form.
@@ -1714,6 +1808,13 @@ def main(argv: list[str] | None = None) -> int:
             # the curation's own word for it. Nothing is invented: the word comes
             # from the curation and the tense from the marker -- the verse only
             # failed to confirm which English word, not that the verb was there.
+            if not gloss and strict and not name_blocked and dict_word and dict_word not in SG.CLOSED_CLASS \
+                    and dict_word not in SG.AMBIGUOUS and dict_word not in SG.TAM:
+                # THE FORM TAKEN APART: prefix, root, suffix (faamalamalamaina)
+                want_m = SG.tense_of_tam(prev_key) or unit_tense(key_sm) or clause_tense(toks, i)
+                mg = morph_gloss(dict_word, en_text, lex, want_m)
+                if mg:
+                    gloss, why = mg, "morphology/" + src
             if not gloss and not name_blocked and hit <= 2:
                 want = SG.tense_of_tam(prev_key) or unit_tense(key_sm) or ("PAST" if seq_verb else None)
                 opens = [t for t in key_sm.split()

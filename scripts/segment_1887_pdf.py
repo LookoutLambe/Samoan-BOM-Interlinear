@@ -901,40 +901,96 @@ class Segmenter:
 
 # ── OCR repair against the later edition ──────────────────────────────────────
 
-def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter) -> tuple[str, int]:
-    """Replace a rare 1887 token by the later edition's aligned token when the
-    two differ by a slip of one or two letters. Real differences between the
-    editions (Lokou / Upu, Ieova / ALII) are far apart and stay."""
+# OCR letter confusions seen in this scan: each maps a misread run to what was
+# printed. Applied to a token only when the result is a KNOWN word.
+CONFUSIONS = [("rn", "m"), ("fc", "t"), ("ii", "li"), ("ll", "ll"), ("l", "i"), ("i", "l"), ("I", "l"),
+              ("l", "I"), ("u", "n"), ("n", "u"), ("cl", "d"), ("0", "o"), ("1", "l"), ("5", "s"),
+              ("j", "i"), ("vv", "w"), ("‘", "‘"), ("aa", "ā")]
+JUNK = re.compile(r"[\^~|*_=<>{}\[\]#%&@\\/]+")
+
+
+def _variants(tok: str):
+    """Spellings this token could have been misread from, one confusion at a time
+    (and two for the commonest, l/i), letters only."""
+    out = set()
+    for a, b in CONFUSIONS:
+        if a in tok:
+            for k in range(tok.count(a)):
+                parts = tok.split(a)
+                cand = a.join(parts[:k + 1]) + b + a.join(parts[k + 1:])
+                out.add(cand)
+            out.add(tok.replace(a, b))
+    more = set()
+    for v in out:
+        for a, b in (("l", "i"), ("i", "l")):
+            if a in v:
+                more.add(v.replace(a, b, 1))
+    return (out | more) - {tok}
+
+
+def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter, known: set) -> tuple[str, int]:
+    """Correct the scan's OCR slips.
+
+    A token that is a KNOWN Samoan word (the later edition, or common in the
+    1887 text itself) is left alone. Otherwise, in order: the later edition's
+    aligned word when it is close (Lokou / Upu are not close, and stay); a
+    letter-confusion variant that is a known word (iava -> lava, rnaua -> maua,
+    Levl -> Levi, lesu -> Iesu, monl -> moni); junk characters stripped. Case
+    and punctuation of the 1887 token are kept."""
     a = text.split()
     b = reference.split()
-    ka = [re.sub(r"[^a-zāēīōū’ʻ‘]", "", t.lower()) for t in a]
-    kb = [re.sub(r"[^a-zāēīōū’ʻ‘]", "", t.lower()) for t in b]
+    strip = lambda t: re.sub(r"[^A-Za-zāēīōūĀĒĪŌŪ’ʻ‘]", "", t)
+    ka = [strip(t).lower() for t in a]
+    kb = [strip(t).lower() for t in b]
+    aligned = {}
     sm = difflib.SequenceMatcher(None, ka, kb, autojunk=False)
+    for tag, i1, i2, j1, j2 in sm.get_opcodes():
+        if tag == "replace" and (i2 - i1) == (j2 - j1):
+            for i, j in zip(range(i1, i2), range(j1, j2)):
+                aligned[i] = j
     fixes = 0
     out = list(a)
-    for tag, i1, i2, j1, j2 in sm.get_opcodes():
-        if tag != "replace" or (i2 - i1) != (j2 - j1):
+
+    def rebuild(orig: str, core_new: str) -> str:
+        lead = re.match(r"^[^\wāēīōū’ʻ‘]*", orig).group(0)
+        trail = re.search(r"[^\wāēīōū’ʻ‘]*$", orig).group(0)
+        body = orig[len(lead):len(orig) - len(trail)] if trail else orig[len(lead):]
+        if body[:1].isupper() and core_new[:1].islower():
+            core_new = core_new[:1].upper() + core_new[1:]
+        return lead + core_new + trail
+
+    for i, tok in enumerate(a):
+        x = ka[i]
+        if not x or len(x) < 2:
             continue
-        for i, j in zip(range(i1, i2), range(j1, j2)):
-            x, y = ka[i], kb[j]
-            if not x or not y or len(x) < 3:
+        cleaned = JUNK.sub("", tok)
+        if cleaned != tok and cleaned:
+            out[i] = cleaned
+            tok = cleaned
+            fixes += 1
+            x = strip(tok).lower()
+            if not x:
                 continue
-            if abs(len(x) - len(y)) > 1:
-                continue
-            r = difflib.SequenceMatcher(None, x, y).ratio()
-            # a systematic misreading (`pouiiuli` for pouliuli) recurs, so a token
-            # that is close to a COMMON reference word is repaired even when it
-            # is not rare itself
-            common_target = freq_ref.get(y, 0) >= 20 and r >= 0.85 and freq_1887.get(x, 0) <= 12
-            if (r >= 0.7 and freq_1887.get(x, 0) <= 2 and freq_ref.get(y, 0) >= 3) or common_target:
-                # keep the 1887 token's punctuation and case
-                lead = re.match(r"^[^\wāēīōū’ʻ‘]*", a[i]).group(0)
-                trail = re.search(r"[^\wāēīōū’ʻ‘]*$", a[i]).group(0)
-                core = b[j].strip(".,;:!?“”‘’\"'()[]")
-                if a[i][:1].isupper() and core[:1].islower():
-                    core = core[:1].upper() + core[1:]
-                out[i] = lead + core + trail
+        if x in known:
+            continue
+        # 1. the aligned word of the later edition, when close
+        j = aligned.get(i)
+        if j is not None:
+            y = kb[j]
+            if y and y in known and abs(len(x) - len(y)) <= 1 and difflib.SequenceMatcher(None, x, y).ratio() >= 0.7:
+                out[i] = rebuild(tok, strip(b[j]))
                 fixes += 1
+                continue
+        # 2. a letter-confusion variant that is a known word (the commonest wins)
+        cands = [v for v in _variants(x) if v in known]
+        if cands:
+            best = max(cands, key=lambda v: (freq_ref.get(v, 0) + freq_1887.get(v, 0), -abs(len(v) - len(x))))
+            # keep the original's capital letter positions where the length matches
+            core = strip(tok)
+            if len(core) == len(best):
+                best = "".join(bc.upper() if oc.isupper() else bc for oc, bc in zip(core, best))
+            out[i] = rebuild(tok, best)
+            fixes += 1
     return " ".join(out), fixes
 
 
@@ -980,6 +1036,22 @@ def main(argv=None):
     for key, rec in NUMBERED.items():
         for t in rec["sm"].split():
             freq_ref[re.sub(r"[^a-zāēīōū’ʻ‘]", "", t.lower())] += 1
+    # KNOWN SAMOAN WORDS: anything the later edition writes twice, anything the
+    # 1887 text itself writes often (a systematic misread is never that common
+    # once the later edition disagrees), and the curated Book of Mormon
+    known = {w for w, n in freq_ref.items() if n >= 2 and w} | {w for w, n in freq_1887.items() if n >= 25 and w and freq_ref.get(w, 0) > 0}
+    try:
+        bom = json.load(open(ROOT / "O le Tusi a Mamona Interlinear" / "Resources" / "bom_books.json", encoding="utf8"))
+        for bk in bom["books"]:
+            for ch in bk["chapters"]:
+                for v in ch["verses"]:
+                    for w in v["words"]:
+                        k = re.sub(r"[^a-zāēīōū’ʻ‘]", "", w["sm"].lower())
+                        if k:
+                            known.add(k)
+    except Exception as exc:   # the Book of Mormon file is a bonus, not a requirement
+        print("bom_books.json not used for the known-word set:", exc)
+    print(f"known Samoan words: {len(known)}")
 
     # report + repair
     report = []
@@ -995,8 +1067,8 @@ def main(argv=None):
                 ref = NUMBERED.get(key, {}).get("sm", "")
                 if rec and rec["sm"]:
                     nf += 1
-                    if not a.no_repair and ref:
-                        rec["sm"], k = repair(rec["sm"], ref, freq_1887, freq_ref)
+                    if not a.no_repair:
+                        rec["sm"], k = repair(rec["sm"], ref, freq_1887, freq_ref, known)
                         fixes += k
                     s = similarity(rec["sm"], ref) if ref else 1.0
                     rec["sim"] = round(s, 2)
