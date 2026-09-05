@@ -3,7 +3,13 @@
 Pulled 2026-09-04, segmented 2026-09-05. The goal: the Old and New Testament in this app's Dual
 structure, Samoan verse beside the English, the way the Spanish iOS app carries them
 (`book_<id>.json` per book with `volume: "ot" | "nt"`, one English map keyed
-`Book|chapter|verse`). Nothing in this folder is wired into the app bundle yet.
+`Book|chapter|verse`). Wired into the app 2026-09-05: the 68 files of `dual/` are copied into
+`O le Tusi a Mamona Interlinear/Resources/`; `ScriptureLibrary` reads `tusi_paia_index.json` at
+launch, decodes a `book_<id>.json` on first open (cached), and falls back to
+`tusi_paia_english.json` for the Dual English; the drawer lists the two volumes after the Pearl of
+Great Price. Search still covers the Book of Mormon volumes only (the Bible needs a prebuilt folded
+index, as the Spanish app has). Regenerate the data with `segment_tusi_paia.py` →
+`build_tusi_paia_dual.py` → copy `dual/*.json` into Resources.
 
 ## What is here
 
@@ -52,7 +58,8 @@ locates a phrase.
 
 ## Next
 
-Wire the lazy per-book loader into the Samoan app (the Spanish app's `ScriptureLibrary` is the
-model), then use the aligned Bible as evidence for the D&C/PGP blanks
+A prebuilt folded search index for the Bible (the Spanish app's `spa_search.txt` pattern), a cover
+or entry for the Bible on the landing page, hand review of the estimated verses; then use the
+aligned Bible as evidence for the D&C/PGP blanks
 (`scripts/diag_blanks_dc_pgp.py`, `scripts/name_matcher_proto.py`): names like Enoka, Lameko,
 Metusela, Peteru, Paulo, Mekaeli now have direct witnesses.

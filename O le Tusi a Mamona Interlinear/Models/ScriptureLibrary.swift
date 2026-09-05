@@ -9,6 +9,13 @@ final class ScriptureLibrary {
     private(set) var books: [Book] = []
     private(set) var loadError: String?
 
+    /// O le Tusi Paia: the two Bible volumes and their books, from the index.
+    /// Their verse text loads per book on first use (see `book(id:)`).
+    private(set) var bibleVolumes: [TusiPaiaVolume] = []
+    private(set) var bibleBooks: [TusiPaiaBookMeta] = []
+    @ObservationIgnored private var bibleCache: [String: Book] = [:]
+    @ObservationIgnored private var bibleEnglish: [String: String]?
+
     private var englishVerses: [String: String]?
     private var crossRefs: [String: [CrossRef]]?
     private var headings: [String: HeadingSection]?
@@ -20,6 +27,7 @@ final class ScriptureLibrary {
 
     init() {
         loadBooks()
+        loadBibleIndex()
     }
 
     // MARK: Verses (eager)
@@ -60,19 +68,57 @@ final class ScriptureLibrary {
                 }
                 return Chapter(num: chapter.num, verses: newVerses)
             }
-            return Book(id: book.id, nameSm: book.nameSm, nameEn: book.nameEn, chapters: newChapters)
+            return Book(id: book.id, nameSm: book.nameSm, nameEn: book.nameEn, chapters: newChapters, volume: book.volume)
         }
     }
 
-    func book(id: String) -> Book? {
-        books.first { $0.id == id }
+    // MARK: O le Tusi Paia (index eager, books lazy)
+
+    private func loadBibleIndex() {
+        guard let url = Bundle.main.url(forResource: "tusi_paia_index", withExtension: "json"),
+              let data = try? Data(contentsOf: url),
+              let decoded = try? JSONDecoder().decode(TusiPaiaIndex.self, from: data)
+        else { return }
+        bibleVolumes = decoded.volumes
+        bibleBooks = decoded.books
     }
 
-    /// Flat ordered list of every chapter ref in the BoM, used by the
+    func bibleBooks(in volumeId: String) -> [TusiPaiaBookMeta] {
+        bibleBooks.filter { $0.volume == volumeId }
+    }
+
+    func isBible(bookId: String) -> Bool {
+        bibleBooks.contains { $0.id == bookId }
+    }
+
+    /// A book by id: the eager Book of Mormon / D&C / Pearl of Great Price
+    /// books first, then a Bible book decoded from `book_<id>.json` on first
+    /// use and cached.
+    func book(id: String) -> Book? {
+        if let book = books.first(where: { $0.id == id }) { return book }
+        if let cached = bibleCache[id] { return cached }
+        guard isBible(bookId: id),
+              let url = Bundle.main.url(forResource: "book_\(id)", withExtension: "json"),
+              let data = try? Data(contentsOf: url, options: .mappedIfSafe),
+              let decoded = try? JSONDecoder().decode(Book.self, from: data)
+        else { return nil }
+        bibleCache[id] = decoded
+        return decoded
+    }
+
+    /// Every book in reading order with its chapter count — the Book of
+    /// Mormon, D&C and Pearl of Great Price from the eager data, then the Old
+    /// and New Testament from the index — so paging across a book boundary
+    /// never has to decode the neighbour.
+    private var bookOrder: [(id: String, chapterCount: Int)] {
+        books.map { ($0.id, $0.chapters.count) } + bibleBooks.map { ($0.id, $0.chapters) }
+    }
+
+    /// Flat ordered list of every chapter ref in every volume, used by the
     /// page-paged reader so swipes can fall through book boundaries.
     var allChapterRefs: [ChapterRef] {
-        books.flatMap { book in
-            book.chapters.map { ChapterRef(bookId: book.id, chapterNum: $0.num) }
+        bookOrder.flatMap { entry in
+            (1...max(entry.chapterCount, 1)).map { ChapterRef(bookId: entry.id, chapterNum: $0) }
         }
     }
 
@@ -86,32 +132,46 @@ final class ScriptureLibrary {
     // MARK: Linear chapter navigation
 
     func nextChapter(after ref: ChapterRef) -> ChapterRef? {
-        guard let bookIdx = books.firstIndex(where: { $0.id == ref.bookId }) else { return nil }
-        let book = books[bookIdx]
-        if ref.chapterNum < book.chapters.count {
-            return ChapterRef(bookId: book.id, chapterNum: ref.chapterNum + 1)
+        let order = bookOrder
+        guard let bookIdx = order.firstIndex(where: { $0.id == ref.bookId }) else { return nil }
+        if ref.chapterNum < order[bookIdx].chapterCount {
+            return ChapterRef(bookId: ref.bookId, chapterNum: ref.chapterNum + 1)
         }
         let nextIdx = bookIdx + 1
-        guard nextIdx < books.count else { return nil }
-        return ChapterRef(bookId: books[nextIdx].id, chapterNum: 1)
+        guard nextIdx < order.count else { return nil }
+        return ChapterRef(bookId: order[nextIdx].id, chapterNum: 1)
     }
 
     func previousChapter(before ref: ChapterRef) -> ChapterRef? {
-        guard let bookIdx = books.firstIndex(where: { $0.id == ref.bookId }) else { return nil }
+        let order = bookOrder
+        guard let bookIdx = order.firstIndex(where: { $0.id == ref.bookId }) else { return nil }
         if ref.chapterNum > 1 {
             return ChapterRef(bookId: ref.bookId, chapterNum: ref.chapterNum - 1)
         }
         let prevIdx = bookIdx - 1
         guard prevIdx >= 0 else { return nil }
-        let prevBook = books[prevIdx]
-        return ChapterRef(bookId: prevBook.id, chapterNum: prevBook.chapters.count)
+        return ChapterRef(bookId: order[prevIdx].id, chapterNum: order[prevIdx].chapterCount)
     }
 
     // MARK: English (lazy)
 
+    /// The official English for a verse: the Book of Mormon / D&C / Pearl of
+    /// Great Price map first, then the Bible's KJV column (both keyed by
+    /// English book name, and the two sets of names never overlap).
     func englishText(for key: ScriptureKey) -> String? {
         ensureEnglishLoaded()
-        return englishVerses?[key.raw]
+        if let text = englishVerses?[key.raw] { return text }
+        ensureBibleEnglishLoaded()
+        return bibleEnglish?[key.raw]
+    }
+
+    private func ensureBibleEnglishLoaded() {
+        guard bibleEnglish == nil,
+              let url = Bundle.main.url(forResource: "tusi_paia_english", withExtension: "json"),
+              let data = try? Data(contentsOf: url, options: .mappedIfSafe),
+              let decoded = try? JSONDecoder().decode([String: String].self, from: data)
+        else { return }
+        bibleEnglish = decoded
     }
 
     private func ensureEnglishLoaded() {

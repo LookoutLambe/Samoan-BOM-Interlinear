@@ -1,8 +1,10 @@
 import SwiftUI
 
-/// The "cheeseburger" drawer: all 15 books listed, each expandable to a grid
-/// of chapter bricks. Tapping a chapter jumps the main NavigationStack
-/// directly to that chapter view.
+/// The "cheeseburger" drawer: every book of every volume listed — the Book of
+/// Mormon, D&C and Pearl of Great Price, then O le Tusi Paia's Old and New
+/// Testament — each expandable to a grid of chapter bricks. Tapping a chapter
+/// jumps the main NavigationStack directly to that chapter view. Bible rows
+/// are drawn from the index, so no Bible book is decoded until it is opened.
 struct LibraryDrawer: View {
     @Environment(ScriptureLibrary.self) private var library
     @Environment(Navigator.self) private var nav
@@ -26,8 +28,20 @@ struct LibraryDrawer: View {
                             sectionLabel("Tusi · Books")
                         }
                         ForEach(library.books) { book in
-                            bookRow(book)
+                            bookRow(id: book.id, nameSm: book.nameSm, nameEn: book.nameEn,
+                                    chapterNums: book.chapters.map(\.num))
                             Divider().background(Theme.rule.opacity(0.5))
+                        }
+                        ForEach(library.bibleVolumes) { volume in
+                            let metas = library.bibleBooks(in: volume.id)
+                            if !metas.isEmpty {
+                                sectionLabel("\(volume.nameSm) \u{00B7} \(volume.nameEn)")
+                                ForEach(metas) { meta in
+                                    bookRow(id: meta.id, nameSm: meta.nameSm, nameEn: meta.nameEn,
+                                            chapterNums: Array(1...max(meta.chapters, 1)))
+                                    Divider().background(Theme.rule.opacity(0.5))
+                                }
+                            }
                         }
                     }
                     .padding(.horizontal, 12)
@@ -118,24 +132,27 @@ struct LibraryDrawer: View {
         .buttonStyle(.plain)
     }
 
-    private func bookRow(_ book: Book) -> some View {
+    /// One book row: its two names, and when expanded a grid of chapter bricks.
+    /// Takes plain values rather than a `Book` so a Bible book can be listed from
+    /// its index entry without decoding its text.
+    private func bookRow(id: String, nameSm: String, nameEn: String, chapterNums: [Int]) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Button {
                 withAnimation(.snappy(duration: 0.2)) {
-                    expandedBookId = expandedBookId == book.id ? nil : book.id
+                    expandedBookId = expandedBookId == id ? nil : id
                 }
             } label: {
                 HStack {
                     VStack(alignment: .leading, spacing: 2) {
-                        Text(book.nameSm)
+                        Text(nameSm)
                             .font(SerifFont.tnr(size: 18, weight: .semibold))
                             .foregroundStyle(Theme.ink)
-                        Text(book.nameEn)
+                        Text(nameEn)
                             .font(SerifFont.tnr(size: 12, italic: true))
                             .foregroundStyle(Theme.inkLight)
                     }
                     Spacer()
-                    Image(systemName: expandedBookId == book.id ? "chevron.up" : "chevron.down")
+                    Image(systemName: expandedBookId == id ? "chevron.up" : "chevron.down")
                         .font(.callout.weight(.semibold))
                         .foregroundStyle(Theme.accent)
                 }
@@ -145,13 +162,13 @@ struct LibraryDrawer: View {
             }
             .buttonStyle(.plain)
 
-            if expandedBookId == book.id {
+            if expandedBookId == id {
                 LazyVGrid(columns: chapterColumns, spacing: 8) {
-                    ForEach(book.chapters) { ch in
+                    ForEach(chapterNums, id: \.self) { num in
                         Button {
-                            nav.openChapter(book: book, chapterNum: ch.num)
+                            nav.openChapter(ChapterRef(bookId: id, chapterNum: num))
                         } label: {
-                            Text("\(ch.num)")
+                            Text("\(num)")
                                 .font(SerifFont.tnr(size: 16, weight: .semibold))
                                 .foregroundStyle(Theme.headerBg)
                                 .frame(minWidth: 40, minHeight: 40)

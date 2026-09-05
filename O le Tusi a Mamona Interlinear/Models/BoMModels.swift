@@ -11,10 +11,13 @@ struct BookOfMormon: Codable, Sendable {
 }
 
 struct Book: Codable, Identifiable, Hashable, Sendable {
-    let id: String          // e.g. "1nephi", "alma"
+    let id: String          // e.g. "1nephi", "alma", "genesis"
     let nameSm: String      // "1 Nifae"
     let nameEn: String      // "1 Nephi"
     let chapters: [Chapter]
+    /// "bom" | "dc" | "pgp" | "ot" | "nt". Absent in the oldest data, which is
+    /// all Book of Mormon.
+    let volume: String?
 }
 
 struct Chapter: Codable, Identifiable, Hashable, Sendable {
@@ -39,6 +42,34 @@ struct Verse: Codable, Identifiable, Hashable, Sendable {
 struct WordPair: Codable, Hashable, Sendable {
     let sm: String   // Samoan surface form (may include trailing punctuation)
     let en: String   // English gloss — "·" marks "this word continues into the next" for TAM phrases
+}
+
+// MARK: - O le Tusi Paia (the Bible) — index
+//
+// The Old and New Testament are not in `bom_books.json`. `tusi_paia_index.json`
+// (tiny) is read at launch and each `book_<id>.json` is decoded on first use,
+// the way the Spanish app loads its 87 books — 66 books and a million tokens
+// would otherwise sit in the eager decode. Versification is the Protestant
+// (KJV) one throughout, and the English column is the KJV.
+struct TusiPaiaIndex: Codable, Sendable {
+    let volumes: [TusiPaiaVolume]
+    let books: [TusiPaiaBookMeta]
+}
+
+struct TusiPaiaVolume: Codable, Identifiable, Hashable, Sendable {
+    let id: String          // "ot" | "nt"
+    let nameSm: String      // "O le Feagaiga Tuai"
+    let nameEn: String      // "Old Testament"
+}
+
+/// Enough about a Bible book to draw the library and page through it without
+/// decoding its text.
+struct TusiPaiaBookMeta: Codable, Identifiable, Hashable, Sendable {
+    let id: String          // "genesis", "1kings", "songofsolomon"
+    let nameSm: String      // "Kenese"
+    let nameEn: String      // "Genesis"
+    let volume: String      // "ot" | "nt"
+    let chapters: Int
 }
 
 // MARK: - Cross-reference key & entry
