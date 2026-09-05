@@ -382,6 +382,7 @@ def clean(text):
     text = re.sub(r'(?<=[a-z’ʻ,;])\s+l\s+(?=[a-z])', ' i ', text)
     text = re.sub(r'(^|[.;:,!?”]\s+)la(?=\s)', r'\1Ia', text)                # "la" for the marker Ia at a clause start
     text = re.sub(r'\b[Ii]le\b', lambda m: m.group(0)[0] + ' le', text)      # "ile" is the fused "i le"
+    text = re.sub(r'\b([Ll]e) (?:Aw|Ash|Alii|ALn|ALu|Aln|ALIL|AL1I|ALll|Ali)\b', r'\1 ALII', text)   # the small-caps ALII (the LORD) as the OCR reads it
     # the app's text is the unmarked orthography (the diacritics layer restores
     # marks on demand): fold the edition's macrons and stray acutes
     text = text.translate(str.maketrans('āēīōūáéíóúÁĀ', 'aeiouaeiouAA'))

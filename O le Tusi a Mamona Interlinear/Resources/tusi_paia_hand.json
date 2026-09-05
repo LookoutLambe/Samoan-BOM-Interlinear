@@ -1,0 +1,4185 @@
+{
+ "note": "Hand-curated O le Tusi Paia verses, keyed bookId|chapter|verse. The Samoan is the corrected text (OCR errors mended) and the glosses read in Samoan order per GLOSSING_RULES.md; both build_tusi_paia_dual.py and the generator take these verses as written. Genesis 1 by Claude with the user, 2026-09-05.",
+ "verses": {
+  "genesis|1|1": {
+   "words": [
+    {
+     "sm": "Na",
+     "en": "·"
+    },
+    {
+     "sm": "faia",
+     "en": "created"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi",
+     "en": "the heaven"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lalolagi",
+     "en": "the earth"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "amataga.",
+     "en": "in the beginning."
+    }
+   ]
+  },
+  "genesis|1|2": {
+   "words": [
+    {
+     "sm": "Sa",
+     "en": "·"
+    },
+    {
+     "sm": "soona",
+     "en": "·"
+    },
+    {
+     "sm": "nunumi",
+     "en": "was without form"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lalolagi",
+     "en": "the earth"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "gaogao,",
+     "en": "void;"
+    },
+    {
+     "sm": "sa",
+     "en": "·"
+    },
+    {
+     "sm": "ufitia",
+     "en": "was covered"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "moana",
+     "en": "the deep"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "pouliuli;",
+     "en": "in darkness;"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "fegaoioiai",
+     "en": "moved"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Agaga",
+     "en": "the Spirit"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "of God"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "fogatai.",
+     "en": "upon the face of the waters."
+    }
+   ]
+  },
+  "genesis|1|3": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "malamalama;",
+     "en": "there be light;"
+    },
+    {
+     "sm": "ona",
+     "en": "and"
+    },
+    {
+     "sm": "malamalama",
+     "en": "there was light"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|4": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama,",
+     "en": "the light,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei;",
+     "en": "that it was good;"
+    },
+    {
+     "sm": "ona",
+     "en": "and"
+    },
+    {
+     "sm": "tuu",
+     "en": "divided"
+    },
+    {
+     "sm": "eseese",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "the light"
+    },
+    {
+     "sm": "ma",
+     "en": "from"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "pouliuli.",
+     "en": "the darkness."
+    }
+   ]
+  },
+  "genesis|1|5": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoa",
+     "en": "called"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama,",
+     "en": "the light,"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ao;",
+     "en": "Day;"
+    },
+    {
+     "sm": "a",
+     "en": "and"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoa",
+     "en": "called"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "he"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "pouliuli,",
+     "en": "the darkness,"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "po.",
+     "en": "Night."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "uluai",
+     "en": "the first"
+    },
+    {
+     "sm": "aso",
+     "en": "day"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|6": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "in the midst"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "of the waters"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo,",
+     "en": "there be a firmament,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "and let it divide"
+    },
+    {
+     "sm": "aʻi",
+     "en": "·"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "the waters"
+    },
+    {
+     "sm": "ma",
+     "en": "from"
+    },
+    {
+     "sm": "isi",
+     "en": "·"
+    },
+    {
+     "sm": "vai.",
+     "en": "the waters."
+    }
+   ]
+  },
+  "genesis|1|7": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faia",
+     "en": "made"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo,",
+     "en": "the firmament,"
+    },
+    {
+     "sm": "ua",
+     "en": "and"
+    },
+    {
+     "sm": "va",
+     "en": "divided"
+    },
+    {
+     "sm": "aʻi",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "the waters"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lalo",
+     "en": "under"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo",
+     "en": "the firmament"
+    },
+    {
+     "sm": "ma",
+     "en": "from"
+    },
+    {
+     "sm": "vai",
+     "en": "the waters"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "luga",
+     "en": "above"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo;",
+     "en": "the firmament;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|8": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoa",
+     "en": "called"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo,",
+     "en": "the firmament,"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi.",
+     "en": "Heaven."
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "the day"
+    },
+    {
+     "sm": "lua",
+     "en": "second"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|9": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "potopoto",
+     "en": "be gathered together"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "unto the place"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tasi",
+     "en": "one"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "vai",
+     "en": "the waters"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lalo",
+     "en": "under"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi,",
+     "en": "the heaven,"
+    },
+    {
+     "sm": "ia",
+     "en": "and let"
+    },
+    {
+     "sm": "iloa",
+     "en": "appear"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele",
+     "en": "the land"
+    },
+    {
+     "sm": "matutu;",
+     "en": "dry;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|10": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoa",
+     "en": "called"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele",
+     "en": "the land"
+    },
+    {
+     "sm": "matutu,",
+     "en": "dry,"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele;",
+     "en": "Earth;"
+    },
+    {
+     "sm": "a",
+     "en": "and"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faaigoa",
+     "en": "called"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "he"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faapotopotoga",
+     "en": "the gathering together"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "vai,",
+     "en": "of the waters,"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami;",
+     "en": "Seas;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei.",
+     "en": "that it was good."
+    }
+   ]
+  },
+  "genesis|1|11": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "and"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "tupu",
+     "en": "bring forth"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao",
+     "en": "grass"
+    },
+    {
+     "sm": "muʻa",
+     "en": "·"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele,",
+     "en": "the earth,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "·"
+    },
+    {
+     "sm": "afu",
+     "en": "the herb"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tupu",
+     "en": "yielding"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "fua,",
+     "en": "seed,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "the fruit tree"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "‘aina",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "fua,",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fua",
+     "en": "yielding fruit"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "in itself"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "whose"
+    },
+    {
+     "sm": "fatu",
+     "en": "seed"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "luga",
+     "en": "upon"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele;",
+     "en": "the earth;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|12": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "and"
+    },
+    {
+     "sm": "tupu",
+     "en": "brought forth"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele",
+     "en": "the earth"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao",
+     "en": "grass"
+    },
+    {
+     "sm": "muʻa",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "·"
+    },
+    {
+     "sm": "afu",
+     "en": "herb"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fua",
+     "en": "yielding"
+    },
+    {
+     "sm": "mai,",
+     "en": "seed,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "the tree"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "‘aina",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "fua,",
+     "en": "yielding fruit,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "lava",
+     "en": "in itself"
+    },
+    {
+     "sm": "ona",
+     "en": "whose"
+    },
+    {
+     "sm": "fatu,",
+     "en": "seed was,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga;",
+     "en": "after kind;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei.",
+     "en": "that it was good."
+    }
+   ]
+  },
+  "genesis|1|13": {
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "the day"
+    },
+    {
+     "sm": "tolu",
+     "en": "third"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|14": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "there be"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo",
+     "en": "in the firmament"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi",
+     "en": "of the heaven"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "lights"
+    },
+    {
+     "sm": "aʻi,",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "to"
+    },
+    {
+     "sm": "iloga",
+     "en": "divide"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ao",
+     "en": "the day"
+    },
+    {
+     "sm": "ma",
+     "en": "from"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "po;",
+     "en": "the night;"
+    },
+    {
+     "sm": "ia",
+     "en": "and let"
+    },
+    {
+     "sm": "fai",
+     "en": "them be"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "for"
+    },
+    {
+     "sm": "faailoga,",
+     "en": "signs,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "tau,",
+     "en": "for seasons,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "aso,",
+     "en": "for days,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "tausaga.",
+     "en": "years."
+    }
+   ]
+  },
+  "genesis|1|15": {
+   "words": [
+    {
+     "sm": "Ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "let"
+    },
+    {
+     "sm": "fai",
+     "en": "them be"
+    },
+    {
+     "sm": "ma",
+     "en": "for"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "lights"
+    },
+    {
+     "sm": "aʻi",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo",
+     "en": "in the firmament"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi,",
+     "en": "of the heaven,"
+    },
+    {
+     "sm": "e",
+     "en": "to"
+    },
+    {
+     "sm": "faamalamalama",
+     "en": "give light"
+    },
+    {
+     "sm": "aʻi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lalolagi;",
+     "en": "upon the earth;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|16": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "and"
+    },
+    {
+     "sm": "faia",
+     "en": "made"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "lights"
+    },
+    {
+     "sm": "tetele",
+     "en": "great"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "lua;",
+     "en": "two;"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "the light"
+    },
+    {
+     "sm": "tele",
+     "en": "greater"
+    },
+    {
+     "sm": "e",
+     "en": "to"
+    },
+    {
+     "sm": "pule",
+     "en": "rule"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ao,",
+     "en": "the day,"
+    },
+    {
+     "sm": "a",
+     "en": "and"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "the light"
+    },
+    {
+     "sm": "itiiti",
+     "en": "lesser"
+    },
+    {
+     "sm": "e",
+     "en": "to"
+    },
+    {
+     "sm": "pule",
+     "en": "rule"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "po;",
+     "en": "the night;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "he"
+    },
+    {
+     "sm": "faia",
+     "en": "made"
+    },
+    {
+     "sm": "foi",
+     "en": "also"
+    },
+    {
+     "sm": "fetu.",
+     "en": "the stars."
+    }
+   ]
+  },
+  "genesis|1|17": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "tuu",
+     "en": "set"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo",
+     "en": "in the firmament"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi",
+     "en": "of the heaven"
+    },
+    {
+     "sm": "e",
+     "en": "to"
+    },
+    {
+     "sm": "faamalamalama",
+     "en": "give light"
+    },
+    {
+     "sm": "aʻi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lalolagi;",
+     "en": "upon the earth;"
+    }
+   ]
+  },
+  "genesis|1|18": {
+   "words": [
+    {
+     "sm": "e",
+     "en": "and to"
+    },
+    {
+     "sm": "pule",
+     "en": "rule"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ao",
+     "en": "over the day"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "po,",
+     "en": "over the night,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "to"
+    },
+    {
+     "sm": "iloga",
+     "en": "divide"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "malamalama",
+     "en": "the light"
+    },
+    {
+     "sm": "ma",
+     "en": "from"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "pouliuli;",
+     "en": "the darkness;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei.",
+     "en": "that it was good."
+    }
+   ]
+  },
+  "genesis|1|19": {
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "the day"
+    },
+    {
+     "sm": "fa",
+     "en": "fourth"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|20": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "tele",
+     "en": "abundantly"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "tutupu",
+     "en": "bring forth"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami",
+     "en": "the waters"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "creature"
+    },
+    {
+     "sm": "ola",
+     "en": "living"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fetolofi,",
+     "en": "that moveth,"
+    },
+    {
+     "sm": "ia",
+     "en": "and let"
+    },
+    {
+     "sm": "lele",
+     "en": "fly"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "lele",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "luga",
+     "en": "above"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "the earth"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "va",
+     "en": "·"
+    },
+    {
+     "sm": "nimonimo",
+     "en": "in the open firmament"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lagi.",
+     "en": "of heaven."
+    }
+   ]
+  },
+  "genesis|1|21": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faia",
+     "en": "created"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "tanimo",
+     "en": "whales"
+    },
+    {
+     "sm": "tetele",
+     "en": "great"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "mea",
+     "en": "creature"
+    },
+    {
+     "sm": "ola",
+     "en": "living"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fetolofi,",
+     "en": "that moveth,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "tele",
+     "en": "abundantly"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "tutupu",
+     "en": "brought forth"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami,",
+     "en": "the waters,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "their"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "felelei",
+     "en": "winged"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga;",
+     "en": "after kind;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei.",
+     "en": "that it was good."
+    }
+   ]
+  },
+  "genesis|1|22": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "and"
+    },
+    {
+     "sm": "faamanuia",
+     "en": "blessed"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "them"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "saying,"
+    },
+    {
+     "sm": "atu,",
+     "en": "·"
+    },
+    {
+     "sm": "Ia",
+     "en": "·"
+    },
+    {
+     "sm": "uluola,",
+     "en": "be fruitful,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "tupu",
+     "en": "multiply,"
+    },
+    {
+     "sm": "tele,",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "tumu",
+     "en": "fill"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami;",
+     "en": "the waters in the seas;"
+    },
+    {
+     "sm": "ia",
+     "en": "and let"
+    },
+    {
+     "sm": "tupu",
+     "en": "multiply"
+    },
+    {
+     "sm": "tele",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "felelei",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele.",
+     "en": "in the earth."
+    }
+   ]
+  },
+  "genesis|1|23": {
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "the day"
+    },
+    {
+     "sm": "lima",
+     "en": "fifth"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  },
+  "genesis|1|24": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ia",
+     "en": "let"
+    },
+    {
+     "sm": "tutupu",
+     "en": "bring forth"
+    },
+    {
+     "sm": "mea",
+     "en": "creature"
+    },
+    {
+     "sm": "ola",
+     "en": "the living"
+    },
+    {
+     "sm": "mai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele,",
+     "en": "the earth,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "manu",
+     "en": "cattle,"
+    },
+    {
+     "sm": "vaefa",
+     "en": "·"
+    },
+    {
+     "sm": "fanua,",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "fetolofi,",
+     "en": "creeping,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "beast"
+    },
+    {
+     "sm": "vaefa",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao,",
+     "en": "of the earth,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga;",
+     "en": "after kind;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|25": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faia",
+     "en": "made"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "manu",
+     "en": "beast"
+    },
+    {
+     "sm": "vaefa",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao,",
+     "en": "of the earth,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "cattle"
+    },
+    {
+     "sm": "vaefa",
+     "en": "·"
+    },
+    {
+     "sm": "fanua,",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "their"
+    },
+    {
+     "sm": "uiga,",
+     "en": "after kind,"
+    },
+    {
+     "sm": "atoa",
+     "en": "and"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "fetolofi",
+     "en": "that creepeth"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele,",
+     "en": "upon the earth,"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "taitasi",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his"
+    },
+    {
+     "sm": "uiga;",
+     "en": "after kind;"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "lelei.",
+     "en": "that it was good."
+    }
+   ]
+  },
+  "genesis|1|26": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "and"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "ane",
+     "en": "·"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Ina",
+     "en": "let"
+    },
+    {
+     "sm": "tatou",
+     "en": "us"
+    },
+    {
+     "sm": "faia",
+     "en": "make"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "man"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lo",
+     "en": "·"
+    },
+    {
+     "sm": "tatou",
+     "en": "our"
+    },
+    {
+     "sm": "faatusa,",
+     "en": "in image,"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "foliga",
+     "en": "after likeness"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "tatou;",
+     "en": "our;"
+    },
+    {
+     "sm": "ia",
+     "en": "and let"
+    },
+    {
+     "sm": "pule",
+     "en": "have dominion"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "them"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "iʻa",
+     "en": "over the fish"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami,",
+     "en": "of the sea,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "felelei,",
+     "en": "of the air,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "cattle"
+    },
+    {
+     "sm": "vaefa,",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laueleele",
+     "en": "the earth"
+    },
+    {
+     "sm": "uma,",
+     "en": "all,"
+    },
+    {
+     "sm": "atoa",
+     "en": "and"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "fetolofi",
+     "en": "creeping"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fetolofi",
+     "en": "that creepeth"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele.",
+     "en": "upon the earth."
+    }
+   ]
+  },
+  "genesis|1|27": {
+   "words": [
+    {
+     "sm": "Ona",
+     "en": "so"
+    },
+    {
+     "sm": "faia",
+     "en": "created"
+    },
+    {
+     "sm": "lea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tagata",
+     "en": "man"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "lona",
+     "en": "his own"
+    },
+    {
+     "sm": "faatusa,",
+     "en": "in image,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "faatusa",
+     "en": "in the image"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "of God"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "he"
+    },
+    {
+     "sm": "faia",
+     "en": "created"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "ia;",
+     "en": "him;"
+    },
+    {
+     "sm": "na",
+     "en": "·"
+    },
+    {
+     "sm": "faia",
+     "en": "created"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "he"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "laua",
+     "en": "them"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "tane",
+     "en": "male"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "fafine.",
+     "en": "female."
+    }
+   ]
+  },
+  "genesis|1|28": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "faamanuia",
+     "en": "blessed"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "laua,",
+     "en": "them,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "laua,",
+     "en": "unto them,"
+    },
+    {
+     "sm": "Ia",
+     "en": "·"
+    },
+    {
+     "sm": "fanafanau",
+     "en": "be fruitful"
+    },
+    {
+     "sm": "ia,",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "uluola,",
+     "en": "multiply,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "tumu",
+     "en": "replenish"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "lalolagi,",
+     "en": "the earth,"
+    },
+    {
+     "sm": "ia",
+     "en": "and"
+    },
+    {
+     "sm": "faatoilalo",
+     "en": "subdue"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai,",
+     "en": "it,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "pule",
+     "en": "have dominion"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "iʻa",
+     "en": "over the fish"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "sami,",
+     "en": "of the sea,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "felelei,",
+     "en": "of the air,"
+    },
+    {
+     "sm": "atoa",
+     "en": "and"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "ola",
+     "en": "living"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fetolofi",
+     "en": "that moveth"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele.",
+     "en": "upon the earth."
+    }
+   ]
+  },
+  "genesis|1|29": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "fetalai",
+     "en": "said"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "foi",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua,",
+     "en": "God,"
+    },
+    {
+     "sm": "Faauta,",
+     "en": "Behold,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "ou",
+     "en": "I"
+    },
+    {
+     "sm": "foai",
+     "en": "have given"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "oulua",
+     "en": "you"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "herb"
+    },
+    {
+     "sm": "afu",
+     "en": "·"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tutupu",
+     "en": "bearing"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "latou",
+     "en": "·"
+    },
+    {
+     "sm": "fua",
+     "en": "seed"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "fogaeleele",
+     "en": "upon the face of the earth"
+    },
+    {
+     "sm": "uma",
+     "en": "all"
+    },
+    {
+     "sm": "lava,",
+     "en": "·"
+    },
+    {
+     "sm": "atoa",
+     "en": "and"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "tree"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "in the which is"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "fua",
+     "en": "the fruit"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "of a tree"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "tupu",
+     "en": "yielding"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "ona",
+     "en": "·"
+    },
+    {
+     "sm": "fatu;",
+     "en": "seed;"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ia",
+     "en": "·"
+    },
+    {
+     "sm": "te",
+     "en": "·"
+    },
+    {
+     "sm": "oulua",
+     "en": "to you"
+    },
+    {
+     "sm": "ia",
+     "en": "it shall"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fai",
+     "en": "be"
+    },
+    {
+     "sm": "ma",
+     "en": "for"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ʻai.",
+     "en": "meat."
+    }
+   ]
+  },
+  "genesis|1|30": {
+   "words": [
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "manu",
+     "en": "beast"
+    },
+    {
+     "sm": "vaefa",
+     "en": "·"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "foi",
+     "en": "and"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "vao,",
+     "en": "of the earth,"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "manu",
+     "en": "fowl"
+    },
+    {
+     "sm": "felelei",
+     "en": "·"
+    },
+    {
+     "sm": "uma,",
+     "en": "every,"
+    },
+    {
+     "sm": "atoa",
+     "en": "and"
+    },
+    {
+     "sm": "ma",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "fetolofi",
+     "en": "that creepeth"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "eleele,",
+     "en": "upon the earth,"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "wherein there is"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ola,",
+     "en": "life,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "ou",
+     "en": "I"
+    },
+    {
+     "sm": "foai",
+     "en": "have given"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "ai",
+     "en": "·"
+    },
+    {
+     "sm": "o",
+     "en": "·"
+    },
+    {
+     "sm": "laau",
+     "en": "herb"
+    },
+    {
+     "sm": "afu",
+     "en": "·"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "lauolaola",
+     "en": "green"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "fai",
+     "en": "·"
+    },
+    {
+     "sm": "ma",
+     "en": "for"
+    },
+    {
+     "sm": "mea",
+     "en": "·"
+    },
+    {
+     "sm": "e",
+     "en": "·"
+    },
+    {
+     "sm": "ʻai;",
+     "en": "meat;"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "faapea",
+     "en": "·"
+    },
+    {
+     "sm": "lava.",
+     "en": "and it was so."
+    }
+   ]
+  },
+  "genesis|1|31": {
+   "words": [
+    {
+     "sm": "Ua",
+     "en": "·"
+    },
+    {
+     "sm": "silasila",
+     "en": "saw"
+    },
+    {
+     "sm": "atu",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "Atua",
+     "en": "God"
+    },
+    {
+     "sm": "i",
+     "en": "·"
+    },
+    {
+     "sm": "mea",
+     "en": "thing"
+    },
+    {
+     "sm": "uma",
+     "en": "every"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "na",
+     "en": "he"
+    },
+    {
+     "sm": "faia,",
+     "en": "had made,"
+    },
+    {
+     "sm": "faauta",
+     "en": "behold"
+    },
+    {
+     "sm": "foi,",
+     "en": "and,"
+    },
+    {
+     "sm": "ua",
+     "en": "·"
+    },
+    {
+     "sm": "matua",
+     "en": "very"
+    },
+    {
+     "sm": "lelei",
+     "en": "good"
+    },
+    {
+     "sm": "lava.",
+     "en": "·"
+    },
+    {
+     "sm": "O",
+     "en": "·"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "afiafi",
+     "en": "the evening"
+    },
+    {
+     "sm": "ma",
+     "en": "and"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "taeao",
+     "en": "the morning"
+    },
+    {
+     "sm": "o",
+     "en": "were"
+    },
+    {
+     "sm": "le",
+     "en": "·"
+    },
+    {
+     "sm": "aso",
+     "en": "the day"
+    },
+    {
+     "sm": "ono",
+     "en": "sixth"
+    },
+    {
+     "sm": "lea.",
+     "en": "·"
+    }
+   ]
+  }
+ }
+}

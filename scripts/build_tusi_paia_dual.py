@@ -17,6 +17,9 @@ index = {'volumes': [{'id': 'ot', 'nameSm': 'O le Feagaiga Tuai', 'nameEn': 'Old
                      {'id': 'nt', 'nameSm': 'O le Feagaiga Fou', 'nameEn': 'New Testament'}],
          'books': [], 'estimated': [], 'missing': [],
          'source': 'corpus/tusi_paia: archive.org samoan-bible OCR segmented by scripts/segment_tusi_paia.py; English = KJV (KJV versification) from the Spanish app'}
+# hand-curated verses (tusi_paia_hand.json): their Samoan is the corrected text
+hand_path = Path(__file__).resolve().parent.parent / 'O le Tusi a Mamona Interlinear' / 'Resources' / 'tusi_paia_hand.json'
+HAND = json.load(open(hand_path, encoding='utf8'))['verses'] if hand_path.exists() else {}
 english = {}
 tot_v = tot_w = 0
 for vol, books in (('ot', OT), ('nt', NT)):
@@ -28,6 +31,9 @@ for vol, books in (('ot', OT), ('nt', NT)):
             for v in range(1, KC[en][str(c)] + 1):
                 key = f'{en}|{c}|{v}'; english[key] = KV[key]
                 rec = V.get(key)
+                hkey = f'{bid}|{c}|{v}'
+                if hkey in HAND:
+                    rec = {'sm': ' '.join(w['sm'] for w in HAND[hkey]['words']), 'est': False}
                 if rec is None or not rec['sm'].strip():
                     index['missing'].append(key); words = [{'sm': '—', 'en': ''}]
                 else:

@@ -861,6 +861,12 @@ def main(argv: list[str] | None = None) -> int:
         out = [{"sm": t, "en": ""} for t in toks]
         i = 0
         prev_key = ""
+        # THE SEQUENTIAL FRAME `ona … ai lea` IS NARRATIVE PAST. Between the
+        # `ona` the grammar has just read as then/and and the `lea` that closes
+        # it, the verb is in the past, and a stative takes the copula the verse
+        # gives it: `ona malamalama ai lea` is "and / there was light / · / ·".
+        seq_frame = False      # between `ona` and its `lea`: the closing `ai lea` is silent
+        seq_verb = False       # the first open-class unit after `ona` takes the narrative past
         while i < len(toks):
             hit, src = frame_at(toks, i, inv, maxlen, lex, names)
             if not hit:
@@ -989,7 +995,8 @@ def main(argv: list[str] | None = None) -> int:
             elif key_sm in inv:
                 gloss, why = choose(inv[key_sm], en_text,
                                     SG.tense_of_tam(prev_key)
-                                    or unit_tense(key_sm), strict)
+                                    or unit_tense(key_sm)
+                                    or ("PAST" if seq_verb else None), strict)
                 why = why + "/" + src
             elif key_sm in lex:
                 gloss, why = choose(lex[key_sm], en_text, strict=strict)
@@ -1084,7 +1091,7 @@ def main(argv: list[str] | None = None) -> int:
             # from the curation and the tense from the marker -- the verse only
             # failed to confirm which English word, not that the verb was there.
             if not gloss and hit <= 2:
-                want = SG.tense_of_tam(prev_key) or unit_tense(key_sm)
+                want = SG.tense_of_tam(prev_key) or unit_tense(key_sm) or ("PAST" if seq_verb else None)
                 opens = [t for t in key_sm.split()
                          if t not in SG.CLOSED_CLASS and t not in SG.AMBIGUOUS]
                 if want and len(opens) == 1 and (key_sm in inv or opens[0] in lex):
@@ -1107,12 +1114,35 @@ def main(argv: list[str] | None = None) -> int:
                 d = merge_punctuation(lex[key_sm])
                 top, n = d.most_common(1)[0]
                 total = sum(d.values())
-                if total >= 20 and n / total >= 0.30 and len(top.split()) <= 2:
+                verb_position = prev_key in SG.TAM or prev_key == "ia" or seq_verb
+                if total >= 20 and n / total >= 0.30 and len(top.split()) <= 2 and not verb_position:
                     gloss, why = top, "plurality/lex"
             if not gloss and provisional:
                 # the curation's word stands where no verse-confirmed sense
                 # replaced it: `gaogao` "empty" beside the KJV's "void"
                 gloss, why = provisional[0], provisional[1].replace("-unconfirmed", "-kept")
+            is_open = key_sm not in SG.CLOSED_CLASS and key_sm not in SG.AMBIGUOUS and key_sm not in SG.TAM
+            if key_sm == "ona" and "frame" in why:
+                seq_frame = True; seq_verb = True
+            elif key_sm == "lea" and seq_frame:
+                seq_frame = False; seq_verb = False
+            elif strict and gloss and gloss != CONT and is_open and len(gloss.split()) <= 2 \
+                    and not gloss.lower().startswith(("there ", "let ")):
+                # THE COPULA RIDES WITH THE WORD, by frame. In the sequential
+                # frame the stative is "there was light"; after the optative
+                # `Ia` it is "there be light" (the `Ia` already says "let").
+                # Elsewhere only a plain "there is/are X" in the verse.
+                lower = (en_text or "").lower(); g = re.escape(gloss.lower())
+                if seq_verb:
+                    m = re.search(r"\b(there (?:was|were)) " + g + r"\b", lower)
+                elif prev_key == "ia":
+                    m = re.search(r"\blet (there be) " + g + r"\b", lower)
+                else:
+                    m = re.search(r"\b(there (?:is|are)) " + g + r"\b", lower)
+                if m:
+                    gloss = f"{m.group(1)} {gloss}"
+            if is_open and gloss and gloss != CONT:
+                seq_verb = False
             prev_key = key_sm
             stats["unit: " + why] += 1
             if gloss:
@@ -1189,6 +1219,8 @@ def main(argv: list[str] | None = None) -> int:
         if bible_index is None:
             print("no tusi_paia_index.json in Resources"); return 1
         bible_english = json.loads((RES / "tusi_paia_english.json").read_text(encoding="utf-8"))
+        hand_path = RES / "tusi_paia_hand.json"
+        hand_bible = json.loads(hand_path.read_text(encoding="utf-8"))["verses"] if hand_path.exists() else {}
         dual_dir = HERE.parent / "corpus" / "tusi_paia" / "dual"
         by_id = {b["id"]: b for b in bible_books}
         grand_tok = grand_gl = 0
@@ -1201,6 +1233,14 @@ def main(argv: list[str] | None = None) -> int:
             ntok = ngl = 0
             for ch in book["chapters"]:
                 for verse in ch["verses"]:
+                    hkey = f"{meta['id']}|{ch['num']}|{verse['num']}"
+                    if hkey in hand_bible:
+                        # HAND-CURATED: the Samoan and its glosses are the
+                        # user's, verse by verse (tusi_paia_hand.json)
+                        verse["words"] = [{"sm": w["sm"], "en": w["en"]} for w in hand_bible[hkey]["words"]]
+                        ntok += len(verse["words"]); ngl += sum(1 for w in verse["words"] if (w["en"] or "").strip())
+                        stats["verse: hand-curated (Bible)"] += 1
+                        continue
                     toks = [w["sm"] for w in verse["words"]]
                     en_text = modernise(bible_english.get(
                         f"{meta['nameEn']}|{ch['num']}|{verse['num']}", ""))
@@ -1216,7 +1256,7 @@ def main(argv: list[str] | None = None) -> int:
                 if dual_dir.exists():
                     (dual_dir / f"book_{meta['id']}.json").write_text(blob, encoding="utf-8")
         print(f"O le Tusi Paia: {grand_gl} of {grand_tok} tokens carrying text ({100 * grand_gl / max(1, grand_tok):.1f}%)")
-        for k, n in stats.most_common(25):
+        for k, n in stats.most_common(60):
             print(f"   {k:24} {n}")
         return 0
 
