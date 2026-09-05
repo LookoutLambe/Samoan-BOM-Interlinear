@@ -7,7 +7,10 @@ structure, Samoan verse beside the English, the way the Spanish iOS app carries 
 `O le Tusi a Mamona Interlinear/Resources/`; `ScriptureLibrary` reads `tusi_paia_index.json` at
 launch, decodes a `book_<id>.json` on first open (cached), and falls back to
 `tusi_paia_english.json` for the Dual English; the drawer lists the two volumes after the Pearl of
-Great Price. Search still covers the Book of Mormon volumes only (the Bible needs a prebuilt folded
+Great Price, and the landing page carries one cover card per volume (Book of Mormon, D&C, Pearl of
+Great Price, Old Testament, New Testament), each opening the drawer at its books — in the iOS app
+and in the web reader (`docs/`, built by `build_web_data.py`, which fans the Bible into 1,189
+per-chapter files outside the precache). Search still covers the Book of Mormon volumes only (the Bible needs a prebuilt folded
 index, as the Spanish app has). Regenerate the data with `segment_tusi_paia.py` →
 `build_tusi_paia_dual.py` → copy `dual/*.json` into Resources.
 

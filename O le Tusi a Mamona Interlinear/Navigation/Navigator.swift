@@ -10,6 +10,15 @@ final class Navigator {
     var libraryOpen = false
     var searchOpen = false
 
+    /// The volume the library drawer should open scrolled to — set by a landing
+    /// page cover, consumed by the drawer when it appears.
+    var libraryFocusVolume: String?
+
+    func openLibrary(volume: String? = nil) {
+        libraryFocusVolume = volume
+        libraryOpen = true
+    }
+
     /// A pending request to scroll to (and briefly flash) a specific verse once
     /// its chapter page is on screen — set when a search result is tapped and
     /// consumed by the reader's chapter page. The `token` makes two requests for

@@ -15,15 +15,12 @@ struct BookListView: View {
                 .padding()
             } else {
                 VStack(spacing: 0) {
-                    // The cover itself is the way in — tap it to open the book's
-                    // table of contents (front matter + all chapters).
-                    Button { nav.libraryOpen = true } label: {
-                        BookCover()
-                    }
-                    .buttonStyle(.plain)
-                    .padding(.horizontal, 48)
-                    .padding(.top, 24)
-                    .accessibilityLabel("Tatala le tusi")
+                    // One cover card per volume — the Book of Mormon, D&C, Pearl of
+                    // Great Price, Old and New Testament — each the way into its
+                    // books: tapping opens the library at that volume.
+                    VolumeCovers()
+                        .padding(.horizontal, 20)
+                        .padding(.top, 24)
 
                     ContinueReadingButton()
                         .padding(.top, 24)
@@ -273,22 +270,67 @@ private struct InterlinearTitle: View {
     }
 }
 
-/// The interlinear breakdown of the title, curated per GLOSSING_RULES.md.
+/// The interlinear breakdown of each volume's title, curated per
+/// GLOSSING_RULES.md: the glosses read cell by cell in Samoan order, as the
+/// reader itself does. Keyed by volume id; the drawer supplies the volumes.
 private enum TitleGloss {
-    static let cover: [InterlinearTitle.Cell] = [
-        .init(sm: "O LE TUSI", en: "The Book"),
-        .init(sm: "A MAMONA", en: "of Mormon"),
-    ]
-    static let subtitle: [InterlinearTitle.Cell] = [
-        .init(sm: "O se tasi molimau", en: "Another testimony"),
-        .init(sm: "a Iesu Keriso", en: "of Jesus Christ"),
+    struct Spec { let titles: [InterlinearTitle.Cell]; let subtitles: [InterlinearTitle.Cell] }
+    static let specs: [String: Spec] = [
+        "bom": Spec(
+            titles: [.init(sm: "O LE TUSI", en: "The Book"), .init(sm: "A MAMONA", en: "of Mormon")],
+            subtitles: [.init(sm: "O se tasi molimau", en: "Another testimony"),
+                        .init(sm: "a Iesu Keriso", en: "of Jesus Christ")]),
+        "dc": Spec(
+            titles: [.init(sm: "MATAUPU FAAVAE", en: "Doctrine"), .init(sm: "MA FEAGAIGA", en: "and Covenants")],
+            subtitles: [.init(sm: "a le Ekalesia a Iesu Keriso", en: "of the Church of Jesus Christ"),
+                        .init(sm: "o le Au Paia o Aso e Gata Ai", en: "of Latter-day Saints")]),
+        "pgp": Spec(
+            titles: [.init(sm: "LE PENINA", en: "The Pearl"), .init(sm: "SILISILI ONA TAUA", en: "of Great Price")],
+            subtitles: [.init(sm: "Faaaliga ma faaliliuga", en: "Revelations and translations"),
+                        .init(sm: "a Iosefa Samita", en: "of Joseph Smith")]),
+        "ot": Spec(
+            titles: [.init(sm: "O LE FEAGAIGA", en: "The Testament"), .init(sm: "TUAI", en: "Old")],
+            subtitles: [.init(sm: "O le Tusi Paia", en: "The Holy Bible"),
+                        .init(sm: "Kenese \u{2013} Malaki", en: "Genesis \u{2013} Malachi")]),
+        "nt": Spec(
+            titles: [.init(sm: "O LE FEAGAIGA", en: "The Testament"), .init(sm: "FOU", en: "New")],
+            subtitles: [.init(sm: "O le Tusi Paia", en: "The Holy Bible"),
+                        .init(sm: "Mataio \u{2013} Faaaliga", en: "Matthew \u{2013} Revelation")]),
     ]
 }
 
-// MARK: - Single book cover (navy gradient plate)
+// MARK: - Volume covers (navy gradient plates)
 
-/// The one cover on the landing page — the Book of Mormon as a single volume.
-private struct BookCover: View {
+/// The landing page's cards: one plate per volume, two across, in reading
+/// order. Each opens the library drawer scrolled to that volume's books.
+private struct VolumeCovers: View {
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(Navigator.self) private var nav
+
+    private let columns = [GridItem(.adaptive(minimum: 150, maximum: 260), spacing: 16)]
+
+    var body: some View {
+        LazyVGrid(columns: columns, spacing: 16) {
+            ForEach(library.allVolumes) { volume in
+                let spec = TitleGloss.specs[volume.id]
+                    ?? TitleGloss.Spec(titles: [.init(sm: volume.nameSm.uppercased(), en: volume.nameEn)], subtitles: [])
+                Button { nav.openLibrary(volume: volume.id) } label: {
+                    CoverPlate(titles: spec.titles, subtitles: spec.subtitles)
+                }
+                .buttonStyle(.plain)
+                .accessibilityLabel("Tatala: \(volume.nameSm)")
+            }
+        }
+    }
+}
+
+/// One cover plate: interlinear title cells over interlinear subtitle cells,
+/// between two gold rules, on the navy gradient. Gold on navy is the bright
+/// accent (Theme.accent here is the Hebrew app's gold), never a paper mark.
+private struct CoverPlate: View {
+    let titles: [InterlinearTitle.Cell]
+    let subtitles: [InterlinearTitle.Cell]
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 8, style: .continuous)
@@ -312,33 +354,36 @@ private struct BookCover: View {
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 28)
                 InterlinearTitle(
-                    cells: TitleGloss.cover,
-                    smSize: 24,
-                    enSize: 11,
+                    cells: titles,
+                    smSize: 17,
+                    enSize: 9.5,
                     smColor: Theme.accent,
-                    enColor: Theme.accent.opacity(0.8),
+                    enColor: Theme.accent.opacity(0.85),
                     smWeight: .semibold,
-                    tracking: 1.5,
-                    spacing: 14
+                    tracking: 1.2,
+                    spacing: 10
                 )
-                .padding(.horizontal, 12)
+                .padding(.horizontal, 10)
+                .minimumScaleFactor(0.8)
                 InterlinearTitle(
-                    cells: TitleGloss.subtitle,
-                    smSize: 13,
-                    enSize: 9,
+                    cells: subtitles,
+                    smSize: 11,
+                    enSize: 8.5,
                     smColor: Theme.accent.opacity(0.9),
-                    enColor: Theme.accent.opacity(0.7),
+                    enColor: Theme.accent.opacity(0.8),
                     smWeight: .regular,
-                    tracking: 0.5,
-                    spacing: 6
+                    tracking: 0.4,
+                    spacing: 5
                 )
+                .padding(.horizontal, 10)
+                .minimumScaleFactor(0.8)
                 Rectangle()
                     .fill(Theme.accent.opacity(0.55))
                     .frame(height: 1)
                     .frame(maxWidth: .infinity)
                     .padding(.horizontal, 28)
             }
-            .padding(.vertical, 28)
+            .padding(.vertical, 20)
         }
         .aspectRatio(3.0 / 4.0, contentMode: .fit)
         .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 4)

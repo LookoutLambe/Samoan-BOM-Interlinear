@@ -14,40 +14,47 @@ struct LibraryDrawer: View {
 
     var body: some View {
         NavigationStack {
-            ScrollView {
-                VStack(spacing: 0) {
-                    drawerHeader
-                    LazyVStack(spacing: 0) {
-                        let front = library.frontMatter()
-                        if !front.isEmpty {
-                            sectionLabel("Faatomuaga · Front Matter")
-                            ForEach(front) { section in
-                                frontMatterRow(section)
-                                Divider().background(Theme.rule.opacity(0.5))
+            ScrollViewReader { proxy in
+                ScrollView {
+                    VStack(spacing: 0) {
+                        drawerHeader
+                        LazyVStack(spacing: 0) {
+                            let front = library.frontMatter()
+                            if !front.isEmpty {
+                                sectionLabel("Faatomuaga · Front Matter")
+                                ForEach(front) { section in
+                                    frontMatterRow(section)
+                                    Divider().background(Theme.rule.opacity(0.5))
+                                }
                             }
-                            sectionLabel("Tusi · Books")
-                        }
-                        ForEach(library.books) { book in
-                            bookRow(id: book.id, nameSm: book.nameSm, nameEn: book.nameEn,
-                                    chapterNums: book.chapters.map(\.num))
-                            Divider().background(Theme.rule.opacity(0.5))
-                        }
-                        ForEach(library.bibleVolumes) { volume in
-                            let metas = library.bibleBooks(in: volume.id)
-                            if !metas.isEmpty {
+                            // Grouped by volume, each section anchored so a landing
+                            // card can open the drawer at its own books.
+                            ForEach(library.allVolumes) { volume in
                                 sectionLabel("\(volume.nameSm) \u{00B7} \(volume.nameEn)")
-                                ForEach(metas) { meta in
+                                    .id("vol-\(volume.id)")
+                                ForEach(library.books(in: volume.id)) { book in
+                                    bookRow(id: book.id, nameSm: book.nameSm, nameEn: book.nameEn,
+                                            chapterNums: book.chapters.map(\.num))
+                                    Divider().background(Theme.rule.opacity(0.5))
+                                }
+                                ForEach(library.bibleBooks(in: volume.id)) { meta in
                                     bookRow(id: meta.id, nameSm: meta.nameSm, nameEn: meta.nameEn,
                                             chapterNums: Array(1...max(meta.chapters, 1)))
                                     Divider().background(Theme.rule.opacity(0.5))
                                 }
                             }
                         }
-                    }
-                    .padding(.horizontal, 12)
+                        .padding(.horizontal, 12)
 
-                    privacyLink
-                        .padding(.bottom, 24)
+                        privacyLink
+                            .padding(.bottom, 24)
+                    }
+                }
+                .onAppear {
+                    if let volume = nav.libraryFocusVolume {
+                        proxy.scrollTo("vol-\(volume)", anchor: .top)
+                        nav.libraryFocusVolume = nil
+                    }
                 }
             }
             .background(Theme.pageBg)

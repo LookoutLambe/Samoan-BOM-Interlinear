@@ -83,6 +83,24 @@ final class ScriptureLibrary {
         bibleBooks = decoded.books
     }
 
+    /// Every volume in reading order, with its names: the three eager volumes
+    /// (whose books carry a `volume` field, the oldest data defaulting to the
+    /// Book of Mormon) and then the Bible's two from the index. One home for the
+    /// volume names, so the landing cards and the drawer never disagree.
+    var allVolumes: [TusiPaiaVolume] {
+        let eager: [TusiPaiaVolume] = [
+            TusiPaiaVolume(id: "bom", nameSm: "O le Tusi a Mamona", nameEn: "Book of Mormon"),
+            TusiPaiaVolume(id: "dc", nameSm: "Mataupu Faavae ma Feagaiga", nameEn: "Doctrine and Covenants"),
+            TusiPaiaVolume(id: "pgp", nameSm: "Le Penina Silisili Ona Taua", nameEn: "Pearl of Great Price"),
+        ]
+        return eager.filter { vol in books.contains { ($0.volume ?? "bom") == vol.id } } + bibleVolumes
+    }
+
+    /// The eager books of one volume (Book of Mormon, D&C, Pearl of Great Price).
+    func books(in volumeId: String) -> [Book] {
+        books.filter { ($0.volume ?? "bom") == volumeId }
+    }
+
     func bibleBooks(in volumeId: String) -> [TusiPaiaBookMeta] {
         bibleBooks.filter { $0.volume == volumeId }
     }
