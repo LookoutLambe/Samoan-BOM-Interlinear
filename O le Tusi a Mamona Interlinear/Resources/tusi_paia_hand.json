@@ -201,11 +201,11 @@
     },
     {
      "sm": "ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "malamalama",
-     "en": "there was light"
+     "en": "·"
     },
     {
      "sm": "ai",
@@ -213,7 +213,7 @@
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "and there was light."
     }
    ]
   },
@@ -261,11 +261,11 @@
     },
     {
      "sm": "ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "tuu",
-     "en": "divided"
+     "en": "·"
     },
     {
      "sm": "eseese",
@@ -277,7 +277,7 @@
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and divided"
     },
     {
      "sm": "e",
@@ -437,11 +437,11 @@
     },
     {
      "sm": "aso",
-     "en": "day"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "day"
     }
    ]
   },
@@ -753,11 +753,11 @@
     },
     {
      "sm": "lua",
-     "en": "second"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "second"
     }
    ]
   },
@@ -1025,11 +1025,11 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "fetalai",
-     "en": "said"
+     "en": "·"
     },
     {
      "sm": "mai",
@@ -1037,7 +1037,7 @@
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and said"
     },
     {
      "sm": "o",
@@ -1257,11 +1257,11 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "tupu",
-     "en": "brought forth"
+     "en": "·"
     },
     {
      "sm": "mai",
@@ -1269,7 +1269,7 @@
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and brought forth"
     },
     {
      "sm": "i",
@@ -1497,11 +1497,11 @@
     },
     {
      "sm": "tolu",
-     "en": "third"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "third"
     }
    ]
   },
@@ -1777,15 +1777,15 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "faia",
-     "en": "made"
+     "en": "·"
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and made"
     },
     {
      "sm": "e",
@@ -2145,11 +2145,11 @@
     },
     {
      "sm": "fa",
-     "en": "fourth"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "fourth"
     }
    ]
   },
@@ -2493,11 +2493,11 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "faamanuia",
-     "en": "blessed"
+     "en": "·"
     },
     {
      "sm": "atu",
@@ -2509,11 +2509,11 @@
     },
     {
      "sm": "ai",
-     "en": "them"
+     "en": "·"
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and blessed them,"
     },
     {
      "sm": "e",
@@ -2665,11 +2665,11 @@
     },
     {
      "sm": "lima",
-     "en": "fifth"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "fifth"
     }
    ]
   },
@@ -3041,11 +3041,11 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "and"
+     "en": "·"
     },
     {
      "sm": "fetalai",
-     "en": "said"
+     "en": "·"
     },
     {
      "sm": "ane",
@@ -3053,7 +3053,7 @@
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "and said"
     },
     {
      "sm": "o",
@@ -3257,15 +3257,15 @@
    "words": [
     {
      "sm": "Ona",
-     "en": "so"
+     "en": "·"
     },
     {
      "sm": "faia",
-     "en": "created"
+     "en": "·"
     },
     {
      "sm": "lea",
-     "en": "·"
+     "en": "so created"
     },
     {
      "sm": "e",
@@ -4173,11 +4173,11 @@
     },
     {
      "sm": "ono",
-     "en": "sixth"
+     "en": "·"
     },
     {
      "sm": "lea.",
-     "en": "·"
+     "en": "sixth"
     }
    ]
   }

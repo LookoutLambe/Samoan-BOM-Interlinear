@@ -201,7 +201,27 @@ VOCAB_MAXLEN = max(max(len(k.split()) for k in SG.VOCABULARY),
                    max((len(k.split()) for k in getattr(SG, "TRANSLITERATED", {})), default=1), 3)
 
 
-def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
+def seq_frame_span(toks, i):
+    """`ona VERB (ai) lea` as one unit: the span length from `ona` to its closing
+    `lea`, or 0. The verb phrase between is one to four tokens; `ona o …`
+    ("because of") is a different word and never opens the frame."""
+    if norm(toks[i]) != "ona" or i + 2 >= len(toks):
+        return 0
+    prev = toks[i - 1] if i else ""
+    if not (i == 0 or prev[-1:] in SG.CLAUSE_END or norm(prev) in ("ma", "a", "ae")):
+        return 0
+    if norm(toks[i + 1]) == "o":
+        return 0
+    for k in range(i + 2, min(i + 7, len(toks))):
+        if norm(toks[k]) == "lea":
+            # the span may not run over a sentence stop before its `lea`
+            if any(re.search(r"[.;:?!][”’\"')]*$", toks[m]) for m in range(i, k)):
+                return 0
+            return k - i + 1
+    return 0
+
+
+def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
     """(length, source) of the unit starting at i, or (0, '').
 
     Memory is still consulted first -- a curated unit is a human decision and
@@ -227,6 +247,15 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset()):
                 if k + m > b and k + m <= len(toks) and n(k, k + m) in SG.MULTI_FORMS:
                     return True
         return False
+
+    # 00. THE SEQUENTIAL FRAME IS ONE UNIT (the Bible): `ona malamalama ai lea`
+    #     is "and there was light", glossed on its closing `lea`, the tokens
+    #     before it continuing into it -- as the curation records `ona
+    #     vaeluaina ai lea` "and they divided".
+    if seq:
+        span = seq_frame_span(toks, i)
+        if span:
+            return span, "seqframe"
 
     # 0. A REGISTERED TERM OR IDIOM IS ITS OWN UNIT, BEFORE MEMORY. `i le ua
     #    faapea lava` is "and it was so"; the inventory knows `i le ua` (on the
@@ -662,11 +691,16 @@ def attach_particles(out, toks):
         if not (back or fwd):
             continue
         if back:
-            k = j - 1
-            while k >= 0 and out[k]["en"] == CONT:
-                k -= 1
-            if k >= 0 and glossed(k):
-                out[j]["en"] = CONT
+            # `aso lea`, `lelei lava`, `malamalama ai lea`: the particle is
+            # part of the word before it. The renderers group a `·` with the
+            # word that FOLLOWS, so binding backwards means the word's gloss
+            # moves onto the particle and the word carries the `·` -- the
+            # curation's own unit-final convention (`o le mea lea` = therefore,
+            # glossed on `lea`). Left to right, a chain (`ai lea`) walks the
+            # gloss to its last particle.
+            if j >= 1 and glossed(j - 1):
+                out[j]["en"] = out[j - 1]["en"]
+                out[j - 1]["en"] = CONT
         else:
             k = j + 1
             while k < n and not out[k]["en"]:
@@ -856,7 +890,7 @@ def main(argv: list[str] | None = None) -> int:
     # (modernised) English, gloss it: grammar first, then the curated
     # inventory, the lexicon, the dictionary, the dominant lemma. The Book of
     # Mormon volumes and O le Tusi Paia both come through here.
-    def gloss_tokens(toks, en_text, strict=False):
+    def gloss_tokens(toks, en_text, strict=False, inner=False, tense=None):
         nonlocal stats
         out = [{"sm": t, "en": ""} for t in toks]
         i = 0
@@ -866,9 +900,32 @@ def main(argv: list[str] | None = None) -> int:
         # it, the verb is in the past, and a stative takes the copula the verse
         # gives it: `ona malamalama ai lea` is "and / there was light / · / ·".
         seq_frame = False      # between `ona` and its `lea`: the closing `ai lea` is silent
-        seq_verb = False       # the first open-class unit after `ona` takes the narrative past
+        seq_verb = (tense == "PAST")   # the first open-class unit after `ona` takes the narrative past
         while i < len(toks):
-            hit, src = frame_at(toks, i, inv, maxlen, lex, names)
+            hit, src = frame_at(toks, i, inv, maxlen, lex, names, seq=strict)
+            if src == "seqframe":
+                # gloss the verb phrase inside the frame on its own, then fold
+                # the frame's "and/then", its past, and the verse's copula round it
+                close = i + hit - 1
+                inner_end = close - 1 if norm(toks[close - 1]) == "ai" else close
+                sub = gloss_tokens(toks[i + 1:inner_end], en_text, strict, inner=True, tense="PAST")
+                verb = " ".join(w["en"] for w in sub if w["en"] and w["en"] != CONT).strip()
+                ew_ = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+                if verb:
+                    m = re.search(r"\b(there (?:was|were)) " + re.escape(verb.lower()) + r"\b", (en_text or "").lower())
+                    if m and not verb.lower().startswith("there "):
+                        verb = f"{m.group(1)} {verb}"
+                    lead = next((alt for alt in ("then", "and") if in_english(alt, ew_)), "")
+                    gloss = f"{lead} {verb}".strip()
+                    for j in range(i, close):
+                        out[j]["en"] = CONT
+                    out[close]["en"] = modernise(gloss)
+                    stats["unit: seqframe"] += 1
+                    prev_key = "lea"
+                    i += hit
+                    continue
+                # nothing glossable inside: fall back to the ordinary framing of `ona`
+                hit, src = 1, "frame"
             if not hit:
                 # A WORD NOBODY HAS SEEN IS STILL A WORD. Nothing in the
                 # curation, the lexicon or the grammar frames it, so it used to
@@ -1153,6 +1210,8 @@ def main(argv: list[str] | None = None) -> int:
                 out[i + hit - 1]["en"] = gloss
             i += hit
         attach_particles(out, toks)
+        if inner:
+            return out
         # THE LAST WORD PAIRS ITSELF. When exactly one open-class token of the
         # verse is still blank and exactly one content word of the verse's
         # English is carried by no gloss, they are each other's: a verse is a
