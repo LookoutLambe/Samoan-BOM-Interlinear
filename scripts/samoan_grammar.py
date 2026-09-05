@@ -762,6 +762,8 @@ VOCABULARY = {
     # a fixed idiom of the Bible register: one unit, one English (the shorter
     # `ua faapea lava` is NOT it -- `ua faapea lava ona alofa` is "so loved")
     'i le ua faapea lava': 'and it was so',
+    'e taitasi ma lona uiga': 'each after its kind',
+    'e taitasi ma o latou uiga': 'each after their kind',
     # words of the Bible register that occur too rarely for the learned lexicon
     # to reach; hand entries (user, 2026-09-05: nunumi = confused, without form)
     'nunumi': 'without form',
