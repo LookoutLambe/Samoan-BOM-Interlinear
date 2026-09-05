@@ -860,6 +860,7 @@ def dictionary(form):
 # Consulted only when the generator glosses O le Tusi Paia.
 BIBLE_VOCABULARY = {
     'o ia lava': 'he also',
+    'pupula mai': 'shine',           # John 1:5 `Ua pupula mai foi le malamalama` -- a verb, not "brightness"
 }
 
 

@@ -583,7 +583,14 @@ class Segmenter:
         first word in small caps, allowing a one-letter particle before it and
         the drop-cap junk the OCR leaves."""
         # skip the drop-cap junk and one-letter particles (`0 A‘U`, `J SA`,
-        # `O LE`): the first token with two or more letters decides
+        # `O LE`): the first token with two or more letters decides. A first
+        # token of digit shapes alone (`01 talofa` for OI talofa) is the small
+        # caps word itself misread, and counts.
+        if toks and re.fullmatch(r"[0-9OlI]{2,3}", toks[0]) and len(toks) > 1 and toks[1][:1].islower():
+            return True
+        # two one-letter capitals in a row are the small caps themselves: `A O oe`
+        if len(toks) >= 2 and re.fullmatch(r"[A-Z]", toks[0]) and re.fullmatch(r"[A-Z][,.;]?", toks[1]):
+            return True
         cand = None
         for x in toks[:3]:
             letters = re.sub(r"[^A-Za-zĀĒĪŌŪāēīōū]", "", x)
@@ -729,7 +736,7 @@ class Segmenter:
         if self.chapter < self.nchap and self.verse == self.expected() and self._caps_start(toks) and nxt in (2, 3) \
                 and (ln["indent"] or 0) < 20 and m is None and not ln["marker_raw"]:
             self._close_verse(trim_summary=True)
-            self._start_chapter(toks)
+            self._start_chapter(toks, ln.get("head_ch"))   # the head numbers the chapter when the numeral is lost
             self.prev_display = False
             return
         # A CHAPTER START BY SHAPE: an indented summary line just before, a
@@ -903,6 +910,9 @@ class Segmenter:
 
 # OCR letter confusions seen in this scan: each maps a misread run to what was
 # printed. Applied to a token only when the result is a KNOWN word.
+known_plain: set = set()
+CAPITALISED: Counter = Counter()
+LOWERCASED: Counter = Counter()
 CONFUSIONS = [("rn", "m"), ("fc", "t"), ("ii", "li"), ("ll", "ll"), ("l", "i"), ("i", "l"), ("I", "l"),
               ("l", "I"), ("u", "n"), ("n", "u"), ("cl", "d"), ("0", "o"), ("1", "l"), ("5", "s"),
               ("j", "i"), ("vv", "w"), ("‘", "‘"), ("aa", "ā")]
@@ -950,12 +960,17 @@ def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter, kno
                 aligned[i] = j
     fixes = 0
     out = list(a)
+    demacron = str.maketrans("āēīōūĀĒĪŌŪ", "aeiouAEIOU")
 
     def rebuild(orig: str, core_new: str) -> str:
         lead = re.match(r"^[^\wāēīōū’ʻ‘]*", orig).group(0)
         trail = re.search(r"[^\wāēīōū’ʻ‘]*$", orig).group(0)
         body = orig[len(lead):len(orig) - len(trail)] if trail else orig[len(lead):]
         if body[:1].isupper() and core_new[:1].islower():
+            core_new = core_new[:1].upper() + core_new[1:]
+        # a name the reference writes with a capital keeps it (leova -> Ieova)
+        if core_new[:1].islower() and CAPITALISED.get(core_new.lower(), 0) >= 3 \
+                and CAPITALISED.get(core_new.lower(), 0) > 3 * LOWERCASED.get(core_new.lower(), 0):
             core_new = core_new[:1].upper() + core_new[1:]
         return lead + core_new + trail
 
@@ -971,18 +986,19 @@ def repair(text: str, reference: str, freq_1887: Counter, freq_ref: Counter, kno
             x = strip(tok).lower()
             if not x:
                 continue
-        if x in known:
-            continue
+        if x in known or x.translate(demacron) in known_plain:
+            continue          # a macron is spelling, never an OCR slip (māna / mana)
         # 1. the aligned word of the later edition, when close
         j = aligned.get(i)
         if j is not None:
             y = kb[j]
-            if y and y in known and abs(len(x) - len(y)) <= 1 and difflib.SequenceMatcher(None, x, y).ratio() >= 0.7:
+            if y and y in known and abs(len(x) - len(y)) <= 1 and difflib.SequenceMatcher(None, x, y).ratio() >= 0.7 \
+                    and x.translate(demacron) != y.translate(demacron):
                 out[i] = rebuild(tok, strip(b[j]))
                 fixes += 1
                 continue
         # 2. a letter-confusion variant that is a known word (the commonest wins)
-        cands = [v for v in _variants(x) if v in known]
+        cands = [v for v in _variants(x) if v in known and v.translate(demacron) != x.translate(demacron)]
         if cands:
             best = max(cands, key=lambda v: (freq_ref.get(v, 0) + freq_1887.get(v, 0), -abs(len(v) - len(x))))
             # keep the original's capital letter positions where the length matches
@@ -1051,6 +1067,15 @@ def main(argv=None):
                             known.add(k)
     except Exception as exc:   # the Book of Mormon file is a bonus, not a requirement
         print("bom_books.json not used for the known-word set:", exc)
+    global known_plain, CAPITALISED, LOWERCASED
+    known_plain = {w.translate(str.maketrans("āēīōū", "aeiou")) for w in known}
+    # how the later edition capitalises each word, for repaired names
+    CAPITALISED, LOWERCASED = Counter(), Counter()
+    for key, rec in NUMBERED.items():
+        for t in rec["sm"].split():
+            core = re.sub(r"[^A-Za-zāēīōūĀĒĪŌŪ’ʻ‘]", "", t)
+            if len(core) >= 3:
+                (CAPITALISED if core[0].isupper() else LOWERCASED)[core.lower()] += 1
     print(f"known Samoan words: {len(known)}")
 
     # report + repair
