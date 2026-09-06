@@ -44,7 +44,7 @@ struct ReaderView: View {
                     ScrollView(.horizontal) {
                         LazyHStack(spacing: 0) {
                             ForEach(library.allReadingItems) { item in
-                                page(for: item)
+                                page(for: item, settled: scrolledItem)
                                     .frame(width: geo.size.width, height: geo.size.height)
                                     .id(item.id)
                             }
@@ -134,7 +134,7 @@ struct ReaderView: View {
     }
 
     @ViewBuilder
-    private func page(for item: ReadingItem) -> some View {
+    private func page(for item: ReadingItem, settled: ReadingItem?) -> some View {
         switch item {
         case .front(let id):
             if let section = library.frontMatterSection(id: id) {
@@ -143,7 +143,7 @@ struct ReaderView: View {
                 ContentUnavailableView("E lē maua", systemImage: "questionmark.folder")
             }
         case .chapter(let ref):
-            ChapterPageView(ref: ref, noteEditorTarget: $noteEditorTarget)
+            ChapterPageView(ref: ref, settled: settled, noteEditorTarget: $noteEditorTarget)
         }
     }
 
@@ -174,12 +174,26 @@ struct ChapterPageView: View {
     @Environment(AppSettings.self) private var settings
     @Environment(Navigator.self) private var nav
     let ref: ChapterRef
+    /// The page the horizontal pager has settled on. A page starts at its top
+    /// when it becomes the settled page (a swipe from a chapter scrolled to its
+    /// end must not land the reader at the end of the next one), or at the
+    /// verse the reader left in this volume when this is that chapter. Only
+    /// the settled page records the reader's position -- the pre-built
+    /// neighbours would otherwise report their own tops.
+    let settled: ReadingItem?
     @Binding var noteEditorTarget: NoteEditorTarget?
 
     /// The verse currently flashing to draw the eye after a jump-to-verse. Set
     /// when a matching `Navigator.verseTarget` is consumed, then cleared after a
     /// beat so the highlight fades on its own.
     @State private var flashVerse: Int?
+    /// The verse at the top of the page, reported by the scroll position.
+    @State private var topVerseId: String?
+    /// Whether the saved position for this chapter has been returned to once.
+    @State private var didRestore = false
+
+    private var isSettled: Bool { settled == .chapter(ref) }
+    private var volumeId: String { library.book(id: ref.bookId)?.volume ?? "bom" }
 
     var body: some View {
         if let book = library.book(id: ref.bookId),
@@ -188,6 +202,7 @@ struct ChapterPageView: View {
                 ScrollView {
                     VStack(alignment: .center, spacing: 0) {
                         BookHeader(book: book, chapter: chapter)
+                            .id("chapter-top")
                         ColophonView(book: book, chapter: chapter, mode: settings.readerMode)
                         ChapterHeadingView(book: book, chapter: chapter, mode: settings.readerMode)
                         VStack(spacing: 0) {
@@ -203,6 +218,7 @@ struct ChapterPageView: View {
                                 .id("verse-\(verse.num)")
                             }
                         }
+                        .scrollTargetLayout()
                     }
                     .frame(maxWidth: 900, alignment: .center)
                     .padding(.horizontal, 20)
@@ -210,15 +226,52 @@ struct ChapterPageView: View {
                     .padding(.bottom, 24)
                     .frame(maxWidth: .infinity, alignment: .center)
                 }
+                .scrollPosition(id: $topVerseId, anchor: .top)
                 .background(Theme.pageBg)
                 // Handle a jump-to-verse both when this page first appears (the
                 // search-result case: target is set before the page is built)
                 // and when the target changes while the page is already showing.
                 .onAppear { consumeVerseTarget(proxy) }
                 .onChange(of: nav.verseTarget) { consumeVerseTarget(proxy) }
+                // The page the pager settles on: its top, or the verse the
+                // reader left here (once).
+                .onChange(of: settled, initial: true) { _, item in
+                    guard item == .chapter(ref) else { return }
+                    settleOnPage(proxy)
+                }
+                // The settled page's top verse is the reader's place in this volume.
+                .onChange(of: topVerseId) { _, id in
+                    guard isSettled, didRestore, let id, id.hasPrefix("verse-"),
+                          let n = Int(id.dropFirst("verse-".count)) else { return }
+                    settings.noteReadPosition(volume: volumeId, bookId: ref.bookId, chapter: ref.chapterNum, verse: n)
+                }
             }
         } else {
             ContentUnavailableView("E lē maua le Mataupu", systemImage: "questionmark.folder")
+        }
+    }
+
+    /// The pager has settled on this page. A jump-to-verse (search) takes
+    /// precedence; otherwise the saved verse for this volume, when it is this
+    /// chapter's and has not been returned to yet; otherwise the top. Either
+    /// way the bookmark now points at this chapter.
+    private func settleOnPage(_ proxy: ScrollViewProxy) {
+        if let target = nav.verseTarget, target.ref == ref {
+            didRestore = true
+            return
+        }
+        let saved = settings.readPosition(volume: volumeId)
+        let resume = !didRestore && saved?.bookId == ref.bookId && saved?.chapter == ref.chapterNum && (saved?.verse ?? 1) > 1
+        didRestore = true
+        if resume, let verse = saved?.verse {
+            Task { @MainActor in
+                // Let the horizontal pager settle before the vertical scroll.
+                try? await Task.sleep(nanoseconds: 350_000_000)
+                proxy.scrollTo("verse-\(verse)", anchor: .top)
+            }
+        } else {
+            proxy.scrollTo("chapter-top", anchor: .top)
+            settings.noteReadPosition(volume: volumeId, bookId: ref.bookId, chapter: ref.chapterNum, verse: 1)
         }
     }
 

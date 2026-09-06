@@ -294,6 +294,110 @@
   }
 
   const bookById = (id) => state.index.books.find((b) => b.id === id);
+  const volumeOf = (bookId) => (bookById(bookId) || {}).volume || 'bom';
+
+  // ------------------------------------------------------- reading position
+
+  /* The verse at the top of the view is saved as the reader scrolls, one
+     record per volume (`bom.pos.<vol>` = {book, num, verse}). A reload, or the
+     bookmark under that volume's cover on the landing page, resumes at that
+     verse; the next or previous chapter always opens at its top. The browser's
+     own pixel restore is turned off: a mode or font change reflows the
+     chapter, and the verse is the unit that survives a reflow -- the Hebrew
+     reader keeps its place the same way. */
+  try {
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+  } catch {
+    /* not every embedder exposes history */
+  }
+  const posKey = (vol) => `bom.pos.${vol}`;
+  const savedPos = (vol) => loadJSON(posKey(vol), null);
+  let posQuietUntil = 0;
+  let posTimer = null;
+
+  function headerBottom() {
+    const bar = document.querySelector('.controls-top');
+    const r = bar && bar.getBoundingClientRect();
+    return r && r.bottom > 0 ? r.bottom : 0;
+  }
+
+  /* The first verse still (partly) below the header. */
+  function topVerse() {
+    const yRef = headerBottom() + 4;
+    for (const row of view.querySelectorAll('.verse')) {
+      const r = row.getBoundingClientRect();
+      if (r.height > 0 && r.bottom > yRef) return row;
+    }
+    return null;
+  }
+
+  function savePos(force) {
+    if (!force && Date.now() < posQuietUntil) return;    // our own restore scrolls must not re-save
+    const here = currentRef();
+    if (!here.book) return;
+    const row = topVerse();
+    const verse = row ? Number(row.dataset.key.split('|')[2]) || 1 : 1;
+    try {
+      localStorage.setItem(posKey(volumeOf(here.book)), JSON.stringify({ book: here.book, num: here.num, verse }));
+    } catch {
+      /* storage blocked: the reader just starts at the top next time */
+    }
+  }
+
+  function scrollToVerse(bookId, num, verse) {
+    const key = `${bookId}|${num}|${verse}`;
+    const row = [...view.querySelectorAll('.verse')].find((r) => r.dataset.key === key);
+    if (!row) return false;
+    posQuietUntil = Date.now() + 900;
+    // the verse's top sits 2px under the header: the saver takes the first
+    // verse whose bottom clears the header by 4px, so the verse before it is
+    // never read as the top verse and the mark cannot drift up on each reload
+    window.scrollTo(0, row.getBoundingClientRect().top + window.scrollY - headerBottom() - 2);
+    return true;
+  }
+
+  function scrollToTop() {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+  }
+
+  /* After a chapter is drawn: its top, or the saved verse when this is the
+     chapter the reader left (a reload, the landing bookmark). Two passes,
+     because the fonts and the first images settle after the first paint. */
+  function settleScroll(bookId, num) {
+    const pos = savedPos(volumeOf(bookId));
+    const resume = pos && pos.book === bookId && Number(pos.num) === Number(num) && Number(pos.verse) > 1;
+    scrollToTop();
+    if (resume) {
+      const again = () => scrollToVerse(bookId, num, pos.verse);
+      requestAnimationFrame(again);
+      setTimeout(again, 400);
+      setTimeout(again, 1200);
+      // the web fonts reflow the chapter when they land; settle once more then
+      if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => requestAnimationFrame(again));
+    } else {
+      // the bookmark follows the reader into the new chapter straight away
+      posQuietUntil = Date.now() + 900;
+      try {
+        localStorage.setItem(posKey(volumeOf(bookId)), JSON.stringify({ book: bookId, num, verse: 1 }));
+      } catch {
+        /* storage blocked */
+      }
+      requestAnimationFrame(scrollToTop);
+    }
+  }
+
+  window.addEventListener('scroll', () => {
+    if (posTimer) return;
+    posTimer = setTimeout(() => {
+      posTimer = null;
+      savePos(false);
+    }, 300);
+  }, { passive: true });
+  // the last place is kept even when the page goes away between scroll events
+  window.addEventListener('pagehide', () => savePos(true));
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'hidden') savePos(true);
+  });
 
   // ----------------------------------------------------------------- render
 
@@ -597,10 +701,40 @@
     for (const vol of volumes) {
       if (!state.index.books.some((b) => (b.volume || 'bom') === vol.id)) continue;
       const spec = COVERS[vol.id] || { titles: [[vol.nameSm.toUpperCase(), vol.nameEn]], sub: [] };
-      grid.append(coverPlate(spec.titles, spec.sub, `Tatala: ${vol.nameSm}`, `cover-${vol.id}`,
+      const wrap = el('div', 'cover-wrap');
+      wrap.append(coverPlate(spec.titles, spec.sub, `Tatala: ${vol.nameSm}`, `cover-${vol.id}`,
         () => openDrawerAt(vol.id)));
+      wrap.append(volumeBookmark(vol));
+      grid.append(wrap);
     }
     return grid;
+  }
+
+  /* One bookmark under each cover -- the verse the reader left in that volume,
+     as the Hebrew reader's landing page carries one under each card. A volume
+     not yet opened starts at its first chapter. Tapping it opens the chapter
+     and settleScroll() returns to the verse. */
+  function volumeBookmark(vol) {
+    const pos = savedPos(vol.id);
+    let book = pos && bookById(pos.book);
+    let num = pos && Number(pos.num);
+    let verse = pos && Number(pos.verse);
+    if (!book || (book.volume || 'bom') !== vol.id || !book.chapters.includes(num)) {
+      book = state.index.books.find((b) => (b.volume || 'bom') === vol.id);
+      num = book.chapters[0];
+      verse = 0;
+    }
+    const ref = `${book.nameSm} ${num}${verse > 1 ? ':' + verse : ''}`;
+    const btn = el('button', 'card-continue');
+    btn.type = 'button';
+    btn.append(el('span', 'cc-kicker', 'Fa\u2019aauau \u00b7 Continue \u2192'));
+    btn.append(el('span', 'cc-ref', ref));
+    btn.setAttribute('aria-label', `Continue reading ${vol.nameEn} at ${book.nameEn} ${num}${verse > 1 ? ':' + verse : ''}`);
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      location.hash = `#/b/${book.id}/${num}`;
+    });
+    return btn;
   }
 
   const isBibleBook = (book) => book && (book.volume === 'ot' || book.volume === 'nt');
@@ -682,7 +816,7 @@
     for (const verse of chapter.verses) frag.append(renderVerse(verse, bookId, num));
 
     view.replaceChildren(frag);
-    window.scrollTo(0, 0);
+    settleScroll(bookId, num);
     $('dock').hidden = false;
     document.body.classList.add('has-dock');
     buildDock(book, num);

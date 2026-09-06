@@ -388,12 +388,78 @@ private struct VolumeCovers: View {
             ForEach(library.allVolumes) { volume in
                 let spec = TitleGloss.specs[volume.id]
                     ?? TitleGloss.Spec(titles: [.init(sm: volume.nameSm.uppercased(), en: volume.nameEn)], subtitles: [])
-                Button { nav.openLibrary(volume: volume.id) } label: {
-                    CoverPlate(titles: spec.titles, subtitles: spec.subtitles)
+                VStack(spacing: 8) {
+                    Button { nav.openLibrary(volume: volume.id) } label: {
+                        CoverPlate(titles: spec.titles, subtitles: spec.subtitles)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Tatala: \(volume.nameSm)")
+                    VolumeBookmark(volume: volume)
                 }
-                .buttonStyle(.plain)
-                .accessibilityLabel("Tatala: \(volume.nameSm)")
             }
+        }
+    }
+}
+
+/// The bookmark under each cover: the verse the reader left in that volume
+/// (a volume not yet opened starts at its first chapter), the way the Hebrew
+/// app's landing page carries one under each card. Tapping it opens the
+/// chapter, and the chapter page returns to the verse.
+private struct VolumeBookmark: View {
+    @Environment(ScriptureLibrary.self) private var library
+    @Environment(AppSettings.self) private var settings
+    @Environment(Navigator.self) private var nav
+    let volume: TusiPaiaVolume
+
+    private var target: (ref: ChapterRef, verse: Int)? {
+        if let pos = settings.readPosition(volume: volume.id),
+           let book = library.book(id: pos.bookId),
+           (book.volume ?? "bom") == volume.id,
+           book.chapters.contains(where: { $0.num == pos.chapter }) {
+            return (ChapterRef(bookId: pos.bookId, chapterNum: pos.chapter), pos.verse)
+        }
+        if let first = library.allChapterRefs.first(where: { (library.book(id: $0.bookId)?.volume ?? "bom") == volume.id }) {
+            return (first, 0)
+        }
+        return nil
+    }
+
+    private var label: String {
+        guard let t = target, let book = library.book(id: t.ref.bookId) else { return "" }
+        return "\(book.nameSm) \(t.ref.chapterNum)" + (t.verse > 1 ? ":\(t.verse)" : "")
+    }
+
+    var body: some View {
+        if let t = target {
+            Button {
+                nav.openChapter(t.ref)
+            } label: {
+                VStack(spacing: 2) {
+                    Text("Fa\u{2019}aauau \u{00B7} Continue \u{2192}")
+                        .font(SerifFont.tnr(size: 10, weight: .semibold))
+                        .textCase(.uppercase)
+                        .tracking(0.5)
+                        .foregroundStyle(Theme.accent)
+                    Text(label)
+                        .font(SerifFont.tnr(size: 15, weight: .bold))
+                        .foregroundStyle(Theme.headerText)
+                        .lineLimit(1)
+                        .minimumScaleFactor(0.8)
+                }
+                .frame(maxWidth: .infinity)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 8)
+                .background(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .fill(Theme.headerBg)
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8, style: .continuous)
+                        .strokeBorder(Theme.accent.opacity(0.6), lineWidth: 1)
+                )
+            }
+            .buttonStyle(.plain)
+            .accessibilityLabel("Continue reading \(volume.nameEn) at \(label)")
         }
     }
 }

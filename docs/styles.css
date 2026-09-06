@@ -785,6 +785,43 @@ body.no-gloss .unit .en { display: none; }
   box-sizing: border-box;
 }
 .covers .cover { width: 100%; margin-top: 0; }
+.cover-wrap { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+
+/* The bookmark under each cover: the same navy plate and gold kicker as the
+   continue button, sized to the card. The bright accent stays a mark colour
+   (border, kicker), never a fill. */
+.card-continue {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  width: 100%;
+  margin-top: .5rem;
+  padding: .5rem .75rem;
+  border: 1px solid color-mix(in srgb, var(--accent-light) 60%, transparent);
+  border-radius: .5rem;
+  background: var(--header-bg);
+  cursor: pointer;
+  font-family: var(--serif);
+  box-sizing: border-box;
+}
+.card-continue:hover { border-color: var(--accent-light); }
+.card-continue .cc-kicker {
+  color: var(--accent-light);
+  font-size: .625rem;
+  font-weight: 600;
+  letter-spacing: .031em;
+  text-transform: uppercase;
+}
+.card-continue .cc-ref {
+  color: var(--header-text);
+  font-size: .95rem;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
 .covers .cover-title .sm { font-size: clamp(1.05rem, 4.2vw, 1.5rem); }
 
 .search-scope { margin: .25rem 0 0; font-size: .9rem; }

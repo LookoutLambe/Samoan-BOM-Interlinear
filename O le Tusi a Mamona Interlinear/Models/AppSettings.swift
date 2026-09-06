@@ -57,6 +57,34 @@ final class AppSettings {
     private(set) var furthestChapter: Int
     private(set) var furthestOrder: Int
 
+    /// Where the reader left each volume -- the verse at the top of the page
+    /// when they last scrolled it, keyed by volume id ("bom", "dc", "pgp",
+    /// "ot", "nt"). Drives the bookmark under each cover on the landing page
+    /// and the return to that verse when the chapter is opened again. Mirrors
+    /// the web reader's `bom.pos.<vol>` and the Hebrew app's per-volume marks.
+    struct ReadPosition: Codable, Equatable, Sendable {
+        let bookId: String
+        let chapter: Int
+        let verse: Int
+    }
+    private static let readPositionsKey = "readPositions.v1"
+    private(set) var readPositions: [String: ReadPosition]
+
+    func readPosition(volume: String) -> ReadPosition? {
+        readPositions[volume]
+    }
+
+    /// Record the verse the reader is at in a volume. Called as the settled
+    /// page scrolls, so the mark follows the reader verse by verse.
+    func noteReadPosition(volume: String, bookId: String, chapter: Int, verse: Int) {
+        let pos = ReadPosition(bookId: bookId, chapter: chapter, verse: max(1, verse))
+        guard readPositions[volume] != pos else { return }
+        readPositions[volume] = pos
+        if let data = try? JSONEncoder().encode(readPositions) {
+            UserDefaults.standard.set(data, forKey: Self.readPositionsKey)
+        }
+    }
+
     /// Record that a chapter was read. Only advances the marker when `order`
     /// is deeper than what's stored, so paging backward never rewinds it.
     func noteChapterRead(bookId: String, chapter: Int, order: Int) {
@@ -85,5 +113,12 @@ final class AppSettings {
         self.furthestBookId = UserDefaults.standard.string(forKey: Self.furthestBookKey)
         self.furthestChapter = UserDefaults.standard.integer(forKey: Self.furthestChapterKey)
         self.furthestOrder = UserDefaults.standard.object(forKey: Self.furthestOrderKey) as? Int ?? -1
+
+        if let data = UserDefaults.standard.data(forKey: Self.readPositionsKey),
+           let stored = try? JSONDecoder().decode([String: ReadPosition].self, from: data) {
+            self.readPositions = stored
+        } else {
+            self.readPositions = [:]
+        }
     }
 }
