@@ -652,3 +652,106 @@ rule in the pass or the tables, none is a verse patch.
 - **The gloss's punctuation is the token's**, never the memory's: `ai;` says
   "return;", `ia!` says "Awake!".
 
+
+### 22v. Rules the 1 Nephi 1 read added (2026-09-06)
+
+The chapter was read token by token against its English ("actively look for
+misglosses and fix the grammar"); every defect became a rule in the sentence
+pass or a table, never a verse patch.
+
+- **The pronoun after the verb is its subject** (Dunn, unit four: VSO). `o ia`
+  straight after the verb, its directional, `ai` or a degree word is "he" (`a’o
+  tatalo atu o ia` "as he prayed", `gatete tele ai o ia` "he did tremble"), and
+  the agent `e ia` after a verb is "he" wherever the English makes him the
+  subject ("he saw and heard much"). Only a "by him" in the verse keeps the
+  agent form; only "VERB him" right after this verb's own word keeps the object
+  (`faatauemu … ia te ia` "did mock him"). `i latou` before the relative `o e`
+  is the antecedent, "those" ("those who come unto thee").
+- **The genitive `o` / `a` says "of" where the verse does.** `i luga o se papa`
+  "upon | a rock", `i luma o lo’u tamā` "before | my father", `o lo latou pupula`
+  "their brightness", `o Ierusalema` after "the great city" "Jerusalem" — and the
+  other way, `se tala atoa o mea` "a full account | of the things". Where the verse
+  gives the phrase another preposition no unit carries, that one ("in the
+  firmament"). The two-token possessives (`lo latou`, `o matou`) merge with their
+  noun like the singular ones.
+- **The article follows the verse.** `le` says "the" only where the English puts
+  "the" before that noun: `o le lagi` "of heaven", `i luga o papatusi` "upon
+  plates", `le tele` "many" (never "the many"), and "the" comes off a remembered
+  reading the same way ("so the many" → "so many"). "than" heads a phrase like a
+  preposition ("the than the sun" is gone). `le tele o X` is the quantifier
+  "many X" and the `o` phrase drops its article.
+- **The verb's scaffolding follows the verse.** What stands before the verb —
+  auxiliary, copula, modal, "not", the relative, a stray article — is the
+  verse's, never the memory's: `ua moni` "is true" (not "are true"), `ua
+  faaumatia` "must be destroyed", `sa olioli` "did rejoice", `na ou faia` "which I
+  have made", `sa manatu` "thought" (not "a thought"), `o le a` | `faaumatia`
+  "should" | "be destroyed" (the modal goes to the marker unit before), `sa
+  molimau atu ai` "testified" (never "did testified"), "having seen" (never "I
+  having seen"). The auxiliary the verse sets right before THIS word wins over one
+  a memory attached elsewhere; one the verse sets nowhere beside the word is kept
+  only while the verse has it to spare. A relative that opens a clause after "and"
+  has no antecedent and goes; the relative clause the verse sets on the noun
+  before is taken (`a lo’u tamā, ua faia` "of my father, | which consists").
+- **The verse's own form.** A remembered reading the verse does not carry, whose
+  inflection or dictionary sense it does carry, takes the verse's form: `vavalo
+  atu` "prophesying" (not "prophesy"), `faatauemu` "did mock" (not "mocking"),
+  `manino` "plainly" (not "pure" — Pratt: clear, plain), `lofituina` "being
+  overcome" (not "overpowered"), `e faaola ai` "of deliverance" (not "to
+  deliver"). Auxiliaries are never re-formed ("have" is not "having"). An open-class
+  word left with no gloss takes the dictionary sense the verse carries, in the
+  verse's form (`afifio` "came"); a verb of speaking takes the verse's unspent verb
+  of speaking (`fetalai mai` "bade"). The respectful forms (`afio`, `afifio`,
+  `fetalai`) are folded into the dictionary with their plain word's senses.
+- **A directional's adverb must follow ITS verb in the verse.** "went forth"
+  belongs to `alu atu`, so `tatalo atu` two units on does not say "forth", and
+  `tautino atu` is "declare"; a verb whose directional sits inside its unit takes
+  the adverb the verse sets after it (`alu atu` "went forth", `afifio ifo` "came
+  down").
+- **The possessive never lands on a gloss that already carries its own** ("with
+  MINE own hand") **or opens on a preposition** ("before him"); "my with mine own
+  hand" and "in his before him" were what prefixing it produced.
+- **The pronoun the verse gives as a plain object drops its preposition**: `ia te
+  ia` after "bade" says "him" (the nearest bare occurrence decides), after "gave
+  unto him" it keeps "unto". No preposition after a unit that already ends on one
+  (`e uiga` "concerning" | `i le faaumatiaga` "the destruction"). `mo` phrases
+  read the verse's own preposition, the multi-word ones included ("in behalf of
+  his people").
+- **`i ai` is the pro-phrase for the THING already named** (Dunn, unit seven): `ia
+  faitau i ai` after "bade him" is "read it" — the book, never the man again (user,
+  1 Nephi 1:11). The bare anaphoric `ai` has no such object and says a pronoun only
+  where the verse has one no other unit carries.
+- **No content gloss twice, counted by the phrase**: a two-word gloss the verse has
+  once ("many things") stands once; a unit whose own Samoan word MEANS the gloss keeps
+  it (`le igoa` "the name" beside "his wife's name"), a unit whose word does not (`sa
+  alaga atu`, `i maa`) does not; a name is never a double ("Er, and Onan"); a word the
+  verse never writes (Ieova beside "the LORD") is no evidence and stands.
+- **The completive `(ina) ua uma ona VERB`** is the English pluperfect: the frame
+  says the verse's temporal ("when", "after"), the verb its verse form, and the
+  scaffolding pass sets "had" before it ("when | my father | had read").
+- **`o le` before a stop is the article of an elided noun** (`e pei o le:` "such
+  as:"); **`o e` before a marker is the relative** "whom / those who / who", and
+  says nothing when the clause after it already carries its relative.
+- **A capital the verse writes mid-sentence is the verse's** ("he saw One
+  descending"). **No content gloss twice**: `fetogi` "stoned" | `i maa` says
+  nothing; a phrase a later unit's Samoan says comes out of the earlier unit
+  ("Your throne is high in the heavens" | "your throne" → "is high in the
+  heavens" | "your throne").
+- **Tables:** `ina ua` reads when / as / after and `a’o` while / as / when (a
+  temporal with no carried reading says its first, never nothing); `faapea` adds
+  "after this manner"; `afifio` joins the respectful table.
+- **A unit never ends on the article** (Dunn, unit one: the article opens its
+  noun's phrase). A remembered `sa faapea le` "the" had swallowed the discourse
+  word; the article goes to the noun after it and the word before says its own
+  carried reading ("after this manner" | "the manner"). And `ma le` inside a unit
+  glossed "and …" is the conjunction + article, never the bound pronoun + negator.
+- **The k-th pronoun phrase is the verse's k-th pronoun.** "gave unto him a book,
+  and bade him": the first `ia te ia` says "unto him", the second "him" — the
+  count decides, since position alone could not tell them apart. A pronoun phrase
+  that closes a unit whose verb the memory left blank (`fetalai mai ia te ia`)
+  reads the verse the same way.
+- **Diagnostic after the round:** F1 vs the curation 85.1 → 86.3 (content 86.1 →
+  86.6); BOM/D&C/PGP 98.6% of tokens carrying text. Left for the user in 1 Nephi 1:
+  `sa ia faapa’ū ifo` "he fell down" (1:7, the settled Samoan sense beside "cast
+  himself"), `segia` "caught" (1:8, beside "carried away"), `e foliga mai` "it
+  appears" (1:8, beside "in the attitude of"), `ua ou tusia` "written" (1:3, beside
+  "I make it"), `mea tetele` "great things" (1:14), `faamalolosi tele` (1:20).

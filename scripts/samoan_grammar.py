@@ -1098,6 +1098,14 @@ def _dictionary():
                 for sense in v:
                     if sense not in merged.setdefault(k, []):
                         merged[k].append(sense)
+        # the respectful forms carry their own gloss and their plain word's
+        # senses: `afio` "come, go" beside `sau`, `fetalai` "speak" beside
+        # `tautala` -- neither dictionary lists the chiefly register whole
+        for k, (plain, gloss) in RESPECTFUL.items():
+            for sense in [re.sub(r"\s*\(.*?\)", "", gloss)] + list(merged.get(plain, [])):
+                sense = sense.strip()
+                if sense and sense not in merged.setdefault(k, []):
+                    merged[k].append(sense)
         _DICT = merged
     return _DICT
 
@@ -1169,6 +1177,14 @@ READINGS = {
     'e':    ['by', 'o', 'who'],                  # ergative / vocative / relative
     'ona':  ['because', 'for', 'his', 'her'],    #   672 / 521 / 162
     'ina':  ['that', 'when', 'after'],           #   889 / 175 / 124
+    # `ina ua` is the past temporal (Dunn): "when", and "as" where the verse
+    # says "as he went forth" (1 Nephi 1:5); `a'o` the progressive temporal,
+    # "while / as" (1 Nephi 1:6)
+    'ina ua': ['when', 'as', 'after'],
+    'faapea': ['thus', 'so', 'after this manner', 'in this manner', 'like this'],   # `sa faapea le ituaiga` "after this manner was" (1 Nephi 1:15)
+    'a’o':  ['while', 'as', 'when'],
+    'aʻo':  ['while', 'as', 'when'],
+    'a‘o':  ['while', 'as', 'when'],
     'pe':   ['or', 'if', 'whether', 'nor'],      #   139 / 120 / 102 / 72
     'nei':  ['these', 'this', 'now'],            #   220 / 15
     'uma':  ['all', 'every'],                    #    65 / 4
@@ -1894,6 +1910,7 @@ RESPECTFUL = {
     'fetalai':   ('tautala', 'speak, says'),          # 561 / 382
     'saunoa':    ('tautala', 'speak'),                 #   8 / 382
     'afio':      ('sau',     'come, go (of a chief)'), # 211 / 125
+    'afifio':    ('o mai',   'come, go (plural, of chiefs)'),  # `sa latou afifio ifo` "they came down" (1 Nephi 1:11)
     'maliu':     ('oti',     'die, pass away'),        #  73 / 340
     'silasila':  ('vaai',    'see, behold'),           #  34 / 691
     'silafia':   ('iloa',    'know'),                  #  44 / 775
