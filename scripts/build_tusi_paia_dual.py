@@ -89,7 +89,10 @@ for vol, books in (('ot', OT), ('nt', NT)):
                 if rec is None or not rec['sm'].strip():
                     index['missing'].append(key); words = [{'sm': '—', 'en': ''}]
                 else:
-                    words = [{'sm': w, 'en': ''} for w in rec['sm'].split() if w.strip('|')]
+                    # the 1887 print sets a space before ; : ? ! -- punctuation belongs
+                    # to the word before it, never to a token of its own (user, 2026-09-06)
+                    sm_ = re.sub(r"\s+([?;:!.,])", r"\1", rec['sm'])
+                    words = [{'sm': w, 'en': ''} for w in sm_.split() if w.strip('|')]
                     if rec['est']: index['estimated'].append(key)
                 verses.append({'num': v, 'words': words}); tot_v += 1; tot_w += len(words)
             book['chapters'].append({'num': c, 'verses': verses})

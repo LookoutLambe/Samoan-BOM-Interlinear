@@ -600,7 +600,9 @@ def english_names() -> set:
                 continue
             data = json.loads((RES / name).read_text(encoding="utf-8"))
             for v in data.values():
-                for w in re.findall(r"[A-Za-z][a-z']+", v):
+                # a hyphenated compound is one word: "Ramath-lehi" (Judges 15) is
+                # not a lower-case "lehi", and must not cost Lehi his capital
+                for w in re.findall(r"[A-Za-z][a-z']+(?:-[A-Za-z][a-z']+)*", v):
                     (up if w[0].isupper() else low)[w.lower()] += 1
         _EN_NAMES = {w for w, n in up.items() if n >= 2 and low.get(w, 0) == 0}
     return _EN_NAMES
@@ -879,7 +881,14 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     def carried(reading):
         # a reading of more than one word is present only if ALL of it is --
         # "to him" must not win on the "to" alone
-        return all(in_english(w, ew) for w in reading.split())
+        if not all(in_english(w, ew) for w in reading.split()):
+            return False
+        # A DIRECTIONAL IS AN ADVERB (Dunn: deixis on the verb). Its English
+        # must stand as one -- "out" that heads "out of the land" belongs to
+        # that phrase (`mai le laueleele`), and `atu` may not take it
+        if form in SG.DIRECTIONALS and len(reading.split()) == 1:
+            return bool(re.search(r"\b" + re.escape(reading) + r"\b(?!\s+(?:of|the|a|an|his|her|their|my|our|your|thy|unto|to|from|into)\b)", (english or "").lower()))
+        return True
 
     # ORDER BEFORE COUNT. Each READINGS list is written in the curation's own
     # frequency order -- `i` is "in" 2,708 times, "to" 2,146, "upon" 857 --
@@ -1747,11 +1756,16 @@ def simple_sentences(out, toks, en_text):
                 and not (norm(toks[u[0] + 1]) in ("le", "lē") and SG.contextual_reading("le", "e", norm(toks[u[0] + 2]) if u[1] - u[0] > 2 else "", False) == "not") \
                 and (norm(toks[u[0] + 1]) in AGENT_PRONOUNS | {"ona", "lona", "lana", "ana", "le", "se"} or toks[u[0] + 1][:1].isupper()):
             g = gloss_of(u)
-            if g and g != CONT and not re.match(r"^(by|of|to|for|with|from|in|unto)\b", g.lower()) \
+            # the English says "by" only in the passive; where it makes the agent
+            # its subject ("after I, Nephi, had made an end") the agent keeps the
+            # English's own form -- `e a'u` "I", never "by I"
+            if g and g != CONT and re.search(r"\bby\b", (en_text or "").lower()) \
+                    and not re.match(r"^(by|of|to|for|with|from|in|unto)\b", g.lower()) \
                     and not re.match(r"^(he|she|they|we|i|you|ye|thou)\s+\w+ed\b", g.lower()):
                 w = g.split()
-                if w and w[0].lower() in OBJ:
-                    w[0] = OBJ[w[0].lower()]
+                head = w[0].lower().strip(",;.") if w else ""
+                if head in OBJ:
+                    w[0] = OBJ[head] + w[0][len(head):]
                 set_gloss(u, "by " + " ".join(w))
     _stage("ergative agent")
     # THE NEGATIVE FOLDS INTO ITS VERB: `e lei faia` is "not made" (user, John 1:3)
@@ -1863,10 +1877,27 @@ def simple_sentences(out, toks, en_text):
             return rest + tail
         return g
 
+    SUBJ = {"latou": "they", "matou": "we", "tatou": "we", "laua": "they", "maua": "we", "taua": "we", "outou": "ye", "oulua": "ye"}
+    OBJ_OF = {"they": "them", "we": "us", "ye": "you"}
     for u in units:
         if norm(toks[u[0]]) in ("i", "ia", "iā") and u[1] - u[0] >= 2:
             g = gloss_of(u)
             if g and g != CONT and not ER.tense_of(g) and not re.search(r"\b(was|were|is|are)\b", g.lower()):
+                # THE SUBJECT AFTER THE VERB (Dunn, unit four): `i latou` straight
+                # after a verb -- its directional or its `ai` -- with no case marker
+                # between is the subject, "they", not "to them" (`sa le
+                # tofatumoanaina ai i latou` "they were not swallowed up"); after
+                # an agent (`e ia i latou`) or a preposition it is the object
+                pron = norm(toks[u[0] + 1]).strip(",;.")
+                before_ = norm(toks[u[0] - 1]).strip(",;.") if u[0] > 0 else ""
+                if u[1] - u[0] == 2 and norm(toks[u[0]]) == "i" and pron in SUBJ and before_ \
+                        and (before_ in SG.DIRECTIONALS or before_ == "ai" or before_ == verb_before(u)) \
+                        and not re.search(r"[,;:.?!][”’\"')]*$", toks[u[0] - 1]):
+                    nom, obj = SUBJ[pron], OBJ_OF[SUBJ[pron]]
+                    form = nom if re.search(r"\b" + nom + r"\b", en_l) or not re.search(r"\b" + obj + r"\b", en_l) else obj
+                    last = toks[u[1] - 1]
+                    set_gloss(u, form + last[len(last.rstrip(",;.")):])
+                    continue
                 g2 = with_prep(g, en_l, pos=u[0] / max(1, n))
                 # no preposition anywhere: `i` before a possessive phrase reads "in" (`i lona maliu mai` "in his coming")
                 if g2 == g and not re.match(r"^" + PREPS + r"\b", g.lower()) and norm(toks[u[0] + 1]) in POSSESSIVE:
@@ -1916,6 +1947,43 @@ def simple_sentences(out, toks, en_text):
                 out[x]["en"] = CONT
         out[u[1] - 1]["en"] = pg
     _stage("i ai pro-phrase")
+    # A DIRECTIONAL NEVER BORROWS A WORD THE VERSE HAS ALREADY SPENT: `atu` after
+    # `faamanatu` "rehearsed" took "out" while "out of the land" stood on `mai le
+    # laueleele`. Its reading must be an English word no other unit carries;
+    # otherwise the directional is absorbed into its verb (Dunn: deixis, not lexis)
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    for u in units:
+        if u[1] - u[0] != 1 or norm(toks[u[0]]).strip(",;.") not in SG.DIRECTIONALS:
+            continue
+        g = gloss_of(u)
+        if not g or g == CONT or not g.split():
+            continue
+        word = re.sub(r"[^a-z']", "", g.lower().split()[0])
+        if not word:
+            continue
+        have = len(re.findall(r"\b" + re.escape(word) + r"\b", en_l))
+        spent = sum(len(re.findall(r"\b" + re.escape(word) + r"\b", w["en"].lower()))
+                    for j, w in enumerate(out) if w["en"] and w["en"] != CONT and j != u[1] - 1)
+        if spent >= have:
+            set_gloss(u, CONT)
+    # THE ITERATIVE `toe` BELONGS TO ITS VERB (Dunn: "again, once more"): before
+    # a verb it joins the verb's unit and says "again" only where the English
+    # has an unspent "again"; `ma toe faamanatu atu` is "and rehearsed". An
+    # empty `toe` is no unit of its own, so this walks the tokens
+    for k in range(n - 1):
+        if norm(toks[k]).strip(",;.") != "toe" or out[k]["en"] not in ("", "again"):
+            continue
+        nxt = next((j for j in range(k + 1, n) if out[j]["en"] and out[j]["en"] != CONT), None)
+        if nxt is None or re.search(r"[,;:.?!][”’\"')]*$", toks[k]):
+            continue
+        have = len(re.findall(r"\bagain\b", en_l))
+        spent = sum(len(re.findall(r"\bagain\b", w["en"].lower())) for j, w in enumerate(out) if w["en"] and w["en"] != CONT and j != k)
+        out[k]["en"] = "again" if have > spent else CONT
+    _stage("directional not borrowed")
     # THE ARTICLE: `le` is the definite singular and says "the" in every unit
     # that carries it; `se` the indefinite, "a" (user, John 1:7: `i le
     # malamalama` "of THE light"). The negator `le` (`e le o`) is not the article.
@@ -1938,8 +2006,11 @@ def simple_sentences(out, toks, en_text):
         # marker or a bound pronoun in the unit, or at the unit's head right
         # after one (`lua te | le oti lava` "ye shall not die", Genesis 3:4)
         NEG_BEFORE = ("e", "te", "lei", "ua", "sa", "na", "ou", "tou", "matou", "latou", "tatou", "outou", "lua", "la", "ma", "ta")
+        # -- `ma` before `le` is the conjunction "and" (`ma le alofa` "and the
+        # mercies"), not the bound pronoun, when that is what it says
         arts = [q for q in range(u[0], u[1]) if norm(toks[q]) in ("le", "se")
-                and not (q > 0 and norm(toks[q - 1]).strip(",;.") in NEG_BEFORE and not re.search(r"[,;:.?!][”’\"')]*$", toks[q - 1]))
+                and not (q > 0 and norm(toks[q - 1]).strip(",;.") in NEG_BEFORE and not re.search(r"[,;:.?!][”’\"')]*$", toks[q - 1])
+                         and not (norm(toks[q - 1]).strip(",;.") == "ma" and (out[q - 1]["en"] or "").strip(" ,;.").lower() in ("and", "with", "&")))
                 and not (q + 1 < u[1] and norm(toks[q + 1]) in ("o", "lei", "mafai", "toe", "iloa"))]
         if not arts:
             # NO DETERMINER -> PLURAL (user: "o le tagata" the man, "o se tagata" a
@@ -2146,8 +2217,35 @@ def align_to_verse(gloss: str, english: str) -> str:
     return gloss
 
 
+def _spent_before(out, i) -> Counter:
+    """The English words the units before token i already carry, by form."""
+    c = Counter()
+    for w in out[:i]:
+        if w["en"] and w["en"] != CONT:
+            for x in re.findall(r"[a-z']+", w["en"].lower()):
+                c[x] += 1
+    return c
+
+
+def _over_spent(words, english, spent) -> int:
+    """How many of these words the verse has no unspent copy of: "made" is
+    in 2 Nephi 1:1 once, on "had made an end", so a candidate "made" for
+    `na faia` four clauses later borrows it -- "had done" is what is left."""
+    if not spent:
+        return 0
+    enc = Counter(re.findall(r"[a-z']+", (english or "").lower()))
+    over = 0
+    for w in words:
+        forms = {w} | _stems(w)
+        have = sum(enc.get(f, 0) for f in forms)
+        used = sum(spent.get(f, 0) for f in forms)
+        if have and used >= have:
+            over += 1
+    return over
+
+
 def choose(cands: Counter, english: str, want_tense: str | None = None,
-           strict: bool = False) -> tuple[str, str]:
+           strict: bool = False, spent: Counter | None = None) -> tuple[str, str]:
     cands = merge_punctuation(cands)
     """(gloss, why). '' means leave it empty."""
     if len(cands) == 1:
@@ -2206,13 +2304,51 @@ def choose(cands: Counter, english: str, want_tense: str | None = None,
         # BASE: after the purposive `ina ia` or the optative `ia` the verb is
         # uninflected ("to witness", "let … believe"), so a bare candidate wins
         agrees = 1 if (want_tense == "BASE" and ER.tense_of(gloss) is None) or (want_tense and want_tense != "BASE" and ER.tense_of(gloss) == want_tense) else 0
-        scored.append((present / max(1, present + absent), neg, agrees, n, gloss))
+        over = _over_spent([w for w in core if w not in FUNCTION_ONLY], english, spent)
+        scored.append((present / max(1, present + absent), -over, neg, agrees, n, gloss))
     if scored:
         scored.sort(reverse=True)
         # trim on this path too: the scoring picks the best of what the
         # inventory offers, and the best may still carry a word the verse does
         # not have, when every candidate does
         return trim_absent_tail(scored[0][-1], english), "canon"
+    # THE BEST PARTIAL READING, when no candidate is carried whole: `na faia e
+    # le Alii` is "which the Lord had done" in the curation and 2 Nephi 1:1
+    # reads "how great things the Lord had done" -- the relative pronoun is the
+    # only word missing. A candidate the verse carries at least three-quarters
+    # of, its tensed verb included, is taken with its absent edges trimmed;
+    # anything looser stays empty for the sentence pass and the lexicon
+    partial = []
+    for gloss, cnt in cands.items():
+        words = re.findall(r"[a-z']+", gloss.lower())
+        if len(words) < 2:
+            continue
+        present = [w for w in words if in_english(w, ew)]
+        if len(present) / len(words) >= 0.75 and any(ER.tense_of(w) for w in present):
+            # the words that stand TOGETHER in the English, in this order, are
+            # the verse's own phrase: "the Lord had done" over "the Lord made",
+            # whose "made" is borrowed from "had made an end" four clauses away
+            en_words = re.findall(r"[a-z']+", (english or "").lower())
+            contig = 0
+            for i0 in range(len(en_words)):
+                j = i0; hit = 0
+                for w in present:
+                    while j < len(en_words) and j - i0 < len(present) + 2 and not (en_words[j] == w or en_words[j] in _stems(w)):
+                        j += 1
+                    if j < len(en_words) and j - i0 < len(present) + 2:
+                        hit += 1; j += 1
+                    else:
+                        break
+                contig = max(contig, hit)
+            over = _over_spent([w for w in present if w not in FUNCTION_ONLY], english, spent)
+            partial.append((contig == len(present), -over, len(present) / len(words), cnt, gloss))
+    if partial:
+        partial.sort(reverse=True)
+        best = partial[0][-1]
+        first = re.sub(r"[^a-z']", "", best.split()[0].lower())
+        if first in ("which", "that", "who", "whom", "whose") and not in_english(first, ew):
+            best = best.split(None, 1)[1]
+        return trim_absent_tail(best, english), "canon-partial"
     dom, n = cands.most_common(1)[0]
     if vetoed(dom, english):
         return "", "vetoed"
@@ -2347,6 +2483,30 @@ def main(argv: list[str] | None = None) -> int:
                 if re.search(r"[.;:?!][”’\"')]*$", toks[k - 1]) or k >= len(toks):
                     return ""
                 return norm(toks[k])
+            # A CURATED UNIT THE VERSE DOES NOT CARRY WHOLE GIVES WAY TO ITS
+            # CURATED PARTS. `na faia e le Alii` was remembered twice ("which
+            # the Lord made", "has done the Lord") and 2 Nephi 1:1 reads "the
+            # Lord had done": the whole falls to a partial reading while its
+            # parts `na faia` "had done" and `e le Alii` "the Lord" are carried
+            # entire. The longest memory wins only when the verse carries it.
+            if hit >= 3 and src == "inv":
+                whole = norm(" ".join(toks[i:i + hit]))
+                if whole in inv:
+                    _, why0 = choose(inv[whole], en_text, None, strict, _spent_before(out, i))
+                    if why0 in ("canon-partial", "undecided", "vetoed", "settled-unconfirmed", "dominant-unconfirmed"):
+                        for k_ in range(1, hit):
+                            a_, b_ = norm(" ".join(toks[i:i + k_])), norm(" ".join(toks[i + k_:i + hit]))
+                            if a_ in inv and b_ in inv:
+                                ga, wa = choose(inv[a_], en_text, None, strict, _spent_before(out, i))
+                                gb, wb = choose(inv[b_], en_text, None, strict)
+                                # a degree word (`tele`, `matua`) or a particle may close the
+                                # split: the English often has no word for it, and the
+                                # particle reader handles it on its own next
+                                tail_ok = (hit - k_ == 1 and (b_ in SG.DEGREE or b_ in SG.CLOSED_CLASS))
+                                if ga and wa in ("canon", "settled", "dominant") and (tail_ok or (gb and wb in ("canon", "settled", "dominant"))):
+                                    hit = k_
+                                    stats["unit: whole gives way to parts"] += 1
+                                    break
             if strict and hit > 1 and norm(toks[i]) in HEAD_FRAMES:   # the Bible: its curated units are the Book of Mormon's
                 # THE FRAME OUTRANKS MEMORY AT THE UNIT'S HEAD. `ona malamalama`
                 # is a curated unit, so the `ona … ai lea` frame was never asked;
@@ -2533,7 +2693,7 @@ def main(argv: list[str] | None = None) -> int:
                                     ("BASE" if prev_key in BARE_AFTER else None)
                                     or unit_tense(key_sm)
                                     or SG.tense_of_tam(prev_key)
-                                    or ("PAST" if seq_verb else None), strict)
+                                    or ("PAST" if seq_verb else None), strict, spent=_spent_before(out, i))
                 why = why + "/" + src
             elif key_sm in lex:
                 gloss, why = choose(lex[key_sm], en_text, strict=strict)
@@ -2933,6 +3093,7 @@ def main(argv: list[str] | None = None) -> int:
                 # and nothing written to the page comes from it.
                 en_text = modernise(english.get(
                     f"{book['nameEn']}|{ch['num']}|{verse['num']}", ""))
+                DEBUG["key"] = key          # so --debug 2nephi|1|1 traces this volume too
                 out = gloss_tokens(toks, en_text)
                 ov["verses"][key] = out
                 already.add(key)

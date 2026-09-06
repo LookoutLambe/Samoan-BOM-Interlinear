@@ -568,10 +568,58 @@ preposition, a curated imperative's capital is lowercased mid-sentence.
 
 ### 22s. The Bible pipeline, in order
 
-`segment_1887_pdf.py --all` (the PDF on the Desktop → `corpus/tusi_paia/tusi_paia_verses_1887.json`;
+`segment_1887_pdf.py --all` (the PDF, no longer on the Desktop since 2026-09-06, so the scan stays as cut
+on 2026-09-05 → `corpus/tusi_paia/tusi_paia_verses_1887.json`;
 `--book` never writes the file; pasted typed chapters in `corpus/tusi_paia/sov/` are the reference, see the corpus README) → `build_tusi_paia_dual.py` (tokens, fallbacks, hand layer,
 text fixes → `corpus/tusi_paia/dual/`, THE TOKEN MASTER) → `gloss_corpus.py --bible` (reads
 the dual tokens, syncs the dual index and English into Resources, writes the glossed
 `Resources/book_<id>.json`) → `build_web_data.py` → the iOS build. The glosser used to read
 its own last output in Resources and overwrite the dual files, so a rebuilt text never
 reached the app; it reads the dual build now.
+
+### 22t. Rules the 2 Nephi 1 round added (2026-09-06)
+
+The user's standard again: *"grammar is still not being followed"* — every fix below is a
+rule in the pass or the tables, none is a verse patch.
+
+- **The agent says "by" only when the English does.** `e a‘u` after a verb is "I," where
+  the English makes the agent its subject ("after I, Nephi, had made an end"); the
+  ergative "by" is written only when the verse has "by" (`ergative agent` stage).
+- **The subject after the verb.** `i latou` (`i matou`, `i tatou`, `i laua` …) straight
+  after a verb — after its directional or its `ai`, with no case marker between — is the
+  subject: "they were not swallowed up", never "to them". After an agent (`e ia i latou`)
+  or under a preposition it is the object (`i-phrase preposition` stage).
+- **A directional is an adverb.** Its English must stand as one: the "out" of "out of
+  the land" heads that phrase and `atu` may not take it (`choose_particle`); and a
+  directional never borrows a word another unit of the verse already carries — it is
+  absorbed into its verb (`directional not borrowed` stage).
+- **`toe` belongs to its verb.** Before a verb the iterative joins the verb's unit; it
+  says "again" only where the verse has an unspent "again" (`ma toe faamanatu atu`
+  "and rehearsed").
+- **The whole gives way to its parts.** A curated unit the verse does not carry entire
+  (`na faia e le Alii`, remembered as "which the Lord made") falls to its curated parts
+  when those are carried whole (`na faia` "had done", `e le Alii` "the Lord"); a
+  trailing degree word or particle may close the split (`le alofa mutimutivale | tele`).
+  The longest memory wins only when the verse carries it (the walk, before `frame_at`'s
+  head frames).
+- **No candidate borrows a spent word.** `choose()` now knows which English words the
+  units before it already carry: `na faia` takes "had done", not the "made" of "had
+  made an end" four clauses back (`_spent_before`, `_over_spent`); the same rule breaks
+  ties among partial readings.
+- **The best partial reading.** A curated reading the verse carries three-quarters of,
+  tensed verb included, is written with its absent edges trimmed (a leading which/that
+  the verse lacks is dropped) instead of leaving the unit empty (`canon-partial`).
+- **A plural is not a present verb.** `tense_of` reads a word in -s as PRESENT only when
+  its base is a known verb; "mercies", "waters", "rebellions" carried no tense and the
+  article stage had skipped them (`ma le alofa mutimutivale` is "and the mercies").
+- **`ma` before `le` is the conjunction** when it says "and": the article survives it;
+  only the bound pronoun `ma` makes the `le` after it a negator.
+- **Derivation is the same word.** `mercy` is carried by "mercies" and by "merciful";
+  `faith` by "faithful" (`stems`: -y/-ies, -ful).
+- **A hyphenated compound is one word** for the name test: "Ramath-lehi" is not a
+  lower-case "lehi", and Lehi keeps his capital (`english_names`).
+- **Punctuation belongs to the word before it** — the 1887 print's spaced " ;" and " ?"
+  are glued in the Dual builder, never a token of their own; and in both readers every
+  word cell keeps its gloss line, empty or not, so the Samoan never drops into the
+  English row (user: *"samoan should stay on samoan line"*).
+

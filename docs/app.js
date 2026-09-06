@@ -316,7 +316,10 @@
     sm.textContent = text;
     unit.append(sm);
 
-    if (item.en) unit.append(el('span', 'en', item.en));
+    // every cell has its gloss line, empty or not: a cell without one is a line
+    // shorter and the flow's bottom alignment drops its Samoan into the gloss
+    // row (user, 2026-09-06: "samoan should stay on samoan line")
+    unit.append(el('span', 'en', item.en || '\u00a0'));
     paintUnit(unit, wordKey);
 
     // Tapping builds up a selection; the toolbar then acts on it. Highlighting

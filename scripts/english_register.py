@@ -178,6 +178,11 @@ def tense_of(gloss: str):
             continue
         if prev in ("the", "a", "an", "his", "her", "its", "their", "my", "thy", "your", "our", "of", "all", "every", "these", "those", "many", "two", "three", "seven"):
             continue
+        # and only a VERB in -s: "mercies", "waters", "rebellions" are plurals
+        # (they were read as present verbs, and the article stage skipped them)
+        base = word[:-3] + "y" if word.endswith("ies") else (word[:-2] if word.endswith(("ches", "shes", "sses", "xes", "oes")) else word[:-1])
+        if base not in BASE_TO_PAST and word[:-1] not in BASE_TO_PAST and word not in PAST_TO_BASE:
+            continue
         return "PRESENT"
     return None
 
@@ -192,6 +197,15 @@ def stems(word: str) -> set[str]:
     out = {word}
     if word.endswith("ies") and len(word) > 4:
         out.add(word[:-3] + "y")
+    # and the other way: "mercy" is carried by a verse that says "mercies"
+    if word.endswith("y") and len(word) > 2 and word[-2] not in "aeiou":
+        out.add(word[:-1] + "ies")
+        out.add(word[:-1] + "ied")
+        out.add(word[:-1] + "iful")      # mercy -> merciful, glory -> (no), plenty -> plentiful
+    if word.endswith("ful") and len(word) > 5:
+        out.add(word[:-3]); out.add(word[:-4] + "y" if word.endswith("iful") else word[:-3])
+    elif not word.endswith("s"):
+        out.add(word + "ful")            # faith -> faithful, power -> powerful
     if word.endswith("es") and len(word) > 3:
         out.add(word[:-2])
     if word.endswith("s") and not word.endswith("ss"):

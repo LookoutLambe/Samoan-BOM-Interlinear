@@ -34,13 +34,15 @@ struct WordUnitView: View {
                     .foregroundStyle(Theme.hwInk)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
-                if !pair.en.isEmpty {
-                    Text(pair.en)
-                        .font(SerifFont.tnr(size: 12 * scale, italic: true))
-                        .foregroundStyle(Theme.glossInk)
-                        .multilineTextAlignment(.center)
-                        .fixedSize(horizontal: false, vertical: true)
-                }
+                // every cell keeps its gloss line, empty or not: a cell without one
+                // is a line shorter and the flow's bottom alignment drops its Samoan
+                // into the gloss row (user, 2026-09-06: "samoan should stay on
+                // samoan line and never dip down into the english")
+                Text(pair.en.isEmpty ? "\u{00A0}" : pair.en)
+                    .font(SerifFont.tnr(size: 12 * scale, italic: true))
+                    .foregroundStyle(Theme.glossInk)
+                    .multilineTextAlignment(.center)
+                    .fixedSize(horizontal: false, vertical: true)
             }
             .wordUnitDecoration(
                 highlight: highlights.color(for: wordKey),
