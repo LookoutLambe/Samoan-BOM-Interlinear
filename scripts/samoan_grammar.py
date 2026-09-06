@@ -1098,6 +1098,15 @@ def _dictionary():
                 for sense in v:
                     if sense not in merged.setdefault(k, []):
                         merged[k].append(sense)
+        # senses the two dictionaries lack or bury under another: the light verb
+        # `fai` / `faia` "do, make" covers the English build / perform / prepare
+        # (Dunn), `matutua` is "elder / eldest" beside `matua` "old", `mulivai`
+        # the river mouth, `mavae` "passed / past", `avea` "take, carry" as well
+        # as "become". Read by the walk, the verse's-form pass and the doubles rule.
+        for k, senses in HAND_SENSES.items():
+            for sense in senses:
+                if sense not in merged.setdefault(k, []):
+                    merged[k].append(sense)
         # the respectful forms carry their own gloss and their plain word's
         # senses: `afio` "come, go" beside `sau`, `fetalai` "speak" beside
         # `tautala` -- neither dictionary lists the chiefly register whole
@@ -1181,6 +1190,15 @@ READINGS = {
     # says "as he went forth" (1 Nephi 1:5); `a'o` the progressive temporal,
     # "while / as" (1 Nephi 1:6)
     'ina ua': ['when', 'as', 'after'],
+    # the ability / possibility modal (Dunn: `e mafai` "can"): the verse's own
+    # modal, `na mafai ona pei oe` "thou mightest be like" (1 Nephi 2:9)
+    'mafai': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
+    'mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
+    'na mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
+    'e mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
+    # the conditional (`pe a` "if / whether"), silent where the English folds it
+    'pe a': ['if', 'whether', 'when'],
+    'pe ā': ['if', 'whether', 'when'],
     'faapea': ['thus', 'so', 'after this manner', 'in this manner', 'like this'],   # `sa faapea le ituaiga` "after this manner was" (1 Nephi 1:15)
     'a’o':  ['while', 'as', 'when'],
     'aʻo':  ['while', 'as', 'when'],
@@ -1383,6 +1401,22 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         # numeral. `ia` and `na` have their own frames below.
         return DESCRIPTIVE_PRONOUNS[f][1]
 
+    if f == 'e' and clause_initial:
+        # CLAUSE-INITIAL `E` IS THE MARKER (Dunn, unit two: the general /
+        # non-past TAM), not the relative `o e` -- `E lei talitonu` "Neither
+        # did they believe" printed "who" (1 Nephi 2:13). Its tense rides on
+        # the verb; the negatives after it say their own word.
+        return ''
+    if f == 'e' and n and (token_class(n) == 'OPEN' or n in ('lei', 'le’i', 'leʻi', 'le', 'lē', 'te', 'mafai', 'tatau')) \
+            and p not in ('o', 'a', 'i') and token_class(p) != 'OPEN':
+        # `e` before a verb mid-clause is the marker too (`... ma e lē avea`)
+        return ''
+    if f in ('ana', 'ona') and p in ('ma', 'o', 'i', 'e', 'a', 'mo', 'ia', 'iā') and n and token_class(n) == 'OPEN' \
+            and n not in TAM and n not in ('ua', 'sa', 'na', 'e', 'te', 'le', 'lē'):
+        # `ma ana auro, ma ana ario, ma ana mea taua` "and his gold, and his
+        # silver, and his precious things": after a preposition or `ma`, before a
+        # noun, the A-/O-class possessive -- never the conditional "if" (1 Nephi 2:4)
+        return 'his|her|its'
     if f == 'a' and clause_initial:
         # CLAUSE-INITIAL `a` (Dunn, unit six). Before `o`, `ua`, `ia`, `o ia`, a
         # negator, it is the conjunction "but" (`a e lei manumalo` "but … not",
@@ -1892,6 +1926,30 @@ def normalise_glottal(text):
 # 110 such entries, of which 21 occur here. The web has almost nothing: the
 # pages on gagana fa’aaloalo give a handful of pairs (maota/fale, suafa/igoa,
 # afio/sau, soifua/ola) and no list.
+HAND_SENSES = {
+    'fai':      ['do', 'make', 'build', 'perform', 'prepare', 'say', 'become'],
+    'faia':     ['do', 'make', 'made', 'build', 'built', 'perform', 'prepare', 'wrought'],
+    'matutua':  ['old', 'elder', 'eldest', 'aged'],
+    'mulivai':  ['mouth', 'river mouth'],
+    'mavae':    ['pass', 'passed', 'past', 'elapse'],
+    'avea':     ['take', 'carry', 'become', 'took'],
+    'aoao':     ['teacher', 'teach'],
+    'mausali':  ['steadfast', 'firm', 'immovable'],
+    'faaigoa':  ['call', 'called', 'name', 'named'],
+    'naunau':   ['desire', 'desires', 'eager'],
+    'talu':     ['since'],
+    'tafatafa': ['side', 'by the side', 'beside'],
+    'usitai':   ['obey', 'obedient', 'hearken'],
+    'malaga':   ['journey', 'travel', 'traveled', 'journeyings'],
+    'maualalo': ['low', 'lowly', 'lowliness', 'humble'],
+    'fouvale':  ['rebel', 'rebellion', 'rebellious'],
+    'taua':     ['precious', 'valuable', 'important', 'war', 'battle'],
+    'gatete':   ['tremble', 'shake', 'quake'],
+    'tautatala': ['speak', 'talk', 'utter'],
+    'pule':     ['power', 'rule', 'authority', 'ruler'],
+    'mea':      ['thing', 'things'],
+}
+
 RESPECTFUL = {
     # `foliga` is the respectful word for a face -- `o le foliga o le Atua` is
     # "the face of God", where `mata` would be the ordinary word. The corpus

@@ -755,3 +755,98 @@ pass or a table, never a verse patch.
   himself"), `segia` "caught" (1:8, beside "carried away"), `e foliga mai` "it
   appears" (1:8, beside "in the attitude of"), `ua ou tusia` "written" (1:3, beside
   "I make it"), `mea tetele` "great things" (1:14), `faamalolosi tele` (1:20).
+
+### 22w. Rules the 1 Nephi 2 read added (2026-09-06)
+
+The user's diagnosis was "its how youre grepping the TAM possibly", and it was: the
+tense markers were being read as their homographs, and four span guards ran only on
+the Bible. Every fix below is a rule in the walk, the tables or the sentence pass.
+
+- **The marker frames** (`samoan_grammar.contextual_reading`): clause-initial `e` is
+  the general marker, never the relative "who" (`E lei talitonu` "did not believe");
+  mid-clause `e` before a verb or a negator is the marker too; `ana` / `ona` after `ma`,
+  `o`, `i`, `e`, `a`, `mo` before a noun is the possessive, never "if" (`ma ana auro`
+  "and his gold"); `mafai` (and `mafai ona`, `na mafai ona`) reads the verse's own
+  modal — can / could / may / might / mightest; `pe a` reads if / whether / when and
+  says nothing where the verse has spent it (`ina ua vaai atu` "when saw" already
+  carries the "when" of 1 Nephi 2:9).
+- **The span guards are the language's, not the Bible's.** A span never splits an
+  agent phrase (`faia e | ia` had printed "did" | ""), never ends on `e` before an
+  agent (but the vocative `e,` closes its phrase: `Le Alii e,` "O Lord,"), never opens
+  on the negator `le` — and `le` after a pronoun is the negator only before a verb
+  (`outou le i ai` "that" keeps its article), never runs predicate into subject, and
+  never runs through the narrative formula: `sa oo ina` closes at `ina` (`sa oo ina
+  poloaiina` "it came to pass was commanded" is two units).
+- **A settled reading the verse lacks** yields first to the word's own dictionary sense
+  the verse carries (`aoao` "teacher"), then to a PARTICLE's reading set — never to the
+  reduplication base of an open-class word (`aoao` → `ao` "as"). The walk's dictionary
+  path skips a sense the verse has spent (`taua` "pass" beside "came to pass" is
+  "precious") and is carried by its own word or number only, never a tense ("stones"
+  is not carried by "stoned"). `align_number` swaps number only, never tense ("had
+  passed" had become "had pass", "named" "name").
+- **The verbless-sentence shape keeps the subject's own units** and needs a copula the
+  clause has ("also having great desires to know of the mysteries of God" is not the
+  verbless sentence); a subject of several phrases had collapsed to its last unit's
+  gloss.
+- **The doer after the verb, again:** the object pronoun is the object when the verse
+  names it after any word of the verb's gloss, by stem ("did confound them",
+  "commanded them", "stir them up" — `i laua` / `i latou` "them"); the agent after that
+  object is the subject (`poloaiina i laua | e ia` "commanded them | he"); the agent
+  says nothing when the verb's gloss already carries the doer (`sa faatu` "he pitched"
+  | `e ia`); a trailing object pronoun the verse lacks is the memory's (`na faia` "did",
+  not "did it").
+- **Nominalisations the verse conjugates:** `lou tausia` "your keeping" beside "ye
+  shall keep" is "you shall keep"; `e fouvale ai` "the rebellion" beside "shall rebel" is
+  "shall rebel"; `sa manatu` and `e VERB` units drop a stray article; a verb after a
+  marker unit that says the modal is bare ("prosper", not "to prosper"); a bare modal
+  unit before a gloss that already begins with it says nothing (`o le a` | "shall be cut
+  off"); the modal that moves onto the marker unit costs no availability ("shall be
+  led", "shall be made").
+- **`ona` after `mafai`, `tatau`, `amata`, `uma` … is the verb's link**, looked for up
+  to five tokens back over the agent phrase — never the possessive "his" (`ua le mafai
+  ai e i laua ona tautatala` "cannot | they | speak").
+- **`ma` reads the verse, and keeps its own word.** Before a noun phrase it says "with"
+  where the verse has "with <that noun>" ("with power", "with lowliness"), otherwise
+  "and" — the Samoan says "and" whatever comma the KJV set ("Shem, Ham, and Japheth"
+  keeps `ma` "and" on every `ma`) — and nothing only where the head's English is an
+  adverb the verse joins with neither (`ma le filiga` "diligently"); a bare `ma` is one
+  token with one gloss, never folded onto the word after it. After `fai` / `avea` (no
+  stop between) it is the predicate marker and the noun takes the verse's "a" (`fai i
+  laua ma sasa` "be | they | a scourge") — a `ma` after a semicolon is the conjunction
+  whatever precedes it. A first draft of this rule silenced 10,706 Bible `ma` and moved
+  "and" onto names; the histogram against HEAD caught it before the commit.
+- **The verse's form, sharpened:** a verb stays a verb (`tafe atu` "emptying" →
+  "emptied", its own inflection, never "the name" for `faaigoa` "named" → "called";
+  exact dictionary sense first for a non-verb), a word in a verb slot ("those who
+  dwell", "to know") never takes a noun of the verse ("inhabitants"), a noun under its
+  article or possessive takes only an exact noun sense (`so latou pule` "their power"),
+  the stemmer knows -ied / -ies (emptied), -ness (lowliness), -ous (rebellious), -er
+  (teacher). The light verb `fai` / `faia` covers the English build / perform / prepare;
+  `matutua` is elder / eldest; `mulivai` the river mouth; `avea` take / carry; `mausali`
+  steadfast; `gatete` shake; `pule` power (hand senses in `HAND_SENSES`).
+- **The doubles, sharpened:** counted by stem ("stoned" beside "stones" is one
+  stoning), by the phrase where the verse has it ("many things" once); a word with
+  another sense the verse carries says that instead (`mausali` "steadfast" beside
+  `tumau` "firm"), and the earlier unit may be the one to change (`faia` "built" beside
+  `osi` "made") — never to a light verb or auxiliary (Pratt's `mea` "do"); a locative
+  phrase that repeats the verb's adverb says nothing (`afio ifo … i lalo`); a discourse
+  formula is never a double (the third `o le mea lea` "wherefore").
+- **Order of the passes:** the last word pairs itself BEFORE the sentence pass (a blank
+  never fuses into the unit after it: `usitai | o ia` "was obedient | he") and again
+  after it (the pass spends "against me", leaving `manatuaga` "remembrance" its one
+  leftover); the leftover keeps the token's punctuation. `--debug` now prints the
+  verse key, the PRE state the sentence pass receives, the LEFTOVER candidates and the
+  FINAL glosses — and `scripts/sentence_harness.py` feeds a verse's walk output straight into
+  `simple_sentences`, seconds instead of a two-minute run.
+- **Small ones:** a bracket is the token's, never the memory's ("(dwelt"); a gloss that
+  already carries an article is whole under `le` ("to perish in the wilderness"); `se`
+  never takes a plural ("a thing"); `i luma o`, `i tafatafa o` read "of" whatever a
+  memory said ("as a river"); no preposition after a unit ending on like / near /
+  nearer / as, and never after a bare directional's provisional reading; the verse's
+  "the" before a bare noun the English never writes bare ("the things"), never before a
+  quantified one; a possessive merge takes a noun the memory left "of X" and a plural
+  possessive the memory read as a pronoun (`so latou pule`); `o e` says "who" only where
+  the verse has one no other unit carries; the genitive's preposition never doubles the
+  one the unit before carries ("like | my brothers").
+- **Diagnostic:** F1 vs the curation 86.4 → 86.6 (content 86.7 → 86.6); 98.6% of BOM/D&C/PGP
+  tokens carrying text. The curation is the diagnostic, the grammar is the gate.
