@@ -88,15 +88,29 @@ ia, ai) or a marker with a word following, or where the later edition's aligned 
 is `le` — and leaves `le ie`, `se ie`, `fale ie`. 366 tokens in 348 verses; 464 `ie`
 remain, the noun. Note `--book` never writes the corpus file; only `--all` does.
 
-**The typed 1887 text as reference (`sov/`, 2026-09-05).** bible.com's SOV (2203) is the 1887
-text typed; its publisher claims copyright on the edition and layout, and the words are the
-1887 words (the user's ruling). The user PASTES the chapters where the scan has trouble --
-the tool never fetches them -- into `corpus/tusi_paia/sov/<USFM>.<chapter>.txt` (e.g.
-`JHN.1.txt`, `PSA.119.txt`), verse numbers glued to the first word as pasted.
-`scripts/sov_reference.py` parses them; the segmenter uses a pasted chapter as the boundary
-guide and the aligned-word reference (`lesu` -> `Iesu`, glued words split, `ie` -> `le`), and
-the dual builder stands a typed verse in where the scan lost or garbled one (index key
-`typed`), before the later edition (`fallback`). The scan stays the text where it is sound;
-where the typed text has its own slip (`o lo sau`, John 1:47) the scan's `o loo sau` is kept.
-The list of chapters to paste, worst first, is on the Desktop:
-`Samoan Bible chapters to paste (SOV).txt` (346 chapters).
+**The typed 1887 text (`sov/`, 2026-09-05, complete 2026-09-06).** bible.com's SOV (2203) and
+the Bible Society of the South Pacific's own site (`oletusipaia.global.bible`, version
+`a65a2238d5aefb75-01`, labelled "Samoan Edited Old Version") carry the same text: the 1887
+words typed; the publisher claims copyright on the edition and layout, the words are the 1887
+words (the user's ruling). Neither site offers a download; the text is served chapter by
+chapter from api.bible. On the user's word ("so copy and paste ... you have the chapters you
+know them") the 346 chapters where the scan had trouble were copied from the site's rendered
+page in the in-app browser, one chapter per file, `corpus/tusi_paia/sov/<USFM>.<chapter>.txt`
+(e.g. `PSA.119.txt`), verse numbers glued to the first word exactly as the page renders them.
+Every file was verified on arrival: a hash of the text computed in the page against the
+saved file, and the parsed verse count against the KJV numbering (346 of 346 match; Hosea 2
+prints verses 1-2 as one range, which the parser drops).
+
+`scripts/sov_reference.py` parses them: standalone all-caps lines (the site's banner, Psalm
+119's acrostic names `ALEFA.`/`PETA.`) are never verse text; a glued range `1-2Ia` is dropped
+and the count jumps past it. The segmenter uses a typed chapter as the boundary guide and the
+aligned-word reference (`lesu` -> `Iesu`, glued words split, `ie` -> `le`) -- but the 1887 PDF
+is no longer on the Desktop (2026-09-06), so `segment_1887_pdf.py --all` cannot run and the
+scan stays as segmented on 2026-09-05. `build_tusi_paia_dual.py` therefore takes the typed
+text for EVERY verse of a typed chapter (a scan verse that passes the length check can still
+carry its neighbour's tail: Psalm 119:66 began with the end of 119:65), and iterates the KJV
+verse universe rather than the later edition, whose own coverage lacked 99 verses (Psalm
+18:31-46, 37:22-35, 78:51-67, 82:7, 108:11, 119:66-99, 119:141-157, Revelation 19:1) that the
+scan and the typed text hold. Result: 8,982 verses typed, 22,120 from the scan, 0 from the
+later edition, 0 missing; Bible glossing 94.6% of tokens (95.1% inside the typed verses).
+The Desktop list (`Samoan Bible chapters to paste (SOV).txt`) is now historical.

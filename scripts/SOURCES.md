@@ -115,3 +115,13 @@ YouVersion's terms forbid scraping. So it is a searchlight, never a source (the 
 standing as the IAS PDF on the Hebrew side). John 1:1-10 read against it: our scanned
 1887 text matches word for word except 1:8, where the edited version has `i le lava
 malamalama` for the 1887 `i lea lava malamalama` -- the edition's change, not our OCR.
+
+**oletusipaia.global.bible (2026-09-06).** The Bible Society of the South Pacific's own
+site, on the Global.Bible platform (text served from api.bible with the fair-use tracker).
+Two versions: the Samoan Contemporary New Testament and "O le Tusi Paia, Samoan Edited Old
+Version" (`a65a2238d5aefb75-01`), the latter word for word the bible.com SOV 2203 text
+("Lokou" included). No download of any kind; the version's info page lists only the
+publisher. The single-version page `/bible/a65a2238d5aefb75-01/<USFM>.<chapter>` renders
+the chapter alone with verse numbers glued to the first word -- the shape
+`sov_reference.py` reads. The 346 problem chapters were copied from it on the user's
+instruction (see corpus/tusi_paia/README.md); it remains a searchlight for everything else.

@@ -40,6 +40,7 @@ USFM = {
 # after -- "1Sa", "36ua", "19O". Samoan scripture writes its numbers as words, so a
 # bare digit run inside a verse is the next verse's number.
 _CAPS_LINE = re.compile(r"^[A-Z\u0100-\u016B\d ,.;:'\u2018\u2019\u02bb()-]{2,40}$")
+_VRANGE = re.compile(r"(?<![\w\u2019\u2018\u02bb])(\d{1,3})-(\d{1,3})(?=[A-Za-z\u0100-\u016B\u2019\u2018\u02bb(\[])")
 _VNUM = re.compile(r"(?<![\w’‘ʻ])(\d{1,3})(?=[A-Za-zĀ-ūāēīōū’‘ʻ(\[])")
 
 
@@ -52,6 +53,11 @@ def parse_chapter(text: str) -> dict:
     text = "\n".join(ln for ln in text.replace("\u00a0", " ").split("\n")
                      if not _CAPS_LINE.match(ln.strip()))
     text = re.sub(r"\s+", " ", text).strip()
+    # a verse RANGE glued to its first word ("1-2Ia outou ...", Hosea 2 on the
+    # site): the combined text is dropped (it would stand under verse 1 and duplicate
+    # verse 2), and the count jumps past the range so the verses after it still parse
+    ranges = {int(a): int(b) for a, b in _VRANGE.findall(text)}
+    text = _VRANGE.sub(lambda m: m.group(1), text)
     parts = _VNUM.split(text)
     out, expect = {}, 1
     for i in range(1, len(parts) - 1, 2):
@@ -59,8 +65,9 @@ def parse_chapter(text: str) -> dict:
         body = parts[i + 1].strip()
         # numbers must climb by one; anything else is a digit inside the text
         if n == expect:
-            out[n] = body
-            expect += 1
+            if n not in ranges:
+                out[n] = body
+            expect = ranges.get(n, n) + 1
         elif out:
             out[expect - 1] = (out[expect - 1] + " " + parts[i] + body).strip()
     return out

@@ -28,20 +28,26 @@ SOV = load_sov()
 V = {}
 FALLBACK = []
 TYPED = []
-for key, later in LATER.items():
+# the verse universe is the KJV numbering: the later edition's own coverage lost 99
+# verses (Psalm 18:31-46, 119:66-99 ...) that the 1887 scan and the typed text hold
+for key in KJV_TEXT:
+    later = LATER.get(key)
     rec = E1887.get(key)
     ok = False
     if rec and rec.get('sm', '').strip():
         ratio = len(rec['sm']) / max(1, len(KJV_TEXT.get(key, '')))
         ok = 0.35 <= ratio <= 3.0 and len(rec['sm'].split()) >= 2 and 'low-sim' not in rec.get('flags', [])
-    if ok:
-        V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}
-    elif key in SOV:
+    # the typed 1887 text wins wherever the user supplied the chapter: those are the
+    # chapters where the scan had trouble, and a scan verse that passes the length
+    # check can still carry its neighbour's tail (Psalm 119:66 before 2026-09-06)
+    if key in SOV:
         V[key] = {'sm': SOV[key], 'est': False, 'src': 'sov'}
         TYPED.append(key)
+    elif ok:
+        V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}
     elif rec and rec.get('sm', '').strip() and 0.35 <= len(rec['sm']) / max(1, len(KJV_TEXT.get(key, ''))) <= 3.0 and len(rec['sm'].split()) >= 2:
         V[key] = {'sm': rec['sm'], 'est': False, 'src': '1887'}      # low-sim, but the scan is still the 1887 print
-    else:
+    elif later:
         V[key] = dict(later, src='later')
         FALLBACK.append(key)
 print(f"1887 text for {len(V) - len(FALLBACK) - len(TYPED)} verses (scan); typed 1887 stands in for {len(TYPED)}; later edition for {len(FALLBACK)}")
