@@ -39,12 +39,19 @@ USFM = {
 # a verse number: digits not glued to a letter before, a letter (any case, any mark)
 # after -- "1Sa", "36ua", "19O". Samoan scripture writes its numbers as words, so a
 # bare digit run inside a verse is the next verse's number.
+_CAPS_LINE = re.compile(r"^[A-Z\u0100-\u016B\d ,.;:'\u2018\u2019\u02bb()-]{2,40}$")
 _VNUM = re.compile(r"(?<![\w’‘ʻ])(\d{1,3})(?=[A-Za-zĀ-ūāēīōū’‘ʻ(\[])")
 
 
 def parse_chapter(text: str) -> dict:
     """{verse number: text} from a pasted chapter; anything before verse 1 dropped."""
-    text = re.sub(r"\s+", " ", text.replace(" ", " ")).strip()
+    # heading lines stand alone in the paste and are never verse text: the site's
+    # "SALAMO, 119" / "O LE TUSI PAIA" banner, and the all-caps acrostic names
+    # inside Psalm 119 ("ALEFA.", "PETA.") that would otherwise glue onto the verse
+    # before them
+    text = "\n".join(ln for ln in text.replace("\u00a0", " ").split("\n")
+                     if not _CAPS_LINE.match(ln.strip()))
+    text = re.sub(r"\s+", " ", text).strip()
     parts = _VNUM.split(text)
     out, expect = {}, 1
     for i in range(1, len(parts) - 1, 2):
