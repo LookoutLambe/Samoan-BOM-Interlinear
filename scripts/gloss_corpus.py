@@ -575,7 +575,7 @@ def trim_absent_tail(gloss: str, english: str) -> str:
     # head too when the verse has none of them: `sa mau` is "which did dwell"
     # in the Book of Mormon and John 1:14 reads "and dwelt among us"
     # -- but never the pronoun itself (`o i latou` "they were" keeps its "they")
-    head_set = HEAD_TRIMMABLE | ({"which", "that", "who", "whom", "did", "do", "it", "there", "then", "so", "is", "are", "was", "were", "as", "even", "yea", "now"} if MODE["bible"] else set())
+    head_set = HEAD_TRIMMABLE | {"is", "are", "was", "were"} | ({"which", "that", "who", "whom", "did", "do", "it", "there", "then", "so", "as", "even", "yea", "now"} if MODE["bible"] else set())
 
     def absent_head(word: str) -> bool:
         w = re.sub(r"[^a-z']", "", word.lower())
@@ -1582,6 +1582,95 @@ def simple_sentences(out, toks, en_text):
         cop = m.group(1) + (m.group(2) or "")
         set_gloss(u, f"{cop} {core}{tail}")
     _stage("copula from English")
+    # THE FUTURE EXISTENTIAL: `o le a` "shall" + `i ai` "(there) shall be" is one
+    # predicate, "there shall be" (Dunn: TAM + the existential `i ai`); the
+    # marker is absorbed and the English's own form stands on `i ai`
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    _enl = (en_text or "").lower()
+    for idx in range(len(units) - 1):
+        u, v = units[idx], units[idx + 1]
+        if " ".join(norm(x) for x in toks[u[0]:u[1]]) in ("o le a", "o le ā") and " ".join(norm(x) for x in toks[v[0]:v[1]]).strip(",;.") == "i ai":
+            g = gloss_of(u).strip(" ,;.").lower()
+            if g in ("shall", "will", "would", "should"):
+                m = re.search(r"\b(there (?:shall|will|would|should) (?:be|come))\b", _enl) or re.search(r"\b((?:shall|will|would|should) (?:be|come))\b", _enl)
+                last = toks[v[1] - 1]
+                set_gloss(u, CONT)
+                set_gloss(v, (m.group(1) if m else f"{g} be") + last[len(last.rstrip(",;.")):])
+    _stage("future existential")
+    # THE OPTATIVE AFTER A VERB OF WISHING (Dunn, unit three): `ou te manao ia
+    # outou faalogo mai` is "I would that you hearken" -- `ia` + the clitic
+    # pronoun + the verb reads "that PRONOUN VERB" wherever the English has that
+    # clause, whatever order a remembered reading kept ("hearken you")
+    CLITIC_EN = {"ou": "I", "e": "you", "oe": "you", "ia": "he", "outou": "you", "tatou": "we", "matou": "we", "latou": "they", "lua": "you", "la": "they", "ta": "we", "ma": "we"}
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    for u in units:
+        ks = [norm(x).strip(",;.") for x in toks[u[0]:u[1]]]
+        if len(ks) < 3 or ks[0] != "ia" or ks[1] not in CLITIC_EN:
+            continue
+        g = gloss_of(u)
+        if not g or g == CONT:
+            continue
+        words = [re.sub(r"[^a-z']", "", w.lower()) for w in g.split()]
+        verbs = [w for w in words if w and w not in FUNCTION_ONLY and w not in ("would", "should", "may", "might", "shall", "will", "be", "not")]
+        if not verbs:
+            continue
+        found = None
+        for m in re.finditer(r"\bthat (ye|you|we|they|thou|he|she|it|i) ((?:would|should|may|might|shall|will|be|not) )*(\w+)", _enl):
+            vb = m.group(3)
+            if any(vb == v or vb in _stems(v) or v in _stems(vb) for v in verbs):
+                found = (m.group(1), vb)
+                break
+        if found:
+            pen = {"ye": "you", "thou": "you", "i": "I"}.get(found[0], found[0])
+            last = toks[u[1] - 1]
+            set_gloss(u, f"that {pen} {found[1]}" + last[len(last.rstrip(",;.")):])
+    _stage("optative that")
+    # AFTER "CANNOT" THE VERB CARRIES NO MODAL OF ITS OWN: `e le mafai ai e se
+    # tagata malaga ona toe foi mai ai` is "cannot | any traveler | return" --
+    # a remembered "can return" would say the modal twice
+    units, start = [], 0
+    for k in range(n):
+        if out[k]["en"] and out[k]["en"] != CONT:
+            units.append((start, k + 1))
+            start = k + 1
+    for idx in range(len(units) - 1):
+        u = units[idx]
+        if gloss_of(u).strip(" ,;.").lower() not in ("cannot", "could not", "can not", "could never", "can never"):
+            continue
+        for v in units[idx + 1:idx + 3]:
+            g = gloss_of(v)
+            m = re.match(r"^(can|could|may|might|shall|will)\s+(?!not\b)(\w.*)$", g.strip(), flags=re.I) if g and g != CONT else None
+            if m:
+                set_gloss(v, m.group(2))
+                break
+    _stage("modal after cannot")
+    # THE CLITIC AFTER `ona` (or alone) BEFORE ITS VERB IS THE SUBJECT: `ona ou
+    # alu ai lea` is "I go" (2 Nephi 1:14) -- an empty pronoun unit before a
+    # verb says the pronoun the English has in front of that verb
+    CL_EN = {"ou": "I", "e": "you", "ia": "he", "outou": "you", "tatou": "we", "matou": "we", "latou": "they", "lua": "you", "la": "they", "ta": "we", "ma": "we"}
+    for k in range(n - 1):
+        if out[k]["en"] or norm(toks[k]).strip(",;.") not in CL_EN:
+            continue
+        if k > 0 and norm(toks[k - 1]).strip(",;.") in ("te", "ia", "o", "e", "mo", "ma", "i", "iā"):
+            continue          # a marked pronoun (`ou te`, `ia te`) is another frame
+        nxt = next((j for j in range(k + 1, min(n, k + 5)) if out[j]["en"] and out[j]["en"] != CONT), None)
+        if nxt is None:
+            continue
+        vg = out[nxt]["en"].strip(" ,;.").lower()
+        if not vg or re.match(r"^(i|you|he|she|it|we|they|there)\b", vg):
+            continue
+        pr = CL_EN[norm(toks[k]).strip(",;.")]
+        if re.search(r"\b" + pr.lower() + r"\s+(?:\w+\s+)?" + re.escape(vg.split()[0]) + r"\b", _enl):
+            out[k]["en"] = pr
+    _stage("clitic subject")
     # THE NEGATIVE EQUATIVE: `E le o le malamalama ia` is "he was not the light"
     # (user, John 1:8) -- `e le o` + noun phrase + the pronoun subject at the end,
     # read as one unit on the pronoun, copula tense from the English
@@ -1992,7 +2081,7 @@ def simple_sentences(out, toks, en_text):
         if out[k]["en"] and out[k]["en"] != CONT:
             units.append((start, k + 1))
             start = k + 1
-    DET = r"^(the|a|an|his|her|its|their|my|thy|your|our|this|that|these|those|every|all|any|no|some|one|which|who|whom|whose|what|whoever|whosoever|whatever|whatsoever|whoso|none|each|both|such)\b"
+    DET = r"^(another|other|same|own|the|a|an|his|her|its|their|my|thy|your|our|this|that|these|those|every|all|any|no|some|one|which|who|whom|whose|what|whoever|whosoever|whatever|whatsoever|whoso|none|each|both|such)\b"
     DISCOURSE_WORDS = ("wherefore", "therefore", "thus", "now", "then", "so", "behold", "yea", "nevertheless", "howbeit", "notwithstanding", "moreover", "verily", "amen")
     for u in units:
         g = gloss_of(u)
@@ -2117,6 +2206,11 @@ def attach_particles(out, toks):
 # did not go") -- the same frame as `e lei`, with the marker in its bound form
 NEG_PAST_UNITS = {"e lei", "e le’i", "e leʻi", "lei", "le’i", "leʻi", "te lei", "te le’i", "te leʻi"}
 NEG_UNITS = NEG_PAST_UNITS | {"leai", "e leai"}
+# THE NEGATED MODAL (user, 2 Nephi 1:14: "e le mafai ai - this is a grammar rule"):
+# `e le mafai` "cannot"; its `ai` is the anaphoric pro-phrase ("thence") and its
+# `ona` the verb's link, both absorbed into the frame (Dunn, unit five)
+MODAL_NEG = {"e le mafai", "e lē mafai", "e le mafai ai", "e lē mafai ai", "e le mafai ona", "e lē mafai ona",
+             "te le mafai", "te lē mafai", "te le mafai ona", "te lē mafai ona", "le mafai ona", "lē mafai ona"}
 # after these the verb stands bare: the purposive, the optative / imperative,
 # the deferential `sei`, and `ne’i` "lest" (Dunn, units three and six)
 BARE_AFTER = {"ina ia", "ia", "sei", "se’i", "seʻi", "seia", "se’ia", "ne’i", "neʻi", "ina", "aua", "aua nei", "soia"}
@@ -2224,6 +2318,8 @@ def _spent_before(out, i) -> Counter:
         if w["en"] and w["en"] != CONT:
             for x in re.findall(r"[a-z']+", w["en"].lower()):
                 c[x] += 1
+                if x == "cannot":
+                    c["can"] += 1; c["not"] += 1
     return c
 
 
@@ -2451,6 +2547,14 @@ def main(argv: list[str] | None = None) -> int:
                 sub = gloss_tokens(toks[i + 1:inner_end], en_text, strict, inner=True, tense="PAST")
                 verb = " ".join(w["en"] for w in sub if w["en"] and w["en"] != CONT).strip()
                 ew_ = set(re.findall(r"[a-z']+", (en_text or "").lower()))
+                # the clitic pronoun inside the frame is the subject: `ona ou alu
+                # ai lea` is "and I go", not "go" (2 Nephi 1:14)
+                first_ = norm(toks[i + 1]) if i + 1 < inner_end else ""
+                CLIT_ = {"ou": "I", "e": "you", "ia": "he", "outou": "you", "tatou": "we", "matou": "we", "latou": "they", "lua": "you", "la": "they", "ta": "we", "ma": "we"}
+                if verb and first_ in CLIT_ and not re.match(r"^(i|you|he|she|it|we|they|there)\b", verb.lower()):
+                    pr_ = CLIT_[first_]
+                    if re.search(r"\b" + pr_.lower() + r"\s+" + re.escape(verb.lower().split()[0]), (en_text or "").lower()):
+                        verb = f"{pr_} {verb}"
                 if verb:
                     m = re.search(r"\b(there (?:was|were)) " + re.escape(verb.lower()) + r"\b", (en_text or "").lower())
                     if m and not verb.lower().startswith("there "):
@@ -2492,8 +2596,9 @@ def main(argv: list[str] | None = None) -> int:
             if hit >= 3 and src == "inv":
                 whole = norm(" ".join(toks[i:i + hit]))
                 if whole in inv:
-                    _, why0 = choose(inv[whole], en_text, None, strict, _spent_before(out, i))
-                    if why0 in ("canon-partial", "undecided", "vetoed", "settled-unconfirmed", "dominant-unconfirmed"):
+                    g0, why0 = choose(inv[whole], en_text, None, strict, _spent_before(out, i))
+                    doubled = bool(g0) and _over_spent([w for w in re.findall(r"[a-z']+", g0.lower()) if w not in FUNCTION_ONLY or w in ("can", "could", "may", "might", "shall", "will")], en_text, _spent_before(out, i)) > 0
+                    if why0 in ("canon-partial", "undecided", "vetoed", "settled-unconfirmed", "dominant-unconfirmed") or doubled:
                         for k_ in range(1, hit):
                             a_, b_ = norm(" ".join(toks[i:i + k_])), norm(" ".join(toks[i + k_:i + hit]))
                             if a_ in inv and b_ in inv:
@@ -2503,7 +2608,11 @@ def main(argv: list[str] | None = None) -> int:
                                 # split: the English often has no word for it, and the
                                 # particle reader handles it on its own next
                                 tail_ok = (hit - k_ == 1 and (b_ in SG.DEGREE or b_ in SG.CLOSED_CLASS))
-                                if ga and wa in ("canon", "settled", "dominant") and (tail_ok or (gb and wb in ("canon", "settled", "dominant"))):
+                                # and a closed-class HEAD (`ona`, `ia`, `e`) may open the split
+                                # the same way: `ona | toe foi mai ai` -- the particle reader
+                                # and the frames handle it, the tail is carried whole
+                                head_ok = (k_ == 1 and a_ in SG.CLOSED_CLASS and gb and wb in ("canon", "settled", "dominant"))
+                                if head_ok or (ga and wa in ("canon", "settled", "dominant") and (tail_ok or (gb and wb in ("canon", "settled", "dominant")))):
                                     hit = k_
                                     stats["unit: whole gives way to parts"] += 1
                                     break
@@ -2519,6 +2628,11 @@ def main(argv: list[str] | None = None) -> int:
                     [norm(t) for t in toks[max(0, i - 6):i]], [norm(t) for t in toks[i + 1:i + 7]])
                 if framed:
                     hit, src = 1, "frame"
+            # the negated modal outranks the memory's cut of these tokens
+            for span_ in (4, 3, 2):
+                if i + span_ <= len(toks) and norm(" ".join(toks[i:i + span_])) in MODAL_NEG:
+                    hit, src = span_, "frame"
+                    break
             key_sm = norm(" ".join(toks[i:i + hit]))
             if src == "absorbed" and key_sm not in inv:
                 # the particle carries no English; the gloss belongs to
@@ -2551,6 +2665,18 @@ def main(argv: list[str] | None = None) -> int:
             # only a form with one gets a fixed answer. `i latou` is
             # "them" 515 times and "they" 271, and the grammar has no
             # business picking for a verse it can see.
+            if key_sm in MODAL_NEG:
+                enl_ = (en_text or "").lower()
+                gloss = next((alt for alt in ("cannot", "could not", "can not", "could never", "can never", "not able", "unable") if re.search(r"\b" + alt + r"\b", enl_)), "cannot")
+                why = "grammar/modal-neg"
+                prev_key = key_sm
+                stats["unit: " + why] += 1
+                trace.append((key_sm, gloss, why))
+                for j in range(i, i + hit - 1):
+                    out[j]["en"] = CONT
+                out[i + hit - 1]["en"] = gloss
+                i += hit
+                continue
             if key_sm in NEG_UNITS:
                 # THE NEGATIVES ARE FRAMES, never memory. `e lei X` is the past
                 # negative: "not" (the verb carries the past: knew not, hath not
@@ -2695,6 +2821,17 @@ def main(argv: list[str] | None = None) -> int:
                                     or SG.tense_of_tam(prev_key)
                                     or ("PAST" if seq_verb else None), strict, spent=_spent_before(out, i))
                 why = why + "/" + src
+                # THE GRAMMAR'S READING OUTRANKS A REMEMBERED ONE THE VERSE DOES NOT
+                # CARRY: `tetele` (the plural of `tele`) was "mighty" in one curated
+                # verse and 2 Nephi 1:12 says "great visitations" -- the form's own
+                # reading set (its base's, for a reduplicated plural) has "great"
+                if hit == 1 and why.startswith(("settled", "dominant")) and gloss and vetoed(gloss, en_text):
+                    ew_ = content_words(en_text)
+                    for base_ in [key_sm] + _dereduplicate(key_sm):
+                        alt_ = next((r for r in SG.particle_readings(base_) if r and all(in_english(w, ew_) for w in r.split())), None)
+                        if alt_:
+                            gloss, why = alt_, "grammar/reading-over-settled"
+                            break
             elif key_sm in lex:
                 gloss, why = choose(lex[key_sm], en_text, strict=strict)
                 why = why + "/lex"
@@ -2915,6 +3052,19 @@ def main(argv: list[str] | None = None) -> int:
                     out[j]["en"] = CONT
                 out[i + hit - 1]["en"] = gloss
             i += hit
+        # THE GLOSS'S PUNCTUATION IS THE TOKEN'S: a remembered "return." under
+        # `ai;` says "return;", "Awake," under `ia!` says "Awake!" -- the mark
+        # belongs to the verse being glossed, not to the verse the memory came from
+        for w in out:
+            g = w["en"]
+            if not g or g == CONT:
+                continue
+            m = re.search(r"([,;:.!?]+)[”’\"')]*$", w["sm"])
+            core = g.rstrip(" ,;:.!?")
+            if core and m:
+                w["en"] = core + m.group(1)
+            elif core and not m and re.search(r"[,;:.!?]$", g):
+                w["en"] = core
         attach_particles(out, toks)
         if not inner:
             # THE GRAMMAR IS THE LANGUAGE'S, not one volume's (user, 2026-09-05:

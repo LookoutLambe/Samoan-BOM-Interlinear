@@ -202,14 +202,22 @@ def stems(word: str) -> set[str]:
         out.add(word[:-1] + "ies")
         out.add(word[:-1] + "ied")
         out.add(word[:-1] + "iful")      # mercy -> merciful, glory -> (no), plenty -> plentiful
+    # the KJV's third and second person: "passeth" is "pass", "givest" is "give"
+    if word.endswith("eth") and len(word) > 4:
+        out.add(word[:-3]); out.add(word[:-2]); out.add(word[:-3] + "s")
+    if word.endswith("est") and len(word) > 4:
+        out.add(word[:-3]); out.add(word[:-2])
+    out.add(word + "eth"); out.add(word + "est")
+    if word.endswith("e"):
+        out.add(word + "th"); out.add(word + "st")
     if word.endswith("ful") and len(word) > 5:
         out.add(word[:-3]); out.add(word[:-4] + "y" if word.endswith("iful") else word[:-3])
     elif not word.endswith("s"):
         out.add(word + "ful")            # faith -> faithful, power -> powerful
     if word.endswith("es") and len(word) > 3:
         out.add(word[:-2])
-    if word.endswith("s") and not word.endswith("ss"):
-        out.add(word[:-1])
+    if word.endswith("s") and not word.endswith("ss") and len(word) > 3:
+        out.add(word[:-1])      # never "is" -> "i", "us" -> "u"
     out.add(word + "s")
     if word.endswith("ed") and len(word) > 3:
         out.add(word[:-1])          # escaped -> escape

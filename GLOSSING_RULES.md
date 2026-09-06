@@ -623,3 +623,32 @@ rule in the pass or the tables, none is a verse patch.
   word cell keeps its gloss line, empty or not, so the Samoan never drops into the
   English row (user: *"samoan should stay on samoan line"*).
 
+### 22u. Rules the 2 Nephi 1:12 and 1:14 round added (2026-09-06)
+
+- **`e le mafai (ai | ona)` is a frame: "cannot"** (user: *"e le mafai ai - this is a
+  grammar rule"*). The negated modal outranks the memory's cut of its tokens; its `ai`
+  (the anaphoric pro-phrase, "thence") and its `ona` (the verb's link) are absorbed;
+  the verse's own form is taken (cannot / could not / unable). After it the verb
+  carries no modal of its own ("cannot | any traveler | return", never "can return").
+- **The future existential.** `o le a` "shall" + `i ai` "(there) shall be" is one
+  predicate: the marker is absorbed and the English's form stands on `i ai`.
+- **The optative after a verb of wishing.** `ia` + clitic pronoun + verb after `manao`
+  reads "that you VERB" wherever the English has that clause, whatever order a
+  remembered reading kept ("hearken you" → "that you hearken").
+- **The grammar's reading outranks a remembered one the verse does not carry.**
+  `tetele`, the plural of `tele`, was "mighty" in one curated verse; 2 Nephi 1:12 says
+  "great visitations" and the form's own reading set (its base's, for a reduplicated
+  plural) has "great" (`grammar/reading-over-settled`).
+- **The clitic after `ona` (or alone) before its verb is the subject**: `ona ou alu ai
+  lea` "I go". A marked pronoun (`ou te`, `ia te`) is another frame and is left alone.
+- **A closed-class head may open a split** of a curated whole the verse does not carry
+  clean (`ona | toe foi mai ai`), as a degree word may close one; and a settled whole
+  that doubles a modal an earlier unit spent is split the same way.
+- **A copula at the head of a remembered reading comes off when the verse has none**
+  ("is the grave." → "the grave.") in every volume, not only the Bible.
+- **Stems:** the KJV -eth/-est are the verb ("passeth" is "pass"); the -s rule never
+  turns "is" into "i" (which had found the "I" of "I go" and kept that copula).
+- **"another / other / same / own" are determiners**: no article is put before them.
+- **The gloss's punctuation is the token's**, never the memory's: `ai;` says
+  "return;", `ia!` says "Awake!".
+
