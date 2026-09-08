@@ -947,52 +947,95 @@
      marked, front matter and scripture in one undifferentiated run. Now it
      opens at the reader's own chapter with that chapter marked, the sections
      are labelled, and a filter is there for anyone who already knows. */
+  /* THE DRAWER IS ONE VOLUME AT A TIME (2026-09-08). It used to be a single
+     list of everything — the front matter, then 21 restoration books, then the
+     66 of the Bible — and to answer "where am I" it scrolled itself to the
+     reader's own book on the way open. So it never opened at the top, and
+     where it did open depended on where you happened to be reading.
+
+     The Hebrew reader's drawer has never done that: a row of tabs, one per
+     volume, and the list below is that volume's books from its first. The tabs
+     say where you are; the list has nowhere to jump to. */
+  const VOL_TABS = {
+    bom: ['Mamona', 'BOM'],
+    dc: ['Mataupu', 'D&C'],
+    pgp: ['Penina', 'PGP'],
+    ot: ['Tuai', 'OT'],
+    nt: ['Fou', 'NT'],
+  };
+
+  const drawerVolumes = () => state.index.volumes
+    || [{ id: 'bom', nameSm: 'O le Tusi a Mamona', nameEn: 'Book of Mormon' }];
+
+  /* The volume the reader is in, so the drawer opens on their own shelf. */
+  function volumeOfCurrent() {
+    const here = currentRef();
+    if (here.book) return volumeOf(here.book);
+    if (here.front) return 'bom';        // the front matter belongs to the BOM
+    return null;
+  }
+
   function buildDrawer() {
+    const volumes = drawerVolumes();
+    const ids = volumes.map((v) => v.id);
+    if (!ids.includes(state.drawerVol)) {
+      state.drawerVol = volumeOfCurrent() || ids[0];
+    }
+
+    const tabs = $('drawer-tabs');
+    tabs.replaceChildren();
+    for (const vol of volumes) {
+      const [sm, en] = VOL_TABS[vol.id] || [vol.nameSm, vol.nameEn];
+      const tab = el('button', 'drawer-tab');
+      tab.type = 'button';
+      tab.setAttribute('role', 'tab');
+      tab.setAttribute('aria-selected', String(vol.id === state.drawerVol));
+      tab.setAttribute('title', `${vol.nameSm} \u00b7 ${vol.nameEn}`);
+      tab.append(el('span', 'vt-sm', sm));
+      tab.append(el('span', 'vt-en', en));
+      tab.addEventListener('click', () => {
+        state.drawerVol = vol.id;
+        buildDrawer();
+        $('drawer-body').scrollTop = 0;
+      });
+      tabs.append(tab);
+    }
+
     const body = $('drawer-body');
     body.replaceChildren();
     const here = currentRef();
 
-    body.append(el('div', 'drawer-section', 'Amataga \u00b7 Front matter'));
-    for (const section of state.index.frontmatter) {
-      const btn = el('button', 'drawer-book', section.titleSm);
-      if (here.front === section.id) btn.setAttribute('aria-current', 'true');
-      btn.addEventListener('click', () => {
-        location.hash = `#/front/${section.id}`;
-        toggleDrawer(false);
-      });
-      body.append(btn);
+    // The front matter is the Book of Mormon's, and sits above its books.
+    if (state.drawerVol === 'bom' && state.index.frontmatter) {
+      body.append(el('div', 'drawer-section', 'Amataga \u00b7 Front matter'));
+      for (const section of state.index.frontmatter) {
+        const btn = el('button', 'drawer-book');
+        btn.append(el('span', 'db-sm', section.titleSm));
+        btn.append(el('span', 'db-en', section.titleEn || ''));
+        if (here.front === section.id) btn.setAttribute('aria-current', 'true');
+        btn.addEventListener('click', () => {
+          location.hash = `#/front/${section.id}`;
+          toggleDrawer(false);
+        });
+        body.append(btn);
+      }
     }
 
-    /* Grouped by VOLUME. With the Doctrine and Covenants and the Pearl of
-       Great Price alongside the Book of Mormon this is 21 books, and a flat
-       list of 21 gives the reader no way to see that they are three separate
-       works. The volume labels come from index.json, so the reader does not
-       hold a second copy of them. */
-    const volumes = state.index.volumes
-      || [{ id: 'bom', nameSm: 'Tusi Paia', nameEn: 'Books' }];
-    for (const vol of volumes) {
-      const inVol = state.index.books.filter(
-        (b) => (b.volume || 'bom') === vol.id);
-      if (!inVol.length) continue;
-      const head = el('div', 'drawer-section');
-      head.id = `drawer-vol-${vol.id}`;
-      head.append(document.createTextNode(vol.nameSm));
-      if (vol.nameEn && vol.nameEn !== vol.nameSm) {
-        head.append(document.createTextNode(' \u00b7 ' + vol.nameEn));
-      }
-      body.append(head);
-      buildVolume(body, inVol, here);
-    }
+    const inVol = state.index.books.filter((b) => (b.volume || 'bom') === state.drawerVol);
+    buildVolume(body, inVol, here);
   }
 
   function buildVolume(body, books, here) {
     for (const book of books) {
       const group = el('div', 'drawer-body-group');
       const btn = el('button', 'drawer-book');
-      btn.append(document.createTextNode(book.nameSm));
-      btn.append(document.createElement('br'));
-      btn.append(el('span', 'en', book.nameEn));
       const isHere = here.book === book.id;
+      const main = el('span', 'db-main');
+      main.append(el('span', 'db-caret', '\u25B8'));
+      main.append(el('span', 'db-sm', book.nameSm));
+      main.append(el('span', 'db-n', '\u00b7 ' + book.chapters.length));
+      btn.append(main);
+      btn.append(el('span', 'db-en', book.nameEn));
       if (isHere) btn.setAttribute('aria-current', 'true');
       btn.setAttribute('aria-expanded', String(isHere));
 
@@ -1058,20 +1101,21 @@
   /* Open the library scrolled to one volume's section — how the Bible cover
      lands the reader among the 66 books rather than at the top of the drawer. */
   function openDrawerAt(volId) {
+    state.drawerVol = volId;
     toggleDrawer(true);
-    const head = document.getElementById(`drawer-vol-${volId}`);
-    if (head) head.scrollIntoView({ block: 'start' });
   }
 
+  /* A DRAWER OPENS AT THE TOP. It used to scroll the reader's own chapter to
+     the middle of itself as it opened, which meant it never once opened at
+     the beginning of the list — the tab says where you are now. */
   function toggleDrawer(open) {
     $('drawer').hidden = !open;
     $('drawer-scrim').hidden = !open;
     if (open) {
-      const cur = $('drawer-body').querySelector('[aria-current="true"]');
-      if (cur) cur.scrollIntoView({ block: 'center' });
       const f = $('drawer-filter');
       if (f) f.value = '';
       filterDrawer('');
+      $('drawer-body').scrollTop = 0;
     }
   }
 

@@ -544,13 +544,74 @@ body.no-gloss .unit .en { display: none; }
   top: 0;
   left: 0;
   z-index: 50;
-  width: min(20rem, 85vw);
+  /* the Hebrew drawer's two widths: 90vw on a phone, 360px where there is room */
+  width: min(22.5rem, 90vw);
   height: 100%;
   padding-top: env(safe-area-inset-top);
-  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
   background: var(--page-bg-deep);
   border-right: 1px solid var(--rule);
 }
+
+/* The one scrolling part of the drawer. */
+#drawer-body {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+}
+
+/* ONE TAB PER VOLUME, ALWAYS ALL FIVE. The Samoan short name over the English
+   abbreviation, the selected one underlined in gold — the Hebrew drawer's own
+   tab row, which is how a reader sees at a glance which shelf they are on. */
+.drawer-tabs {
+  display: flex;
+  flex: 0 0 auto;
+  background: var(--header-bg);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent-light) 30%, transparent);
+}
+.drawer-tab {
+  flex: 1 1 0;
+  min-width: 0;
+  min-height: 44px;                       /* the touch floor */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 7px 2px 5px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  background: transparent;
+  font-family: var(--serif);
+  cursor: pointer;
+  transition: background .15s, border-color .2s;
+}
+.drawer-tab .vt-sm {
+  color: color-mix(in srgb, var(--accent-light) 78%, transparent);
+  font-size: .8rem;
+  font-weight: 600;
+  line-height: 1.15;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.drawer-tab .vt-en {
+  color: color-mix(in srgb, var(--header-text) 62%, transparent);
+  font-size: .56rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.drawer-tab[aria-selected="true"] {
+  background: rgba(255, 255, 255, .07);
+  border-bottom-color: var(--accent-light);
+}
+.drawer-tab[aria-selected="true"] .vt-sm { color: var(--accent-light); }
+.drawer-tab[aria-selected="true"] .vt-en { color: var(--header-text); }
+.drawer-tab:focus-visible { outline: 2px solid var(--accent-light); outline-offset: -2px; }
 
 .drawer-head {
   position: sticky;
@@ -566,7 +627,7 @@ body.no-gloss .unit .en { display: none; }
 .drawer-book {
   min-height: 44px;
   width: 100%;
-  padding: .7rem 1rem;
+  padding: .55rem 1rem;
   border: 0;
   background: transparent;
   color: var(--ink);
@@ -574,9 +635,32 @@ body.no-gloss .unit .en { display: none; }
   font-size: 1rem;
   text-align: left;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
 }
 
 .drawer-book:hover { background: var(--row-alt); }
+.db-main { display: flex; align-items: baseline; gap: .35rem; min-width: 0; }
+.db-caret {
+  color: var(--accent);
+  font-size: .7rem;
+  transition: transform .15s;
+}
+.drawer-book[aria-expanded="true"] .db-caret { transform: rotate(90deg); }
+.db-sm { font-weight: 600; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.db-n { color: var(--ink-light); font-size: .72rem; }
+.db-en {
+  color: var(--ink-light);
+  font-size: .78rem;
+  font-style: italic;
+  text-align: right;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  flex: 0 1 auto;
+}
 .drawer-book .en { color: var(--ink-light); font-size: .8rem; font-style: italic; }
 
 /* Sized to the touch floor, not to a column count: at a fixed 6 columns the
@@ -1024,11 +1108,11 @@ body.no-gloss .unit .en { display: none; }
    and so would the close button. */
 .drawer-head {
   display: flex; align-items: center; justify-content: space-between; gap: 8px;
-  position: sticky; top: 0; z-index: 2;
+  flex: 0 0 auto;
 }
 .drawer-filter {
   padding: 8px 10px; border-bottom: 1px solid var(--rule-light);
-  position: sticky; top: var(--chrome-h); z-index: 2;
+  flex: 0 0 auto;
   background: var(--page-bg-deep);
 }
 .drawer-filter input {
