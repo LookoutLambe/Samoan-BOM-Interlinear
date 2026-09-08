@@ -19,8 +19,8 @@ struct BookListView: View {
                     // Great Price, Old and New Testament — each the way into its
                     // books: tapping opens the library at that volume.
                     VolumeCovers()
-                        .padding(.horizontal, 20)
-                        .padding(.top, 24)
+                        .padding(.horizontal, 16)
+                        .padding(.top, 20)
 
                     ContinueReadingButton()
                         .padding(.top, 24)
@@ -381,10 +381,21 @@ private struct VolumeCovers: View {
     @Environment(ScriptureLibrary.self) private var library
     @Environment(Navigator.self) private var nav
 
-    private let columns = [GridItem(.adaptive(minimum: 150, maximum: 260), spacing: 16)]
+    @Environment(\.horizontalSizeClass) private var sizeClass
+
+    /// TWO ACROSS ON A PHONE, ALWAYS (2026-09-08). These were
+    /// `.adaptive(minimum: 150)`, which asks "how many 150pt cards fit?" — and
+    /// on any iPhone narrower than about 355pt the answer is ONE, so a single
+    /// cover filled the width and stood nearly 400pt tall. The web reader does
+    /// not ask: it states `repeat(2, 1fr)` under 600px and `repeat(3, 1fr)`
+    /// above, so a phone always shows two and the shelf reads as a shelf.
+    private var columns: [GridItem] {
+        let count = sizeClass == .regular ? 3 : 2
+        return Array(repeating: GridItem(.flexible(), spacing: 16), count: count)
+    }
 
     var body: some View {
-        LazyVGrid(columns: columns, spacing: 16) {
+        LazyVGrid(columns: columns, spacing: 20) {
             ForEach(library.allVolumes) { volume in
                 let spec = TitleGloss.specs[volume.id]
                     ?? TitleGloss.Spec(titles: [.init(sm: volume.nameSm.uppercased(), en: volume.nameEn)], subtitles: [])
@@ -473,7 +484,7 @@ private struct CoverPlate: View {
 
     var body: some View {
         ZStack {
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
+            RoundedRectangle(cornerRadius: 4, style: .continuous)
                 .fill(
                     LinearGradient(
                         colors: [
@@ -484,8 +495,8 @@ private struct CoverPlate: View {
                         endPoint: .bottom
                     )
                 )
-            RoundedRectangle(cornerRadius: 8, style: .continuous)
-                .strokeBorder(Color(red: 0.165, green: 0.251, blue: 0.376), lineWidth: 1)
+            RoundedRectangle(cornerRadius: 4, style: .continuous)
+                .strokeBorder(Color.white.opacity(0.22), lineWidth: 1)
 
             VStack(spacing: 14) {
                 Rectangle()
@@ -526,6 +537,7 @@ private struct CoverPlate: View {
             .padding(.vertical, 20)
         }
         .aspectRatio(3.0 / 4.0, contentMode: .fit)
-        .shadow(color: .black.opacity(0.18), radius: 10, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.18), radius: 8, x: 0, y: 4)
+        .shadow(color: .black.opacity(0.10), radius: 2, x: 0, y: 1)
     }
 }

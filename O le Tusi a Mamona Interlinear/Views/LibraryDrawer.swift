@@ -12,12 +12,13 @@ struct LibraryDrawer: View {
 
     private let chapterColumns = [GridItem(.adaptive(minimum: 44, maximum: 64), spacing: 8)]
 
+    // The panel's chrome — its title, its close button and its edge — belongs
+    // to SideDrawer, which states it once for every panel in the app. What is
+    // left here is the library itself.
     var body: some View {
-        NavigationStack {
-            ScrollViewReader { proxy in
+        ScrollViewReader { proxy in
                 ScrollView {
                     VStack(spacing: 0) {
-                        drawerHeader
                         LazyVStack(spacing: 0) {
                             let front = library.frontMatter()
                             if !front.isEmpty {
@@ -57,36 +58,7 @@ struct LibraryDrawer: View {
                     }
                 }
             }
-            .background(Theme.pageBg)
-            .toolbar {
-                ToolbarItem(placement: .confirmationAction) {
-                    Button("Tapuni") { nav.libraryOpen = false }
-                        .tint(Theme.headerBg)
-                }
-            }
-            #if os(iOS)
-            .toolbarBackground(Theme.headerBg, for: .navigationBar)
-            .toolbarBackground(.visible, for: .navigationBar)
-            .toolbarColorScheme(.dark, for: .navigationBar)
-            #endif
-        }
-    }
-
-    private var drawerHeader: some View {
-        VStack(spacing: 4) {
-            Text("O le Tusi a Mamona")
-                .font(SerifFont.tnr(size: 24, weight: .bold))
-                .foregroundStyle(Theme.headerBg)
-                .tracking(1.0)
-            Text("\u{2767} \u{2767} \u{2767}")
-                .font(SerifFont.tnr(size: 15))
-                .foregroundStyle(Theme.accent)
-                .tracking(6)
-                .padding(.top, 2)
-        }
-        .padding(.top, 12)
-        .padding(.bottom, 18)
-        .frame(maxWidth: .infinity)
+        .background(Theme.pageBg)
     }
 
     /// A reachable-in-app link to the hosted privacy policy — App Store

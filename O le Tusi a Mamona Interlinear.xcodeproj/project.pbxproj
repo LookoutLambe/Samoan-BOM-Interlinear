@@ -6,8 +6,13 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		0FAA000000000000000000A1 /* docs in Resources */ = {isa = PBXBuildFile; fileRef = 0FAA000000000000000000A2 /* docs */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		0F0264AE2FEAA05C00970417 /* O le Tusi a Mamona Interlinear.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "O le Tusi a Mamona Interlinear.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0FAA000000000000000000A2 /* docs */ = {isa = PBXFileReference; lastKnownFileType = folder; path = docs; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -33,6 +38,7 @@
 			isa = PBXGroup;
 			children = (
 				0F0264B02FEAA05C00970417 /* O le Tusi a Mamona Interlinear */,
+				0FAA000000000000000000A2 /* docs */,
 				0F0264AF2FEAA05C00970417 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +115,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0FAA000000000000000000A1 /* docs in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

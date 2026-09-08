@@ -764,7 +764,7 @@ body.no-gloss .unit .en { display: none; }
   width: min(100%, 17rem);
   aspect-ratio: 3 / 4;
   margin-top: 1.5rem;
-  padding: 1.75rem 1rem;
+  padding: 1.125rem .875rem;
   border: 1px solid #2E4260;
   border-radius: .5rem;
   background: linear-gradient(180deg, #142132 0%, #1B2A41 100%);
@@ -775,17 +775,38 @@ body.no-gloss .unit .en { display: none; }
 
 /* The five volume cards: one grid, uniform 3:4 plates, two across where
    there is room and one on a phone. */
+/* TWO ACROSS ON A PHONE, ALWAYS. This was `auto-fit, minmax(12.5rem, 1fr)`,
+   which asks "how many 200px cards fit?" — and on a phone the answer is ONE,
+   so a single cover took the whole width and, at 3/4, stood 500px tall with
+   its title marooned in the middle of it. A shelf has to read as a shelf. The
+   Hebrew reader never asks the question: it states two columns under 600px and
+   three above, and the volumes stay a set of books at every width. */
 .covers {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(12.5rem, 1fr));
-  gap: 1rem;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.25rem 1rem;
   width: 100%;
   margin-top: 1.5rem;
   padding: 0 .5rem;
   box-sizing: border-box;
 }
+@media (min-width: 601px) {
+  .covers { grid-template-columns: repeat(3, 1fr); }
+}
+/* Wide screens: the whole shelf in one row */
+@media (min-width: 1200px) {
+  .covers { grid-template-columns: repeat(5, 1fr); }
+}
 .covers .cover { width: 100%; margin-top: 0; }
-.cover-wrap { display: flex; flex-direction: column; align-items: center; min-width: 0; }
+/* Both cards in a row are one height, and both bookmarks sit on the same
+   line. The plates carry different amounts of title — "Mataupu Faavae ma
+   Feagaiga" is four lines where "O le Tusi a Mamona" is two — so a plate left
+   to its own 3/4 box grows past its neighbour and the shelf goes ragged. The
+   grid already stretches every cell to the tallest; the plate takes that
+   height, and the bookmark is pushed to the bottom of it. */
+.cover-wrap { display: flex; flex-direction: column; align-items: center; min-width: 0; height: 100%; }
+.cover-wrap .cover { flex: 1 1 auto; }
+.cover-wrap .card-continue { margin-top: auto; }
 
 /* The bookmark under each cover: the same navy plate and gold kicker as the
    continue button, sized to the card. The bright accent stays a mark colour
