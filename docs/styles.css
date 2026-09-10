@@ -859,12 +859,16 @@ body.no-gloss .unit .en { display: none; }
 
 /* The five volume cards: one grid, uniform 3:4 plates, two across where
    there is room and one on a phone. */
-/* TWO ACROSS ON A PHONE, ALWAYS. This was `auto-fit, minmax(12.5rem, 1fr)`,
+/* TWO ACROSS, AT EVERY WIDTH. This was `auto-fit, minmax(12.5rem, 1fr)`,
    which asks "how many 200px cards fit?" — and on a phone the answer is ONE,
    so a single cover took the whole width and, at 3/4, stood 500px tall with
-   its title marooned in the middle of it. A shelf has to read as a shelf. The
-   Hebrew reader never asks the question: it states two columns under 600px and
-   three above, and the volumes stay a set of books at every width. */
+   its title marooned in the middle of it.
+
+   The count is stated, not asked, because it cannot be read off the VIEWPORT:
+   this shelf lives inside the landing column, which is capped at 560px, so a
+   `min-width: 1200px` rule asking for five put five plates into 560px — 105px
+   each, every title spilling out across its neighbour. Two is what 560px has
+   room for, and two is what the phone has room for, so two it is. */
 .covers {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -874,13 +878,6 @@ body.no-gloss .unit .en { display: none; }
   padding: 0 .5rem;
   box-sizing: border-box;
 }
-@media (min-width: 601px) {
-  .covers { grid-template-columns: repeat(3, 1fr); }
-}
-/* Wide screens: the whole shelf in one row */
-@media (min-width: 1200px) {
-  .covers { grid-template-columns: repeat(5, 1fr); }
-}
 .covers .cover { width: 100%; margin-top: 0; }
 /* Both cards in a row are one height, and both bookmarks sit on the same
    line. The plates carry different amounts of title — "Mataupu Faavae ma
@@ -889,7 +886,7 @@ body.no-gloss .unit .en { display: none; }
    grid already stretches every cell to the tallest; the plate takes that
    height, and the bookmark is pushed to the bottom of it. */
 .cover-wrap { display: flex; flex-direction: column; align-items: center; min-width: 0; height: 100%; }
-.cover-wrap .cover { flex: 1 1 auto; }
+.cover-wrap .cover { flex: 0 0 auto; }
 .cover-wrap .card-continue { margin-top: auto; }
 
 /* The bookmark under each cover: the same navy plate and gold kicker as the
@@ -927,7 +924,16 @@ body.no-gloss .unit .en { display: none; }
   text-overflow: ellipsis;
   max-width: 100%;
 }
-.covers .cover-title .sm { font-size: clamp(1.05rem, 4.2vw, 1.5rem); }
+.covers .cover {
+  container-type: inline-size;
+  gap: clamp(.5rem, 5cqi, .875rem);
+  padding: clamp(.7rem, 7cqi, 1.125rem) clamp(.55rem, 5.5cqi, .875rem);
+}
+.covers .cover-title { gap: clamp(.4rem, 4.2cqi, .875rem); }
+.covers .cover-title .sm { font-size: clamp(.8rem, 8.7cqi, 1.5rem); }
+.covers .cover-title .en { font-size: clamp(.6rem, 6.5cqi, .688rem); }
+.covers .cover-sub .sm { font-size: clamp(.68rem, 8cqi, .813rem); }
+.covers .cover-sub .en { font-size: clamp(.5rem, 5.5cqi, .563rem); }
 
 .search-scope { margin: .25rem 0 0; font-size: .9rem; }
 
