@@ -92,6 +92,7 @@
     window.addEventListener('hashchange', function () { closeNotes(); markRow(); });
     markRow();
     watchScroll();
+    watchSwipe();
     var done = false;
     function unboot() { if (done) return; done = true; html.classList.remove('sw-app-booting'); }
     function ready() { var left = 900 - (Date.now() - bootedAt); setTimeout(unboot, left > 0 ? left : 0); }
@@ -222,6 +223,41 @@
       if (!dragging && Date.now() - lastDrag > 1500) return;
       if (Math.abs(dy) < 6) return;
       html.classList.toggle('sw-app-reading', dy > 0);
+    }, { passive: true });
+  }
+
+  /* ── A SWIPE TURNS THE CHAPTER, as it does in the Hebrew reader: through the
+     dock's own arrows, so what is next and what is previous stays the page's
+     decision. Left to right is a book in Samoan, so a swipe LEFT goes on.
+     Nothing turns while a sheet, the drawer or the notes are up, or from a
+     touch that began on the bars. ── */
+  function turn(dir) {
+    var b = $(dir === 'next' ? 'dock-next' : 'dock-prev');
+    if (!b || b.disabled || b.getAttribute('aria-disabled') === 'true' || b.hidden) return;
+    var v = $('view');
+    if (v) {
+      v.classList.remove('sw-app-turn-next', 'sw-app-turn-prev');
+      void v.offsetWidth;
+      v.classList.add(dir === 'next' ? 'sw-app-turn-next' : 'sw-app-turn-prev');
+      setTimeout(function () { v.classList.remove('sw-app-turn-next', 'sw-app-turn-prev'); }, 360);
+    }
+    b.click();
+  }
+  function watchSwipe() {
+    var x0 = 0, y0 = 0, t0 = 0, live = false, fromBar = false;
+    document.addEventListener('touchstart', function (e) {
+      if (e.touches.length !== 1) { live = false; return; }
+      var t = e.touches[0]; x0 = t.clientX; y0 = t.clientY; t0 = Date.now(); live = true;
+      fromBar = !!(e.target && e.target.closest && e.target.closest('#sw-app-row, .controls-bottom, .controls-top, #actionbar, #sw-app-panel, .sheet, .drawer'));
+    }, { passive: true });
+    document.addEventListener('touchend', function (e) {
+      if (!live) return; live = false;
+      if (fromBar || Date.now() - t0 > 700) return;
+      var t = e.changedTouches && e.changedTouches[0]; if (!t) return;
+      var dx = t.clientX - x0, dy = t.clientY - y0;
+      if (Math.abs(dx) < 70 || Math.abs(dy) > 50) return;
+      if (!onChapter() || notesOpen || shown('drawer') || shown('search') || shown('settings') || shown('note-sheet')) return;
+      turn(dx < 0 ? 'next' : 'prev');
     }, { passive: true });
   }
 

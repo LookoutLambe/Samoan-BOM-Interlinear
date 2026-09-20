@@ -85,3 +85,10 @@ html.sw-web-shell.sw-app-booting::before {
 .sw-app-empty .sw-app-sub { max-width: 30em; }
 /* the verse a mark opens, lit for a moment */
 .verse.sw-app-flash { background: color-mix(in srgb, var(--accent, #8E6215) 14%, transparent); transition: background .6s ease; }
+
+/* the turn a swipe makes: the new chapter slides in from the side it came from */
+@keyframes sw-app-slide-next { from { transform: translateX(28px); opacity: .55; } to { transform: none; opacity: 1; } }
+@keyframes sw-app-slide-prev { from { transform: translateX(-28px); opacity: .55; } to { transform: none; opacity: 1; } }
+html.sw-web-shell #view.sw-app-turn-next { animation: sw-app-slide-next .32s ease-out; }
+html.sw-web-shell #view.sw-app-turn-prev { animation: sw-app-slide-prev .32s ease-out; }
+@media (prefers-reduced-motion: reduce) { html.sw-web-shell #view.sw-app-turn-next, html.sw-web-shell #view.sw-app-turn-prev { animation: none; } }
