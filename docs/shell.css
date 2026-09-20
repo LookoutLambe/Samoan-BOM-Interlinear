@@ -22,6 +22,9 @@ html.sw-web-shell.sw-app-reading .controls-bottom { transform: translateY(calc(1
 html.sw-web-shell .sheet { bottom: calc(var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px)); }
 html.sw-web-shell .drawer { height: calc(100% - var(--sw-app-row-h) - env(safe-area-inset-bottom, 0px)); }
 
+/* the row has Search, so the top bar gives up its search button (user, 2026-09-19) */
+html.sw-web-shell #btn-search { display: none !important; }
+
 /* inside the iPhone app the App Store card has no job */
 html.sw-in-app .appstore { display: none !important; }
 
