@@ -254,6 +254,8 @@ def main() -> None:
         "index.html",
         "styles.css",
         "app.js",
+        "shell.js",      # the phone shell (docs/shell.js): the row, the notes panel
+        "shell.css",
         "manifest.webmanifest",
         "icons/icon-192.png",
         "icons/icon-512.png",

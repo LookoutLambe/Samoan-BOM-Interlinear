@@ -4,7 +4,7 @@
   "description": "A Samoan–English interlinear Book of Mormon. Every Samoan word glossed phrase by phrase against the official English edition.",
   "lang": "sm",
   "dir": "ltr",
-  "start_url": "./",
+  "start_url": "./?boot=1",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait-primary",

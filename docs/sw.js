@@ -9,7 +9,7 @@
 // Stamped by scripts/build_web_data.py from a hash of the published files, so
 // a redeploy always produces a new cache and never strands readers on an old
 // build. Do not edit by hand.
-const VERSION = 'ec60155f4068';
+const VERSION = '5ea68dc32a54';
 const CACHE = `bom-${VERSION}`;
 const BATCH = 12;
 
@@ -20,7 +20,7 @@ const BATCH = 12;
 // landing cards and the drawer are drawn from it. Served cache-first it handed a
 // returning reader the new app.js with the previous build's index -- three
 // cards where the deploy had five -- until the next reload.
-const SHELL = /\/(index\.html|app\.js|styles\.css|manifest\.webmanifest|assets\.json|data\/index\.json)$/;
+const SHELL = /\/(index\.html|app\.js|styles\.css|shell\.js|shell\.css|manifest\.webmanifest|assets\.json|data\/index\.json)$/;
 const isShell = (url) => SHELL.test(url.pathname) || url.pathname.endsWith('/');
 
 self.addEventListener('install', (event) => {
