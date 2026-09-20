@@ -43,8 +43,9 @@
      iPhone app open where the reader left off, from the page's own bom.last;
      a browser tab opens on the shelf, as the website does. The page routes
      on the hash it finds at load, so setting it here is enough. */
+  var booted = false;
   if ((inApp || /(^|[?&])boot=1(&|$)/.test(location.search || '')) && (!location.hash || location.hash === '#/')) {
-    try { var last = localStorage.getItem('bom.last'); if (last && /^#\/b\/[^/]+\/\d+/.test(last)) location.hash = last; } catch (e) {}
+    try { var last = localStorage.getItem('bom.last'); if (last && /^#\/b\/[^/]+\/\d+/.test(last)) { location.hash = last; booted = true; } } catch (e) {}
   }
 
   /* ── helpers ─────────────────────────────────────────────────────────── */
@@ -93,6 +94,8 @@
     markRow();
     watchScroll();
     watchSwipe();
+    watchVerse();
+    if (booted) restoreVerse();
     var done = false;
     function unboot() { if (done) return; done = true; html.classList.remove('sw-app-booting'); }
     function ready() { var left = 900 - (Date.now() - bootedAt); setTimeout(unboot, left > 0 ? left : 0); }
@@ -129,6 +132,7 @@
       if (!onChapter()) {
         var last = null; try { last = localStorage.getItem('bom.last'); } catch (e) {}
         location.hash = (last && /^#\/b\//.test(last)) ? last : '#/b/1nephi/1';
+        restoreVerse();
       }
       markRow(); return;
     }
@@ -224,6 +228,39 @@
       if (Math.abs(dy) < 6) return;
       html.classList.toggle('sw-app-reading', dy > 0);
     }, { passive: true });
+  }
+
+  /* ── THE VERSE, NOT JUST THE CHAPTER. The page records the chapter in
+     bom.last; the shell also records the verse at the top of the screen as
+     the reader scrolls, and on a reopen (the app, the installed app, the
+     Read icon from the shelf) scrolls back to it once the chapter is up. ── */
+  var VERSE_KEY = 'bom.lastVerse';
+  function topBar() { var h = document.querySelector('.controls-top'); return (h && h.offsetHeight) || 56; }
+  function watchVerse() {
+    var timer = null;
+    window.addEventListener('scroll', function () {
+      if (timer) return;
+      timer = setTimeout(function () {
+        timer = null;
+        if (!onChapter()) return;
+        var rows = document.querySelectorAll('.verse[data-key]'), edge = topBar() + 12;
+        for (var i = 0; i < rows.length; i++) {
+          if (rows[i].getBoundingClientRect().bottom > edge) { try { localStorage.setItem(VERSE_KEY, rows[i].dataset.key); } catch (e) {} break; }
+        }
+      }, 250);
+    }, { passive: true });
+  }
+  function restoreVerse() {
+    var v = null; try { v = localStorage.getItem(VERSE_KEY); } catch (e) {}
+    if (!v) return;
+    var p = v.split('|');
+    if ((location.hash || '').replace(/\/$/, '') !== '#/b/' + p[0] + '/' + p[1]) return;
+    var tries = 0;
+    (function find() {
+      var elv = document.querySelector('.verse[data-key="' + v + '"]');
+      if (elv) { window.scrollTo(0, elv.getBoundingClientRect().top + window.scrollY - topBar() - 8); return; }
+      if (++tries < 40) setTimeout(find, 100);
+    })();
   }
 
   /* ── A SWIPE TURNS THE CHAPTER, as it does in the Hebrew reader: through the
