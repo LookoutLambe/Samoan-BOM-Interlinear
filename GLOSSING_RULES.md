@@ -941,3 +941,37 @@ the shipped layer had 1,723 units crossing a comma / semicolon / colon and now h
   (`git show 21e5a90f:"… /bom_overrides.json"` → `bom_overrides.CURATED.json`);
   `sentence_harness.py` replays any book now, and the `_stem_word` stemmer strips a
   second `-er` so "delivered" and "deliver" stem alike.
+
+### 22y. The exceptions: exclamations cross the pause (2026-09-20)
+
+User: *"well there are exceptions to everything right? like Oi Talofa e.... search the
+rules you'll see some things need to be done as exclamations and behind context."* The
+rule book (rule 12's envelope, rule 9's fixed phrases) and the curation's own 182
+punctuated units name four shapes that stay ONE unit across the comma inside them;
+`crossing_allowed` in gloss_corpus.py is the one home of the list, used by the walk's
+span guard, by the final punctuation pass and by the corpus checker:
+
+1. **The interjection envelope** (rule 12): `E, le aiga e` "O house", `E, o’u atalii e,`
+   "O my sons,", `E, ma’umau e` "O that", `E, o lea,` "O then,", `E, outou` "O you",
+   `E, Asuria e,` "O Assyrian," — a clause-initial `E,` / `Oi,` / `Aue,` with the unit
+   the curation folded, or with a vocative phrase closing on its `e`, or with one of
+   the short exclamations. Never `E, ia …`: the optative after it is its own frame
+   (`E,` "O," | `ia e manatua,` "remember,", Alma 37:35). The envelope's reading is
+   the one that says "O" (`E, outou` "O you", not the agent's "by you").
+2. **The doubled exclamation**: `Oi talofa, oi talofa,` "Wo, wo,", `e moni, e moni,`
+   "verily, verily,", `Leai, leai;` "Nay, nay;" — a word, not a particle (`E, e` is
+   the interjection and the marker).
+3. **The discourse pair** (rule 9): `Ae, faauta,` "But, behold,", `Aua, faauta,` "For
+   behold,", `Ioe, faauta,` "Yea, behold,", `o lenei, faauta,` "now, behold,", `pe,
+   atonu,` "or perhaps,", `Ma faauta, foi,` "And behold also,", `Auā, afai` "For, if".
+4. **The apposition of a name**: `o a’u, o Nifae,` "I, Nephi,", `lo’u tamā, o Liae,`
+   "my father, Lehi," — the pause before `o NAME`.
+
+A clause-initial `E,` that opens no envelope is the interjection "O," on its own
+(read before the particle readers, so the frame's silence for the marker `e` cannot
+swallow it); the ergative reader never takes a punctuated `E,` for the agent's `e`;
+the negator reader never takes the unit after `E,` for a marked verb. Everything else
+the curation folded across a pause (`faatagataotauaina, ua laveaiina` "were
+delivered", `lava, foi,` "also,") was sprawl, and the pause wins. The checker
+(scratch `tam/check_punct.py`, reading `crossing_allowed`) reports 0 crossings and
+~276 allowed exclamation units in the three volumes.

@@ -239,6 +239,94 @@ def seq_frame_span(toks, i):
     return 0
 
 
+_ENVELOPE_AFTER = {"le", "se", "lo’u", "la’u", "loʻu", "laʻu", "o’u", "a’u", "oʻu", "aʻu", "lona", "lana", "ona", "ana", "lo", "la",
+                   "outou", "oe", "oulua", "lena", "lenei", "ma’umau", "maʻumau", "o", "i", "ia", "le au", "lo", "so’u", "sa’u", "tou"}
+_DISCOURSE_HEAD = {"ae", "a", "aua", "auā", "ioe", "ma", "pe", "po o", "o lenei", "ma o lenei", "ma faauta", "faauta", "leai", "aue", "auē", "oi", "e"}
+_DISCOURSE_TAIL = {"faauta", "atonu", "foi", "fo’i", "foʻi", "afai", "ma", "ioe", "le sa’o tonu"}
+
+
+_CURATED_PUNCT = None
+
+
+def _curated_punct():
+    """The curation's own units carrying punctuation inside them (182 strings,
+    glottal-normalised, lower-cased): the human decisions on where a pause does
+    not end a unit."""
+    global _CURATED_PUNCT
+    if _CURATED_PUNCT is None:
+        _CURATED_PUNCT = set()
+        for sm, _en in load_evidence():
+            if re.search(r"[,;:!?][”’\"')]*\s", sm):
+                r = SG.normalise_glottal(sm.lower())
+                _CURATED_PUNCT.add(r)
+                _CURATED_PUNCT.add(r.rstrip(",;:!."))
+    return _CURATED_PUNCT
+
+
+def crossing_allowed(toks, a, b):
+    """THE EXCEPTIONS TO "A UNIT ENDS WHERE THE CLAUSE PAUSES" (user, 2026-09-20:
+    "there are exceptions to everything right? like Oi Talofa e … some things
+    need to be done as exclamations and behind context"). The rule book and the
+    curation's own 182 punctuated units name four shapes that stay one unit
+    across the comma inside them:
+
+      1. the interjection envelope (rule 12): `E, le aiga e` "O house", `E,
+         ma’umau e` "O that", `E, o lea,` "O then,", `E, outou uma` "O all you",
+         `Aue, …` -- a clause-initial `E,` / `Oi,` / `Aue,` and the vocative or
+         exclamation it opens (up to six tokens, no other pause inside);
+      2. the doubled exclamation: `Oi talofa, oi talofa,` "Wo, wo,", `e moni, e
+         moni,` "verily, verily,", `Leai, leai;` "Nay, nay;";
+      3. the discourse pair (rule 9): `Ae, faauta,` "But, behold,", `Aua,
+         faauta,` "For behold,", `Ioe, faauta,` "Yea, behold,", `pe, atonu,` "or
+         perhaps,", `Ma faauta, foi,` "And behold also,", `Auā, afai` "For, if";
+      4. the apposition of a name: `o a’u, o Nifae,` "I, Nephi,", `lo’u tamā, o
+         Liae,` "my father, Lehi," -- the pause before `o NAME`.
+
+    Everything else the curation folded across a pause (`faatagataotauaina, ua
+    laveaiina` "were delivered", `lava, foi,`) was sprawl, and the pause wins."""
+    def n_(k):
+        return norm(toks[k])
+    inner = [k for k in range(a, b - 1) if re.search(r"[,.;:?!—][”’\"')]*$", toks[k])]
+    if not inner:
+        return True
+    if any(re.search(r"[.?!—][”’\"')]*$", toks[k]) for k in inner):
+        return False                          # a sentence stop is never crossed
+    words = [n_(k) for k in range(a, b)]
+    clause_initial = a == 0 or toks[a - 1][-1:] in SG.CLAUSE_END
+    # 1. the interjection envelope: a unit the curation folded with its comma
+    #    (`E, ma’umau e`, `E, o lea,`, `E, outou`), or `E,` + a vocative phrase
+    #    closing on its `e` (`E, le aiga e`, `E, o’u atalii e,`), or `E,` + one
+    #    of the short exclamations -- never `E, ia …`, where the optative that
+    #    follows is its own frame (`ia e manatua,` "remember,", Alma 37:35)
+    if len(inner) == 1 and inner[0] == a and b - a <= 6 and clause_initial and words[0] in ("e", "oi", "aue", "auē") and b - a >= 2:
+        raw = SG.normalise_glottal(" ".join(toks[a:b]).lower())
+        if raw in _curated_punct() or raw.rstrip(",;:!.") in _curated_punct():
+            return True
+        if words[-1] == "e" and b - a >= 3 and (SG.token_class(words[-2]) == "OPEN" or words[-2] in SG.PRONOUNS or toks[b - 2][:1].isupper()):
+            return True
+        if b - a <= 3 and words[1] in ("ma’umau", "maʻumau", "lena", "oe", "outou", "oulua") or " ".join(words[1:3]) in ("o lea", "le alii"):
+            return True
+        if toks[a + 1][:1].isupper() and words[1] not in SG.CLOSED_CLASS and b - a <= 3:
+            return True                       # `E, Asuria e,` "O Assyrian," / `E, Anatota e.`
+    # 2. the doubled exclamation
+    m = b - a
+    if len(inner) == 1 and m % 2 == 0 and words[:m // 2] == words[m // 2:] and inner[0] == a + m // 2 - 1 and m <= 6 \
+            and len(" ".join(words[:m // 2])) >= 3:      # a word, not a particle: `E, e` is the interjection + the marker
+        return True
+    # 3. the discourse pair
+    if len(inner) == 1 and b - a <= 4:
+        head = " ".join(words[:inner[0] - a + 1])
+        tail = " ".join(words[inner[0] - a + 1:])
+        if head in _DISCOURSE_HEAD and (tail in _DISCOURSE_TAIL or tail.split()[0] in ("faauta", "atonu")):
+            return True
+    # 4. the apposition of a name: `…, o NAME,`
+    if len(inner) == 1 and b - a <= 5 and inner[0] + 2 < b and n_(inner[0] + 1) == "o" \
+            and toks[inner[0] + 2][:1].isupper() and n_(inner[0] + 2) not in SG.CLOSED_CLASS \
+            and words[0] in ("o", "e", "lo’u", "loʻu", "la’u", "laʻu", "ona", "lona", "a’u", "aʻu", "oe"):
+        return True
+    return False
+
+
 def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
     """(length, source) of the unit starting at i, or (0, '').
 
@@ -368,8 +456,11 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
         # end a unit too (user, 2026-09-19: "words … glossed together that
         # should not be together … due to punctuation with commas, semicolons,
         # colons"): `o ia, e faapea:` was one remembered unit, "that:", across
-        # the comma, and `o ia, ua i ai` another (1 Nephi 5:8, 5:11)
-        return any(re.search(r"[,.;:?!—][”’\"')]*$", toks[k]) for k in range(a, b - 1))
+        # the comma, and `o ia, ua i ai` another (1 Nephi 5:8, 5:11) -- except
+        # the exclamations the rule book folds (crossing_allowed)
+        if not any(re.search(r"[,.;:?!—][”’\"')]*$", toks[k]) for k in range(a, b - 1)):
+            return False
+        return not crossing_allowed(toks, a, b)
 
     def ends_on_marker(a, b):
         """THE MARKER GOES WITH ITS VERB (Dunn: the tense rides on the verb). A
@@ -2145,6 +2236,7 @@ def simple_sentences(out, toks, en_text):
         u = units[idx]
         ukey = " ".join(norm(x) for x in toks[u[0]:u[1]])
         if norm(toks[u[0]]) == "e" and u[1] - u[0] >= 2 and ukey not in NEG_UNITS and ukey not in ("e le", "e lē") \
+                and not toks[u[0]].rstrip().endswith((",", ";", ":", "!")) \
                 and not (norm(toks[u[0] + 1]) in ("le", "lē") and (u[1] - u[0] == 2 or norm(toks[u[0] + 2]) in ("o", "lei", "mafai", "toe"))) \
                 and not re.search(r"\b(not|no|never|neither|nor)\b", gloss_of(u).lower()) \
                 and not (norm(toks[u[0] + 1]) in ("le", "lē") and SG.contextual_reading("le", "e", norm(toks[u[0] + 2]) if u[1] - u[0] > 2 else "", False) == "not") \
@@ -2229,6 +2321,8 @@ def simple_sentences(out, toks, en_text):
         if pk_ not in ("o le a", "o le ā", "sa", "ua", "na", "e", "te") and not pk_.endswith(" te") \
                 and not (pk_ in SG.PRONOUNS and pk_.split()[0] in ("sa", "ua", "na", "o")):
             continue
+        if re.search(r"[,;:.?!][”’\"')]*$", toks[units[idx - 1][1] - 1]):
+            continue                          # `E, | le aiga e` "O, | O house": the interjection before the comma is no marker
         g = gloss_of(u)
         if not g or g == CONT or re.search(r"\b(not|no|never|neither|nor|cannot)\b|\bun\w{3,}|\w+less\b", g.lower()):
             continue
@@ -4350,6 +4444,25 @@ def main(argv: list[str] | None = None) -> int:
                 i += hit
                 continue
 
+            if key_sm == "e" and hit == 1 and toks[i].rstrip().endswith((",", ";", ":", "!", ".")) \
+                    and ((i == 0 or toks[i - 1][-1:] in SG.CLAUSE_END) or (i > 0 and SG.token_class(norm(toks[i - 1]).strip(",;.")) == "OPEN")):
+                # THE INTERJECTION AND THE VOCATIVE. A clause-initial `E,` before
+                # its comma is "O" (`E, lena fuafuaga` "O that plan", 2 Nephi 9:28;
+                # `E, ia e manatua` "O, remember", Alma 37:35) -- its own unit,
+                # since the comma closes it (user, 2026-09-19); the `e,` that
+                # closes a vocative noun (`le fiasili e,`) says "O" only where the
+                # verse has one no unit before it spent, else nothing
+                have_o = len(re.findall(r"\b(?:O|Oh)\b", en_text or ""))       # the modern pass may write "Oh"
+                spent_o = sum(1 for w_ in out[:i] if w_["en"] and w_["en"] != CONT and re.search(r"\b(?:O|Oh)\b", w_["en"]))
+                gloss = ("O" + toks[i][len(toks[i].rstrip(",;:!.")):]) if have_o > spent_o else ""
+                why = "grammar/interjection"
+                prev_key = key_sm
+                stats["unit: " + why] += 1
+                trace.append((key_sm, gloss, why))
+                out[i]["en"] = gloss
+                i += hit
+                continue
+
             if hit == 1 and key_sm in SG.ABSORBED and key_sm not in SG.AMBIGUOUS:
                 # A BARE TENSE MARKER SAYS NO WORD OF ITS OWN. `sa`, `ua`, `te`
                 # are absorbed into the verb; the memory still had `sa` = "and"
@@ -4407,24 +4520,6 @@ def main(argv: list[str] | None = None) -> int:
                 i += hit
                 continue
 
-            if key_sm == "e" and hit == 1 and toks[i].rstrip().endswith((",", ";", ":", "!", ".")) \
-                    and ((i == 0 or toks[i - 1][-1:] in SG.CLAUSE_END) or (i > 0 and SG.token_class(norm(toks[i - 1]).strip(",;.")) == "OPEN")):
-                # THE INTERJECTION AND THE VOCATIVE. A clause-initial `E,` before
-                # its comma is "O" (`E, lena fuafuaga` "O that plan", 2 Nephi 9:28;
-                # `E, ia e manatua` "O, remember", Alma 37:35) -- its own unit,
-                # since the comma closes it (user, 2026-09-19); the `e,` that
-                # closes a vocative noun (`le fiasili e,`) says "O" only where the
-                # verse has one no unit before it spent, else nothing
-                have_o = len(re.findall(r"\bO\b", en_text or ""))
-                spent_o = sum(1 for w_ in out[:i] if w_["en"] and w_["en"] != CONT and re.search(r"\bO\b", w_["en"]))
-                gloss = ("O" + toks[i][len(toks[i].rstrip(",;:!.")):]) if have_o > spent_o else ""
-                why = "grammar/interjection"
-                prev_key = key_sm
-                stats["unit: " + why] += 1
-                trace.append((key_sm, gloss, why))
-                out[i]["en"] = gloss
-                i += hit
-                continue
             silent_by_frame = False
             gloss = SG.primary_gloss(key_sm)
             if gloss and (hit == 1 or key_sm in SG.MULTI_CONTEXTUAL):
@@ -4525,6 +4620,17 @@ def main(argv: list[str] | None = None) -> int:
                                 break
                     if alt_:
                         gloss, why = alt_, "grammar/reading-over-settled"
+                # THE INTERJECTION ENVELOPE SAYS ITS "O": `E, outou` is "O you", not
+                # the agent's "by you" the curation also holds (Helaman 13:29)
+                if hit > 1 and toks[i].rstrip().endswith(",") and key_sm.split()[0] in ("e", "oi", "aue", "auē") \
+                        and not re.match(r"^(O|Oh|Wo|Alas)\b", gloss or ""):
+                    ewo_ = set(re.findall(r"[A-Za-z']+", en_text or ""))
+                    alts_ = [(cnt_, g_) for g_, cnt_ in inv[key_sm].items() if re.match(r"^(O|Oh|Wo|Alas)\b", g_)
+                             and all(w_ in ewo_ or w_.lower() in {x.lower() for x in ewo_} for w_ in re.findall(r"[A-Za-z']+", g_))]
+                    if alts_:
+                        gloss, why = max(alts_)[1], "grammar/interjection-envelope"
+                    elif gloss:
+                        gloss, why = "O " + gloss[0].lower() + gloss[1:], "grammar/interjection-envelope"
                 # A DISCOURSE WORD'S OWN READING OUTRANKS A REMEMBERED FUNCTION
                 # WORD: `sa faapea` is "that" once in the curation, and `faapea`
                 # reads "after this manner" -- the verse carries the reading, not
@@ -4918,6 +5024,16 @@ def main(argv: list[str] | None = None) -> int:
         # comma is caught here, and the token before the comma closes its own unit
         for j, w in enumerate(out):
             if w["en"] == CONT and re.search(r"[,;:.?!—][”’\"')]*$", w["sm"]):
+                # the unit this dot belongs to: from the first dot of its run to
+                # the gloss after it -- the exclamations the rule book folds keep it
+                s_ = j
+                while s_ > 0 and out[s_ - 1]["en"] == CONT:
+                    s_ -= 1
+                e_ = j + 1
+                while e_ < len(out) and out[e_]["en"] in ("", CONT):
+                    e_ += 1
+                if e_ < len(out) and crossing_allowed(toks, s_, e_ + 1):
+                    continue
                 w["en"] = ""
                 stats["unit: punctuation closed"] += 1
         if a.debug and DEBUG["key"] in a.debug.split(","):
