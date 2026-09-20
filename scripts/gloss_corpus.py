@@ -629,6 +629,8 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
     #    known, up to the 5-token cluster GLOSSING_RULES.md allows
     if n(i) in SG.ABSORBED:
         for span in range(2, min(6, len(toks) - i + 1)):
+            if crosses_a_stop(i, i + span):
+                break                             # `E, | ia e manatua,`: the marker never absorbs across the pause (Alma 37:35)
             for inner in range(span - 1, 0, -1):
                 if n(i + span - inner, i + span) in inv:
                     return span, "absorbed"
