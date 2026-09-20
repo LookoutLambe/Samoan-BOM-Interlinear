@@ -850,3 +850,94 @@ the Bible. Every fix below is a rule in the walk, the tables or the sentence pas
   one the unit before carries ("like | my brothers").
 - **Diagnostic:** F1 vs the curation 86.4 → 86.6 (content 86.7 → 86.6); 98.6% of BOM/D&C/PGP
   tokens carrying text. The curation is the diagnostic, the grammar is the gate.
+
+### 22x. Rules the 1 Nephi 5 read added (2026-09-19)
+
+User: *"1 Nephi 5 in Samoan needs an audit the TAM particles are messed up"*; on verse 1,
+*"ona sa ........"*; and *"words … glossed together that should not be together … due to
+punctuation with commas, semicolons, colons … throughout every book of the book of
+mormon"*. Every fix is a rule in `frame_at`, the grammar tables or the sentence pass;
+the shipped layer had 1,723 units crossing a comma / semicolon / colon and now has none.
+
+- **A unit ends where the clause pauses.** `crosses_a_stop` counts the comma, the
+  semicolon, the colon and the em dash as well as the sentence stops, for curated
+  memory and grammar frames alike; a frame reads its next token only inside the
+  clause (`nxt_of` stops at a comma: `ina ua po, sa …` is "when it was night");
+  `attach_particles` never binds a leaning particle back over a comma (`le
+  faamoemoe, lea` keeps "the cause," on the noun); and a closed-class token that
+  closes on punctuation is never the dot — a stage that folds a gloss forward over a
+  comma is undone at the end (`unit: punctuation closed`, 304 in the three volumes)
+  and the token before the comma stands as its own, empty, cell. The 700 cells this
+  emptied were the crossings: a repeated noun the English says once, a locative the
+  verb's adverb already carries, a degree word the verse has no word for.
+- **The marker goes with its verb** (`ends_on_marker`): a span never ends on a bare
+  `sa / ua / na / e / te` while the verb follows — `ona | sa faanoanoa` "for | had
+  mourned", never `ona sa` "for" + "had mourned". The grammar's own frames (`ina ua`,
+  `ou te`, `sa ia`, `o le a`) and the relative heads (`e e`, `o e ua`, `o lē na`) are
+  units by design; and the relative closes at its marker before a negative (`e e | lē
+  talitonu` "those who | believe not").
+- **The agent phrase after `e` may be a possessive** (`e lo’u tamā` "my father"): the
+  two agent guards read `POSSESSIVES`, so `sa ave e | lo’u tamā` and `maua foi e |
+  lo’u tamā` split before the `e`.
+- **The clitic frame carries its doer.** `laua` joins `DESCRIPTIVE_PRONOUNS` (`sa laua
+  avatu` "they gave"); a remembered reading that dropped the pronoun takes it back
+  where the verse sets it before that verb (`ua ou maua` "I have obtained"); the dual
+  datives `ia te i ta’ua / ma’ua / la’ua` are frames ("to us", "to them").
+- **The pronoun's gender is the verse's.** A verse that writes only she / her reads
+  `o ia`, `e ia`, `ia te ia` in the feminine (walk, `_feminine`); a verse with both
+  reads each 3sg unit by the nearest 3sg pronoun in the verse (stage `pronoun
+  gender`: 1 Nephi 5:1 "he was filled … she truly had mourned").
+- **The directional joins its verb** (`_join_directional`): an absorbed `atu / mai /
+  ifo` is the tail of the verb's unit, never the head of the phrase after it (`osi
+  atu` "did offer" | `taulaga`; `faatau atu` "sold" | `i Aikupito`); a blank one after
+  a filled verb takes the verse's adverb (`o le a oo atu` "should go forth"), and the
+  scaffolding reads the verb under that adverb, so the modal still moves onto `o le a`.
+- **The quotative.** A verb of speaking that closes on a colon says "saying:" where the
+  verse does, and the verb of speaking before it gives up "saying" for the verse's
+  speech word nearest ITS place — trading with a later unit when that one holds the
+  nearer word (`sa fai mai` "spake" … `sa tautala` "did speak").
+- **The verse's own words, sharpened.** `e faapea` before a colon reads the quotative,
+  not the memory's "that"; a discourse word's own reading outranks a remembered
+  function word (`sa faapea` "after this manner", never "that"); the copula and the
+  auxiliaries are no content when carried readings tie (`o le Atua` "of God", not "am
+  God"); a remembered modal the verse lacks takes the verse's one modal (`e mafai ai
+  ona latou` "whereby they could") and the light verb after it the verse's verb after
+  that modal (`faia` "accomplish"); a leading content word the verse lacks comes off a
+  long reading whose rest it carries (`sa tatau ai ona matou ave` "that we should
+  carry"); the intensifier says the verse's unspent adverb (`tele lava` "truly" beside
+  a spent "exceedingly"); `ma` + noun takes the verse's preposition where neither "and"
+  nor "with" joins it (`ma le mautinoa` "of a surety"); an article-headed phrase takes
+  the verse's preposition (`le fofoga` "by the mouth"); a possessive phrase takes the
+  verse's number (`ma ona tamā` "and his fathers"); the verse's auxiliary comes with
+  the verse's form (`sa oo ina` "it had come to pass that"); a name takes no auxiliary.
+- **Frames.** `e` + numeral after a noun is the number (`tusi e lima` "five books");
+  `matua` after a possessive, an article or `uluai` is the noun "parents"; `po` before a
+  clause is the dubitative and silent (`po ua ou lē iloa`), after a marker it is
+  "night"; `a o` + a plural pronoun is "as / while" (`a o matou malaga` "as we
+  journeyed"); `ona` before a marker reads "for" first (the curation's 127 of 197);
+  a lone `o` after the verb is the absolutive and says no "of" the verse cannot spare
+  (`ave o nei papatusi`); `o lē na` reads the relative the verse sets on the noun
+  before it ("Jacob, who was sold"); a bare pronoun before a predicate nominal takes
+  the verse's copula (`o ia | o se tagata` "he was | a man"); the negator inside the
+  verb's unit folds in ("never perish"); a clause-initial `E,` is the interjection "O",
+  and the `e,` closing a vocative noun says "O" only where the verse has one unspent;
+  `foi` splits off as "also" where the verse has one unspent or a comma closes it;
+  a compound adverb (thereto, whereby …) only where the verse has it unspent, the
+  bare `ai` giving way to the frame that carries it; `i latou` after the verb's own
+  `foi / lava / uma` is still its subject; after any verb the verse makes transitive
+  the `i` phrase is the plain object (`faamafanafana … i lo’u tinā` "comfort … my
+  mother"), the verb being the nearest verbal unit of the clause, past an appositive
+  (`lo’u tamā, o Liae,`); a repeated phrase spent only in its preposition keeps its
+  noun ("your Father," not nothing); `which is the X` only where the verse sets the
+  relative copula on that noun; "he" is never doubled by the agent after "that he
+  might"; the existential says itself where the verse folds it (`ua i ai` "there
+  were"); `tagata mau faaaliga` "visionary man" is a registered term.
+- **Senses added** (`HAND_SENSES`): `oo` reach / come / go / come to pass (Pratt has
+  only the pork cut), `faatau` sell / sold, `faaumatia` perish, `iloa` discover /
+  find, `aiga` household, `laveai` deliver, `fai` accomplish / tell.
+- **Diagnostic:** F1 vs the curation 83.5 → 83.9 (content 85.3 → 85.6); 99.1% of
+  BOM / D&C / PGP tokens carrying text; 0 units crossing punctuation (was 1,723).
+  `measure_pass.py` reads the curated baseline from `$SAMOAN_SCRATCH`
+  (`git show 21e5a90f:"… /bom_overrides.json"` → `bom_overrides.CURATED.json`);
+  `sentence_harness.py` replays any book now, and the `_stem_word` stemmer strips a
+  second `-er` so "delivered" and "deliver" stem alike.

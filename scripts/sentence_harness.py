@@ -23,7 +23,7 @@ ov = json.load(open("/Users/chrislambe/Desktop/O le Tusi a Mamona Interlinear/O 
 key = next(k for k, ws in ov.items() if k.startswith("1nephi|2|") and G.norm(" ".join(w["sm"] for w in ws)).split()[:6] == G.norm(" ".join(u[0] for u in units)).split()[:6]) if False else None
 toks = []
 for k, ws in ov.items():
-    if not k.startswith("1nephi|"): continue
+    if not k.startswith(prefix.split("|")[0] + "|"): continue   # the book of the verse asked for
     flat = [G.norm(w["sm"]).strip(",;.:!?—") for w in ws]
     want = [t for u in units for t in u[0].split()]
     if flat == [w.strip(",;.:!?—") for w in want] or len(flat) == len(want) and sum(a == b for a, b in zip(flat, want)) > len(flat) * 0.9:

@@ -1,12 +1,15 @@
 #!/usr/bin/env python3
 """Content-word agreement with the curation. See score_against_curation.py."""
-import json, pathlib, re, sys
+import json, os, pathlib, re, sys
 from collections import Counter
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import english_register as ER
 R = pathlib.Path(__file__).resolve().parent.parent / "O le Tusi a Mamona Interlinear" / "Resources"
-SC = pathlib.Path("/private/tmp/claude-501/-Users-chrislambe-Desktop-untitled-folder"
-                  "/613c68df-5949-46cb-8611-81201268d964/scratchpad")
+# the curated Book of Mormon (bom_overrides.json as it stood before the generator
+# rewrote it; `git show 21e5a90f:"O le Tusi a Mamona Interlinear/Resources/bom_overrides.json"`),
+# in whatever scratch folder holds it: SAMOAN_SCRATCH, else the 2026-09-04 session's
+SC = pathlib.Path(os.environ.get("SAMOAN_SCRATCH", "/private/tmp/claude-501/-Users-chrislambe-Desktop-untitled-folder"
+                  "/613c68df-5949-46cb-8611-81201268d964/scratchpad"))
 new = json.loads((R/"bom_overrides.json").read_text())["verses"]
 oldf = json.loads((SC/"bom_overrides.CURATED.json").read_text()); old = oldf["verses"]
 curated = set(old) - set(oldf.get("generated", []))

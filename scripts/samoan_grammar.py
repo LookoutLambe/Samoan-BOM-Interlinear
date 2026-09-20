@@ -268,6 +268,12 @@ PRONOUNS = {
     'ia te i latou': ('3pl dat', 'to them'),    # to them 358
     'ia te i matou': ('1pl.excl dat', 'to us'), # to us 44
     'ia te i tatou': ('1pl.incl dat', 'to us'), # to us 26
+    # THE DUALS UNDER THE DATIVE. After `ia te i` only a pronoun can stand, so
+    # here -- and only here -- the glottal-less spellings are the pronouns too:
+    # `ia te i ta’ua` is "unto us" (1 Nephi 5:5), never the verb "called".
+    'ia te i ta’ua': ('1du.incl dat', 'to us'),  'ia te i taua': ('1du.incl dat', 'to us'),
+    'ia te i ma’ua': ('1du.excl dat', 'to us'),  'ia te i maua': ('1du.excl dat', 'to us'),
+    'ia te i la’ua': ('3du dat', 'to them'),     'ia te i laua': ('3du dat', 'to them'),
 }
 
 # ── THE DESCRIPTIVE (CLITIC) DOER ────────────────────────────────────────────
@@ -295,6 +301,10 @@ DESCRIPTIVE_PRONOUNS = {
     'lua': ('2du', 'ye'),      'la': ('3du', 'they'),      'tou': ('2pl', 'ye'),
     'matou': ('1pl.excl', 'we'), 'tatou': ('1pl.incl', 'we'),
     'outou': ('2pl', 'ye'),    'latou': ('3pl', 'they'),
+    # the Book of Mormon writes the 3du clitic in full: `sa laua avatu le
+    # faafetai` "they gave thanks", `ona laua tuuina atu` "they had given"
+    # (1 Nephi 5:9-10) -- the marker + `laua` is the doer, never "them"
+    'laua': ('3du', 'they'),
 }
 # the markers a clitic doer follows. NOT the non-past `e`: with a clitic it
 # becomes `te` (`ou te`, `latou te`), which the table above already holds --
@@ -306,8 +316,8 @@ _CLITIC_TAM = {
 }
 for _tam, _aux in _CLITIC_TAM.items():
     for _pr, (_person, _eng) in DESCRIPTIVE_PRONOUNS.items():
-        if _tam == 'ia' and _pr in ('ia', 'na', 'e', 'ma', 'ta', 'la'):
-            continue                         # `ia ia` / `ia na` / `ia e` are not clitic frames
+        if _tam == 'ia' and _pr in ('ia', 'na', 'e', 'ma', 'ta', 'la', 'laua'):
+            continue                         # `ia ia` / `ia na` / `ia e` are not clitic frames; `ia laua` is the preposition
         if _pr == 'ta':
             continue                         # `ua ta le logo` is the VERB "strike"; the 1du.incl clitic is not in this text
         PRONOUNS.setdefault(_tam + ' ' + _pr, (_person + ' clitic', _eng + _aux))
@@ -1017,6 +1027,10 @@ VOCABULARY = {
     'i le ua faapea lava': 'and it was so',
     'e taitasi ma lona uiga': 'each after its kind',
     'e taitasi ma o latou uiga': 'each after their kind',
+    # an idiomatic compound noun (GLOSSING_RULES rule 3, exception A): one unit,
+    # never `tagata` swallowed by the clause before it with `mau faaaliga` left
+    # as "dwell revelations" (1 Nephi 5:2, 5:4)
+    'tagata mau faaaliga': 'visionary man',
     # words of the Bible register that occur too rarely for the learned lexicon
     # to reach; hand entries (user, 2026-09-05: nunumi = confused, without form)
     'nunumi': 'without form',
@@ -1426,6 +1440,12 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         # is itself the tense marker in that clause, so no other follows. The
         # A-class possessive follows a noun mid-clause and keeps its reading.
         nn = after[1] if len(after) > 1 else ''
+        if n == 'o' and nn in ('matou', 'latou', 'tatou', 'outou', 'laua', 'maua', 'taua', 'ma’ua', 'ta’ua', 'la’ua'):
+            # `a o matou malaga i le vao` "as we journeyed in the wilderness"
+            # (1 Nephi 5:22): `a o` + the possessive of a nominalised verb is
+            # the temporal "while / as" (Dunn: a o, ao); `A o i latou` "But as
+            # many as" keeps the conjunction below
+            return 'as|while|when|but|and'
         if n in ('o', 'ua', 'ia', 'lei', 'le’i', 'leʻi', 'le', 'lē') or (n == 'e' and nn in ('lei', 'le’i', 'leʻi', 'le', 'lē', 'leai')):
             return 'but|and'
         if n == 'e' or n in DESCRIPTIVE_PRONOUNS or n in PRONOUNS or token_class(n) == 'OPEN':
@@ -1445,8 +1465,14 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
     if f == 'po':
         # the alternative / interrogative particle (`po o` "or") -- but after a
         # determiner it is the NOUN: `le po` "the night", `i le po` "by night"
-        if p in ('le', 'se', 'ni', 'lea', 'lenei', 'lena', 'lona', 'lo', 'la') and n != 'o':
-            return 'night'
+        if (p in ('le', 'se', 'ni', 'lea', 'lenei', 'lena', 'lona', 'lo', 'la') or p in TAM) and n != 'o':
+            return 'night'                   # `le po` "the night"; `ina ua po` "when it was night" (Alma 47:10)
+        # THE DUBITATIVE before a clause: `a na ou lē vaai … po ua ou lē iloa`
+        # "if I had not seen … I should not have known" (1 Nephi 5:4) -- the
+        # particle opens the consequence and English has no word for it; only
+        # `po o` is the alternative "or", left to its readings
+        if n in TAM or n in DESCRIPTIVE_PRONOUNS or n in ('te', 'le', 'lē', 'ou', 'a’u', 'aʻu'):
+            return ''
         return None
 
     if f == 'le':
@@ -1546,6 +1572,11 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         #   le tele 171 "many of"                        rejoice exceedingly"
         #   sa tele  29 "were many"      faanoanoa tele 42 "exceedingly
         #                                                   sorrowful"
+        if f in ('matua', 'matuā') and (p in POSSESSIVES or p in ('le', 'se', 'ni', 'uluai', 'ulua’i', 'uluaʻi', 'lo', 'la')):
+            # THE NOUN: `o tatou uluai matua` "our first parents" (1 Nephi
+            # 5:11), `ona matua` "his parents" -- after a possessive, an article
+            # or "first" it is the parent, not the intensifier
+            return 'parents|parent|father|mother'
         if p and (p in CLOSED_CLASS or p in AMBIGUOUS):
             return 'many'
         if p:
@@ -1646,7 +1677,10 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         # "for" of 197, `ona tagata` 78 "his" of 85.
         if n in ('o', 'ua', 'sa', 'na', 'e', 'te', 'latou', 'ou', 'outou',
                  'matou', 'tatou', 'ia'):
-            return 'because'
+            # "for" first: the curation reads `ona ua` "for" 127 times of 197,
+            # and `ona sa faanoanoa` "for she had mourned" stands beside `ona o
+            # i matou` "because of us" in one verse (1 Nephi 5:1)
+            return 'for|because'
         if n and n not in CLOSED_CLASS and n not in AMBIGUOUS:
             return 'his'
         return None
@@ -1948,7 +1982,23 @@ HAND_SENSES = {
     'tautatala': ['speak', 'talk', 'utter'],
     'pule':     ['power', 'rule', 'authority', 'ruler'],
     'mea':      ['thing', 'things'],
+    # 1 Nephi 5 (2026-09-19): words Pratt holds under a spelling the corpus never
+    # writes, or with a sense the KJV needs. `oo` is the common verb "reach,
+    # arrive, come to (pass)" -- Pratt has it only as a pork cut; `faatau` is
+    # buy AND sell (`faatau atu` "sold"); `faaumatia` is destroy AND perish;
+    # `iloa` is know AND discover / find; `fai` covers "accomplish" as it
+    # covers build / perform / prepare; `aiga` is household as well as family.
+    'oo':       ['reach', 'arrive', 'come', 'go', 'attain', 'happen', 'come to pass'],
+    'faatau':   ['sell', 'sold', 'buy', 'bought', 'trade'],
+    'faaumatia': ['destroy', 'destroyed', 'perish', 'consume', 'put an end to'],
+    'faaumatiaina': ['destroy', 'destroyed', 'perish', 'consume', 'destruction'],
+    'iloa':     ['know', 'knew', 'known', 'discover', 'discovered', 'find', 'found', 'perceive', 'see'],
+    'aiga':     ['family', 'household', 'kindred', 'relatives', 'home'],
+    'laveai':   ['deliver', 'delivered', 'save', 'saved', 'rescue'],
 }
+# the light verb reaches the KJV's "accomplish" as it reaches build / perform
+HAND_SENSES['fai'].append('accomplish')
+HAND_SENSES['faia'] += ['accomplish', 'accomplished']
 
 RESPECTFUL = {
     # `foliga` is the respectful word for a face -- `o le foliga o le Atua` is
