@@ -644,8 +644,6 @@
     return wrap;
   }
 
-  /* The navy cover plate from BookListView.BookCover — tapping it opens the
-     library, exactly as in the app. */
   /* One cover plate: interlinear title cells over interlinear subtitle cells,
      between two gold rules. The Book of Mormon and O le Tusi Paia share it. */
   function coverPlate(titles, subtitles, label, extraClass, onOpen) {
@@ -679,7 +677,12 @@
   /* One card per volume, in the index's order, each in the Book of Mormon
      cover's dress: Samoan title cells over their English, a subtitle, gold
      rules. The glosses read cell by cell in Samoan order, as the interlinear
-     does. Tapping a card opens the library at that volume's books. */
+     does. TAPPING A COVER OPENS THAT VOLUME WHERE THE READER LEFT IT, as the
+     Hebrew landing's cards do (user, 2026-09-25: "when you click the landing
+     book of mormon it should go to the book of mormon where im left off...
+     same with the old testament, new testament, pgp, dc"). It used to open
+     the library drawer at the volume's books; the library is one tap away in
+     the reader, and the cover is the way back into the book. */
   const COVERS = {
     bom: { titles: [['O LE TUSI', 'The Book'], ['A MAMONA', 'of Mormon']],
            sub: [['O se tasi molimau', 'Another testimony'], ['a Iesu Keriso', 'of Jesus Christ']] },
@@ -703,7 +706,7 @@
       const spec = COVERS[vol.id] || { titles: [[vol.nameSm.toUpperCase(), vol.nameEn]], sub: [] };
       const wrap = el('div', 'cover-wrap');
       wrap.append(coverPlate(spec.titles, spec.sub, `Tatala: ${vol.nameSm}`, `cover-${vol.id}`,
-        () => openDrawerAt(vol.id)));
+        () => { location.hash = resumeHash(vol.id); }));
       wrap.append(volumeBookmark(vol));
       grid.append(wrap);
     }
@@ -714,16 +717,28 @@
      as the Hebrew reader's landing page carries one under each card. A volume
      not yet opened starts at its first chapter. Tapping it opens the chapter
      and settleScroll() returns to the verse. */
-  function volumeBookmark(vol) {
-    const pos = savedPos(vol.id);
+  /* Where a volume resumes: the place saved in it, or its first chapter. The
+     cover and the bookmark under it both go here, and opening that chapter
+     brings settleScroll() back to the verse. */
+  function resumeTarget(volId) {
+    const pos = savedPos(volId);
     let book = pos && bookById(pos.book);
     let num = pos && Number(pos.num);
     let verse = pos && Number(pos.verse);
-    if (!book || (book.volume || 'bom') !== vol.id || !book.chapters.includes(num)) {
-      book = state.index.books.find((b) => (b.volume || 'bom') === vol.id);
+    if (!book || (book.volume || 'bom') !== volId || !book.chapters.includes(num)) {
+      book = state.index.books.find((b) => (b.volume || 'bom') === volId);
       num = book.chapters[0];
       verse = 0;
     }
+    return { book, num, verse };
+  }
+  const resumeHash = (volId) => {
+    const t = resumeTarget(volId);
+    return `#/b/${t.book.id}/${t.num}`;
+  };
+
+  function volumeBookmark(vol) {
+    const { book, num, verse } = resumeTarget(vol.id);
     const ref = `${book.nameSm} ${num}${verse > 1 ? ':' + verse : ''}`;
     const btn = el('button', 'card-continue');
     btn.type = 'button';
@@ -732,7 +747,7 @@
     btn.setAttribute('aria-label', `Continue reading ${vol.nameEn} at ${book.nameEn} ${num}${verse > 1 ? ':' + verse : ''}`);
     btn.addEventListener('click', (e) => {
       e.stopPropagation();
-      location.hash = `#/b/${book.id}/${num}`;
+      location.hash = resumeHash(vol.id);
     });
     return btn;
   }
@@ -1096,13 +1111,6 @@
     set('dock-next', all[at + 1], 'Mataupu sosoo');
     $('nav-label').textContent = `${book.nameSm} ${num} \u25be`;
     $('nav-label').setAttribute('aria-label', `${book.nameSm} ${num} — open the contents`);
-  }
-
-  /* Open the library scrolled to one volume's section — how the Bible cover
-     lands the reader among the 66 books rather than at the top of the drawer. */
-  function openDrawerAt(volId) {
-    state.drawerVol = volId;
-    toggleDrawer(true);
   }
 
   /* A DRAWER OPENS AT THE TOP. It used to scroll the reader's own chapter to
@@ -1490,7 +1498,12 @@
     }
     /* buildDrawer() before opening, always: the drawer marks where you are,
        so a drawer built once and reused shows the wrong place. */
-    $('nav-label').addEventListener('click', () => { buildDrawer(); toggleDrawer(true); });
+    // the library opens on the volume being read; off a book, on the tab last chosen
+    $('nav-label').addEventListener('click', () => {
+      state.drawerVol = volumeOfCurrent() || state.drawerVol;
+      buildDrawer();
+      toggleDrawer(true);
+    });
     $('drawer-scrim').addEventListener('click', () => toggleDrawer(false));
 
 
