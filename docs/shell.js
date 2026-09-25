@@ -49,7 +49,7 @@
   var FULLSCREEN_KEY = 'sw-app-fullscreen';
   try { if (localStorage.getItem(FULLSCREEN_KEY) === '1') html.classList.add('sw-app-fullscreen'); } catch (e) {}
   var bootedAt = Date.now();
-  document.write('<link rel="stylesheet" href="' + BASE + 'shell.css?v=2">');
+  document.write('<link rel="stylesheet" href="' + BASE + 'shell.css?v=3">');
 
   /* OPEN IN THE BOOK. The installed app (start_url carries ?boot=1) and the
      iPhone app open where the reader left off, from the page's own bom.last;
@@ -210,6 +210,11 @@
   function syncChrome() {
     var here = hereLabel();
     if (title) title.textContent = here || 'O le Tusi a Mamona';
+    /* THE ROW IS FOR THE BOOKS. On the landing the covers are the way in and
+       the page stands alone, as the Hebrew app's landing does on an iPhone
+       (user, 2026-09-25: "does NOT show the footer on the landing pages...
+       only in the books"). */
+    html.classList.toggle('sw-app-in-book', onChapter());
     if (!chapterRow) return;
     var dock = $('dock');
     var live = !!(dock && !dock.hidden) && onChapter();

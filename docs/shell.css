@@ -93,6 +93,9 @@ html.sw-web-shell main {
 html.sw-web-shell.sw-app-has-chapter main {
   padding-bottom: calc(var(--sw-cap-bottom) + var(--sw-cap-h) + 24px) !important;
 }
+html.sw-web-shell:not(.sw-app-in-book) main {
+  padding-bottom: calc(var(--sw-safe-b) + 24px) !important;   /* no row on the landing */
+}
 
 /* ── THE CHAPTER ROW: ‹ previous · this chapter ▾ · next › ───────────── */
 /* The dock stays in the page, hidden: its arrows decide what is next and
@@ -126,7 +129,10 @@ html.sw-web-shell.sw-app-reading #sw-app-chapter-row {
   transform: translateY(calc(var(--sw-cap-bottom) + var(--sw-cap-h) + 8px)); opacity: 0; pointer-events: none;
 }
 
-/* ── THE ICON ROW: always there ─────────────────────────────────────── */
+/* ── THE ICON ROW: in the books, never on the landing ───────────────── */
+/* The landing is the covers alone, as on the Hebrew app's landing; the row
+   comes up with the first chapter opened (shell.js sets sw-app-in-book). */
+html.sw-web-shell:not(.sw-app-in-book) #sw-app-row { display: none; }
 #sw-app-row {
   position: fixed; z-index: 2147483000;
   left: var(--sw-side); right: var(--sw-side); bottom: var(--sw-row-bottom);
