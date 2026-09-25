@@ -653,7 +653,7 @@ DEMONSTRATIVES = {
     # `o e` is the headless relative -- "those who", "they who". The curation
     # ends 218 units on this `e` with "who" as the last English word, and the
     # grammar had no entry, so it was read as an ergative or dropped.
-    'o e': 'those who, they who',
+    'o e': 'those who, they who, those that, them that',
     'nei':   'this, these (proximal)',                    #  966   331
     'lenei': 'this',
     'lea':   'that, the aforementioned',
@@ -687,10 +687,13 @@ DEMONSTRATIVES = {
     'o le e':  'he that, he who, whoso, the one who, which',
     'o se e':  'whosoever, any that, he that, anyone who',
     'o se ua': 'whosoever, any that, anyone who',
-    'o e ua':  'they that, those who, they who, which',
-    'o e e':   'they that, those who, they who, which',
-    'o e na':  'they that, those who, they who, which',
-    'o e sa':  'they that, those who, they who, which',
+    # "those that" and "them that" are the KJV's own forms of the same
+    # antecedent (1 Nephi 8:33 "those that were partaking"): without them the
+    # verse's "those" was patched onto "they that" and printed "they those"
+    'o e ua':  'they that, those who, they who, those that, them that, which',
+    'o e e':   'they that, those who, they who, those that, them that, which',
+    'o e na':  'they that, those who, they who, those that, them that, which',
+    'o e sa':  'they that, those who, they who, those that, them that, which',
 }
 
 # ── THE EXISTENTIAL PREDICATE ────────────────────────────────────────────────
@@ -1365,6 +1368,18 @@ NA_TAM_BEFORE = {'ma', 'ona', 'a', 'ae', 'aua', 'auā', 'ina', 'lea', 'ia', 'foi
                  'afai', 'peitai', 'peita’i', 'peitaʻi'}
 
 
+def negator_after_future(prev, nxt, before):
+    """THE NEGATOR AFTER THE FUTURE MARKER: `o le a le faaolaina` "shall not be
+    saved" (1 Nephi 10:6). The `a` of `o le a` is the marker and the `le` after
+    it is "not", as after every other marker -- read as the article it printed
+    "shall | the | be saved". The grammar is certain here, so the negation is
+    written even where the English turns it into something else ("ever would
+    be … save they should rely"). Before a phrase head it is the article."""
+    p = (prev or '').strip().lower(); n = (nxt or '').strip().lower()
+    b = [(x or '').strip().lower() for x in before]
+    return p == 'a' and b[-3:-1] == ['o', 'le'] and bool(n) and n not in ('o', 'i', 'ia', 'iā', 'se', 'ni', 'le', 'mea', 'uiga')
+
+
 def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(), after=()):
     """A reading this particle takes only in this frame, or None.
 
@@ -1476,6 +1491,19 @@ def contextual_reading(form, prev=None, nxt=None, clause_initial=False, before=(
         return None
 
     if f == 'le':
+        if negator_after_future(p, n, before):
+            return 'not'
+        # THE PRONOUN BEFORE `le` IS A CLITIC DOER only when a marker stands
+        # before it (`ua latou le iloa` "they knew not"). After the ergative `e`
+        # or a preposition it is the agent or the object, the clause's verb is
+        # behind it, and `le` opens the next noun phrase -- the ARTICLE: `Inā
+        # teuteu ia e outou le ala` "prepare ye the way", `ia te i latou le
+        # tulafono` "to them the law" (1 Nephi 10:8; 31 of these read "not")
+        if p in LE_NEG_BEFORE and p not in ('te', 'sa', 'ua', 'na') and len(before) >= 2 \
+                and before[-2] in ('e', 'i', 'te', 'ma', 'mo', 'mai', 'o', 'a'):
+            # (not after `ia`: `ia latou le mavaavaai` is the optative, "let them
+            # not see" -- Psalm 69:23 -- as often as it is the preposition)
+            return None
         if p in LE_NEG_BEFORE or (p == 'e' and n == 'o') or n in LE_NEG_AFTER:
             return 'not'
         return None
@@ -1998,7 +2026,46 @@ HAND_SENSES = {
 }
 # the light verb reaches the KJV's "accomplish" as it reaches build / perform
 HAND_SENSES['fai'].append('accomplish')
+# `taitasi` "each, every" (Dunn: tai- + number = each); no dictionary has it,
+# so the blank-word pairing gave it the noun after "every" -- "sort",
+# "company", "assembly" (Jacob 5:31, D&C 136:5, Alma 21:16)
+HAND_SENSES['taitasi'] = ['each', 'every', 'each one']
 HAND_SENSES['faia'] += ['accomplish', 'accomplished']
+# THE LIGHT VERB GIVES what it makes: `fai se lauga` "give a speech", `faia …
+# se tala` "give an account" (1 Nephi 10:1, where `ona faia` was left blank)
+HAND_SENSES['fai'] += ['give']
+HAND_SENSES['faia'] += ['give', 'given']
+# THE WORDS LEFT BLANK MOST OFTEN (2026-09-25, the user: "the interlinear is
+# still missing words"). A blank word pairs with the verse's leftover English
+# only when that English is one of its senses, and these -- the commonest
+# words of the corpus -- had one sense or none: `tagata` only "person", `nofo`
+# no "dwell", `tuu`, `taofi`, `sili`, `faavavau` nothing at all. Their ordinary
+# senses, as Pratt and every learner's list give them.
+for _w, _s in {
+    'tagata':   ['man', 'men', 'people', 'person', 'persons', 'mankind', 'human'],
+    'uiga':     ['concerning', 'about', 'meaning', 'character', 'manner'],
+    'faavavau': ['forever', 'everlasting', 'eternal', 'eternity', 'evermore', 'endless'],
+    'nofo':     ['sit', 'stay', 'dwell', 'abide', 'live', 'remain', 'tarry', 'settle', 'inhabit'],
+    'tuu':      ['put', 'place', 'set', 'leave', 'let', 'give', 'deliver', 'allow', 'suffer', 'cease', 'ceased'],
+    'tuuina':   ['put', 'placed', 'given', 'delivered', 'laid', 'set'],
+    'taofi':    ['hold', 'keep', 'stop', 'withhold', 'retain', 'restrain', 'stay', 'hinder'],
+    'taofia':   ['held', 'kept', 'stopped', 'withheld', 'retained', 'restrained', 'hindered'],
+    'sili':     ['best', 'greatest', 'most', 'chief', 'greater', 'above'],
+    'fanua':    ['land', 'lands', 'field', 'fields', 'ground'],
+    'luma':     ['before', 'front', 'presence', 'forward'],
+    'isi':      ['other', 'others', 'another', 'some'],
+    'tusa':     ['according', 'equal', 'like', 'same', 'about'],
+    'sui':      ['member', 'members', 'representative', 'agent', 'substitute', 'replace'],
+    'mama':     ['clean', 'pure', 'purity', 'light'],
+    'manu':     ['animal', 'animals', 'beast', 'beasts', 'bird', 'birds', 'fowl', 'fowls', 'cattle', 'flocks'],
+    'manatu':   ['think', 'thought', 'thoughts', 'remember', 'consider', 'suppose', 'believe', 'mind', 'opinion'],
+    'muamua':   ['first', 'before', 'former', 'beginning', 'formerly'],
+    'ituaiga':  ['kind', 'kinds', 'manner', 'sort', 'tribe', 'tribes'],
+    'tino':     ['body', 'bodies', 'flesh', 'person'],
+    'lelei':    ['good', 'well', 'better', 'best', 'goodness'],
+    'maua':     ['obtain', 'obtained', 'get', 'find', 'found', 'receive', 'received', 'have', 'possess'],
+}.items():
+    HAND_SENSES[_w] = list(dict.fromkeys(HAND_SENSES.get(_w, []) + _s))
 
 RESPECTFUL = {
     # `foliga` is the respectful word for a face -- `o le foliga o le Atua` is

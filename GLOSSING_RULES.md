@@ -975,3 +975,89 @@ the curation folded across a pause (`faatagataotauaina, ua laveaiina` "were
 delivered", `lava, foi,` "also,") was sprawl, and the pause wins. The checker
 (scratch `tam/check_punct.py`, reading `crossing_allowed`) reports 0 crossings and
 ~276 allowed exclamation units in the three volumes.
+
+### 22z. Rules the 1 Nephi 10 read added (2026-09-25)
+
+The user: *"you still are NOT following grammar rules for glossing.... the
+interlinear is still missing words"* and *"you have the grammar rules use them"*.
+1 Nephi 10 was read token by token against the English; every defect was traced to
+the stage that owned it and measured across the corpus before it was fixed. Each fix
+below is a rule of the language, none a verse patch.
+
+- **A grammar frame is never split by memory.** `o le a` is the future marker (22a).
+  Where the verse's English had no "shall", the whole-gives-way-to-parts rule refused
+  its readings and cut it into `o le` + `a`, "then | of" (1 Nephi 10:21), "was the | of"
+  (3:14), 161 times in the three volumes → 9. A frame in `SG.TAM` or
+  `SG.MULTI_FORMS` never gives way.
+- **The negator after the future marker** (22j): `o le a le faaolaina` "shall | not be
+  saved" (10:6), read as the article "the". `SG.negator_after_future` is certain and
+  writes "not" even where the English turns the negation into something else.
+- **After the agent or a preposition, `le` is the article**: `Inā teuteu ia e outou le
+  ala` "prepare ye | the way" (10:8), `ia te i latou le tulafono` "to them | the law". A
+  pronoun before `le` is a clitic doer (and `le` the negator) only when a marker stands
+  before it; after `e`, `i`, `te`, `ma`, `mo`, `mai`, `o`, `a` it is the agent or the
+  object. Not after `ia`: `ia latou le mavaavaai` is the optative "let them not see"
+  (Psalm 69:23).
+- **The modal is said once, on the verb**: `o le a | afio mai` "shall | should come"
+  (10:11) → `o le a afio mai` "should come". 49 → 4.
+- **A word is said once across a boundary**: a unit that says one function word before
+  a unit whose gloss opens on that word joins it — `le | ala` "the | the way",
+  `muamua mai | i le Mesia` "before | before the Messiah" (10:8, 10:7). Unless the
+  verse doubles the word itself.
+- **A pronoun or demonstrative is carried only by itself.** The stemmer pairs "those"
+  with its singular "that", and `choose()` read a verse with "that" as carrying
+  "those": `o i latou` came out "those" three times in 10:3, which has none — while
+  "they", made only of pronouns, was never scored at all. Pronoun-only readings are
+  scored on their pronouns; deictic words must match exactly. "those/these" misreads
+  195 → 67.
+- **A pronoun phrase says its pronoun** (`_pron_phrase`, `_pron_readings`): a
+  preposition + personal pronoun (`ia te a’u`, `i latou`, `ma outou`) keeps only the
+  remembered readings with an English pronoun in them. `ia te a’u` had been "this
+  thing" in 10:8 (the verse has "this thing" elsewhere), and "this things" in Alma 10:10.
+- **The comparative** (Dunn): after `sili` / `silisili`, the pronoun phrase is "than" +
+  the verse's pronoun — `ua malosi silisili atu ia te a’u` "is mighty | … | than I".
+- **The verse's own phrase before the list's order.** Of two readings the verse carries,
+  the one it carries as a phrase wins: `o e na` "those that" in "those that were
+  partaking" (8:33), where "they that" had been patched into "they those". "those that"
+  and "them that" joined the `o e …` antecedents (22n).
+- **The purposive `ina ia` is "to" once**: a remembered "in order to continue" whose "in"
+  the trim took off came back "to order to continue" (10:1) → "to continue".
+- **The complement `ona` after its verb is "to"** (22w): `faaauau` and `taumafai` join
+  `LINK_ONA` (`faaauau ona faia` "proceed | to give", not "his giving"), and a bare
+  verb after the link takes the verse's "to".
+- **The manner phrase is an adverb**: a noun under its article whose sense the verse
+  writes as an adverb is that adverb — `ma le faavavau` "and forever", not "and the
+  eternity" (10:18).
+- **A relative that opens on its subject says nothing about this verb.** The verb
+  scaffolding matched "the things which **he** saw" and replaced the verb with "he":
+  `sa vaai i ai` "which he" (10:17), `e manaomia` "that it" (8:12), `e suamalie` "that
+  it" (8:11). Now "which saw", "was desirable", "was most sweet".
+- **The copula agrees with its subject**: "we is" → "we are", "they is" → "they are"
+  (1 Nephi 7:11, D&C 104:51); never "as it were" → "was" (the KJV subjunctive).
+- **Every word says something** (`pair_nearest_fitting`, after the sentence pass, every
+  volume): a word still blank takes the verse's leftover English word nearest its place
+  when that word is one of its senses; a word no dictionary knows only when it is
+  clearly nearest. The one-blank-several-leftovers pairing before the pass now runs
+  in every volume too (it was Bible-only). `solasola` "vagabond", `e fiafia` "loves",
+  `potutusi` "the archives", `faatalalē` "will slight", `tuaa` "forefathers" (3:3).
+- **A token is measured without its punctuation** (`_bare`): `ia,` measured three
+  letters, was in no closed-class table, and the pairings took it for an open-class
+  word ("to,", five verses). A fused token (`uma)—ma`) never pairs.
+- **The senses of the words left blank most often** (`HAND_SENSES`): `tagata` had only
+  "person", `nofo` no "dwell", `tuu`, `taofi`, `sili`, `faavavau`, `taitasi` nothing —
+  their ordinary senses are in; `fai` / `faia` "give" (the light verb: `fai se lauga`
+  "give a speech"); `tuu` "cease" (`tuu ai lo laua taumafai` "did cease striving",
+  7:19). Not "exceed" for `sili` ("exceed than") nor "lay" for `tuu` (it took the "lay"
+  of "lay hands").
+- `crossing_allowed` no longer indexes an empty tail (the Bible pass crashed in 2 Kings;
+  the Bible files had not been regenerated since §22w).
+
+Measured: blank open-class units in the three volumes 3,868 → 3,397; F1 against the
+curation 83.9 → 84.0 (content 85.6 → 85.7); O le Tusi Paia, like for like against the
+previous code (which crashed at 2 Kings and had to be run with the guard), 989,614 →
+990,505 tokens carrying text. Still open in 1 Nephi 10: `e ao ina ou tautala` keeps the
+curation's "it is needful that I speak" (the verse: "I must speak"); `tauina mai`
+"pluck" (v11, "had spoken"); `i le faaitiitia` "in the unbelief" (v11, "the
+dwindling"); `faalogo` "having heard" for the second hearing (v17, "hear"); `mo au mea`
+"for your substance" and `na fai` blank (v20, "all thy doings"); `sa faapea | le
+ituaiga` "after this manner | manner" (v15); `Atua—ma` (a fused token, v17).

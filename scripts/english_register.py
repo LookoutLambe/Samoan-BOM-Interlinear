@@ -107,6 +107,8 @@ SYNONYMS = {
     "fear": {"afraid", "dread"}, "afraid": {"fear", "dread"},
     "beseech": {"ask", "beg", "pray", "entreat"}, "entreat": {"ask", "beg", "pray"},
     "dwell": {"live", "stay", "abide"}, "abide": {"dwell", "stay", "remain"},
+    # `faaauau` is "continue"; the KJV's word for it is often "proceed" (1 Nephi 10:1)
+    "proceed": {"continue", "go on"}, "continue": {"proceed", "remain"},
     "commandment": {"command", "law", "order"}, "commandments": {"command", "law"},
     "wicked": {"bad", "evil"}, "evil": {"bad", "wicked"},
     "servant": {"slave", "serve"}, "servants": {"slave", "serve"},

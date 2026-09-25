@@ -317,7 +317,8 @@ def crossing_allowed(toks, a, b):
     if len(inner) == 1 and b - a <= 4:
         head = " ".join(words[:inner[0] - a + 1])
         tail = " ".join(words[inner[0] - a + 1:])
-        if head in _DISCOURSE_HEAD and (tail in _DISCOURSE_TAIL or tail.split()[0] in ("faauta", "atonu")):
+        # (a token that normalises to nothing -- a lone dash -- leaves no tail)
+        if head in _DISCOURSE_HEAD and tail and (tail in _DISCOURSE_TAIL or tail.split()[0] in ("faauta", "atonu")):
             return True
     # 4. the apposition of a name: `…, o NAME,`
     if len(inner) == 1 and b - a <= 5 and inner[0] + 2 < b and n_(inner[0] + 1) == "o" \
@@ -1052,6 +1053,8 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     # THE FRAME PROPOSES, THE VERSE CONFIRMS. A frame-only reading is written
     # only when the verse actually carries it, so a 72%-reliable frame costs
     # nothing on the 28%.
+    if form in ("le", "lē") and SG.negator_after_future(prev_tok, next_tok, before):
+        return "not", "frame-negator"     # the grammar is certain: `o le a le` is "shall not"
     framed = SG.contextual_reading(form, prev_tok, next_tok, clause_initial, before, after)
     if framed:
         framed = "|".join(_feminine(alt, ew) for alt in framed.split("|"))
@@ -1081,11 +1084,21 @@ def choose_particle(form: str, english: str, inv, prev_key: str = "",
     # frequency order -- `i` is "in" 2,708 times, "to" 2,146, "upon" 857 --
     # and that beats inv, which counts whole gloss STRINGS and had `i` coming
     # out "to" in verses reading "in the commencement" and "at Jerusalem".
+    # AND THE VERSE'S OWN PHRASE BEFORE ORDER. Of two readings the verse carries,
+    # the one it carries AS A PHRASE is its reading: `o e na` is "they that" and
+    # "those that", and 1 Nephi 8:33 writes "those that were partaking" -- with
+    # "they" from another clause, the list's first reading won and a later stage
+    # patched its "that" to "those": "they those".
+    el_ = (english or "").lower()
+
+    def as_phrase(reading):
+        return len(reading.split()) > 1 and bool(re.search(r"\b" + re.escape(reading.lower()) + r"\b", el_))
+
     scored = sorted(
-        ((carried(r), -n, inv.get(form, {}).get(r, 0), r)
+        ((carried(r), carried(r) and as_phrase(r), -n, inv.get(form, {}).get(r, 0), r)
          for n, r in enumerate(readings)),
         reverse=True)
-    present, _order, _weight, best = scored[0]
+    present, _phrase, _order, _weight, best = scored[0]
     if present:
         return best, "particle"
     if len(readings) == 1:
@@ -1210,7 +1223,10 @@ for _p, _e in (("latou", "their"), ("laua", "their"), ("matou", "our"), ("tatou"
 
 # the words `ona` links a verb to (Dunn, unit five: `mafai ona`, `tatau ona`,
 # `amata ona`, `uma ona`): after these `ona` is "to", never "his"
-LINK_ONA = {"mafai", "tatau", "amata", "uma", "muamua", "faigata", "faigofie", "lelei", "leaga", "toe", "ai", "mafai", "sili", "ao", "tau", "fia", "fai"}
+LINK_ONA = {"mafai", "tatau", "amata", "uma", "muamua", "faigata", "faigofie", "lelei", "leaga", "toe", "ai", "mafai", "sili", "ao", "tau", "fia", "fai",
+            # `faaauau ona faia` "proceed to give" (1 Nephi 10:1 read "his
+            # giving"), `taumafai ona` "try to"
+            "faaauau", "taumafai"}
 
 PREP_WORDS_ALL = {"with", "in", "at", "to", "unto", "for", "by", "from", "on", "upon", "among", "into", "before",
                   "after", "over", "under", "of", "through", "against", "toward", "towards", "about", "concerning", "and"}
@@ -2193,6 +2209,11 @@ def simple_sentences(out, toks, en_text):
                 first = re.sub(r"^\s*(to|a|an|the)\s+", "", first)   # the verb, bare: "witness", not "a witness"
                 if first and len(first.split()) <= 2:
                     out[m]["en"] = first
+            # a remembered "in order to continue" whose "in" the verse's trim took
+            # off came here as "order to continue" and left as "to order to
+            # continue" (1 Nephi 10:1): the purposive is this stage's "to"
+            if m < n and re.match(r"^(in\s+)?order\s+to\s+\S", out[m]["en"], re.I):
+                out[m]["en"] = re.sub(r"^(in\s+)?order\s+to\s+", "", out[m]["en"], flags=re.I)
             if m < n and out[m]["en"] not in ("", CONT) and not re.match(r"^(to|that|in order)\b", out[m]["en"].lower()):
                 out[k]["en"] = CONT
                 out[k + 1]["en"] = CONT
@@ -3509,6 +3530,20 @@ def simple_sentences(out, toks, en_text):
                                  and not ((verb_slot or verbal_w) and noun_in_verse(x))]
                         if cands:
                             break
+            if not cands and under_det and len(sm_open) == 1:
+                # THE MANNER PHRASE IS AN ADVERB (Dunn: `ma le filigā` "diligently",
+                # `e faavavau` "forever"): a noun under its article whose sense the
+                # verse writes as an adverb is that adverb, and the article goes --
+                # `ma le faavavau` "and forever", not "and the eternity" (1 Nephi 10:18)
+                adv_ = [x for x in _senses_of(sm_open[0]) if x in ecount and ecount[x] > gcount.get(x, 0)
+                        and (x.endswith("ly") or x in ("forever", "evermore", "always", "ever", "together", "alone"))]
+                if adv_:
+                    parts[k_] = mt.group(1) + adv_[0] + mt.group(3)
+                    if re.sub(r"[^a-z']", "", parts[k_ - 1].lower()) in ("the", "a", "an"):
+                        del parts[k_ - 1]
+                    gcount[adv_[0]] += 1
+                    set_gloss(u, " ".join(parts))
+                    break
             if not cands:
                 continue
             x = max(cands, key=lambda c: (c[:3] == w[:3], -abs(len(c) - len(w))))
@@ -3613,6 +3648,13 @@ def simple_sentences(out, toks, en_text):
         # tama, ua faia` "of my father, which consists" (1 Nephi 1:2)
         if first_tok in ("ua", "na", "sa") and not has_doer and pw and not opens and pw[-1] not in FUNCTION_ONLY:
             mrel = re.search(r"\b" + re.escape(pw[-1]) + r",?\s+(which|that|who)\s+((?:(?:" + AUXW + r")\s+)*[a-z']+)\b", en_l)
+            # the subject pronoun inside the relative is not its verb: "the things
+            # which he saw" matched "he", which replaced "saw" and the verb was
+            # gone -- `sa vaai i ai` "which he" (1 Nephi 10:17), `e manaomia`
+            # "that it" (1 Nephi 8:12). A relative that opens on its subject says
+            # nothing about this unit's verb.
+            if mrel and mrel.group(2).split()[-1] in ("he", "she", "it", "they", "we", "i", "you", "ye", "thou"):
+                mrel = None
             if mrel:
                 cw = re.findall(r"[a-z']+", core.lower())
                 gc_ = _gcount()
@@ -4082,6 +4124,37 @@ _NOT_CONTENT = {"am", "is", "are", "was", "were", "be", "been", "being", "do", "
                 "you", "ye", "thou", "him", "her", "them", "us", "me", "thee", "his", "their", "our", "my", "thy", "your", "its"}
 
 
+_PREP_HEADS = {"ia", "iā", "i", "ma", "mo", "mai"}
+_PERSONAL = {"a’u", "aʻu", "a'u", "ia", "oe", "matou", "tatou", "latou", "outou", "laua", "oulua", "maua", "taua", "lua"}
+_ENGLISH_PRONOUN = re.compile(r"\b(i|me|my|mine|myself|he|him|his|himself|she|her|herself|it|itself|we|us|our|ourselves|"
+                              r"you|your|yourselves|thee|thou|thy|ye|they|them|their|themselves)\b")
+
+
+def _pron_phrase(key: str) -> bool:
+    """`ia te a’u`, `i latou`, `ma outou`, `mo oe`: a preposition and a
+    personal pronoun, nothing else."""
+    parts = key.split()
+    if len(parts) == 3 and parts[0] in ("ia", "iā") and parts[1] == "te":
+        return parts[2] in _PERSONAL
+    return len(parts) == 2 and parts[0] in _PREP_HEADS and parts[1] in _PERSONAL
+
+
+def _pron_readings(key: str, cands: Counter) -> Counter:
+    """A PRONOUN PHRASE SAYS ITS PRONOUN. Memory holds readings for `ia te a’u`
+    that belong to the words around it in some verse ("this thing" -- 1 Nephi
+    10:8 has "this thing" elsewhere, so the verse seemed to carry it). Of a
+    preposition + pronoun phrase's readings, only those with an English pronoun
+    in them are its own; the rest are dropped when any remain."""
+    if not _pron_phrase(key):
+        return cands
+    keep = Counter({g: n for g, n in cands.items() if _ENGLISH_PRONOUN.search(g.lower())})
+    return keep or cands
+
+
+DEICTIC = {"those", "these", "this", "that", "they", "them", "he", "him", "she", "her",
+           "it", "we", "us", "you", "i", "me", "thee", "thou", "ye"}
+
+
 def choose(cands: Counter, english: str, want_tense: str | None = None,
            strict: bool = False, spent: Counter | None = None) -> tuple[str, str]:
     cands = merge_punctuation(cands)
@@ -4107,6 +4180,17 @@ def choose(cands: Counter, english: str, want_tense: str | None = None,
     stem_ew = set()
     for w in ew:
         stem_ew |= _stems(w)
+
+    # A PRONOUN OR DEMONSTRATIVE IS CARRIED ONLY BY ITSELF. The stemmer pairs
+    # "those" with "that" (its singular), which is right for number and wrong
+    # for choosing a reading: 1 Nephi 10:3 has "that" and "they" and no
+    # "those", and `o i latou` came out "those" three times -- while "they",
+    # made only of pronouns, was never scored at all (below).
+    def carried(w):
+        if w in DEICTIC:
+            return w in ew or bool(ER.ARCHAIC.get(w, set()) & ew)
+        return in_english(w, ew)
+
     scored = []
     for gloss, n in cands.items():
         words = re.findall(r"[a-z']+", gloss.lower())
@@ -4115,15 +4199,17 @@ def choose(cands: Counter, english: str, want_tense: str | None = None,
                              "a", "an", "of", "to", "and")]
         # the SAME test the scoring uses; when these two disagreed, a gloss
         # could fail the gate on `you` while the verse said `ye` and be thrown
-        # away before it was ever scored
-        if not core or not all(in_english(w, ew) for w in core):
+        # away before it was ever scored. A reading of pronouns alone ("they")
+        # is tested on those pronouns.
+        test = core or [w for w in words if w in DEICTIC]
+        if not test or not all(carried(w) for w in test):
             continue
         # EVERY word counts, function words included. The old score looked only
         # at content words, so `faatasi` -> "together with" beat "together" in a
         # verse reading "listen together" and no "with" anywhere: the stray
         # preposition was invisible to the test that was supposed to catch it.
-        present = sum(1 for w in words if in_english(w, ew))
-        absent = sum(1 for w in words if not in_english(w, ew))
+        present = sum(1 for w in words if carried(w))
+        absent = sum(1 for w in words if not carried(w))
         # A RATIO, not a count. Counting rewarded length: `tagata uma` came out
         # "all the people" over "all men" because three words of the English
         # beat two, though both are entirely carried by it. The question is
@@ -4199,6 +4285,77 @@ def choose(cands: Counter, english: str, want_tense: str | None = None,
     if n / total >= 0.90:
         return trim_absent_tail(dom, english), ("dominant-unconfirmed" if strict else "dominant")
     return "", "undecided"
+
+
+def _bare(tok: str) -> str:
+    """A token as the closed-class tables know it: normalised AND stripped of
+    its punctuation. `norm` keeps the comma, so `ia,` measured three letters,
+    was in no table, and the blank-word pairings took it for an open-class
+    word -- it came out "to," five times (Alma 1:26, Jacob 2:27)."""
+    return norm(tok).strip(",;.:!?—”’\"')")
+
+
+def pair_nearest_fitting(out, en_text, names, stats):
+    """EVERY WORD SAYS SOMETHING (user, 2026-09-25: "the interlinear is still
+    missing words"). After the sentence pass, each open-class word still blank
+    takes the verse's leftover English word -- one no gloss of the verse
+    carries -- that stands nearest its place in the verse, when that word is a
+    sense of it (its dictionary senses, their stems, the synonym table) and is
+    clearly the nearest such. `solasola` "vagabond" (Moses 5:37), `e fiafia`
+    "loves" (D&C 76:103), `i sisifo` "westward" (D&C 57:3). A word the
+    dictionaries do not know pairs only when it is the verse's sole leftover
+    near it: a stranger may not take a word from across the verse."""
+    blanks = [j for j, w in enumerate(out)
+              if not w["en"] and len(_bare(w["sm"])) >= 3
+              and not re.search(r"\w[—)(]", w["sm"])          # a fused token (`uma)—ma`) is two words
+              and _bare(w["sm"]) not in SG.CLOSED_CLASS and _bare(w["sm"]) not in SG.AMBIGUOUS
+              and _bare(w["sm"]) not in SG.TAM and _bare(w["sm"]) not in SG.PRONOUNS]
+    if not blanks or len(blanks) > 6:
+        return
+    said = set()
+    for w in out:
+        if w["en"] and w["en"] != CONT:
+            for x in re.findall(r"[a-z']+", w["en"].lower()):
+                said.add(x); said |= _stems(x)
+    en_words = re.findall(r"[A-Za-z][a-z']+", en_text or "")
+    left = []
+    seen = set()
+    for k, x in enumerate(en_words):
+        lx = x.lower()
+        if lx in FUNCTION_ONLY or lx in LEFTOVER_STOP or len(lx) < 3 or lx in said or (_stems(lx) & said) or lx in seen:
+            continue
+        seen.add(lx); left.append((k, x))
+    if not left:
+        return
+    ne, ns = max(1, len(en_words)), max(1, len(out))
+    taken = set()
+    for j in blanks:
+        bw = norm(out[j]["sm"])
+        sense_words = set()
+        for s_ in SG.dictionary(bw):
+            for x in re.findall(r"[a-z']+", s_.lower()):
+                if x not in FUNCTION_ONLY:
+                    sense_words.add(x); sense_words |= _stems(x)
+        def fits(x):
+            lx = x.lower()
+            return bool((_stems(lx) | {lx} | ER.SYNONYMS.get(lx, set())) & sense_words)
+        pos = j / ns
+        pool = [(abs(k / ne - pos), k, x) for k, x in left if k not in taken]
+        if sense_words:
+            cands = sorted(c for c in pool if fits(c[2]))
+            ok = bool(cands) and cands[0][0] <= 0.25 and (len(cands) == 1 or cands[1][0] - cands[0][0] >= 0.08)
+        else:
+            cands = sorted(pool)
+            ok = bool(cands) and cands[0][0] <= 0.08 and (len(cands) == 1 or cands[1][0] - cands[0][0] >= 0.15)
+        if not ok:
+            continue
+        _, k, x = cands[0]
+        taken.add(k)
+        tk = out[j]["sm"]
+        # a capitalised Samoan word keeps the English capital (`Olisema` "Olishem")
+        keep_cap = x[0].isupper() and (norm(tk) in names or (tk[:1].isupper() and j > 0))
+        out[j]["en"] = (x if keep_cap else x.lower()) + tk[len(tk.rstrip(",;.:!?")):]
+        stats["unit: leftover-nearest (after the pass)" + ("" if sense_words else ", no senses")] += 1
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -4344,7 +4501,12 @@ def main(argv: list[str] | None = None) -> int:
             # entire. The longest memory wins only when the verse carries it.
             if hit >= 3 and src == "inv":
                 whole = norm(" ".join(toks[i:i + hit]))
-                if whole in inv:
+                # -- but never a GRAMMAR FRAME. `o le a` is the future marker
+                # (Dunn), not a remembered phrase: where the verse's English has
+                # no "shall" its readings were all refused, and it gave way to
+                # `o le` + `a`, "then | of" (1 Nephi 10:21) -- 161 times across
+                # the three volumes. A marker's tense rides on its verb (22a).
+                if whole in inv and whole not in SG.TAM and whole not in SG.MULTI_FORMS:
                     g0, why0 = choose(inv[whole], en_text, None, strict, _spent_before(out, i))
                     doubled = bool(g0) and whole not in SG.DISCOURSE and _over_spent([w for w in re.findall(r"[a-z']+", g0.lower()) if w not in FUNCTION_ONLY or w in ("can", "could", "may", "might", "shall", "will")], en_text, _spent_before(out, i)) > 0
                     if why0 in ("canon-partial", "undecided", "vetoed", "settled-unconfirmed", "dominant-unconfirmed") or doubled:
@@ -4583,11 +4745,20 @@ def main(argv: list[str] | None = None) -> int:
                 # 1:21) is not `elia` "digged"; the name stays blank here and the
                 # verse's leftover English name pairs with it below.
                 gloss, why = "", "name/no-memory"
+            elif key_sm in inv and _pron_phrase(key_sm) and i >= 1 \
+                    and any(norm(toks[k_]) in ("sili", "silisili") for k_ in range(max(0, i - 3), i)) \
+                    and re.search(r"\bthan\s+(i|me|he|him|she|her|they|them|we|us|you|thee|thou|ye)\b", (en_text or "").lower()):
+                # THE COMPARATIVE (Dunn: `e sili atu … ia te a’u` "more … than
+                # I"): after sili / silisili the pronoun phrase is "than" + the
+                # verse's own pronoun -- `ua malosi silisili atu ia te a’u` "he is
+                # mightier than I" (1 Nephi 10:8), where memory said "this thing"
+                m_ = re.search(r"\bthan\s+(i|me|he|him|she|her|they|them|we|us|you|thee|thou|ye)\b", (en_text or "").lower())
+                gloss, why = "than " + ("I" if m_.group(1) == "i" else m_.group(1)), "grammar/comparative"
             elif key_sm in inv:
                 # the unit's own marker first (`na talia` is past whatever stands
                 # before it), then the marker in front, then the narrative frame;
                 # after the purposive / optative the verb is bare
-                gloss, why = choose(inv[key_sm], en_text,
+                gloss, why = choose(_pron_readings(key_sm, inv[key_sm]), en_text,
                                     ("BASE" if prev_key in BARE_AFTER else None)
                                     or unit_tense(key_sm)
                                     or SG.tense_of_tam(prev_key)
@@ -4898,9 +5069,9 @@ def main(argv: list[str] | None = None) -> int:
         # one word of Genesis 1:2 nothing else accounts for. Names pair the same
         # way (Samita / Smith) when they are the verse's only leftovers.
         blanks = [j for j, w in enumerate(out)
-                  if not w["en"] and len(norm(w["sm"])) >= 3
-                  and norm(w["sm"]) not in SG.CLOSED_CLASS and norm(w["sm"]) not in SG.AMBIGUOUS
-                  and norm(w["sm"]) not in SG.TAM and norm(w["sm"]) not in SG.PRONOUNS]
+                  if not w["en"] and len(_bare(w["sm"])) >= 3
+                  and _bare(w["sm"]) not in SG.CLOSED_CLASS and _bare(w["sm"]) not in SG.AMBIGUOUS
+                  and _bare(w["sm"]) not in SG.TAM and _bare(w["sm"]) not in SG.PRONOUNS]
         if len(blanks) == 1:
             said = set()
             for w in out:
@@ -4921,8 +5092,11 @@ def main(argv: list[str] | None = None) -> int:
                 _tk = out[blanks[0]]["sm"]
                 out[blanks[0]]["en"] = (left[0] if left[0][0].isupper() and norm(_tk) in names else left[0].lower()) + _tk[len(_tk.rstrip(",;.:!?")):]
                 stats["unit: leftover-pair"] += 1
-            elif strict and len(left) > 1:
-                # ONE BLANK, SEVERAL LEFTOVERS (the Bible): the leftover nearest
+            elif len(left) > 1:
+                # ONE BLANK, SEVERAL LEFTOVERS (every volume since 2026-09-25 --
+                # the Book of Mormon is generated by this same grammar now, and
+                # its blanks were the user's "the interlinear is still missing
+                # words"): the leftover nearest
                 # the blank's place in the verse, when one is clearly nearest --
                 # `matamata` against "beheld" in John 1:14. A word the
                 # dictionaries know pairs only with a leftover that is a sense
@@ -4992,9 +5166,9 @@ def main(argv: list[str] | None = None) -> int:
         # words the walk left ("against me"), and one blank against one leftover
         # is the verse's own alignment (`manatuaga` "remembrance", 1 Nephi 2:24)
         blanks2 = [j for j, w in enumerate(out)
-                   if not w["en"] and len(norm(w["sm"])) >= 3
-                   and norm(w["sm"]) not in SG.CLOSED_CLASS and norm(w["sm"]) not in SG.AMBIGUOUS
-                   and norm(w["sm"]) not in SG.TAM and norm(w["sm"]) not in SG.PRONOUNS]
+                   if not w["en"] and len(_bare(w["sm"])) >= 3
+                   and _bare(w["sm"]) not in SG.CLOSED_CLASS and _bare(w["sm"]) not in SG.AMBIGUOUS
+                   and _bare(w["sm"]) not in SG.TAM and _bare(w["sm"]) not in SG.PRONOUNS]
         if len(blanks2) == 1:
             said2 = set()
             for w in out:
@@ -5012,6 +5186,7 @@ def main(argv: list[str] | None = None) -> int:
                 _tk = out[blanks2[0]]["sm"]
                 out[blanks2[0]]["en"] = (left2[0] if left2[0][0].isupper() and norm(_tk) in names else left2[0].lower()) + _tk[len(_tk.rstrip(",;.:!?")):]
                 stats["unit: leftover-pair"] += 1
+        pair_nearest_fitting(out, en_text, names, stats)
         attach_particles(out, toks)       # a blank particle before a word the pass or the pairing has now glossed
         for w in out:
             # a closed-class token left with nothing at all shows the dot, like
@@ -5038,6 +5213,56 @@ def main(argv: list[str] | None = None) -> int:
                     continue
                 w["en"] = ""
                 stats["unit: punctuation closed"] += 1
+        # THE MODAL IS SAID ONCE, ON THE VERB (22a: the marker's tense rides on
+        # its verb). A bare marker unit that says "shall" before a verb whose
+        # gloss already opens on a modal said it twice -- `o le a | afio mai`
+        # "shall | should come" (1 Nephi 10:11, 49 times in the three volumes);
+        # the marker joins its verb's unit, "should come".
+        _MODAL = re.compile(r"(shall|should|will|would)", re.I)
+        _OPENS_MODAL = re.compile(r"^(shall|should|will|would|may|might|must|can|could)\b", re.I)
+        _ends = [k for k, w in enumerate(out) if w["en"] != CONT]
+        for u_, e1 in enumerate(_ends[:-1]):
+            s1 = _ends[u_ - 1] + 1 if u_ else 0
+            e2 = _ends[u_ + 1]
+            if norm(" ".join(toks[s1:e1 + 1])) in SG.TAM and _MODAL.fullmatch(out[e1]["en"].strip()) \
+                    and _OPENS_MODAL.match(out[e2]["en"].strip()) and not re.search(r"[,;:.?!—][”’\"')]*$", toks[e1]):
+                out[e1]["en"] = CONT
+                stats["unit: modal said once"] += 1
+                continue
+            # AND ANY WORD SAID TWICE ACROSS THE BOUNDARY. A unit that says one
+            # function word, before a unit whose gloss opens on that same word,
+            # printed it twice: `le | ala` "the | the way", `muamua mai | i le
+            # Mesia` "before | before the Messiah" (1 Nephi 10:8, 10:7). Unless
+            # the verse itself doubles it, the lone word's unit joins the next.
+            # THE COMPLEMENT `ona` AFTER ITS VERB IS "to": `faaauau | ona faia`
+            # "proceed | to give" (1 Nephi 10:1), when the verse writes "to"
+            # before the bare verb the unit carries
+            g2 = out[e2]["en"].strip()
+            if norm(toks[e1 + 1]) == "ona" and _bare(toks[e1]) in LINK_ONA and re.fullmatch(r"[a-z]+", g2) \
+                    and re.search(r"\bto\s+" + re.escape(g2) + r"\b", (en_text or "").lower()):
+                out[e2]["en"] = "to " + out[e2]["en"]
+                stats["unit: ona is to"] += 1
+            w1 = out[e1]["en"].strip().lower()
+            if w1 in ("the", "a", "an", "before", "of", "to", "in", "into", "upon", "with", "for", "from", "by", "among", "after", "and") \
+                    and out[e2]["en"].strip().lower().startswith(w1 + " ") \
+                    and not re.search(r"\b" + w1 + r"\s+" + w1 + r"\b", (en_text or "").lower()) \
+                    and not re.search(r"[,;:.?!—][”’\"')]*$", toks[e1]):
+                out[e1]["en"] = CONT
+                stats["unit: word said once"] += 1
+        # THE COPULA AGREES WITH ITS SUBJECT. The verse's "is" set beside a
+        # plural pronoun printed "they is" (D&C 104:51): a plural subject takes
+        # "are" / "were", a singular "is" / "was" -- the tense the copula had.
+        for w in out:
+            g = w["en"]
+            if not g or g == CONT:
+                continue
+            g2 = re.sub(r"\b(they|we|you|ye)\s+is\b", r"\1 are", g, flags=re.I)
+            g2 = re.sub(r"\b(they|we|you|ye)\s+was\b", r"\1 were", g2, flags=re.I)
+            g2 = re.sub(r"\b(he|she|it)\s+are\b", r"\1 is", g2, flags=re.I)
+            # (never "he were": "as it were", "if he were" are the KJV subjunctive)
+            if g2 != g:
+                w["en"] = g2
+                stats["unit: copula agrees"] += 1
         if a.debug and DEBUG["key"] in a.debug.split(","):
             print("    FINAL " + " | ".join(f"{w['sm']}={w['en']}" for w in out if w["en"] != CONT))
         return out
