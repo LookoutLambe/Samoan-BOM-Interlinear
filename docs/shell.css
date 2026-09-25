@@ -1,29 +1,172 @@
-/* THE PHONE SHELL'S SURFACE (shell.js): the five-icon row and the notes panel,
-   cut from this reader's own tokens so they follow Light, Sepia and Dark.
-   Nothing here applies without html.sw-web-shell, which only a phone, the
-   installed app or the iPhone app gets. */
+/* THE PHONE SHELL'S SURFACE (shell.js). Nothing here applies without
+   html.sw-web-shell, which only a phone, the installed app or the iPhone app
+   gets — a computer is never touched.
 
-html.sw-web-shell { --sw-app-row-h: 54px; --sw-on-chrome: #F3EDE2; }
-#sw-app-row, #sw-app-panel { direction: ltr; font-family: -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Segoe UI", sans-serif; }
+   The chrome is the Hebrew iPhone app's shape: three GLASS CAPSULES floating
+   over the text — the header, the chapter row and the icon row — instead of
+   three solid bars across the width of the screen. The glass is the Hebrew
+   app's recipe: the chrome, translucent, over a blurred, DARKENED backdrop.
+   The mix is set by the gold title over bare white paper, the worst case: at
+   the Hebrew app's 60% and .7 it comes to 3.6:1; at 74% and .62 the pixels
+   of the iPhone simulator measure 4.9:1 for the title, 5.1:1 for the chapter
+   and 8.4:1 for the icons, and the page still shows moving underneath.
+   Colours are this reader's own tokens, so Light, Sepia and Dark follow. */
 
-/* room at the foot of the page for the row */
-html.sw-web-shell main { padding-bottom: calc(5rem + var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px)) !important; }
-
-/* THE DOCK SITS ON THE ROW, and folds down behind it while a finger reads. */
-html.sw-web-shell .controls-bottom {
-  bottom: calc(var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px)) !important;
-  padding-bottom: 6px !important;
-  transition: transform .22s ease;
+html.sw-web-shell {
+  --sw-safe-t: env(safe-area-inset-top, 0px);
+  --sw-safe-b: env(safe-area-inset-bottom, 0px);
+  --sw-edge: 12px;                        /* capsule to screen edge */
+  /* on a tablet the capsules keep a phone's width, centred, as a tab bar
+     does, rather than stretching a five-icon row across a whole iPad */
+  --sw-side: max(var(--sw-edge), calc(50% - 300px));
+  --sw-cap-h: 48px;                       /* header and chapter capsules */
+  --sw-row-h: 58px;                       /* the icon row */
+  --sw-row-bottom: calc(var(--sw-safe-b) + 8px);
+  --sw-cap-bottom: calc(var(--sw-row-bottom) + var(--sw-row-h) + 8px);
+  --sw-top-clear: calc(var(--sw-safe-t) + 6px + var(--sw-cap-h) + 12px);
+  --sw-on-chrome: #F3EDE2;
+  --sw-glass: color-mix(in srgb, var(--header-bg, #1B2A41) 74%, transparent);
+  --sw-glass-edge: rgba(255, 255, 255, .16);
 }
-html.sw-web-shell.sw-app-reading .controls-bottom { transform: translateY(calc(100% + var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px))); }
-@media (prefers-reduced-motion: reduce) { html.sw-web-shell .controls-bottom { transition: none; } }
+#sw-app-row, #sw-app-chapter-row, #sw-app-sheet, #sw-app-sheet-scrim, #sw-app-statusbar { direction: ltr; }
 
-/* the page's sheets and drawer end where the row begins */
-html.sw-web-shell .sheet { bottom: calc(var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px)); }
-html.sw-web-shell .drawer { height: calc(100% - var(--sw-app-row-h) - env(safe-area-inset-bottom, 0px)); }
+/* THE GLASS */
+html.sw-web-shell .controls-top,
+#sw-app-chapter-row, #sw-app-row {
+  background: var(--sw-glass) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(160%) brightness(.62);
+  backdrop-filter: blur(20px) saturate(160%) brightness(.62);
+  border: 1px solid var(--sw-glass-edge) !important;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .18);
+}
+/* where there is no blur, the capsule is nearly opaque rather than illegible */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  html.sw-web-shell .controls-top, #sw-app-chapter-row, #sw-app-row {
+    background: color-mix(in srgb, var(--header-bg, #1B2A41) 94%, transparent) !important;
+  }
+}
 
-/* the row has Search, so the top bar gives up its search button (user, 2026-09-19) */
-html.sw-web-shell #btn-search { display: none !important; }
+/* THE CLOCK. The iPhone app's clock follows what is under it
+   (UIStatusBarStyleDefault; seen on iOS 18.6: ink over paper, white over the
+   dark theme), so the paper runs up to it as in the Hebrew app. The installed
+   web app's (black-translucent) is always white, so there it keeps chrome
+   beneath it. */
+#sw-app-statusbar { display: none; position: fixed; left: 0; right: 0; top: 0; height: var(--sw-safe-t); z-index: 2147483100; pointer-events: none; background: var(--header-bg, #1B2A41); }
+@media (display-mode: standalone) { html.sw-web-shell:not(.sw-in-app) #sw-app-statusbar { display: block; } }
+
+/* ── THE HEADER CAPSULE: home · where you are · ⋯ ─────────────────────── */
+html.sw-web-shell .controls-top {
+  top: calc(var(--sw-safe-t) + 6px) !important; left: var(--sw-side) !important; right: var(--sw-side) !important;
+  height: var(--sw-cap-h); box-sizing: border-box;
+  padding: 0 2px !important; gap: 0 !important;
+  border-radius: calc(var(--sw-cap-h) / 2);
+  z-index: 30 !important;
+  transition: transform .24s ease, opacity .24s ease;
+}
+html.sw-web-shell .controls-top .bar-group { gap: 0; }
+html.sw-web-shell .controls-top .icon-btn,
+html.sw-web-shell #sw-app-more {
+  width: 44px; min-width: 44px; height: 44px; min-height: 44px; padding: 0;
+  border: 0 !important; border-radius: 50%; background: transparent;
+  color: var(--accent-light, #DDB768);
+  display: inline-flex; align-items: center; justify-content: center;
+}
+html.sw-web-shell #nav-label,
+html.sw-web-shell #btn-settings,
+html.sw-web-shell #btn-theme,
+html.sw-web-shell #btn-search { display: none !important; }   /* ⋯ and the row carry these now */
+#sw-app-title {
+  flex: 1 1 auto; min-width: 0; text-align: center;
+  color: var(--header-text, #DDB768); font-family: var(--serif); font-size: 1rem; font-weight: 600;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+/* "Full screen on scroll": the header goes with the chapter row while a finger reads */
+html.sw-web-shell.sw-app-fullscreen.sw-app-reading .controls-top {
+  transform: translateY(calc(-100% - var(--sw-safe-t) - 12px)); opacity: 0; pointer-events: none;
+}
+
+/* the page begins below the header capsule and ends above the rows */
+html.sw-web-shell main {
+  padding-top: var(--sw-top-clear) !important;
+  padding-bottom: calc(var(--sw-row-bottom) + var(--sw-row-h) + 24px) !important;
+}
+html.sw-web-shell.sw-app-has-chapter main {
+  padding-bottom: calc(var(--sw-cap-bottom) + var(--sw-cap-h) + 24px) !important;
+}
+
+/* ── THE CHAPTER ROW: ‹ previous · this chapter ▾ · next › ───────────── */
+/* The dock stays in the page, hidden: its arrows decide what is next and
+   the row presses them; its mode buttons are driven from the Display sheet. */
+html.sw-web-shell #dock { display: none !important; }
+#sw-app-chapter-row {
+  display: none; position: fixed; z-index: 30;
+  left: var(--sw-side); right: var(--sw-side); bottom: var(--sw-cap-bottom);
+  height: var(--sw-cap-h); box-sizing: border-box; padding: 0 2px;
+  border-radius: calc(var(--sw-cap-h) / 2);
+  grid-template-columns: minmax(64px, auto) 1fr minmax(64px, auto); align-items: center;
+  transition: transform .24s ease, opacity .24s ease;
+}
+html.sw-app-has-chapter #sw-app-chapter-row { display: grid; }
+.sw-app-cap {
+  min-height: 44px; min-width: 44px; margin: 0; padding: 0 10px; box-sizing: border-box;
+  display: inline-flex; align-items: center; justify-content: center; gap: 4px;
+  background: none; border: 0; border-radius: 22px;
+  color: var(--accent-light, #DDB768); font-family: var(--serif); font-size: .95rem; font-weight: 600;
+  -webkit-tap-highlight-color: transparent; cursor: pointer;
+}
+.sw-app-cap[disabled] { opacity: .32; cursor: default; }
+.sw-app-cap-here { min-width: 0; color: var(--header-text, #DDB768); }
+.sw-app-cap-label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.sw-app-cap-n { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 88px; }
+.sw-app-caret { font-size: .75em; opacity: .8; }
+.sw-app-cap:active:not([disabled]) { background: rgba(255, 255, 255, .10); }
+/* READING FOLDS IT — past the icon row and off the screen, not behind the
+   glass, where it would show through */
+html.sw-web-shell.sw-app-reading #sw-app-chapter-row {
+  transform: translateY(calc(var(--sw-cap-bottom) + var(--sw-cap-h) + 8px)); opacity: 0; pointer-events: none;
+}
+
+/* ── THE ICON ROW: always there ─────────────────────────────────────── */
+#sw-app-row {
+  position: fixed; z-index: 2147483000;
+  left: var(--sw-side); right: var(--sw-side); bottom: var(--sw-row-bottom);
+  height: var(--sw-row-h); box-sizing: border-box; padding: 0 6px;
+  border-radius: calc(var(--sw-row-h) / 2);
+  display: flex; align-items: center;
+}
+#sw-app-row button {
+  flex: 1 1 0; min-height: 48px; margin: 0; padding: 0; background: none; border: 0; border-radius: 24px;
+  color: var(--sw-on-chrome); display: flex; align-items: center; justify-content: center;
+  -webkit-tap-highlight-color: transparent; cursor: pointer;
+}
+#sw-app-row button[aria-current="page"] { color: var(--accent-light, #DDB768); }
+#sw-app-row button[aria-current="page"] svg { stroke-width: 2.2; }
+#sw-app-row button:active { background: rgba(255, 255, 255, .10); }
+
+/* every control of the shell shows where the keyboard is */
+#sw-app-row button:focus-visible, .sw-app-cap:focus-visible, #sw-app-more:focus-visible,
+#sw-app-sheet button:focus-visible, #sw-app-sheet input:focus-visible {
+  outline: 2px solid var(--accent-light, #DDB768); outline-offset: 2px;
+}
+
+/* ── THE PAGE'S OWN PANELS, fitted around the floating chrome ────────── */
+/* The drawer runs the full height; the icon row floats over its foot, so its
+   list ends above the row. It covers the capsules (they sit at 30, it at 50). */
+html.sw-web-shell #drawer-body { padding-bottom: calc(var(--sw-row-bottom) + var(--sw-row-h) + 16px) !important; }
+/* SEARCH IS A WHOLE PAGE: a keyboard covers the half of a short sheet. */
+html.sw-web-shell #search { background: var(--page-bg, #FCFAF7); }
+html.sw-web-shell #search .sheet-inner {
+  position: fixed; inset: 0; max-height: none !important; width: auto !important; margin: 0 !important;
+  border-radius: 0 !important; box-sizing: border-box; overflow-y: auto; -webkit-overflow-scrolling: touch;
+  padding: calc(var(--sw-safe-t) + 14px) 16px calc(var(--sw-row-bottom) + var(--sw-row-h) + 20px) !important;
+}
+/* the note editor and any other page sheet stay sheets, lifted clear of the row */
+html.sw-web-shell .sheet:not(#search) .sheet-inner {
+  padding-bottom: calc(1rem + var(--sw-row-bottom) + var(--sw-row-h) + 8px) !important;
+}
+/* the selection toolbar rises above the chapter row */
+html.sw-web-shell .actionbar { bottom: calc(var(--sw-cap-bottom) + var(--sw-cap-h) + 10px) !important; z-index: 45 !important; }
+html.sw-web-shell:not(.sw-app-has-chapter) .actionbar { bottom: calc(var(--sw-row-bottom) + var(--sw-row-h) + 10px) !important; }
 
 /* inside the iPhone app the App Store card has no job */
 html.sw-in-app .appstore { display: none !important; }
@@ -34,55 +177,107 @@ html.sw-web-shell.sw-app-booting::before {
   background: #1B2A41 url(icons/icon-512.png) center / 180px 180px no-repeat;
 }
 
-/* THE ROW */
-#sw-app-row {
-  position: fixed; left: 0; right: 0; bottom: 0; z-index: 2147483000;
-  display: flex; align-items: center; box-sizing: border-box;
-  height: calc(var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px));
-  padding: 0 12px env(safe-area-inset-bottom, 0px);
+/* ── THE SHEET: Display and Notes, over the reader, leaving it in view ─── */
+#sw-app-sheet-scrim {
+  position: fixed; inset: 0; z-index: 70; background: rgba(0, 0, 0, .28);
+  opacity: 0; pointer-events: none; transition: opacity .2s ease;
+}
+#sw-app-sheet-scrim.open { opacity: 1; pointer-events: auto; }
+#sw-app-sheet {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 80;
+  height: 62vh; height: 62dvh; box-sizing: border-box;
+  display: flex; flex-direction: column;
+  background: var(--page-bg-deep, #F0ECE5); color: var(--ink, #191713);
+  border-radius: 16px 16px 0 0; box-shadow: 0 -8px 28px rgba(0, 0, 0, .22);
+  font-family: var(--serif); font-size: 17px; line-height: 1.3;
+  transform: translateY(105%); transition: transform .26s cubic-bezier(.2, .8, .2, 1), height .22s ease;
+  visibility: hidden;
+}
+#sw-app-sheet.open { transform: none; visibility: visible; }
+#sw-app-sheet.large { height: calc(100vh - var(--sw-safe-t) - 12px); height: calc(100dvh - var(--sw-safe-t) - 12px); }
+.sw-app-grab {
+  flex: none; height: 22px; width: 100%; margin: 0; padding: 0; border: 0; background: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+}
+.sw-app-grab span { display: block; width: 40px; height: 5px; border-radius: 3px; background: color-mix(in srgb, var(--ink, #191713) 25%, transparent); }
+.sw-app-sheet-head {
+  flex: none; display: flex; align-items: center; gap: 8px; min-height: 48px; padding: 0 8px 0 18px;
   background: var(--header-bg, #1B2A41);
 }
-#sw-app-row button {
-  flex: 1 1 0; min-height: 52px; margin: 0; padding: 0; background: none; border: 0; border-radius: 12px;
-  color: var(--sw-on-chrome); display: flex; align-items: center; justify-content: center;
-  -webkit-tap-highlight-color: transparent; cursor: pointer;
+.sw-app-sheet-title { flex: 1 1 auto; margin: 0; color: var(--header-text, #DDB768); font-family: var(--serif); font-size: 1.05rem; font-weight: 600; text-align: center; padding-left: 36px; }
+.sw-app-x {
+  width: 44px; height: 44px; margin: 0; padding: 0; border: 0; border-radius: 50%; flex: none;
+  background: rgba(255, 255, 255, .12); color: var(--sw-on-chrome, #F3EDE2);
+  display: flex; align-items: center; justify-content: center; cursor: pointer;
 }
-#sw-app-row button[aria-current="page"] { color: var(--accent-light, #DDB768); }
-#sw-app-row button[aria-current="page"] svg { stroke-width: 2.2; }
-
-/* THE NOTES PANEL: a native page on the reader's paper */
-#sw-app-panel {
-  position: fixed; left: 0; right: 0; top: 0; z-index: 2147482900;
-  bottom: calc(var(--sw-app-row-h) + env(safe-area-inset-bottom, 0px));
-  display: none; flex-direction: column; background: var(--page-bg-deep, #F0ECE5); color: var(--ink, #191713);
-  font-size: 17px; line-height: 1.3;
+.sw-app-scroll {
+  flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; overscroll-behavior: contain;
+  padding: 16px 16px calc(var(--sw-row-bottom) + var(--sw-row-h) + 16px);
 }
-#sw-app-panel.open { display: flex; }
-.sw-app-bar { flex: none; background: var(--header-bg, #1B2A41); color: var(--sw-on-chrome); padding-top: env(safe-area-inset-top, 0px); }
-.sw-app-title { min-height: 56px; display: flex; align-items: center; justify-content: center; font-weight: 600; font-size: 17px; }
-.sw-app-scroll { flex: 1 1 auto; overflow-y: auto; -webkit-overflow-scrolling: touch; padding: 16px; overscroll-behavior: contain; }
-.sw-app-h { color: var(--gloss-ink, #554E45); font-weight: 600; font-size: 15px; margin: 0 0 8px 4px; }
-.sw-app-gap { height: 20px; }
+.sw-app-h { color: var(--gloss-ink, #554E45); font-weight: 600; font-size: .8rem; letter-spacing: .06em; text-transform: uppercase; margin: 18px 0 8px 4px; }
+.sw-app-h:first-child { margin-top: 2px; }
 .sw-app-hint { color: var(--gloss-ink, #554E45); padding: 16px; font-size: 15px; }
-.sw-app-card { background: var(--page-bg, #FCFAF7); border-radius: 12px; overflow: hidden; }
+.sw-app-card { background: var(--page-bg, #FCFAF7); border-radius: 12px; overflow: hidden; border: 1px solid var(--rule, #E2DCD2); }
 .sw-app-r {
-  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; box-sizing: border-box;
+  display: flex; align-items: center; gap: 14px; width: 100%; min-height: 52px; box-sizing: border-box;
   padding: 10px 16px; margin: 0; background: none; border: 0; border-top: 1px solid var(--rule, #E2DCD2);
-  color: inherit; font: inherit; text-align: left; -webkit-tap-highlight-color: transparent;
+  color: inherit; font: inherit; text-align: left; -webkit-tap-highlight-color: transparent; cursor: pointer;
 }
-.sw-app-card > .sw-app-r:first-child { border-top: 0; }
+.sw-app-card > .sw-app-r:first-child, .sw-app-card > :first-child { border-top: 0; }
 .sw-app-r:active { background: color-mix(in srgb, var(--ink, #191713) 6%, transparent); }
+.sw-app-static { cursor: default; }
 .sw-app-grow { flex: 1 1 auto; min-width: 0; display: flex; flex-direction: column; }
 .sw-app-t { color: var(--ink, #191713); }
-.sw-app-bold { font-weight: 700; font-size: 20px; }
+.sw-app-bold { font-weight: 700; font-size: 19px; }
 .sw-app-sub { color: var(--gloss-ink, #554E45); font-size: 15px; }
 .sw-app-n { color: var(--ink-light, #6D655B); font-size: 13px; }
 .sw-app-ref { color: var(--accent, #8E6215); font-size: 13px; font-weight: 600; display: block; }
 .sw-app-here { color: var(--accent, #8E6215); }
 .sw-app-ic { display: flex; align-items: center; flex: none; }
 .sw-app-clamp4 { display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden; }
-.sw-app-empty { text-align: center; padding: 40px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-light, #6D655B); }
+.sw-app-empty { text-align: center; padding: 32px 16px; display: flex; flex-direction: column; align-items: center; gap: 8px; color: var(--ink-light, #6D655B); }
 .sw-app-empty .sw-app-sub { max-width: 30em; }
+
+/* Display: the text-size slider */
+.sw-app-slider { display: flex; align-items: center; gap: 12px; padding: 12px 16px; min-height: 52px; box-sizing: border-box; }
+.sw-app-slider input { flex: 1 1 auto; accent-color: var(--accent, #8E6215); min-height: 44px; }
+.sw-app-a { color: var(--ink, #191713); font-family: var(--serif); line-height: 1; }
+.sw-app-a-small { font-size: 13px; } .sw-app-a-big { font-size: 22px; }
+/* Display: the theme swatches, each a little page in its own colours */
+.sw-app-swatches { display: flex; gap: 10px; padding: 12px; justify-content: space-between; }
+.sw-app-swatch {
+  flex: 1 1 0; margin: 0; padding: 8px 4px 6px; min-height: 44px; background: none; border: 2px solid transparent; border-radius: 12px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; cursor: pointer; color: var(--ink, #191713); font: inherit;
+}
+.sw-app-swatch[aria-checked="true"] { border-color: var(--accent, #8E6215); }
+.sw-app-chip { width: 52px; height: 38px; border-radius: 8px; display: flex; flex-direction: column; justify-content: center; gap: 4px; padding: 0 9px; box-sizing: border-box; border: 1px solid rgba(0, 0, 0, .18); }
+.sw-app-chip i { display: block; height: 3px; border-radius: 2px; }
+.sw-app-swatch-light .sw-app-chip { background: #FCFAF7; } .sw-app-swatch-light .sw-app-chip i { background: #191713; }
+.sw-app-swatch-sepia .sw-app-chip { background: #F4EAD8; } .sw-app-swatch-sepia .sw-app-chip i { background: #2A2318; }
+.sw-app-swatch-dark .sw-app-chip { background: #14120F; } .sw-app-swatch-dark .sw-app-chip i { background: #EDE6DA; }
+.sw-app-swatch-name { font-size: 13px; }
+.sw-app-swatch[aria-checked="true"] .sw-app-swatch-name { color: var(--accent, #8E6215); font-weight: 600; }
+/* Display: the reading layout, a segmented control */
+.sw-app-seg { display: flex; margin: 12px; padding: 3px; border-radius: 10px; background: color-mix(in srgb, var(--ink, #191713) 8%, transparent); }
+.sw-app-seg-b {
+  flex: 1 1 0; min-height: 40px; margin: 0; border: 0; border-radius: 8px; background: none; cursor: pointer;
+  color: var(--ink, #191713); font-family: var(--serif); font-size: 15px;
+}
+.sw-app-seg-b[aria-checked="true"] { background: var(--page-bg, #FCFAF7); box-shadow: 0 1px 3px rgba(0, 0, 0, .15); font-weight: 600; }
+/* Display: switches */
+.sw-app-toggle { cursor: pointer; }
+.sw-app-toggle input {
+  -webkit-appearance: none; appearance: none; flex: none; margin: 0; cursor: pointer;
+  width: 51px; height: 31px; border-radius: 16px; position: relative;
+  background: color-mix(in srgb, var(--ink, #191713) 18%, transparent); transition: background .2s ease;
+}
+.sw-app-toggle input::after {
+  content: ''; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%;
+  background: #fff; box-shadow: 0 1px 3px rgba(0, 0, 0, .3); transition: transform .2s ease;
+}
+.sw-app-toggle input:checked { background: var(--accent, #8E6215); }
+.sw-app-toggle input:checked::after { transform: translateX(20px); }
+
 /* the verse a mark opens, lit for a moment */
 .verse.sw-app-flash { background: color-mix(in srgb, var(--accent, #8E6215) 14%, transparent); transition: background .6s ease; }
 
@@ -91,4 +286,9 @@ html.sw-web-shell.sw-app-booting::before {
 @keyframes sw-app-slide-prev { from { transform: translateX(-28px); opacity: .55; } to { transform: none; opacity: 1; } }
 html.sw-web-shell #view.sw-app-turn-next { animation: sw-app-slide-next .32s ease-out; }
 html.sw-web-shell #view.sw-app-turn-prev { animation: sw-app-slide-prev .32s ease-out; }
-@media (prefers-reduced-motion: reduce) { html.sw-web-shell #view.sw-app-turn-next, html.sw-web-shell #view.sw-app-turn-prev { animation: none; } }
+
+@media (prefers-reduced-motion: reduce) {
+  html.sw-web-shell .controls-top, #sw-app-chapter-row, #sw-app-sheet, #sw-app-sheet-scrim,
+  .sw-app-toggle input, .sw-app-toggle input::after { transition: none !important; }
+  html.sw-web-shell #view.sw-app-turn-next, html.sw-web-shell #view.sw-app-turn-prev { animation: none; }
+}

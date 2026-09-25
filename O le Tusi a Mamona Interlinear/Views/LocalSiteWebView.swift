@@ -62,6 +62,9 @@ struct LocalSiteWebView: UIViewRepresentable {
         if let url = start.url {
             webView.load(URLRequest(url: url))
         }
+        #if DEBUG
+        DebugBridge.start(webView)
+        #endif
         return webView
     }
 
@@ -152,3 +155,32 @@ struct LocalSiteWebView: UIViewRepresentable {
         }
     }
 }
+
+#if DEBUG
+/// REMOTE CONTROL FOR DEBUG BUILDS ONLY — compiled out of Release, so it never
+/// ships. The Hebrew app's bridge, cut to its one job: the simulator's app
+/// container is an ordinary folder on the Mac, so JavaScript written to
+/// Documents/shell_cmd.js is evaluated in the page and its result written to
+/// Documents/shell_out.txt. That is how the development session walks the
+/// app's states (a chapter, a theme, a sheet) when it cannot send taps.
+enum DebugBridge {
+    private static var timer: Timer?
+    private static weak var webView: WKWebView?
+
+    static func start(_ wv: WKWebView) {
+        webView = wv
+        guard timer == nil,
+              let docs = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
+        let cmd = docs.appendingPathComponent("shell_cmd.js")
+        let out = docs.appendingPathComponent("shell_out.txt")
+        timer = Timer.scheduledTimer(withTimeInterval: 0.25, repeats: true) { _ in
+            guard let js = try? String(contentsOf: cmd, encoding: .utf8) else { return }
+            try? FileManager.default.removeItem(at: cmd)
+            webView?.evaluateJavaScript(js) { result, error in
+                let text = error.map { "ERROR: \($0.localizedDescription)" } ?? String(describing: result ?? "undefined")
+                try? text.write(to: out, atomically: true, encoding: .utf8)
+            }
+        }
+    }
+}
+#endif

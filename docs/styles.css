@@ -547,7 +547,6 @@ body.no-gloss .unit .en { display: none; }
   /* the Hebrew drawer's two widths: 90vw on a phone, 360px where there is room */
   width: min(22.5rem, 90vw);
   height: 100%;
-  padding-top: env(safe-area-inset-top);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -617,6 +616,9 @@ body.no-gloss .unit .en { display: none; }
   position: sticky;
   top: 0;
   padding: .9rem 1rem;
+  /* the head, not the drawer, clears the notch: its navy runs up under the
+     clock, where the drawer's own padding had left a band of paper */
+  padding-top: calc(.9rem + env(safe-area-inset-top, 0px));
   background: var(--header-bg);
   color: var(--header-text);
   font-size: 1.05rem;
