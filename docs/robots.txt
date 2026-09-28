@@ -1,0 +1,5 @@
+# samoanbominterlinear.org — the whole site is crawlable.
+User-agent: *
+Allow: /
+
+Sitemap: https://samoanbominterlinear.org/sitemap.xml
