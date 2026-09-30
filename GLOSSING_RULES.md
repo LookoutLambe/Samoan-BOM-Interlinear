@@ -1061,3 +1061,148 @@ curation's "it is needful that I speak" (the verse: "I must speak"); `tauina mai
 dwindling"); `faalogo` "having heard" for the second hearing (v17, "hear"); `mo au mea`
 "for your substance" and `na fai` blank (v20, "all thy doings"); `sa faapea | le
 ituaiga` "after this manner | manner" (v15); `Atua—ma` (a fused token, v17).
+
+### 22aa. Rules the whole-corpus round added (2026-09-30)
+
+The user: *"now you said there were still glossing issues so please fix those there
+shouldnt be with all the rules and the grammar and everything i gave you"*. The round
+measured the whole of the three volumes for shapes no English has and for words left
+silent, traced each class to the stage that owned it, and fixed the stage. No verse
+was patched.
+
+**The gloss is English** (`english_agrees`, run on every unit last):
+
+- did / do + a past form → the verse's "did X", else the past alone ("did delivered"
+  → "did deliver", "Noah did rebelled" → "Noah rebelled"); a modal or "to" + a past
+  form → the base ("to fell upon" → "to fall upon"). Regular pasts too, taken back to
+  a base only when the scripture English uses that base as a verb ("to praised" →
+  "to praise"; "wicked" is never "wick", "seed" never "see"; ordinals are not verbs).
+  Where the verse says it passive ("to be glorified", "shall be cleansed") the
+  participle keeps its "be".
+- An article before a bare verb goes, a possessive takes the gerund ("their see" →
+  "their seeing"), have / had + a bare verb takes the participle.
+- a / an by the next word's sound: "a end" → "an end", "a old" → "an old". The
+  register's own "an hundred", "an holy", "such an one" stand, and never before a
+  particle's word ("a of" is not "an of").
+- "did" + a regular past the verb list does not hold is the past alone ("Noah did
+  rebelled" → "Noah rebelled", Ether 7:15); the -eed verbs stay ("did proceed").
+- **A name takes no tense**: `Keni` "kenite" became "kenited" under the narrative past
+  (Genesis 15:19); a one-word gloss the verse writes with a capital mid-sentence is
+  left as it is.
+- No article before a pronoun-word or a finite verb: `se mea` "a anything" →
+  "anything", "a aught", "a availeth" — the article was the `se` these words absorb.
+- **A subject takes no "to"**: the curation's `latou tagi` "they to cry", with the
+  verse's "cries" set on it, printed "they to cries" (Mosiah 11:24) → the verse's own
+  "they shall cry". At the head of a unit only ("as I to you" stands), and only before
+  a word the scripture English inflects as a verb ("he to whom" stands).
+- **The subject is said once**: a clitic subject set before a unit that already
+  carried it printed "I have I put" (D&C 5:3, and 18 more), "they did they cry";
+  before a question's auxiliary it is the question's ("you Have you walked" → "Have
+  you walked", Alma 5:27).
+
+**No word is left silent — and none says a guess.** After the pairings, an open-class
+word still blank takes, in order: a reading of its own the verse holds unspent
+(`mafui’e` "earthquake", `toatama’i` "indignation"); its curated reading; its hand
+sense; the learned lexicon's, only when it is the word's consistent reading (three or
+more of its readings and at least 40% on one lemma: `fia` "would", `vaaia` "saw" — not
+`faasolo` "began", 2 of 9, under "extended along"). **No lone dictionary sense**: one
+the verse does not confirm was wrong four times in ten ("photocopy" for `kopi`,
+"width" for `futu` feet, "frankincense" for `pulu` balls, the OCR's "redup"), and a
+wrong word is worse than a blank. **A name** takes only the verse's
+name that sounds like it (`SG.sounds_like`: Samoan folds c/g/k/q into k, r into l,
+z/sh into s, b into p, d into t, writes no h or y, and writes J as the vowel I —
+`Kata` "Carter" in D&C 102:34, `Esaia` "Ezias" beside `Isaia` "Isaiah" in Helaman
+8:20, `Katianeti` "Gadiandi" in 3 Nephi 9:8), else the curated units' reading of it
+(`Nuuese` "Gentiles" is translated, not transliterated), and never a dictionary word
+("gath", "esaias").
+
+**The lexicons.**
+
+- The dictionary finds a word the text spells with the glottal or a long vowel: Pratt
+  writes neither, so `mafui’e`, `a’oa’i`, `toatama’i` had no senses at all. Both sides
+  fold, since the typed 1887 Bible writes both (`’apa` brass).
+- The learned lexicon (`learn_bible_lexicon.py`) was relearned. It dated from
+  2026-09-05, before the Bible became the typed 1887 text, and had learned OCR tokens
+  (`a6o`, `alr`). **A name spelt as the English spells it is that name**: by dice the
+  list of D&C 102 taught `Samuel` "Hyde, Johnson, Orson", because English "samuel" is
+  common across the Bible where the Samoan is `Samuelu`.
+- **A word with hand senses takes none from the learner.** The learner is for words the
+  dictionaries lack, and its senses can be a neighbour's: `faaitiitia` learned
+  "unbelief" from "dwindle in unbelief" and took it from `lē talitonu` (1 Nephi 10:11;
+  now "the dwindling | … | the unbelief"). The three good senses the learner had for
+  such words were carried into the hand senses: `maualalo` "lesser" (D&C 107:14),
+  `tafatafa` "border", `tautatala` "spoken".
+- **The Bible was measured for glosses that left a word its verse has for one it lacks**
+  (HEAD against the new run, token by token). The relearned lexicon had narrowed a
+  handful of words, and each took the hand senses its meaning needs: `nonofo`
+  "the inhabitants" → "dwell" 136 times, the `tuli` family "cast" → "driven" 31,
+  `avae` "took" → "raised", `avane` "take" → the OCR's "the g rd-fish", `‘apa`
+  "brasen" → nothing, `matuā` "exceedingly", `pona` "blemish", `nifo` "horn",
+  `tietie` "ride / horsemen / throne", `lafoai` "cast off / forsake",
+  `faataamilomilo` "round about".
+- **`se ā` is "what"** (Dunn: the interrogative under the non-specific article) — `Se a
+  le taui` "what reward" (Matthew 5:46). It was the article and the possessive, "a
+  of", 365 times in O le Tusi Paia. `se ā le mea`, "what thing", is "why / wherefore"
+  (`Se a le mea e te moe ai` "why sleepest thou", Psalm 44:23), and `se ā se mea`,
+  "what thing", is "what" (`Se a se mea ua e iloa` "What sawest thou", Genesis 20:10 —
+  split, `se mea` took the curation's "that"). No article before an interrogative ("a
+  why").
+- Hand senses in: `faaali` / `faaalia` "manifest", `faataunuu(ina)` "accomplish",
+  `moni` "real", `faamaoni` "sincere", `manatu` "intent", `tauina` "spoken" (8 of its
+  14 verses; the unmarked `ta’uina`), `soisoi` "smile", `viia` "praised", `aemaise`
+  "especially", `malama` "light / morrow", `ese` "away"; `mama` "pure" first
+  (`alofa mama` is charity, the pure love).
+
+**The grammar.**
+
+- `sau` after `leai` is the possessive `se` + `lau`, not the verb: `e leai sau pule`
+  "you have no power" (Alma 8:12, D&C 5:3).
+- **The negative equative is one noun phrase**: `e lē o` + a noun phrase + the subject
+  pronoun. A tense marker inside the span opens a clause of its own, and a pronoun
+  after `i` is an object: Alma 8:12 had folded `e lē o ni isi o lau ekalesia ua matou
+  iloa e leai sau pule i luga o i matou` into one unit, "we not over".
+- **The comitative**: `ma` before a noun phrase is "with" when the verse sets "with"
+  before that noun and never "and": `ma le loto faamaoni` "with | heart | sincere",
+  `ma le manatu moni` "with | the intent | real" (Moroni 10:4), `ma le ita` "with
+  anger" (Mormon 4:15). 119 units.
+- **A content word said at the end of one unit and the start of the next**, which the
+  verse says once, stays with the next unit's own word: `sa faapea | le ituaiga` "after
+  this manner | manner" → "after this | manner" (1 Nephi 5:8, 10:15), `alu mai | i
+  luma` "went before | before" → "went | before" (Mosiah 20:7).
+- **A word the verse says once is glossed once**: a settled reading the verse has
+  already spent takes the sense of its own word the verse still holds — `moni` "true"
+  after `lē moni` "are not true" → "real". Never another inflection of the same word.
+- **A pronoun phrase says its pronoun**, but `ia` before a name is the personal
+  article (`mai ia Keriso` "from Christ", 4 Nephi 1:18), and `ia` is he, she or it as
+  the verse has it — its own preposition phrase first ("unto her", Mark 5:34), else
+  the verse's only pronoun ("into it", 2 Nephi 15:14). A preposition's object pronoun is never
+  dropped as the memory's ("because of us", Alma 8:12).
+- The noun test (`noun_in_verse`) takes "with" + one adjective: "with real intent".
+  Not "of" + a word: in "the gates of hell stand open", "stand" is the verb.
+- `pe a` is "when / if / whether"; `ua i ai` may be "are"; an existential that the verse
+  vetoes gives way to its parts; the clitic `ia` after `sa`/`na`/`ua`/`e`; the non-past
+  marker takes no "did" (`ou te | apoapoai atu` "I | would exhort", Moroni 10:4).
+
+Measured, the three volumes against the committed state: tokens carrying text
+529,554 → 531,227 of 533,832; blank open-class words 3,406 → 1,756 (the fill reached
+1,080 before the guesses were taken out: a blank is better than a wrong word);
+did / modal / to + a past form 31 / 13 / 3 → 0; article + verb 107 → 30 (the rest are
+nouns: "the fall", "the bear"); pronoun phrases without a pronoun 126 → 86 (the rest
+are `taua` "war", `maua` "obtain", `ia` the demonstrative "those", `ia` before a name);
+clauses swallowed into one unit 570 → 564; F1 against the curation 84.0 → 84.1
+(content 85.7 → 85.8). Words of a gloss the verse lacks 17,130 → 18,017: the words
+now glossed where the verse has no word for them carry their own meaning, which the
+verse by definition does not contain. O le Tusi Paia: 990,505 → 1,000,268 of
+1,020,652 tokens carrying text; token by token against the committed files, 7,683
+glosses moved to a word their verse has and 1,829 away from one — most of those are
+shapes, not losses ("the eat" → "the eating", a word moving to its unit's last token).
+Of the 1 Nephi 10 items left open in 22z, `tauina mai` ("had spoken"), `i le
+faaitiitia` ("the dwindling") and `na fai` ("doings") are closed; `e ao ina ou
+tautala`, the second `faalogo` "having heard" (v17: another inflection of a word
+already said, which the once-rule does not swap), and `mo au mea` (v20) are not; `sa
+faapea | le ituaiga` (v15) is closed by the boundary rule above.
+
+Still open: the words the fill no longer guesses stay blank (1,756) until a hand
+sense or the verse reaches them; the existential `sa i ai` reads "was" where the
+verse's copula is "was" and its "there" belongs elsewhere (33 in the Bible); `tuli
+esea` "drive | great" (Mormon 4:15); fused tokens (`Harisi.Ina`).

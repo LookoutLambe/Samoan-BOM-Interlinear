@@ -647,6 +647,20 @@ INTERROGATIVES = {
     'fea':      'where',                                  #    32  curated "where"
     'afea':     'when',                                   #    10  (future)
     'anafea':   'when',                                   #        (past)
+    # `se ā` "what" (Dunn: the interrogative `ā` under the non-specific article)
+    # -- `Se a le taui` "what reward" (Matthew 5:46), `Se a ea` "what then". It
+    # was read as the article and the possessive, "a of", 365 times in O le
+    # Tusi Paia
+    'se a':     'what',
+    'se ā':     'what',
+    # "what thing" is WHY: `Se a le mea e te moe ai` "why sleepest thou"
+    # (Psalm 44:23); the verse chooses among the alternatives
+    'se a le mea': 'why, wherefore, what',
+    'se ā le mea': 'why, wherefore, what',
+    # `se ā se mea` "what thing" is WHAT: `Se a se mea ua e iloa` "What sawest
+    # thou" (Genesis 20:10); split, `se mea` took the curation's "that"
+    'se a se mea': 'what, what thing',
+    'se ā se mea': 'what, what thing',
 }
 
 DEMONSTRATIVES = {
@@ -707,7 +721,7 @@ EXISTENTIAL = {
     'e i ai':    'there is, there are, is, are, hath, have, had',
     'sa i ai':   'there was, there were, was, were, had',
     'na i ai':   'there was, was, had',
-    'ua i ai':   'there is, there are, is, hath, have',
+    'ua i ai':   'there is, there are, is, are, hath, have',
     'o loo i ai': 'there is, there are, is, are',
     'sa leai':   'there was no, there was not, had no, none, not',
     'na leai':   'there was no, there was not, had no, none, not',
@@ -1112,6 +1126,13 @@ def _dictionary():
             except Exception:
                 continue
             for k, v in d.items():
+                # a word with hand senses takes none from the learner: the
+                # learner is for words the dictionaries lack, and its senses
+                # can be a neighbour's -- `faaitiitia` "dwindle" learned
+                # "unbelief" from "dwindle in unbelief" and took it from `lē
+                # talitonu` (1 Nephi 10:11)
+                if name == "samoan_dictionary_bible.json" and k in HAND_SENSES:
+                    continue
                 for sense in v:
                     if sense not in merged.setdefault(k, []):
                         merged[k].append(sense)
@@ -1136,9 +1157,67 @@ def _dictionary():
     return _DICT
 
 
+def name_skeleton(w):
+    """A name's consonants as Samoan writes them: Carter -> k l t, Kata -> k t.
+    The Samoan alphabet folds c/g/k/q into k, r into l, z/sh into s, b into p,
+    d into t; h and y are not written, and J is the vowel I (John -> Ioane,
+    Jeremiah -> Ieremia)."""
+    w = re.sub(r"[^a-z]", "", (w or "").lower().replace("’", "").replace("ʻ", ""))
+    w = w.replace("sh", "s").replace("ch", "k").replace("ph", "f").replace("th", "t")
+    out = ""
+    for ch in w:
+        c = {"c": "k", "g": "k", "q": "k", "x": "ks", "r": "l", "z": "s", "j": "i", "b": "p", "d": "t", "w": "v"}.get(ch, ch)
+        for c_ in c:
+            if c_ in "aeiouhy" or (out and out[-1] == c_):
+                continue
+            out += c_
+    return out
+
+
+def sounds_like(sm, en):
+    """Is the English name `en` one the Samoan name `sm` transliterates? The
+    Samoan keeps the English consonants in order, folded, and may drop some
+    (Carter -> Kata, Isaiah -> Isaia): same first consonant, the Samoan's
+    consonants a subsequence of the English's. Hyde is not Samuel."""
+    a, b = name_skeleton(sm), name_skeleton(en)
+    if not a or not b or a[0] != b[0]:
+        return False
+    it = iter(b)
+    return all(ch in it for ch in a)
+
+
 def dictionary(form):
-    """Every sense the two lexicons give this Samoan word, or ()."""
-    return tuple(_dictionary().get((form or '').strip().lower(), ()))
+    """Every sense the two lexicons give this Samoan word, or ().
+
+    Pratt (1893) writes neither the glottal stop nor the long vowel, so a word
+    the text spells `mafui’e` or `tamā` is `mafuie` / `tama` there: the exact
+    spelling first, then the one Pratt would print. Before this, every word
+    with a glottal had no senses at all (`mafui’e` "earthquake", D&C 87:6)."""
+    f = (form or '').strip().lower()
+    d = _dictionary()
+    if d.get(f):
+        return tuple(d[f])
+    # and the typed 1887 Bible writes both (`’apa` brass, `āga` span), so its
+    # learned entries are found from either spelling: both sides fold
+    return tuple(_folded_dictionary().get(_fold(f), ()))
+
+
+def _fold(w):
+    return re.sub(r"[’ʻ‘'`]", "", w).translate(str.maketrans("āēīōū", "aeiou"))
+
+
+_FOLDED = None
+
+
+def _folded_dictionary():
+    global _FOLDED
+    if _FOLDED is None:
+        _FOLDED = {}
+        for k, v in _dictionary().items():
+            for sense in v:
+                if sense not in _FOLDED.setdefault(_fold(k), []):
+                    _FOLDED[_fold(k)].append(sense)
+    return _FOLDED
 
 
 # Readings the BIBLE takes that the Book of Mormon curation renders otherwise
@@ -1213,9 +1292,12 @@ READINGS = {
     'mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
     'na mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
     'e mafai ona': ['can', 'could', 'may', 'might', 'mightest', 'mayest', 'able', 'be able'],
-    # the conditional (`pe a` "if / whether"), silent where the English folds it
-    'pe a': ['if', 'whether', 'when'],
-    'pe ā': ['if', 'whether', 'when'],
+    # `pe a` is the FUTURE TEMPORAL first (Dunn, 22a: `a` clause-initially, `pe a`
+    # mid-sentence, "when"; the curation: "when" 13, "if" 1) -- listed "if" first,
+    # it said "if" wherever the verse had both: `Ma pe a outou maua nei mea` "And
+    # when ye shall receive these things" (Moroni 10:4)
+    'pe a': ['when', 'if', 'whether'],
+    'pe ā': ['when', 'if', 'whether'],
     'faapea': ['thus', 'so', 'after this manner', 'in this manner', 'like this'],   # `sa faapea le ituaiga` "after this manner was" (1 Nephi 1:15)
     'a’o':  ['while', 'as', 'when'],
     'aʻo':  ['while', 'as', 'when'],
@@ -2000,14 +2082,14 @@ HAND_SENSES = {
     'faaigoa':  ['call', 'called', 'name', 'named'],
     'naunau':   ['desire', 'desires', 'eager'],
     'talu':     ['since'],
-    'tafatafa': ['side', 'by the side', 'beside'],
+    'tafatafa': ['side', 'by the side', 'beside', 'border'],
     'usitai':   ['obey', 'obedient', 'hearken'],
     'malaga':   ['journey', 'travel', 'traveled', 'journeyings'],
-    'maualalo': ['low', 'lowly', 'lowliness', 'humble'],
+    'maualalo': ['low', 'lowly', 'lowliness', 'humble', 'lesser'],
     'fouvale':  ['rebel', 'rebellion', 'rebellious'],
     'taua':     ['precious', 'valuable', 'important', 'war', 'battle'],
     'gatete':   ['tremble', 'shake', 'quake'],
-    'tautatala': ['speak', 'talk', 'utter'],
+    'tautatala': ['speak', 'talk', 'utter', 'spoken'],
     'pule':     ['power', 'rule', 'authority', 'ruler'],
     'mea':      ['thing', 'things'],
     # 1 Nephi 5 (2026-09-19): words Pratt holds under a spelling the corpus never
@@ -2056,14 +2138,61 @@ for _w, _s in {
     'isi':      ['other', 'others', 'another', 'some'],
     'tusa':     ['according', 'equal', 'like', 'same', 'about'],
     'sui':      ['member', 'members', 'representative', 'agent', 'substitute', 'replace'],
-    'mama':     ['clean', 'pure', 'purity', 'light'],
+    'mama':     ['pure', 'clean', 'purity', 'light'],     # `alofa mama` "charity", the pure love (Alma 7:24, D&C 4:5)
     'manu':     ['animal', 'animals', 'beast', 'beasts', 'bird', 'birds', 'fowl', 'fowls', 'cattle', 'flocks'],
-    'manatu':   ['think', 'thought', 'thoughts', 'remember', 'consider', 'suppose', 'believe', 'mind', 'opinion'],
+    'manatu':   ['think', 'thought', 'thoughts', 'remember', 'consider', 'suppose', 'believe', 'mind', 'opinion', 'intent', 'purpose'],
     'muamua':   ['first', 'before', 'former', 'beginning', 'formerly'],
     'ituaiga':  ['kind', 'kinds', 'manner', 'sort', 'tribe', 'tribes'],
     'tino':     ['body', 'bodies', 'flesh', 'person'],
     'lelei':    ['good', 'well', 'better', 'best', 'goodness'],
     'maua':     ['obtain', 'obtained', 'get', 'find', 'found', 'receive', 'received', 'have', 'possess'],
+    # 2026-09-30, the words whose verse English the tool could not reach because
+    # no sense listed it: `faaali mai` "show" beside "make himself manifest",
+    # `faataunuuina` "fulfilled" beside "that they may accomplish" (1 Nephi 3:7),
+    # `le manatu moni` "the thought | true" beside "with real intent", `ma le
+    # loto faamaoni` "faithful" beside "a sincere heart" (Moroni 10:4), `i le
+    # faaitiitia` "the unbelief" beside "the dwindling" (1 Nephi 10:11)
+    'faaali':   ['show', 'manifest', 'reveal', 'make known', 'declare', 'shown', 'manifested', 'revealed'],
+    'faaalia':  ['shown', 'manifested', 'revealed', 'made known', 'declared', 'show', 'manifest', 'reveal'],
+    'faataunuu': ['fulfil', 'fulfill', 'accomplish', 'bring to pass', 'fulfilled', 'accomplished'],
+    'faataunuuina': ['fulfilled', 'accomplished', 'fulfil', 'fulfill', 'accomplish', 'brought to pass'],
+    'moni':     ['true', 'real', 'truth', 'truly', 'verily', 'indeed'],
+    'faamaoni': ['faithful', 'sincere', 'true', 'honest', 'faithfulness'],
+    'faaitiitia': ['lessen', 'diminish', 'dwindle', 'dwindling', 'decrease', 'lessened', 'diminished'],
+    # `tauina` is mostly the unmarked `ta'uina` "told" (8 of its 14 verses say
+    # spoken / said / told, 2 "pluck"): `tauina mai e lo'u tamā ia upu` "my
+    # father had spoken these words" printed "pluck" (1 Nephi 10:11)
+    'tauina':   ['told', 'spoken', 'said', 'spake', 'declared', 'shown', 'pluck'],
+    # the words the learned lexicon lost or narrowed when the Bible became the
+    # typed 1887 text (its spellings changed under them): `soisoi` learned only
+    # "laugh" and printed it under "he did smile upon them" (3 Nephi 19:30);
+    # `viia`, the passive of `vivii` "praise", lost "praise" (22 tokens);
+    # `malama` had only Pratt's "ninth month of pregnancy" and "morning"
+    'soisoi':   ['smile', 'laugh', 'smiled', 'laughed'],
+    'viia':     ['praised', 'glorified', 'praise', 'glorify'],
+    'aemaise':  ['especially', 'particularly'],
+    'malama':   ['light', 'bright', 'moon', 'month', 'dawn', 'morning', 'morrow'],   # `a malama` "on the morrow" (Helaman 13:34)
+    # the directional of separation: `tuli ese` "drive away / cast out"; the
+    # verses had taught it only "heavy" (3 Nephi 16:9)
+    'ese':      ['away', 'out', 'different', 'other', 'strange'],
+    # the words whose senses the relearned lexicon narrowed, found by counting
+    # O le Tusi Paia glosses that left a word the verse has for one it lacks
+    # (2026-09-30): `nonofo` "the inhabitants" -> "dwell" 136 times, the `tuli`
+    # family "cast" -> "driven" 31, `avae` "took" -> "raised", `avane` "take" ->
+    # the OCR's "the g rd-fish", `‘apa` "brasen" -> nothing
+    'nonofo':   ['dwell', 'dwelt', 'inhabitants', 'inhabitant', 'dwellers', 'sit', 'remain', 'abide'],
+    'tuli':     ['drive', 'cast', 'chase', 'pursue', 'expel', 'dismiss'],
+    'tulia':    ['driven', 'cast', 'drove', 'chased', 'pursued', 'expelled'],
+    'tutuli':   ['drive', 'cast', 'expel', 'chase'],
+    'avae':     ['took', 'take', 'carry', 'carried', 'bring', 'brought', 'raised'],
+    'avane':    ['take', 'took', 'taken', 'carry', 'carried', 'remove', 'removed'],
+    '’apa':     ['brass', 'brasen', 'copper', 'metal'],
+    'matuā':    ['exceedingly', 'very', 'utterly', 'greatly', 'surely', 'sore'],
+    'pona':     ['blemish', 'spot', 'knot', 'fault'],
+    'nifo':     ['tooth', 'teeth', 'horn', 'horns', 'tusk'],
+    'tietie':   ['ride', 'rode', 'riding', 'horsemen', 'horseman', 'riders', 'sit', 'sitteth', 'throne'],   # `e tietie i solofanua` "horsemen"
+    'lafoai':   ['cast', 'forsake', 'forsaken', 'reject', 'rejected', 'throw', 'abandon'],
+    'faataamilomilo': ['round', 'about', 'compass', 'compassed', 'circle', 'turn'],
 }.items():
     HAND_SENSES[_w] = list(dict.fromkeys(HAND_SENSES.get(_w, []) + _s))
 

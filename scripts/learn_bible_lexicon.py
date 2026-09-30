@@ -97,6 +97,12 @@ def senses(s):
         need_cond, need_lift = (MIN_COND, MIN_LIFT) if cs[s] >= 8 else (0.5, 20.0)
         if cond >= need_cond and lift >= need_lift: out.append((dice, cond, lift, b, show(e)))
     out.sort(reverse=True)
+    # A NAME SPELT AS THE ENGLISH SPELLS IT is that name: D&C 102's list set
+    # `Samuel` beside Hyde, Johnson and Orson, and by dice it learned all three
+    # -- the English "samuel" is common across the Bible, where the Samoan is
+    # `Samuelu`, so the rarer names beside it scored higher
+    if s in names and both[s].get(stem(s), 0) >= 0.5 * cs[s]:
+        return [(1.0, 1.0, 1.0, both[s][stem(s)], s)]
     if not out: return []
     best = out[0][0]
     return [o for o in out if o[0] >= 0.5 * best][:3]

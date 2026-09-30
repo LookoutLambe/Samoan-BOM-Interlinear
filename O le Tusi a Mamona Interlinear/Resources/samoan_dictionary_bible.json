@@ -1,15 +1,14 @@
 {
 "source": "learned from the verse-aligned corpus (O le Tusi Paia + KJV, and the Book of Mormon volumes + official English) by scripts/learn_bible_lexicon.py; merged after Pratt and EALD; thresholds both>=3, P(e|s)>=0.25, lift>=8 (0.5 / 20 under 8 verses); English forms stem-merged",
 "entries": {
-"500": [
-"disciples"
+"0’u": [
+"brethren"
 ],
-"a6o": [
-"dwell"
+"4ai": [
+"eat"
 ],
-"aa0": [
-"stretched",
-"anger"
+"4au": [
+"hosts"
 ],
 "aami": [
 "called"
@@ -30,7 +29,7 @@
 "ahaziah"
 ],
 "aati": [
-"fretting"
+"plague"
 ],
 "aau": [
 "send"
@@ -38,21 +37,17 @@
 "aava": [
 "ahava"
 ],
-"adada": [
-"spirit"
+"aea": [
+"taken"
 ],
 "aega": [
 "going"
-],
-"aemaise": [
-"especially"
 ],
 "aeto": [
 "eagle",
 "eagles"
 ],
 "afa": [
-"tempest",
 "half"
 ],
 "afafine": [
@@ -100,19 +95,15 @@
 ],
 "afā": [
 "storm",
-"tempest"
-],
-"aga": [
-"span"
-],
-"agaaga": [
-"spies"
+"tempest",
+"whirlwind"
 ],
 "agaalofa": [
 "compassion"
 ],
 "agaga": [
-"spirit"
+"spirit",
+"soul"
 ],
 "agai": [
 "towards"
@@ -124,8 +115,8 @@
 "goodness"
 ],
 "agamalu": [
-"meekness",
-"meek"
+"meek",
+"meekness"
 ],
 "agasala": [
 "sin"
@@ -136,9 +127,6 @@
 "agavaa": [
 "worthy"
 ],
-"agavale": [
-"left"
-],
 "aga’i": [
 "towards"
 ],
@@ -146,11 +134,14 @@
 "angel"
 ],
 "agi": [
-"wind",
-"blow"
+"blow",
+"wind"
 ],
 "aia": [
 "right"
+],
+"aie": [
+"islands"
 ],
 "aikamo": [
 "ahikam",
@@ -162,8 +153,7 @@
 ],
 "aila": [
 "hart",
-"hinds",
-"roebuck"
+"hinds"
 ],
 "ailama": [
 "hyrum"
@@ -202,6 +192,9 @@
 "ainā": [
 "inhabited"
 ],
+"aio": [
+"ahio"
+],
 "aisamako": [
 "ahisamach",
 "aholiab"
@@ -235,9 +228,11 @@
 "achaia"
 ],
 "akako": [
-"agag",
-"hammedatha",
-"agagite"
+"agag"
+],
+"akakō": [
+"agagite",
+"hammedatha"
 ],
 "akana": [
 "achan"
@@ -249,7 +244,12 @@
 "hagar"
 ],
 "akarava": [
-"scorpions"
+"scorpions",
+"whips",
+"chastised"
+],
+"akarā": [
+"hagarites"
 ],
 "akasafa": [
 "achshaph"
@@ -309,13 +309,12 @@
 "cried",
 "cry"
 ],
-"alagalima": [
-"shoulder",
-"wave",
-"heave"
+"alagālima": [
+"shoulder"
 ],
 "alalaga": [
-"cried"
+"cried",
+"cry"
 ],
 "alalo": [
 "lower"
@@ -327,8 +326,7 @@
 "highway"
 ],
 "alavai": [
-"conduit",
-"fuller's"
+"conduit"
 ],
 "alefa": [
 "omega",
@@ -342,6 +340,9 @@
 "alei": [
 "divorcement",
 "bill"
+],
+"aleia": [
+"widow"
 ],
 "aleka": [
 "cankerworm",
@@ -378,15 +379,6 @@
 "alipama": [
 "aholibamah"
 ],
-"alit": [
-"kingdom"
-],
-"alito": [
-"hosts"
-],
-"aloaia": [
-"servant"
-],
 "aloalii": [
 "michael",
 "prince"
@@ -394,19 +386,13 @@
 "aloe": [
 "aloes"
 ],
-"alofafine": [
-"daughters"
-],
 "alofagia": [
 "grace",
-"sight"
+"sight",
+"found"
 ],
 "alofaina": [
 "favour"
-],
-"alofateleina": [
-"greatly",
-"beloved"
 ],
 "alofilima": [
 "oil"
@@ -427,9 +413,6 @@
 "alope": [
 "foxes"
 ],
-"alr": [
-"moses"
-],
 "alualu": [
 "progress"
 ],
@@ -438,6 +421,9 @@
 ],
 "aluna": [
 "oak"
+],
+"alā": [
+"flint"
 ],
 "ama": [
 "ammah"
@@ -487,7 +473,7 @@
 "beginning"
 ],
 "amataina": [
-"begun"
+"began"
 ],
 "amato": [
 "hamath"
@@ -502,7 +488,7 @@
 "ammihud"
 ],
 "amia": [
-"called"
+"balak"
 ],
 "amiliki": [
 "amlici"
@@ -569,11 +555,18 @@
 "amoni": [
 "ammon"
 ],
+"amonī": [
+"ammonitess",
+"naamah"
+],
 "amori": [
 "amorites"
 ],
 "amorona": [
 "ammoron"
+],
+"amorī": [
+"amorites"
 ],
 "amosa": [
 "amos"
@@ -582,8 +575,7 @@
 "amoz"
 ],
 "amueli": [
-"ammiel",
-"debar"
+"ammiel"
 ],
 "amuia": [
 "blessed"
@@ -597,19 +589,25 @@
 "amulonā": [
 "amulonites"
 ],
+"anaana": [
+"keep"
+],
 "anaki": [
-"anakims",
-"anak"
+"anak",
+"anakims"
 ],
 "anamua": [
 "old"
+],
+"anamuā": [
+"ancient"
 ],
 "ananafi": [
 "yesterday",
 "today"
 ],
 "anania": [
-"ananias"
+"anania"
 ],
 "anapo": [
 "night"
@@ -667,11 +665,12 @@
 "doctrine"
 ],
 "aoaoina": [
-"taught",
-"learn"
+"learn",
+"teach"
 ],
 "aoauli": [
-"noon"
+"noon",
+"noonday"
 ],
 "aofaga": [
 "eagles",
@@ -679,6 +678,9 @@
 ],
 "aofai": [
 "number"
+],
+"aofaiina": [
+"gathered"
 ],
 "aofia": [
 "gathered"
@@ -688,14 +690,10 @@
 ],
 "aoina": [
 "night",
-"morning",
-"lie"
+"morning"
 ],
 "aoki": [
 "ahohite"
-],
-"aokuso": [
-"augustus"
 ],
 "aola": [
 "aholah",
@@ -707,9 +705,6 @@
 ],
 "aotelega": [
 "fine"
-],
-"apa": [
-"brass"
 ],
 "apaau": [
 "wings"
@@ -730,8 +725,7 @@
 "abel"
 ],
 "apelu": [
-"abel",
-"cain"
+"abel"
 ],
 "aperaamo": [
 "abraham"
@@ -754,13 +748,17 @@
 "abdon"
 ],
 "api": [
-"lodging"
+"lodging",
+"lodge"
 ],
 "apiapi": [
 "strait"
 ],
 "apieseru": [
 "abiezer"
+],
+"apieserū": [
+"ophrah"
 ],
 "apikaila": [
 "abigail"
@@ -893,6 +891,10 @@
 "aritako": [
 "aristarchus"
 ],
+"arnio": [
+"wicked",
+"iniquity"
+],
 "aro": [
 "moab"
 ],
@@ -944,6 +946,9 @@
 "aseka": [
 "azekah"
 ],
+"asekata": [
+"azgad"
+],
 "asekelona": [
 "ashkelon",
 "ekron",
@@ -979,8 +984,14 @@
 "ashtaroth",
 "edrei"
 ],
+"asesau": [
+"azaziah"
+],
 "asetota": [
 "ashdod"
+],
+"asetotapeseka": [
+"pisgah"
 ],
 "asia": [
 "asia"
@@ -1007,9 +1018,9 @@
 "assir"
 ],
 "asoa": [
-"ornaments",
+"bracelets",
 "chains",
-"neck"
+"ornaments"
 ],
 "asoaso": [
 "rib"
@@ -1029,12 +1040,8 @@
 "asuria": [
 "assyria"
 ],
-"asò": [
-"morrow"
-],
 "asō": [
-"today",
-"yesterday"
+"today"
 ],
 "ata": [
 "shadow"
@@ -1044,6 +1051,12 @@
 ],
 "ataia": [
 "adaiah"
+],
+"ataiii": [
+"daughters"
+],
+"atali": [
+"world"
 ],
 "atalia": [
 "athaliah"
@@ -1056,7 +1069,8 @@
 "wisdom"
 ],
 "atamamai": [
-"wise"
+"wise",
+"understanding"
 ],
 "atameleko": [
 "adrammelech"
@@ -1098,17 +1112,16 @@
 "ater"
 ],
 "ati": [
-"build"
+"built"
 ],
 "atia": [
 "moth"
 ],
 "atiae": [
-"build"
+"built"
 ],
 "atia’e": [
-"built",
-"build"
+"built"
 ],
 "atielu": [
 "adiel"
@@ -1119,7 +1132,6 @@
 "cheweth"
 ],
 "atiina": [
-"build",
 "built"
 ],
 "atini": [
@@ -1166,7 +1178,8 @@
 "concerns"
 ],
 "atulama": [
-"adullam"
+"adullam",
+"adullamite"
 ],
 "atunuu": [
 "nations"
@@ -1188,9 +1201,6 @@
 ],
 "aualofa": [
 "lamentation"
-],
-"auau": [
-"evening"
 ],
 "auauna": [
 "servant"
@@ -1214,9 +1224,6 @@
 "bow",
 "arrows"
 ],
-"aufanaua": [
-"sword"
-],
 "aufono": [
 "council"
 ],
@@ -1230,6 +1237,9 @@
 "oath"
 ],
 "augatupulaga": [
+"generation"
+],
+"augātupulaga": [
 "generation"
 ],
 "aui": [
@@ -1251,7 +1261,7 @@
 "aulotu": [
 "church"
 ],
-"aumatua": [
+"aumatuā": [
 "fatherless"
 ],
 "aumau": [
@@ -1290,15 +1300,11 @@
 "common"
 ],
 "autau": [
-"armies",
 "army"
 ],
 "autu": [
 "principles",
 "principle"
-],
-"autupulaga": [
-"generation"
 ],
 "auupega": [
 "weapons"
@@ -1361,6 +1367,12 @@
 "a’a": [
 "root"
 ],
+"a’oaco": [
+"teach"
+],
+"a’oa’0": [
+"teach"
+],
 "a’oa’i": [
 "reprove"
 ],
@@ -1373,11 +1385,8 @@
 "a’oa’o": [
 "teach"
 ],
-"a’oa’oga": [
-"doctrine"
-],
 "a’oa’oina": [
-"taught"
+"teach"
 ],
 "a’oga": [
 "school"
@@ -1386,21 +1395,22 @@
 "brigham"
 ],
 "cahoon": [
-"reynolds",
 "cahoon"
 ],
 "carter": [
 "carter"
 ],
-"cono": [
-"refrain"
+"cau": [
+"north"
+],
+"colo": [
+"fortress"
 ],
 "david": [
-"myself"
+"david"
 ],
 "edward": [
-"edward",
-"partridge"
+"edward"
 ],
 "efa": [
 "ephah"
@@ -1412,8 +1422,8 @@
 "ephraim"
 ],
 "efarata": [
-"ephrath",
-"ephratah"
+"ephratah",
+"ephrath"
 ],
 "eferona": [
 "ephron"
@@ -1450,7 +1460,8 @@
 "elam"
 ],
 "ele": [
-"elah"
+"elah",
+"rust"
 ],
 "eleale": [
 "elealeh"
@@ -1486,6 +1497,9 @@
 "eleni": [
 "greeks"
 ],
+"elenisi": [
+"grecians"
+],
 "eli": [
 "eli",
 "digged"
@@ -1517,6 +1531,9 @@
 "elielu": [
 "eliel"
 ],
+"eliesera": [
+"eliezer"
+],
 "elifaleta": [
 "elishama"
 ],
@@ -1529,9 +1546,6 @@
 ],
 "elioenai": [
 "elioenai"
-],
-"elipaalu": [
-"elpaal"
 ],
 "elipelete": [
 "eliphelet"
@@ -1590,6 +1604,9 @@
 "enerokelu": [
 "rogel"
 ],
+"enetoro": [
+"dor"
+],
 "enoka": [
 "enoch"
 ],
@@ -1599,19 +1616,22 @@
 "enosa": [
 "enos"
 ],
+"epafara": [
+"epaphras"
+],
 "epenesa": [
 "eben"
 ],
 "eperu": [
-"hebrew"
+"hebrew",
+"eber"
 ],
-"eperù": [
+"eperū": [
 "hebrew"
 ],
 "epetemeleka": [
 "melech",
-"ebed",
-"ethiopians"
+"ebed"
 ],
 "epeto": [
 "gaal",
@@ -1628,10 +1648,15 @@
 "shelah"
 ],
 "esaia": [
-"esaias"
+"esaia"
+],
+"esarata": [
+"haddon",
+"esar"
 ],
 "esarona": [
-"hezron"
+"hezron",
+"carmi"
 ],
 "esau": [
 "esau"
@@ -1656,8 +1681,8 @@
 ],
 "eseri": [
 "dishan",
-"dishon",
-"ezer"
+"ezer",
+"dishon"
 ],
 "eseta": [
 "esther"
@@ -1681,6 +1706,8 @@
 "ethan"
 ],
 "ete": [
+"purse",
+"scrip",
 "basket"
 ],
 "etema": [
@@ -1705,6 +1732,10 @@
 "etoma": [
 "edom"
 ],
+"etomā": [
+"edomite",
+"doeg"
+],
 "eufirate": [
 "euphrates"
 ],
@@ -1722,14 +1753,13 @@
 "ebal"
 ],
 "ezra": [
-"thayre"
+"ezra"
+],
+"faa": [
+"saying"
 ],
 "faa-levi": [
 "levitical"
-],
-"faaae": [
-"turn",
-"moses"
 ],
 "faaafu": [
 "wood",
@@ -1749,8 +1779,8 @@
 "openly"
 ],
 "faaaliga": [
-"revelation",
-"vision"
+"vision",
+"revelation"
 ],
 "faaaligat": [
 "chapter"
@@ -1760,6 +1790,9 @@
 "respect"
 ],
 "faaalu": [
+"spent"
+],
+"faaaluina": [
 "spent"
 ],
 "faaamuia": [
@@ -1806,18 +1839,18 @@
 "arm",
 "weapons"
 ],
+"faaavaga": [
+"marriage"
+],
 "faaavanoa": [
-"opened",
-"door"
+"door",
+"opened"
 ],
 "faaavanoaina": [
 "opened"
 ],
 "faaa’oa’o": [
 "followers"
-],
-"faace": [
-"lay"
 ],
 "faaea": [
 "exalted"
@@ -1829,7 +1862,8 @@
 "exalted"
 ],
 "faaee": [
-"hands"
+"hands",
+"lay"
 ],
 "faaeega": [
 "endowment"
@@ -1924,18 +1958,12 @@
 "meet"
 ],
 "faafia": [
-"hen",
 "chickens",
+"hen",
 "oft"
-],
-"faafiaamiotonu": [
-"hypocrites"
 ],
 "faafiafiaina": [
 "rejoice"
-],
-"faafiapopoto": [
-"wise"
 ],
 "faafifilemu": [
 "ease"
@@ -1963,6 +1991,9 @@
 "faafogafoga": [
 "hearken"
 ],
+"faafoisia": [
+"captivity"
+],
 "faafouina": [
 "renewed"
 ],
@@ -1984,22 +2015,27 @@
 "faagaeetia": [
 "moved"
 ],
+"faagaepuina": [
+"feet"
+],
 "faagaganaina": [
 "dumb"
 ],
 "faagalogalo": [
-"forgotten",
 "forget"
 ],
 "faagalogaloina": [
-"forgotten"
+"forget"
 ],
 "faagaloina": [
-"forgotten"
+"forget"
 ],
 "faagaogaoina": [
 "waste",
 "desolate"
+],
+"faagaoi": [
+"steal"
 ],
 "faagataina": [
 "cease"
@@ -2034,7 +2070,7 @@
 "sign"
 ],
 "faailogaina": [
-"persons",
+"person",
 "respect"
 ],
 "faainu": [
@@ -2049,8 +2085,7 @@
 ],
 "faaipoipo": [
 "marry",
-"marriage",
-"married"
+"marriage"
 ],
 "faaipoipoga": [
 "marriage"
@@ -2077,16 +2112,22 @@
 "faai’u": [
 "close"
 ],
+"faalaei": [
+"together"
+],
 "faalagolago": [
 "trust"
 ],
 "faalalafi": [
 "themselves"
 ],
+"faalani": [
+"seek"
+],
 "faalanu": [
 "curious",
-"badgers'",
-"rams'"
+"rams'",
+"dyed"
 ],
 "faalapotopotoga": [
 "combinations"
@@ -2108,7 +2149,8 @@
 "abroad"
 ],
 "faalaulelei": [
-"prepare"
+"straight",
+"crying"
 ],
 "faalauleleiina": [
 "way"
@@ -2121,8 +2163,8 @@
 "enlarged"
 ],
 "faalava": [
-"bars",
 "beam",
+"bars",
 "boards"
 ],
 "faalavalava": [
@@ -2148,10 +2190,6 @@
 "sensual",
 "devilish"
 ],
-"faalelalolagi": [
-"earthly",
-"godly"
-],
 "faalelei": [
 "reconciled"
 ],
@@ -2168,6 +2206,9 @@
 "faalematau": [
 "ungodly"
 ],
+"faalemigao": [
+"dishonour"
+],
 "faalenatura": [
 "natural"
 ],
@@ -2183,8 +2224,7 @@
 "human"
 ],
 "faaletatau": [
-"unworthily",
-"balances"
+"unworthily"
 ],
 "faaletaupulea": [
 "wicked"
@@ -2194,8 +2234,7 @@
 "sensual"
 ],
 "faaletino": [
-"temporal",
-"carnal"
+"temporal"
 ],
 "faaletonu": [
 "doubt"
@@ -2203,6 +2242,9 @@
 "faaletulafono": [
 "legal",
 "literal"
+],
+"faaletumau": [
+"root"
 ],
 "faalevaleva": [
 "prolong"
@@ -2228,7 +2270,9 @@
 ],
 "faalilo": [
 "secret",
-"hide",
+"hid"
+],
+"faaliloina": [
 "hid"
 ],
 "faalilolilo": [
@@ -2239,6 +2283,9 @@
 ],
 "faaloaloaina": [
 "stretched"
+],
+"faalogogata": [
+"disobedient"
 ],
 "faalogoina": [
 "voice"
@@ -2256,6 +2303,9 @@
 "faalotolotolua": [
 "double"
 ],
+"faalotomatala": [
+"understanding"
+],
 "faalotomaualalalo": [
 "humble"
 ],
@@ -2267,22 +2317,20 @@
 "humble"
 ],
 "faalototele": [
-"good"
+"good",
+"faith"
+],
+"faalototeleina": [
+"heart"
 ],
 "faalua": [
 "second"
-],
-"faaluaina": [
-"double"
 ],
 "faaluma": [
 "reproach"
 ],
 "faalumaina": [
 "reproach"
-],
-"faama": [
-"shame"
 ],
 "faamaaa": [
 "hardened"
@@ -2309,8 +2357,8 @@
 "faamafanafanaina": [
 "comfort"
 ],
-"faamafolafola": [
-"earth"
+"faamafola": [
+"opened"
 ],
 "faamaga": [
 "opened",
@@ -2324,15 +2372,14 @@
 "forgiveness"
 ],
 "faamagaloina": [
-"forgiven"
+"forgive"
 ],
 "faamai": [
 "pestilence"
 ],
 "faamaina": [
 "confounded",
-"ashamed",
-"shame"
+"ashamed"
 ],
 "faamalama": [
 "windows"
@@ -2381,16 +2428,14 @@
 "soften"
 ],
 "faamalumalu": [
-"cloud"
+"cloud",
+"covered"
 ],
 "faamalumaluina": [
 "overshadowed"
 ],
 "faamalūlūina": [
 "soften"
-],
-"faamama": [
-"cleanse"
 ],
 "faamamafaina": [
 "lighter",
@@ -2401,6 +2446,7 @@
 "mouth"
 ],
 "faamamaina": [
+"purified",
 "cleansed"
 ],
 "faamamalu": [
@@ -2418,12 +2464,10 @@
 "far"
 ],
 "faamamā": [
-"purify",
 "cleanse"
 ],
 "faamamāina": [
-"clean",
-"garments"
+"cleansed"
 ],
 "faamanatu": [
 "remembrance"
@@ -2432,8 +2476,7 @@
 "memorial"
 ],
 "faamanatuina": [
-"remembrance",
-"partake"
+"remembrance"
 ],
 "faamanu": [
 "blessed"
@@ -2453,14 +2496,14 @@
 "faamanu’alia": [
 "wounded"
 ],
-"faamanù": [
+"faamanū": [
 "blessed"
 ],
 "faamanūina": [
 "blessed"
 ],
 "faamaoni": [
-"faithful"
+"faith"
 ],
 "faamaoniga": [
 "evidences"
@@ -2478,8 +2521,7 @@
 "acquainted"
 ],
 "faamasiasiga": [
-"shame",
-"heathen"
+"shame"
 ],
 "faamasimaina": [
 "salt"
@@ -2504,6 +2546,9 @@
 "faamatagofie": [
 "ornaments"
 ],
+"faamatala": [
+"told"
+],
 "faamatalaga": [
 "interpretation"
 ],
@@ -2515,9 +2560,6 @@
 ],
 "faamatau": [
 "afraid"
-],
-"faamataupega": [
-"windows"
 ],
 "faamatautia": [
 "afraid"
@@ -2554,7 +2596,8 @@
 "pride"
 ],
 "faamaualugaina": [
-"exalted"
+"exalted",
+"horns"
 ],
 "faamaualuluga": [
 "pride",
@@ -2591,7 +2634,7 @@
 "rings"
 ],
 "faamaumau": [
-"lose"
+"record"
 ],
 "faamautu": [
 "established"
@@ -2608,8 +2651,11 @@
 "faameanoa": [
 "naught"
 ],
+"faameo": [
+"fret"
+],
 "faamisa": [
-"contentious"
+"better"
 ],
 "faamoega": [
 "sheath"
@@ -2621,23 +2667,39 @@
 "purposes"
 ],
 "faamomomoina": [
-"broken"
+"pieces"
 ],
 "faamu": [
 "incense"
 ],
 "faamuina": [
-"burn",
+"burnt",
 "fire"
-],
-"faamumu": [
-"reddish"
 ],
 "faamumūina": [
 "kindled"
 ],
+"faamā": [
+"shame"
+],
+"faamāi": [
+"salt"
+],
+"faamāina": [
+"shame",
+"ashamed"
+],
+"faamāmā": [
+"yoke"
+],
 "faamāmāina": [
 "ease"
+],
+"faamāumau": [
+"lost"
+],
+"faamūmū": [
+"reddish"
 ],
 "faanaseri": [
 "nazarite",
@@ -2656,8 +2718,7 @@
 "honour"
 ],
 "faaneeneeina": [
-"haman",
-"delight"
+"haman"
 ],
 "faanenefu": [
 "dark",
@@ -2671,12 +2732,11 @@
 "pillars"
 ],
 "faanoanoa": [
-"mourn",
-"sorrow"
+"sorrow",
+"mourn"
 ],
 "faanoanoaga": [
-"mourning",
-"sorrow"
+"mourning"
 ],
 "faanofo": [
 "throne"
@@ -2687,11 +2747,11 @@
 "faanofoaina": [
 "saddled"
 ],
-"faanofoina": [
-"throne"
-],
 "faanoi": [
 "pilate"
+],
+"faanonofo": [
+"dwell"
 ],
 "faano’uno’u": [
 "bow"
@@ -2717,7 +2777,10 @@
 "saved"
 ],
 "faaolaola": [
-"judgment"
+"quickened"
+],
+"faaolaolaina": [
+"quickened"
 ],
 "faaolataga": [
 "salvation"
@@ -2732,7 +2795,8 @@
 "hired"
 ],
 "faaonoono": [
-"provoke"
+"provoke",
+"provoked"
 ],
 "faaoofu": [
 "clothe"
@@ -2756,11 +2820,12 @@
 "beside"
 ],
 "faaoso": [
-"stir"
+"stir",
+"stirred"
 ],
 "faaosooso": [
-"tempted",
-"satan"
+"tempting",
+"tempted"
 ],
 "faaosoosoga": [
 "temptation"
@@ -2769,10 +2834,8 @@
 "tempted"
 ],
 "faaoti": [
-"slew"
-],
-"faapa": [
-"thunder"
+"slain",
+"head"
 ],
 "faapagota": [
 "prisoners"
@@ -2799,15 +2862,8 @@
 "faapaologa": [
 "porch"
 ],
-"faapapa": [
-"wafers",
-"cakes"
-],
 "faapau": [
-"fell"
-],
-"faapaufao": [
-"fell"
+"stand"
 ],
 "faapaupau": [
 "heathen"
@@ -2820,12 +2876,13 @@
 "faapauufao": [
 "faces"
 ],
-"faapaù": [
-"fell"
+"faapaū": [
+"fall",
+"face"
 ],
-"faapaŭ": [
-"worshipped",
-"fell"
+"faapaūfao": [
+"face",
+"fall"
 ],
 "faapa’umatuina": [
 "dry"
@@ -2834,14 +2891,10 @@
 "scab"
 ],
 "faapa’u’ū": [
-"worship",
-"fall"
+"worship"
 ],
 "faapa’ū": [
 "fall"
-],
-"faapca": [
-"pharaoh"
 ],
 "faapelepele": [
 "spare"
@@ -2930,7 +2983,7 @@
 "faaputuga": [
 "heap"
 ],
-"faaputugasaito": [
+"faaputugāsaito": [
 "wheat"
 ],
 "faaputuina": [
@@ -2943,10 +2996,15 @@
 "faapuupuuina": [
 "shortened"
 ],
+"faapāpā": [
+"wafers",
+"cakes"
+],
 "faasa": [
 "believe"
 ],
 "faasagatau": [
+"fight",
 "lamanites"
 ],
 "faasaina": [
@@ -2972,10 +3030,9 @@
 "spare"
 ],
 "faasaogalemuina": [
-"lose"
-],
-"faasaoloto": [
-"free"
+"lost",
+"sake",
+"whoever"
 ],
 "faasaolotoga": [
 "release"
@@ -3002,11 +3059,17 @@
 "faasavili": [
 "fan"
 ],
+"faasa’oina": [
+"straight"
+],
 "faasa’osa’o": [
 "straight"
 ],
 "faasee": [
 "flatters"
+],
+"faaseevaeina": [
+"shod"
 ],
 "faasefulu": [
 "times",
@@ -3043,8 +3106,7 @@
 "trouble"
 ],
 "faasoifua": [
-"farewell",
-"bid"
+"farewell"
 ],
 "faasolo": [
 "wax"
@@ -3055,7 +3117,8 @@
 ],
 "faasoo": [
 "repaired",
-"breach"
+"breach",
+"timber"
 ],
 "faasooina": [
 "coupled"
@@ -3066,21 +3129,24 @@
 "faasusu": [
 "suck"
 ],
-"faasusuina": [
-"water"
-],
 "faasūsū": [
-"water"
+"water",
+"river"
+],
+"faasūsūina": [
+"garden"
 ],
 "faataafiti": [
+"cried",
 "spirit"
 ],
 "faataaliolio": [
 "round"
 ],
 "faataaliolioina": [
-"bells",
-"hem"
+"compass",
+"cubits",
+"round"
 ],
 "faataalise": [
 "haste"
@@ -3090,8 +3156,7 @@
 "about"
 ],
 "faataamilomilo": [
-"round",
-"about"
+"compass"
 ],
 "faataamilosaga": [
 "about"
@@ -3103,8 +3168,7 @@
 "scattered"
 ],
 "faataatia": [
-"foundation",
-"laid"
+"foundation"
 ],
 "faataatiaina": [
 "laying"
@@ -3115,19 +3179,11 @@
 "faataavalevale": [
 "chariots"
 ],
-"faatafafa": [
-"foursquare"
+"faataele": [
+"wash"
 ],
 "faatafe": [
 "rock"
-],
-"faatafea": [
-"carried"
-],
-"faatafeaina": [
-"carried",
-"assyria",
-"captive"
 ],
 "faatafuna": [
 "spoiler"
@@ -3137,6 +3193,9 @@
 ],
 "faatafunaina": [
 "desolate"
+],
+"faataga": [
+"nephi"
 ],
 "faatagaina": [
 "permitted"
@@ -3155,15 +3214,15 @@
 "faatagitagi": [
 "cymbals"
 ],
-"faatagā": [
-"pretended"
-],
 "faataimuaga": [
 "body"
 ],
 "faataitaiga": [
 "example",
 "ensample"
+],
+"faatalanoa": [
+"careless"
 ],
 "faatali": [
 "wait"
@@ -3185,10 +3244,13 @@
 "neglect"
 ],
 "faatamaoaigaina": [
-"riches"
+"enrich"
 ],
 "faatamatane": [
 "strong"
+],
+"faataooto": [
+"lay"
 ],
 "faataoto": [
 "parable"
@@ -3209,6 +3271,10 @@
 ],
 "faatatau": [
 "concerning"
+],
+"faatau": [
+"buy",
+"sold"
 ],
 "faatauanau": [
 "mightily"
@@ -3231,7 +3297,7 @@
 "faataugaina": [
 "destroy"
 ],
-"faataugaoa": [
+"faataugāoa": [
 "traded",
 "market"
 ],
@@ -3239,8 +3305,17 @@
 "sold",
 "redeemed"
 ],
+"faataulaitu": [
+"witchcrafts",
+"sorcerers"
+],
 "faataulia": [
-"sold"
+"sold",
+"buy"
+],
+"faataulāitu": [
+"enchantments",
+"divination"
 ],
 "faataumaoi": [
 "destroy"
@@ -3264,9 +3339,11 @@
 "administer"
 ],
 "faatautau": [
+"balances",
 "hanged"
 ],
 "faatautauina": [
+"gallows",
 "hanged"
 ],
 "faatauvaa": [
@@ -3289,6 +3366,9 @@
 "faatetetete": [
 "alarm"
 ],
+"faate’a": [
+"silver"
+],
 "faate’aina": [
 "cause"
 ],
@@ -3304,16 +3384,18 @@
 "faatietie": [
 "ride"
 ],
+"faatigaina": [
+"afflicted"
+],
+"faatigateleina": [
+"straitness"
+],
 "faatino": [
 "exercise"
 ],
 "faatoa": [
 "moon",
 "new"
-],
-"faatoafaiava": [
-"bridegroom",
-"bride"
 ],
 "faatoafaiavā": [
 "bridegroom"
@@ -3361,23 +3443,25 @@
 "faatosina": [
 "enticed"
 ],
-"faatoto": [
-"rain"
-],
 "faatotoe": [
-"leave"
+"left"
 ],
 "faatotoeina": [
-"leave"
+"left",
+"remain"
 ],
-"faatotoina": [
+"faatotō": [
+"rain",
+"brimstone"
+],
+"faatotōina": [
 "rain"
 ],
 "faatuatua": [
 "faith"
 ],
 "faatuatuaga": [
-"faith"
+"hope"
 ],
 "faatuatuai": [
 "time"
@@ -3457,14 +3541,29 @@
 "pitched",
 "tent"
 ],
-"faatutūina": [
-"established"
+"faatāfafa": [
+"foursquare"
+],
+"faatāfea": [
+"carried"
+],
+"faatāfeaina": [
+"carried",
+"captive",
+"assyria"
+],
+"faatāfuna": [
+"dunghill"
+],
+"faatāutauina": [
+"hanged"
 ],
 "faaua": [
 "brimstone"
 ],
 "faaui": [
-"fire"
+"fire",
+"caused"
 ],
 "faaulufalega": [
 "dedication"
@@ -3473,7 +3572,6 @@
 "dedicated"
 ],
 "faauluolaina": [
-"fruitful",
 "multiply"
 ],
 "faauma": [
@@ -3534,13 +3632,19 @@
 "faavalea": [
 "foolishly"
 ],
+"faavalemalosi": [
+"mad"
+],
 "faavauvau": [
 "mourning",
-"sorrow",
-"mourn"
+"mourn",
+"sorrow"
 ],
 "faavavau-tumau": [
 "everlasting"
+],
+"faavave": [
+"hasten"
 ],
 "faavavega": [
 "miraculous"
@@ -3548,8 +3652,8 @@
 "faaviivii": [
 "flattering"
 ],
-"fad": [
-"face"
+"faa’ole’ole": [
+"deceit"
 ],
 "fafaga": [
 "feed"
@@ -3576,9 +3680,6 @@
 "fafie": [
 "wood"
 ],
-"fafinc": [
-"woman"
-],
 "fafine": [
 "woman"
 ],
@@ -3586,6 +3687,7 @@
 "cast"
 ],
 "faga": [
+"border",
 "sea"
 ],
 "fagafulu": [
@@ -3613,10 +3715,14 @@
 "tabret"
 ],
 "faiaina": [
+"overcome",
 "prevail"
 ],
 "faiaoga": [
 "teachers"
+],
+"faifai": [
+"reproach"
 ],
 "faifaia": [
 "blasphemed"
@@ -3625,10 +3731,11 @@
 "minister"
 ],
 "faiga": [
-"work"
+"service"
 ],
 "faigaai": [
-"feast"
+"feast",
+"room"
 ],
 "faigaluega": [
 "work"
@@ -3667,10 +3774,11 @@
 "reckoning"
 ],
 "faitauina": [
-"read",
-"number"
+"number",
+"read"
 ],
 "faitaulaga": [
+"priests",
 "priest",
 "altar"
 ],
@@ -3682,8 +3790,8 @@
 ],
 "faititili": [
 "thunder",
-"lightnings",
-"thunderings"
+"thunderings",
+"lightnings"
 ],
 "faitogafiti": [
 "cunning",
@@ -3734,35 +3842,27 @@
 "faletua": [
 "bury"
 ],
-"faliu": [
-"turn"
-],
 "faloina": [
-"wings",
-"stretched"
+"wings"
 ],
 "falu": [
 "pallu",
-"hanoch",
-"carmi"
-],
-"falò": [
-"wings"
+"carmi",
+"hanoch"
 ],
 "fana": [
-"arrows",
-"shoot"
+"shoot",
+"arrows"
 ],
 "fanafana": [
 "arrows"
 ],
 "fanafanau": [
 "replenish",
-"fruitful",
 "subdue"
 ],
 "fananau": [
-"born"
+"bear"
 ],
 "fanaua": [
 "begat"
@@ -3807,11 +3907,20 @@
 "forty",
 "four"
 ],
+"fasi": [
+"slain"
+],
+"fasia": [
+"slain"
+],
 "fasiga": [
 "slaughter"
 ],
 "fasimate": [
 "beasts"
+],
+"fasioti": [
+"slain"
 ],
 "fasiotia": [
 "slain"
@@ -3828,19 +3937,10 @@
 "breasts"
 ],
 "fati": [
-"waves"
+"top"
 ],
 "fatu": [
 "seed"
-],
-"fatuaiupu": [
-"shebna",
-"joah",
-"recorder"
-],
-"fatua’iupu": [
-"ahilud",
-"recorder"
 ],
 "fatuga’o": [
 "kidneys",
@@ -3851,12 +3951,11 @@
 "seed"
 ],
 "fau": [
-"northward",
-"ship"
+"built",
+"manner"
 ],
 "faufautane": [
-"betrothed",
-"espoused"
+"betrothed"
 ],
 "faufautua": [
 "counsel"
@@ -3871,7 +3970,7 @@
 "faupuega": [
 "heap"
 ],
-"faupuegamaa": [
+"faupuegāmaa": [
 "heap"
 ],
 "fausa": [
@@ -3879,8 +3978,7 @@
 "warp"
 ],
 "fausia": [
-"built",
-"build"
+"built"
 ],
 "fausiaina": [
 "building"
@@ -3894,8 +3992,10 @@
 "fautuaina": [
 "recommended"
 ],
-"faò": [
-"himself"
+"faō": [
+"bow",
+"ground",
+"face"
 ],
 "fa’asoa": [
 "dollars",
@@ -3953,17 +4053,23 @@
 "featani": [
 "laugh"
 ],
-"feauina": [
-"called"
-],
 "feaveai": [
-"dwelt"
+"jews",
+"dwell",
+"another"
+],
+"feaveaiina": [
+"about"
 ],
 "feaveaveai": [
 "talebearer"
 ],
 "fefaamafanafanai": [
 "another"
+],
+"fefaatauai": [
+"buy",
+"sold"
 ],
 "fefasiai": [
 "another"
@@ -3983,6 +4089,7 @@
 "mingled"
 ],
 "fefinauaiga": [
+"striving",
 "strife"
 ],
 "fefinaua’i": [
@@ -4047,7 +4154,10 @@
 "jesus"
 ],
 "femisai": [
-"strife"
+"strive"
+],
+"femoei": [
+"run"
 ],
 "feoi": [
 "groan",
@@ -4067,9 +4177,12 @@
 "february"
 ],
 "fepulafi": [
-"darkened",
 "stars",
-"shine"
+"darkened",
+"moon"
+],
+"ferukia": [
+"phrygia"
 ],
 "fesagai": [
 "jericho"
@@ -4102,20 +4215,17 @@
 "congregation"
 ],
 "fetagisi": [
-"wept",
-"weep"
+"wept"
 ],
 "fetagofi": [
-"lay",
-"hands"
+"hands",
+"lay"
 ],
 "fetaiai": [
-"met",
 "meet"
 ],
 "fetaia’i": [
-"meet",
-"met"
+"meet"
 ],
 "fetalai": [
 "says"
@@ -4133,13 +4243,12 @@
 "press"
 ],
 "fetaufetuliai": [
-"fro",
-"run"
+"fro"
 ],
 "fetaui": [
-"met"
+"meet"
 ],
-"fetaulaigaala": [
+"fetaulaigāala": [
 "corners",
 "streets"
 ],
@@ -4153,10 +4262,11 @@
 "another"
 ],
 "fetautalatala’i": [
-"another"
+"another",
+"themselves"
 ],
 "fetinaiina": [
-"thorns"
+"choked"
 ],
 "fetogi": [
 "stones",
@@ -4168,6 +4278,9 @@
 "fetolofi": [
 "creeping",
 "creeps"
+],
+"fetoso": [
+"drew"
 ],
 "fetu": [
 "stars"
@@ -4182,24 +4295,21 @@
 "fetuuina": [
 "cursed"
 ],
-"fevaaiai": [
-"another"
-],
-"fevaevacai": [
-"divided"
-],
 "fevaevaeai": [
-"divided"
+"divided",
+"itself"
 ],
 "fevaevaeaiga": [
 "divisions"
 ],
 "fe’ai": [
-"wild",
-"driven"
+"wild"
 ],
 "fiasili": [
 "vain"
+],
+"fifilemu": [
+"peace"
 ],
 "fikolu": [
 "phichol"
@@ -4210,6 +4320,9 @@
 "fili": [
 "enemies"
 ],
+"filifili": [
+"chosen"
+],
 "filifilia": [
 "chosen"
 ],
@@ -4217,8 +4330,8 @@
 "counsel"
 ],
 "filiga": [
-"diligence",
-"diligently"
+"diligently",
+"diligence"
 ],
 "filigā": [
 "diligence",
@@ -4305,8 +4418,7 @@
 "wind"
 ],
 "fofo": [
-"healed",
-"wounded"
+"remedy"
 ],
 "fofoga": [
 "mouth"
@@ -4327,13 +4439,16 @@
 "fogaeleele": [
 "face"
 ],
-"fogafale": [
+"fogāeleele": [
+"face"
+],
+"fogāfale": [
 "galleries"
 ],
-"fogatai": [
-"deep"
+"fogātai": [
+"water"
 ],
-"fogavai": [
+"fogāvai": [
 "water"
 ],
 "foinie": [
@@ -4354,8 +4469,7 @@
 "promise"
 ],
 "folasia": [
-"spread",
-"net"
+"spread"
 ],
 "folau": [
 "sailed"
@@ -4367,8 +4481,7 @@
 "swallowed"
 ],
 "foloina": [
-"swallowed",
-"belly"
+"swallowed"
 ],
 "fomai": [
 "physician"
@@ -4377,8 +4490,7 @@
 "council"
 ],
 "fonoa": [
-"piece",
-"rent"
+"piece"
 ],
 "fotu": [
 "blossom"
@@ -4387,7 +4499,8 @@
 "new"
 ],
 "foua": [
-"conspired"
+"conspired",
+"rebelled"
 ],
 "fouvalega": [
 "rebellion"
@@ -4410,6 +4523,9 @@
 "fuafuati": [
 "locks"
 ],
+"fuafuatia": [
+"spoken"
+],
 "fuagafulu": [
 "pound"
 ],
@@ -4431,12 +4547,11 @@
 "fuataga": [
 "measure"
 ],
+"fuataiina": [
+"renewed"
+],
 "fuatia": [
 "measured"
-],
-"fuatiaifo": [
-"conscience",
-"weak"
 ],
 "fufui": [
 "dip",
@@ -4446,7 +4561,8 @@
 "wash"
 ],
 "fufuluina": [
-"vessels"
+"washing",
+"pot"
 ],
 "fufusi": [
 "gird"
@@ -4474,7 +4590,7 @@
 "roll"
 ],
 "fulisia": [
-"anger"
+"overturn"
 ],
 "fulufulu": [
 "hair"
@@ -4490,8 +4606,7 @@
 "gird"
 ],
 "fusifusi": [
-"bound",
-"bind"
+"bound"
 ],
 "fusifusia": [
 "bound"
@@ -4508,21 +4623,48 @@
 "width"
 ],
 "fuā": [
+"jealousy",
 "jealous"
 ],
 "fu’a": [
 "banners"
 ],
 "fu’e": [
+"fragments",
 "basket"
 ],
+"fāapea": [
+"thus"
+],
+"fāliu": [
+"turn"
+],
+"fālō": [
+"wings"
+],
+"fāsia": [
+"slain"
+],
+"fāsioti": [
+"slain"
+],
+"fātuaiupu": [
+"shebna",
+"joah",
+"recorder"
+],
+"fāufautane": [
+"espoused"
+],
 "gaafe": [
-"thousand",
 "five",
-"three"
+"thousand"
 ],
 "gaau": [
 "bowels"
+],
+"gaepu": [
+"water"
 ],
 "gafa": [
 "genealogy"
@@ -4534,7 +4676,7 @@
 "tolerable"
 ],
 "gafoa": [
-"break"
+"broken"
 ],
 "gafua": [
 "loaves"
@@ -4554,18 +4696,17 @@
 "deep"
 ],
 "gagau": [
-"break"
+"broken"
 ],
-"galala": [
-"thirst"
+"gagauina": [
+"broken"
 ],
 "galau": [
 "six",
 "hundred"
 ],
 "galo": [
-"forget",
-"forgotten"
+"forget"
 ],
 "galu": [
 "waves"
@@ -4599,10 +4740,13 @@
 "thief"
 ],
 "gaoia": [
-"stolen"
+"steal"
 ],
 "gaoioi": [
 "move"
+],
+"gaoiā": [
+"temperance"
 ],
 "gaosi": [
 "molten",
@@ -4620,8 +4764,8 @@
 "willows"
 ],
 "garova": [
-"flies",
-"swarms"
+"swarms",
+"flies"
 ],
 "gase": [
 "deep",
@@ -4651,28 +4795,26 @@
 "gaugau": [
 "broken"
 ],
+"gaui": [
+"broken"
+],
 "gauia": [
 "yoke",
 "broken"
 ],
 "gauieseina": [
-"broken"
+"broken",
+"off"
 ],
 "gausia": [
 "staff",
-"yoke",
-"break"
+"yoke"
 ],
 "ga’o": [
 "fat"
 ],
-"genogeno": [
-"beckoned"
-],
 "george": [
-"george",
-"snider",
-"miller"
+"george"
 ],
 "gese": [
 "slow"
@@ -4702,6 +4844,9 @@
 "gutu": [
 "mouth"
 ],
+"gāugau": [
+"broken"
+],
 "gūgū": [
 "dumb"
 ],
@@ -4730,14 +4875,10 @@
 "agagite"
 ],
 "hamo": [
-"ham",
-"japheth"
+"ham"
 ],
 "hamoro": [
 "hamor"
-],
-"hamulu": [
-"hamul"
 ],
 "hamutala": [
 "hamutal"
@@ -4835,6 +4976,9 @@
 "heperona": [
 "hebron"
 ],
+"heperonā": [
+"hebronites"
+],
 "heremone": [
 "hermon"
 ],
@@ -4856,14 +5000,16 @@
 "sihon"
 ],
 "heti": [
+"hittites",
 "hittite",
-"hittites"
+"perizzites"
 ],
 "hetu": [
 "heth"
 ],
-"hevi": [
-"hivites"
+"hetī": [
+"hittite",
+"uriah"
 ],
 "hilikia": [
 "hilkiah"
@@ -4884,8 +5030,11 @@
 ],
 "hivi": [
 "hivites",
-"hivite",
-"hittites"
+"hittites",
+"hivite"
+],
+"hivī": [
+"hivite"
 ],
 "hofeni": [
 "hophni"
@@ -4901,9 +5050,9 @@
 "horeb"
 ],
 "hori": [
-"hori",
 "lotan",
-"horites"
+"horites",
+"hori"
 ],
 "horo": [
 "hor"
@@ -4917,6 +5066,9 @@
 "hosa": [
 "hosah"
 ],
+"hosaia": [
+"hoshaiah"
+],
 "hosea": [
 "hoshea"
 ],
@@ -4924,7 +5076,7 @@
 "hodaviah"
 ],
 "hotia": [
-"jeshua"
+"hodijah"
 ],
 "hupimo": [
 "huppim"
@@ -4936,8 +5088,10 @@
 "hushim"
 ],
 "hyde": [
-"hyde",
-"orson"
+"hyde"
+],
+"iaaseelu": [
+"jahaziel"
 ],
 "iaasenaia": [
 "jaazaniah"
@@ -4949,6 +5103,16 @@
 "japheth",
 "shem"
 ],
+"iafia": [
+"japhia",
+"nepheg"
+],
+"iairo": [
+"jair"
+],
+"iakinu": [
+"jachin"
+],
 "iakopo": [
 "jacob"
 ],
@@ -4956,10 +5120,18 @@
 "josephites",
 "jacobites"
 ],
+"ialama": [
+"jaalam",
+"jeush"
+],
 "ialoma": [
 "diamond",
 "emerald",
 "sapphire"
+],
+"iaminu": [
+"jamin",
+"jachin"
 ],
 "iapese": [
 "jabesh"
@@ -4967,11 +5139,20 @@
 "iapino": [
 "jabin"
 ],
+"iapoka": [
+"jabbok"
+],
+"iaremuta": [
+"jarmuth"
+],
 "iareto": [
 "jared"
 ],
 "iaroma": [
 "jarom"
+],
+"iasaru": [
+"jazer"
 ],
 "iasepi": [
 "jasper"
@@ -4979,10 +5160,21 @@
 "iasona": [
 "jason"
 ],
+"iasuvi": [
+"jashub"
+],
+"iata": [
+"jahath"
+],
+"iatira": [
+"jattir"
+],
+"iatua": [
+"jaddua"
+],
 "iavana": [
 "javan",
-"tubal",
-"meshech"
+"tubal"
 ],
 "iefata": [
 "jephthah"
@@ -4992,8 +5184,8 @@
 "caleb"
 ],
 "ieielu": [
-"jeiel",
-"jehiel"
+"jehiel",
+"jeiel"
 ],
 "iekonia": [
 "jeconiah"
@@ -5001,29 +5193,27 @@
 "iemina": [
 "beriah"
 ],
-"iemuelu": [
-"jamin",
-"jachin"
-],
 "ieoiata": [
 "jehoiada"
-],
-"ieova": [
-"jehovah"
 ],
 "iepuse": [
 "jebusites",
 "hittites",
 "perizzites"
 ],
-"iepusè": [
-"jebusite"
+"iepusē": [
+"jebusites",
+"jebusite",
+"hittites"
 ],
 "ieramaelu": [
 "jerahmeel"
 ],
 "ieremia": [
 "jeremiah"
+],
+"ieremota": [
+"jeremoth"
 ],
 "ierepoamo": [
 "jeroboam"
@@ -5043,6 +5233,9 @@
 "ierusalema": [
 "jerusalem"
 ],
+"iesaru": [
+"jezer"
+],
 "iese": [
 "jesse"
 ],
@@ -5050,10 +5243,17 @@
 "jezebel"
 ],
 "iesimoni": [
+"hachilah",
 "jeshimon"
+],
+"iesivi": [
+"beriah"
 ],
 "iesu": [
 "jesus"
+],
+"iesuruna": [
+"jeshurun"
 ],
 "ietaia": [
 "jedaiah"
@@ -5065,11 +5265,11 @@
 "ietiaelu": [
 "jediael"
 ],
+"ietura": [
+"jetur"
+],
 "ieu": [
 "jehu"
-],
-"ifa": [
-"fish"
 ],
 "iila": [
 "bright"
@@ -5077,6 +5277,9 @@
 "iinei": [
 "here",
 "hither"
+],
+"iite": [
+"times"
 ],
 "ikesa": [
 "tekoite",
@@ -5087,6 +5290,7 @@
 "jehiel"
 ],
 "ikielu": [
+"shemiramoth",
 "jehiel"
 ],
 "ikonio": [
@@ -5104,14 +5308,14 @@
 ],
 "ili": [
 "trumpet",
-"sound"
+"sound",
+"blow"
 ],
 "ilia": [
-"trumpet",
 "blow",
-"sound"
+"trumpet"
 ],
-"iligapu": [
+"iligāpu": [
 "trumpet"
 ],
 "iliili": [
@@ -5159,15 +5363,22 @@
 "inumia": [
 "cup"
 ],
+"ioa": [
+"praise"
+],
 "ioaa": [
 "joah",
-"recorder"
+"shebna",
+"eliakim"
 ],
 "ioakima": [
 "jehoiakim"
 ],
 "ioakina": [
 "jehoiachin"
+],
+"ioana": [
+"joanna"
 ],
 "ioanana": [
 "johanan",
@@ -5199,18 +5410,25 @@
 "iofi": [
 "tongs"
 ],
+"ioiakima": [
+"joiakim"
+],
 "ioiata": [
-"jehoiada",
-"benaiah"
+"benaiah",
+"jehoiada"
 ],
 "ioka": [
-"york"
+"york",
+"county"
 ],
 "iokana": [
 "johanan"
 ],
 "iokasana": [
 "jokshan"
+],
+"iokeneama": [
+"jokneam"
 ],
 "ioketana": [
 "joktan"
@@ -5239,7 +5457,8 @@
 "job"
 ],
 "iorama": [
-"joram"
+"joram",
+"jehoram"
 ],
 "ioramo": [
 "jehoram",
@@ -5253,9 +5472,12 @@
 "jozabad"
 ],
 "iosataka": [
+"josedech",
 "shealtiel",
-"jozadak",
-"josedech"
+"jozadak"
+],
+"iose": [
+"joses"
 ],
 "iosefa": [
 "joseph"
@@ -5280,6 +5502,12 @@
 "iotama": [
 "jotham"
 ],
+"iou": [
+"face"
+],
+"io’u": [
+"mine"
+],
 "ipelamo": [
 "ibleam"
 ],
@@ -5288,9 +5516,7 @@
 "cup"
 ],
 "ira": [
-"ira",
-"tekoite",
-"ikkesh"
+"ira"
 ],
 "irata": [
 "irad"
@@ -5311,11 +5537,14 @@
 "ishmael"
 ],
 "isamaelī": [
-"lemuelites",
-"ishmaelites"
+"ishmaelites",
+"lemuelites"
 ],
 "isara": [
 "izhar"
+],
+"isarā": [
+"izharites"
 ],
 "isereelu": [
 "jezreel"
@@ -5374,9 +5603,6 @@
 "itumalo": [
 "county"
 ],
-"itutino": [
-"body"
-],
 "iuga": [
 "end"
 ],
@@ -5384,7 +5610,9 @@
 "jubile"
 ],
 "iuso": [
-"jeush"
+"jeush",
+"justus",
+"jaalam"
 ],
 "iuta": [
 "judah"
@@ -5396,8 +5624,7 @@
 "jeduthun",
 "heman"
 ],
-"iutà": [
-"mordecai",
+"iutā": [
 "jews"
 ],
 "iuvale": [
@@ -5436,41 +5663,11 @@
 "james": [
 "james"
 ],
-"jeremia": [
-"jeremiah"
-],
-"jerusalema": [
-"jerusalem"
-],
-"jesu": [
-"jesus",
-"christ"
-],
-"jinei": [
-"here"
-],
 "john": [
-"snider",
-"george",
-"lyman"
+"john"
 ],
 "johnson": [
 "johnson"
-],
-"josefa": [
-"joseph"
-],
-"jou": [
-"eyes"
-],
-"jua": [
-"two"
-],
-"juga": [
-"end"
-],
-"juta": [
-"judah"
 ],
 "kaala": [
 "gaal",
@@ -5543,8 +5740,7 @@
 "cana"
 ],
 "kanana": [
-"canaan",
-"canaanites"
+"canaan"
 ],
 "kananā": [
 "canaanites"
@@ -5558,6 +5754,10 @@
 ],
 "kapanaumi": [
 "capernaum"
+],
+"kapatokia": [
+"cappadocia",
+"pontus"
 ],
 "kaperielu": [
 "gabriel"
@@ -5626,13 +5826,15 @@
 "stork"
 ],
 "kasuri": [
-"geshur"
+"geshur",
+"geshurites"
 ],
 "kata": [
 "gath"
 ],
 "katameeli": [
-"kadmiel"
+"kadmiel",
+"sherebiah"
 ],
 "katamo": [
 "gatam"
@@ -5655,14 +5857,15 @@
 "mephaath"
 ],
 "katesa": [
-"kedesh",
-"kadesh"
+"kadesh",
+"kedesh"
 ],
 "katesapanea": [
 "barnea",
 "kadesh"
 ],
 "kati": [
+"pelican",
 "cormorant"
 ],
 "katianetona": [
@@ -5670,6 +5873,14 @@
 ],
 "kato": [
 "gad"
+],
+"katā": [
+"gittite",
+"ittai"
+],
+"katō": [
+"gadites",
+"reubenites"
 ],
 "kaveru": [
 "heber",
@@ -5680,15 +5891,13 @@
 "cephas"
 ],
 "kelita": [
-"levites"
+"kelita"
 ],
 "kemiso": [
 "chemish"
 ],
 "kena": [
-"hell",
-"offend",
-"members"
+"hell"
 ],
 "kenaana": [
 "chenaanah"
@@ -5697,8 +5906,8 @@
 "gennesaret"
 ],
 "keni": [
-"kenites",
-"kenite"
+"kenite",
+"kenites"
 ],
 "kepara": [
 "chebar"
@@ -5709,8 +5918,14 @@
 "keresoma": [
 "gershon"
 ],
+"keresomā": [
+"gershonites"
+],
 "keresona": [
 "gershom"
+],
+"keresonā": [
+"gershonites"
 ],
 "kereta": [
 "crete"
@@ -5733,7 +5948,8 @@
 ],
 "ketalia": [
 "gedaliah",
-"ahikam"
+"ahikam",
+"nethaniah"
 ],
 "ketarono": [
 "kidron"
@@ -5787,8 +6003,11 @@
 "kenaz",
 "othniel"
 ],
+"kinasā": [
+"kenezite"
+],
 "kinereta": [
-"chinnereth"
+"sea"
 ],
 "kiona": [
 "snow"
@@ -5822,19 +6041,15 @@
 "kiriaresa": [
 "kir"
 ],
+"kiriata-arapa": [
+"arba"
+],
 "kiriata-iarima": [
 "jearim",
 "kirjath"
 ],
 "kiriata-sapera": [
 "sepher"
-],
-"kiriataarapa": [
-"arba"
-],
-"kiriataiarima": [
-"jearim",
-"kirjath"
 ],
 "kiriataima": [
 "kiriathaim"
@@ -5896,10 +6111,9 @@
 "knight"
 ],
 "koato": [
-"kohath",
-"kohathites"
+"kohath"
 ],
-"koatò": [
+"koatō": [
 "kohathites"
 ],
 "koku": [
@@ -5974,7 +6188,8 @@
 "coriantum"
 ],
 "korinito": [
-"corinth"
+"corinth",
+"corinthians"
 ],
 "kori’oa": [
 "korihor",
@@ -6022,11 +6237,16 @@
 "cyprus"
 ],
 "kupita": [
-"cubits",
-"breadth"
+"cubits"
+],
+"kurene": [
+"cyrene"
 ],
 "kuresa": [
 "cyrus"
+],
+"kusa": [
+"owl"
 ],
 "kusamu": [
 "husham"
@@ -6036,6 +6256,10 @@
 ],
 "kuso": [
 "cush"
+],
+"kēna": [
+"offend",
+"hell"
 ],
 "laasaga": [
 "steps"
@@ -6050,7 +6274,8 @@
 "herb"
 ],
 "laaupese": [
-"musick"
+"musick",
+"instruments"
 ],
 "laeli": [
 "jael"
@@ -6059,15 +6284,9 @@
 "wormwood"
 ],
 "laesa": [
-"jahaz",
-"jahazah"
-],
-"lafeta": [
-"japheth",
-"shem"
+"jahaz"
 ],
 "lafi": [
-"hide",
 "hid"
 ],
 "lafitaga": [
@@ -6077,19 +6296,21 @@
 "cast"
 ],
 "lafoai": [
-"cast"
+"forsaken"
 ],
 "lafoaiina": [
+"forsaken",
 "cast"
 ],
 "lafoa’i": [
-"forsake"
+"forsaken",
+"last"
 ],
 "lafoa’iina": [
 "cast"
 ],
 "lafoga": [
-"publicans",
+"taxes",
 "tribute"
 ],
 "lafoia": [
@@ -6104,6 +6325,9 @@
 "lafu": [
 "flocks"
 ],
+"lafua": [
+"fruit"
+],
 "lafulafua": [
 "desert"
 ],
@@ -6111,7 +6335,8 @@
 "spot"
 ],
 "lafulemu": [
-"fruitful"
+"fruit",
+"field"
 ],
 "laga": [
 "rise"
@@ -6140,11 +6365,6 @@
 "lagonaina": [
 "feel"
 ],
-"lagotua": [
-"flanks",
-"kidneys",
-"liver"
-],
 "lailoa": [
 "weary",
 "faint"
@@ -6172,9 +6392,6 @@
 "small",
 "little"
 ],
-"lakinu": [
-"jachin"
-],
 "lakisa": [
 "lachish"
 ],
@@ -6185,14 +6402,15 @@
 "jacob"
 ],
 "lala": [
-"branches"
+"branches",
+"natural"
 ],
 "lalafi": [
-"hide",
 "hid"
 ],
 "lalaga": [
-"weaver's"
+"weaver's",
+"woven"
 ],
 "lalagaina": [
 "woven"
@@ -6231,9 +6449,6 @@
 "lamps",
 "candlestick"
 ],
-"laminu": [
-"jamin"
-],
 "lamolemole": [
 "smooth"
 ],
@@ -6267,20 +6482,14 @@
 "lapata’ia": [
 "warn"
 ],
-"lapese": [
-"jabesh"
+"lapesa": [
+"jabez"
 ],
-"lapese-kiliata": [
+"lapesekiliata": [
 "jabesh"
-],
-"lapoka": [
-"jabbok"
 ],
 "lapotopoto": [
 "chapiters"
-],
-"laremuta": [
-"jarmuth"
 ],
 "lareto": [
 "jared"
@@ -6288,17 +6497,11 @@
 "lasalo": [
 "lazarus"
 ],
-"lasaru": [
-"jazer"
-],
 "latalata": [
 "near"
 ],
 "latana": [
 "laadan"
-],
-"latira": [
-"jattir"
 ],
 "lauaitu": [
 "lamentation"
@@ -6320,9 +6523,6 @@
 "laugutu": [
 "lips"
 ],
-"lauiloa": [
-"popular"
-],
 "lauitiiti": [
 "narrow",
 "strait"
@@ -6337,12 +6537,13 @@
 "shewbread"
 ],
 "laulaututu": [
-"stood",
+"judges",
 "stand"
 ],
 "laulaututū": [
+"stand",
 "judges",
-"stand"
+"judgment"
 ],
 "laumata": [
 "eyelids"
@@ -6365,7 +6566,7 @@
 "hair"
 ],
 "lavalava": [
-"naked"
+"sackcloth"
 ],
 "lavalavā": [
 "naked"
@@ -6394,8 +6595,11 @@
 "lavea’iina": [
 "bondage"
 ],
+"lavā": [
+"able"
+],
 "law": [
-"william"
+"law"
 ],
 "leaga": [
 "evil"
@@ -6406,22 +6610,15 @@
 "lefulefu": [
 "ashes"
 ],
-"leielu": [
-"jehiel"
-],
 "leiloa": [
 "lost"
 ],
 "leiloloa": [
-"lost",
-"mankind"
+"mankind",
+"lost"
 ],
-"lela": [
-"jordan",
-"side"
-],
-"lelci": [
-"meat"
+"lekeono": [
+"legion"
 ],
 "lelea": [
 "chaff"
@@ -6442,9 +6639,6 @@
 ],
 "leo": [
 "voice"
-],
-"leoiata": [
-"jehoiada"
 ],
 "leoleoga": [
 "garrison"
@@ -6477,52 +6671,30 @@
 "libni"
 ],
 "lepeti": [
+"broken",
 "destroy"
 ],
+"lepetia": [
+"broken"
+],
 "lepuse": [
-"jebusite",
-"jebusites",
-"amorite"
-],
-"leremia": [
-"jeremiah"
-],
-"leremota": [
-"jeremoth"
-],
-"lerepoamo": [
-"jeroboam",
-"nebat"
-],
-"leriko": [
-"jericho"
-],
-"lerusalema": [
-"jerusalem"
-],
-"lese": [
-"jesse"
-],
-"lesu": [
-"jesus"
+"jebusite"
 ],
 "lesua": [
 "jeshua"
-],
-"letaia": [
-"jedaiah"
-],
-"leu": [
-"jehu"
 ],
 "leva": [
 "long"
 ],
 "levi": [
-"levites"
+"levites",
+"levi"
 ],
 "leviatana": [
 "leviathan"
+],
+"levī": [
+"levites"
 ],
 "liae": [
 "lehi"
@@ -6535,8 +6707,8 @@
 "root"
 ],
 "lialiai": [
-"despised",
-"head"
+"scorn",
+"laugh"
 ],
 "liligi": [
 "poured"
@@ -6548,19 +6720,19 @@
 "turn"
 ],
 "liliueseina": [
-"anger",
 "turn"
 ],
 "liliuina": [
-"hearing",
 "converted"
 ],
 "lilivau": [
 "gnashing",
-"teeth"
+"teeth",
+"gnashes"
 ],
 "lilo": [
-"secret"
+"secret",
+"hid"
 ],
 "liloia": [
 "covered"
@@ -6570,10 +6742,6 @@
 ],
 "limae": [
 "limhi"
-],
-"limagaafe": [
-"five",
-"thousand"
 ],
 "limagafulu": [
 "fifty"
@@ -6600,7 +6768,7 @@
 "lydda"
 ],
 "liu": [
-"water"
+"melt"
 ],
 "liua": [
 "turn"
@@ -6608,57 +6776,44 @@
 "liuga": [
 "change"
 ],
+"liuliu": [
+"turn"
+],
 "liusuavai": [
 "fervent",
 "elements",
 "melt"
 ],
 "liutuaina": [
-"back"
+"back",
+"confounded"
+],
+"li’a": [
+"dream"
 ],
 "loa": [
-"immediately",
-"straightway"
-],
-"loaa": [
-"joah",
-"shebna",
-"eliakim"
-],
-"loakima": [
-"jehoiakim"
+"immediately"
 ],
 "loanana": [
+"kareah",
 "johanan"
-],
-"loane": [
-"john"
-],
-"loapo": [
-"joab"
-],
-"loasa": [
-"joash"
 ],
 "loelu": [
 "joel"
 ],
 "lofia": [
-"water"
+"overflow"
 ],
 "lofituina": [
 "sunk",
-"overcome",
-"overpower"
+"overpower",
+"overcome"
 ],
 "logo": [
 "fame"
 ],
 "logoleleia": [
 "report"
-],
-"logona": [
-"david"
 ],
 "loia": [
 "lawyers"
@@ -6669,13 +6824,16 @@
 "loka": [
 "log"
 ],
+"lokou": [
+"beginning"
+],
 "lolo": [
 "flood"
 ],
 "lologa": [
 "flood",
-"beat",
-"descended"
+"descended",
+"beat"
 ],
 "lololo": [
 "fatness"
@@ -6685,23 +6843,16 @@
 "deep"
 ],
 "lolou": [
-"bent",
-"shoot"
+"bent"
 ],
 "lolo’u": [
-"bend"
+"bent"
 ],
 "lomiga": [
 "printing"
 ],
 "lomitusi": [
 "printing"
-],
-"lonatana": [
-"jonathan"
-],
-"lonatapa": [
-"jonadab"
 ],
 "loomatua": [
 "sarah",
@@ -6710,62 +6861,30 @@
 "loomatutua": [
 "woman"
 ],
-"lopapa": [
-"jobab"
-],
-"lopu": [
-"job"
-],
-"loramo": [
-"joram",
-"jezreel"
-],
-"loritana": [
-"jordan"
-],
-"losapata": [
-"jozabad"
+"losapa": [
+"jehozabad"
 ],
 "lose": [
 "joses"
 ],
-"losefa": [
-"joseph"
-],
-"losefatu": [
-"jehoshaphat"
-],
-"losia": [
-"josiah"
+"losilosi": [
+"envious"
 ],
 "losilosivalega": [
 "envyings"
 ],
-"losua": [
-"joshua"
-],
 "lota": [
 "lot"
-],
-"lotama": [
-"jotham"
 ],
 "lotana": [
 "lotan",
 "zibeon"
-],
-"lotapara": [
-"debar",
-"ammiel"
 ],
 "loto": [
 "heart"
 ],
 "loto-maaa": [
 "stiffnecked"
-],
-"lotoa": [
-"court"
 ],
 "lotofale": [
 "floor"
@@ -6794,8 +6913,11 @@
 "lototetele": [
 "courage"
 ],
-"lotoà": [
+"lotoā": [
 "court"
+],
+"lotoāina": [
+"plant"
 ],
 "lotu": [
 "sects",
@@ -6824,7 +6946,7 @@
 "first"
 ],
 "lugā": [
-"beneath"
+"above"
 ],
 "luka": [
 "luke",
@@ -6838,57 +6960,66 @@
 "lulu": [
 "sow"
 ],
-"luluu": [
-"handful"
+"luluina": [
+"shake"
 ],
-"lumafale": [
-"gate"
+"luluu": [
+"altar",
+"burnt",
+"offering"
 ],
 "lumanai": [
 "time"
+],
+"lumāfale": [
+"gate"
 ],
 "lupe": [
 "dove"
 ],
 "lusa": [
 "luz",
-"lystra",
-"iconium"
+"lystra"
+],
+"lusia": [
+"lysias"
 ],
 "luso": [
 "jeush"
 ],
-"luta": [
-"judah"
-],
-"lutaia": [
-"jews"
-],
-"lutana": [
-"jeduthun"
-],
 "luti": [
 "lud"
 ],
+"lutā": [
+"jews"
+],
 "luutaga": [
-"handful"
+"handfuls"
+],
+"luā": [
+"third",
+"morrow"
 ],
 "lyman": [
-"lyman",
-"wight",
-"snider"
+"lyman"
+],
+"lāgotua": [
+"flanks",
+"kidneys",
+"liver"
 ],
 "lālā": [
 "branches",
 "graft",
 "natural"
 ],
+"lāvea": [
+"taken"
+],
 "lūlū": [
 "shake"
 ],
 "lūlūina": [
-"shook",
-"shaken",
 "shake"
 ],
 "maa": [
@@ -6967,13 +7098,11 @@
 "maelega": [
 "zeal"
 ],
-"maeli-sala-asa-pasa": [
-"shalal",
-"maher",
-"hash"
-],
 "maemaea": [
 "anger"
+],
+"maeu": [
+"excellent"
 ],
 "mae’a": [
 "finished"
@@ -6983,6 +7112,9 @@
 ],
 "mafaatusalia": [
 "matchless"
+],
+"mafaia": [
+"able"
 ],
 "mafaitauina": [
 "number"
@@ -7003,9 +7135,13 @@
 "mind"
 ],
 "mafaufauga": [
+"thoughts"
+],
+"mafaufauina": [
 "thought"
 ],
 "mafiafia": [
+"thickness",
 "thick"
 ],
 "mafu": [
@@ -7061,11 +7197,18 @@
 "magumagu": [
 "withered"
 ],
+"magāala": [
+"paths"
+],
+"magāvai": [
+"stream"
+],
 "maifea": [
 "whence"
 ],
 "mailei": [
-"snare"
+"snare",
+"snares"
 ],
 "maileia": [
 "snares"
@@ -7132,9 +7275,13 @@
 "enlightened",
 "understanding"
 ],
+"maleifua": [
+"awake"
+],
 "malekia": [
 "malchiah",
-"malchijah"
+"malchijah",
+"pashur"
 ],
 "malelemo": [
 "drowned"
@@ -7158,9 +7305,6 @@
 "baptism",
 "dead"
 ],
-"maliuga": [
-"draught"
-],
 "malo": [
 "kingdom"
 ],
@@ -7169,6 +7313,9 @@
 ],
 "malologa": [
 "rest"
+],
+"maloloina": [
+"health"
 ],
 "malolosi": [
 "strong",
@@ -7190,23 +7337,27 @@
 "malluch"
 ],
 "malulu": [
-"cold"
+"clothes"
 ],
 "malumalu": [
-"temple"
+"temple",
+"sanctuary"
 ],
 "malō": [
 "flint"
 ],
+"malū": [
+"calm"
+],
 "mama": [
-"clean"
+"rings"
 ],
 "mamae": [
 "withered"
 ],
 "mamago": [
 "dry",
-"bones"
+"dried"
 ],
 "mamai": [
 "sick"
@@ -7220,22 +7371,19 @@
 "glory"
 ],
 "mamana": [
-"powerful"
+"mighty",
+"power"
 ],
 "mamao": [
 "far"
 ],
 "mama’i": [
 "sick",
-"hungry",
 "needy"
 ],
 "mamere": [
 "mamre",
 "machpelah"
-],
-"mami": [
-"clean"
 ],
 "mamoe": [
 "lamb",
@@ -7244,8 +7392,11 @@
 "mamona": [
 "mormon"
 ],
+"mamone": [
+"mammon"
+],
 "mamā": [
-"pure"
+"clean"
 ],
 "mana": [
 "power"
@@ -7289,7 +7440,11 @@
 "remembrance"
 ],
 "manatunatuga": [
-"thought"
+"thoughts"
+],
+"manava": [
+"belly",
+"womb"
 ],
 "maneti": [
 "manti"
@@ -7326,8 +7481,11 @@
 ],
 "manufelelei": [
 "fowls",
-"creeps",
-"air"
+"air",
+"creature"
+],
+"manuia": [
+"peace"
 ],
 "manulauti": [
 "mark"
@@ -7351,17 +7509,14 @@
 "manu’a": [
 "wounded"
 ],
-"manù": [
-"lest"
-],
-"manū": [
-"sickle",
-"treasure"
-],
 "maoae": [
 "must"
 ],
+"maona": [
+"filled"
+],
 "maoona": [
+"satisfied",
 "filled"
 ],
 "maopoopo": [
@@ -7375,7 +7530,9 @@
 "pure"
 ],
 "mapeva": [
-"feet"
+"slide",
+"slippeth",
+"slip"
 ],
 "mapu": [
 "rest"
@@ -7406,20 +7563,17 @@
 "mary"
 ],
 "marks": [
-"william",
-"mark"
+"marks"
 ],
 "marsh": [
-"marsh",
-"thayre"
+"marsh"
 ],
 "masaa": [
 "loss",
 "faint"
 ],
 "masae": [
-"rent",
-"net"
+"rent"
 ],
 "masaesae": [
 "rags"
@@ -7444,14 +7598,14 @@
 "masima": [
 "salt"
 ],
+"masimā": [
+"salt"
+],
 "masina": [
 "month"
 ],
 "masino": [
 "number"
-],
-"masinoga": [
-"judgment"
 ],
 "masiofo": [
 "queen"
@@ -7476,6 +7630,9 @@
 "matafaioi": [
 "stewardship"
 ],
+"matafii": [
+"fear"
+],
 "matagi": [
 "wind"
 ],
@@ -7493,16 +7650,10 @@
 "jot"
 ],
 "matala": [
-"opened"
+"heart"
 ],
 "matamata": [
 "look"
-],
-"matamatagi": [
-"wind"
-],
-"matamoe": [
-"watch"
 ],
 "matana": [
 "mattan"
@@ -7525,8 +7676,7 @@
 "loss"
 ],
 "matasele": [
-"trap",
-"snare"
+"gin"
 ],
 "matatau": [
 "fear"
@@ -7534,11 +7684,17 @@
 "matata’u": [
 "fear"
 ],
-"matatia": [
-"mattithiah"
+"matau": [
+"fear"
 ],
 "mataua": [
 "envy"
+],
+"matauina": [
+"brethren"
+],
+"mataupu": [
+"doctrine"
 ],
 "matautia": [
 "terrible"
@@ -7601,7 +7757,7 @@
 "hen"
 ],
 "matuaoti": [
-"fatherless"
+"widow"
 ],
 "matua’i": [
 "exceedingly"
@@ -7619,8 +7775,25 @@
 "matutua": [
 "upward"
 ],
-"matuā": [
-"exceedingly"
+"matāgaluega": [
+"our"
+],
+"matāitu": [
+"lasciviousness"
+],
+"matāmatagi": [
+"wind"
+],
+"matāmoe": [
+"watch"
+],
+"matāsele": [
+"trap",
+"snares",
+"snare"
+],
+"mau": [
+"dwell"
 ],
 "mauaa": [
 "root"
@@ -7648,11 +7821,15 @@
 "maui": [
 "water"
 ],
+"maulalo": [
+"low"
+],
 "mauli": [
-"astonied"
+"astonied",
+"amazed"
 ],
 "maumau": [
-"lose"
+"lost"
 ],
 "maumausolo": [
 "fugitive",
@@ -7687,15 +7864,20 @@
 "riches"
 ],
 "mavaega": [
-"covenant"
+"covenant",
+"live",
+"die"
 ],
 "mavaevae": [
-"rock",
-"rent"
+"rent",
+"rock"
 ],
 "ma’alofia": [
 "imperative",
 "owe"
+],
+"ma’ema’eā": [
+"anger"
 ],
 "ma’i": [
 "sick"
@@ -7704,8 +7886,8 @@
 "satisfied"
 ],
 "ma’umau": [
-"lose",
-"grieved"
+"grieved",
+"lost"
 ],
 "mclellin": [
 "mclellin"
@@ -7734,6 +7916,7 @@
 ],
 "meaola": [
 "creature",
+"creeping",
 "fowls"
 ],
 "meatotino": [
@@ -7743,8 +7926,7 @@
 "swine"
 ],
 "mefata": [
-"mephaath",
-"kedemoth"
+"mephaath"
 ],
 "mefiposeta": [
 "mephibosheth"
@@ -7805,9 +7987,6 @@
 "memukana": [
 "memucan"
 ],
-"meneamina": [
-"miniamin"
-],
 "meona": [
 "maon"
 ],
@@ -7851,9 +8030,11 @@
 "mishma"
 ],
 "mesepa": [
-"mizpeh",
 "mizpah",
-"gedaliah"
+"mizpeh"
+],
+"mesesapelu": [
+"meshezabeel"
 ],
 "mesia": [
 "messiah"
@@ -7877,6 +8058,9 @@
 "metusela": [
 "methuselah"
 ],
+"miaga": [
+"wall"
+],
 "migao": [
 "reverence"
 ],
@@ -7884,8 +8068,7 @@
 "micah"
 ],
 "miller": [
-"miller",
-"george"
+"miller"
 ],
 "milo": [
 "twined",
@@ -7894,9 +8077,6 @@
 ],
 "miloa": [
 "silk"
-],
-"mimi": [
-"scarlet"
 ],
 "mina": [
 "pound"
@@ -7939,7 +8119,7 @@
 "moa": [
 "cock",
 "crow",
-"thrice"
+"crew"
 ],
 "moana": [
 "deep",
@@ -7954,12 +8134,6 @@
 "moega": [
 "bed"
 ],
-"moegase": [
-"sleep"
-],
-"moemoe": [
-"branches"
-],
 "mogamoga": [
 "moth"
 ],
@@ -7967,24 +8141,20 @@
 "moladah"
 ],
 "mole": [
-"drink"
+"soul"
 ],
 "moleka": [
 "mulek"
 ],
-"molemole": [
-"mouth"
-],
 "moli": [
-"light"
+"apples"
 ],
 "molimau": [
 "witness"
 ],
 "molimauina": [
 "record",
-"witness",
-"bear"
+"witness"
 ],
 "molitino": [
 "testify",
@@ -7993,11 +8163,16 @@
 "moloka": [
 "molech"
 ],
+"momoe": [
+"sleep"
+],
+"momoi": [
+"crumbs"
+],
 "momomo": [
 "contrite"
 ],
 "momo’e": [
-"ran",
 "run"
 ],
 "moni": [
@@ -8044,12 +8219,16 @@
 "multitude"
 ],
 "motusi": [
-"brake",
-"break"
+"broken"
 ],
 "motusia": [
-"bands",
-"broken"
+"bands"
+],
+"mou": [
+"possess"
+],
+"mua": [
+"grass"
 ],
 "muai": [
 "first"
@@ -8107,14 +8286,6 @@
 "mulumuluina": [
 "wash"
 ],
-"mumi": [
-"flame"
-],
-"mumu": [
-"scarlet",
-"purple",
-"blue"
-],
 "mumulu": [
 "warm"
 ],
@@ -8124,11 +8295,8 @@
 "mumutu": [
 "maimed"
 ],
-"mumù": [
-"fire"
-],
 "mumū": [
-"fire"
+"flame"
 ],
 "muro": [
 "myrrh"
@@ -8155,7 +8323,7 @@
 ],
 "mutimuti": [
 "compassion",
-"mercies"
+"merciful"
 ],
 "mutimutivale": [
 "merciful",
@@ -8164,22 +8332,49 @@
 "mutu": [
 "maimed"
 ],
+"muāpa’u": [
+"foreskin"
+],
 "mu’a": [
-"grass",
 "herb",
+"grass",
 "green"
 ],
 "mu’amu’a": [
 "tender"
 ],
+"māliuga": [
+"draught"
+],
+"mālūlū": [
+"cold"
+],
 "māmā": [
-"lightly"
+"small",
+"light"
 ],
 "mānava": [
 "breath"
 ],
-"mătau": [
-"axe"
+"mātala": [
+"carved"
+],
+"mātau": [
+"hooks"
+],
+"mātua": [
+"parents"
+],
+"mātuaoti": [
+"fatherless"
+],
+"māumau": [
+"lost"
+],
+"mūmū": [
+"scarlet",
+"purple",
+"blue"
 ],
 "naama": [
 "naamah",
@@ -8221,8 +8416,7 @@
 "leopard"
 ],
 "nana": [
-"hid",
-"hide"
+"hid"
 ],
 "nanamu": [
 "smell"
@@ -8231,7 +8425,7 @@
 "night"
 ],
 "nanā": [
-"hide"
+"hid"
 ],
 "nao": [
 "only"
@@ -8271,11 +8465,9 @@
 "abihu"
 ],
 "natia": [
-"hid",
-"hide"
+"hid"
 ],
 "natiaina": [
-"hide",
 "hid"
 ],
 "nato": [
@@ -8301,6 +8493,9 @@
 ],
 "na’o": [
 "only"
+],
+"ne4i": [
+"lest"
 ],
 "nearia": [
 "neariah"
@@ -8360,16 +8555,12 @@
 "netini": [
 "nethinims"
 ],
-"netopa": [
+"netopā": [
 "netophathite",
 "maharai"
 ],
 "newel": [
-"newel",
-"whitney"
-],
-"ne’i": [
-"lest"
+"newel"
 ],
 "ne’oa": [
 "nehor"
@@ -8410,12 +8601,13 @@
 "cakes"
 ],
 "ninii": [
-"tears",
 "dust",
-"pieces"
+"pieces",
+"small"
 ],
 "niu": [
-"york"
+"york",
+"county"
 ],
 "noa": [
 "noah"
@@ -8424,7 +8616,9 @@
 "bound"
 ],
 "noanoaga": [
-"bonds"
+"bonds",
+"loosed",
+"bands"
 ],
 "noanoataga": [
 "bonds"
@@ -8470,21 +8664,29 @@
 "seat"
 ],
 "nofonofo": [
-"still",
-"sit"
+"still"
 ],
 "nofopologa": [
 "bondage"
+],
+"nofotane": [
+"marry"
 ],
 "nofotupu": [
 "reign",
 "stead"
 ],
+"nofoālii": [
+"throne"
+],
+"nono": [
+"lend"
+],
 "nonoa": [
-"bind"
+"bound"
 ],
 "nonofo": [
-"inhabitants"
+"dwell"
 ],
 "nonō": [
 "borrow"
@@ -8502,15 +8704,21 @@
 "nuno": [
 "nun"
 ],
+"nuti": [
+"broken"
+],
 "nutililii": [
 "pieces",
-"iron",
-"break"
+"iron"
 ],
 "nutililiia": [
 "broken"
 ],
+"nutimomoia": [
+"broken"
+],
 "nutininii": [
+"beat",
 "pieces"
 ],
 "nutipalaina": [
@@ -8522,9 +8730,6 @@
 ],
 "nuumau": [
 "bountiful"
-],
-"ode": [
-"famine"
 ],
 "ofaga": [
 "nest"
@@ -8539,11 +8744,11 @@
 "ofele": [
 "ophel"
 ],
+"ofi": [
+"contain"
+],
 "ofira": [
 "ophrah"
-],
-"ofoina": [
-"worship"
 ],
 "ofoofogia": [
 "marvelous"
@@ -8570,7 +8775,9 @@
 "oven"
 ],
 "ogavae": [
-"thigh"
+"rot",
+"thigh",
+"swell"
 ],
 "oge": [
 "famine"
@@ -8580,6 +8787,9 @@
 ],
 "ogotia": [
 "sun"
+],
+"ogāumu": [
+"furnace"
 ],
 "ohaio": [
 "ohio"
@@ -8628,6 +8838,9 @@
 "olo": [
 "tower"
 ],
+"oloa": [
+"riches"
+],
 "olopalaina": [
 "destruction"
 ],
@@ -8656,6 +8869,9 @@
 ],
 "omomi": [
 "spunge"
+],
+"onaga": [
+"drunkenness"
 ],
 "onama": [
 "onam"
@@ -8697,18 +8913,26 @@
 "pherah",
 "asenath"
 ],
+"onā": [
+"drunken"
+],
 "oofu": [
 "clothes"
 ],
 "oona": [
 "bitter"
 ],
+"oono": [
+"refrain",
+"travail"
+],
 "ooti": [
 "pluck",
 "corn"
 ],
 "opeta": [
-"obed"
+"obed",
+"salmon"
 ],
 "opetaia": [
 "obadiah"
@@ -8729,11 +8953,11 @@
 "orihah"
 ],
 "oreva": [
-"raven"
+"raven",
+"oreb"
 ],
 "orson": [
-"orson",
-"hyde"
+"orson"
 ],
 "osana": [
 "hosanna"
@@ -8750,20 +8974,22 @@
 "covenant"
 ],
 "ositaulaga": [
-"priest"
+"priest",
+"priests"
 ],
 "osofai": [
+"army",
 "lamanites"
 ],
 "osofaia": [
-"lamanites"
+"lamanites",
+"army"
 ],
 "osofaiga": [
 "attack"
 ],
 "osofia": [
-"spirit",
-"david"
+"spirit"
 ],
 "osooso": [
 "leap"
@@ -8772,8 +8998,11 @@
 "dung"
 ],
 "otata": [
+"summer"
+],
+"otatā": [
 "summer",
-"ripe"
+"vine"
 ],
 "oteta": [
 "oded"
@@ -8788,12 +9017,6 @@
 ],
 "otootoga": [
 "abridgment"
-],
-"oute": [
-"praise"
-],
-"ove": [
-"famine"
 ],
 "paala": [
 "baal"
@@ -8837,9 +9060,6 @@
 "paepae": [
 "pavement"
 ],
-"pafu": [
-"skin"
-],
 "pafulia": [
 "pamphylia"
 ],
@@ -8856,9 +9076,6 @@
 "pagota": [
 "prisoners"
 ],
-"pagotata": [
-"malefactors"
-],
 "pai": [
 "touch"
 ],
@@ -8872,11 +9089,17 @@
 "bath",
 "homer"
 ],
+"paivalea": [
+"unawares"
+],
+"paka-moapi": [
+"pahath"
+],
 "pakamoapi": [
 "pahath"
 ],
 "pakepuka": [
-"mattaniah"
+"bakbukiah"
 ],
 "pakumenae": [
 "pacumeni"
@@ -8920,7 +9143,7 @@
 "paluga": [
 "lump"
 ],
-"palugafalaoa": [
+"palugāfalaoa": [
 "dough"
 ],
 "pama": [
@@ -8969,9 +9192,6 @@
 "papatisoina": [
 "baptized"
 ],
-"papatua": [
-"loins"
-],
 "papatusi": [
 "plates"
 ],
@@ -8980,6 +9200,9 @@
 ],
 "papelonia": [
 "babylon"
+],
+"papā": [
+"cast"
 ],
 "parako": [
 "barak",
@@ -8998,14 +9221,12 @@
 "paradise"
 ],
 "parley": [
-"parley",
-"pratt"
+"parley"
 ],
 "parose": [
 "parosh"
 ],
 "partridge": [
-"edward",
 "partridge"
 ],
 "paruka": [
@@ -9044,7 +9265,7 @@
 "bath"
 ],
 "pati": [
-"fall"
+"clapped"
 ],
 "patino": [
 "strict"
@@ -9060,14 +9281,6 @@
 "patten": [
 "patten"
 ],
-"patu": [
-"skin"
-],
-"pauli": [
-"purple",
-"blue",
-"scarlet"
-],
 "paulo": [
 "paul"
 ],
@@ -9077,11 +9290,10 @@
 "pauu": [
 "fall"
 ],
-"paù": [
-"fall",
-"fell"
+"pauū": [
+"fall"
 ],
-"paŭ": [
+"paū": [
 "fall"
 ],
 "pa’epa’e": [
@@ -9094,17 +9306,13 @@
 "skin"
 ],
 "pa’upa’ua": [
-"scall",
-"deeper",
-"yellow"
+"scall"
 ],
 "pa’u’ū": [
-"fallen",
 "fall"
 ],
 "pa’ū": [
-"fall",
-"fallen"
+"fall"
 ],
 "peairota": [
 "zephon",
@@ -9112,9 +9320,6 @@
 ],
 "peau": [
 "waves"
-],
-"peio": [
-"like"
 ],
 "peka": [
 "pekah",
@@ -9129,6 +9334,12 @@
 "pela": [
 "bela",
 "ashbel"
+],
+"pelaia": [
+"pelaiah"
+],
+"pelatia": [
+"pelatiah"
 ],
 "pele": [
 "beloved"
@@ -9182,6 +9393,9 @@
 "peniamina": [
 "benjamin"
 ],
+"peniaminā": [
+"benjamite"
+],
 "peniata": [
 "ben",
 "hadad"
@@ -9205,22 +9419,21 @@
 "pepai": [
 "bebai"
 ],
+"pepe": [
+"moth"
+],
 "pepese": [
-"singers",
-"sing"
+"sing",
+"singers"
 ],
 "pepeti": [
-"fatlings",
-"fat"
+"fatlings"
 ],
 "perea": [
 "berea"
 ],
 "pereka": [
 "perga"
-],
-"perekamo": [
-"write"
 ],
 "pereketa": [
 "carbuncle",
@@ -9238,8 +9451,7 @@
 "sheba"
 ],
 "peresia": [
-"persia",
-"cyrus"
+"persia"
 ],
 "peresipeteriana": [
 "presbyterian"
@@ -9249,8 +9461,7 @@
 "presidency"
 ],
 "peria": [
-"beriah",
-"malchiel"
+"beriah"
 ],
 "perise": [
 "perizzites",
@@ -9260,9 +9471,15 @@
 "perisitua": [
 "priesthood"
 ],
+"perisē": [
+"perizzites"
+],
 "peritome": [
 "circumcision",
 "uncircumcision"
+],
+"peritomega": [
+"circumcision"
 ],
 "peritomeina": [
 "uncircumcised",
@@ -9279,6 +9496,9 @@
 "beeroth",
 "beerothite"
 ],
+"pesai": [
+"bezai"
+],
 "pesaleli": [
 "bezaleel",
 "uri"
@@ -9288,7 +9508,8 @@
 "sing"
 ],
 "pesega": [
-"sing"
+"sing",
+"praises"
 ],
 "peseka": [
 "pisgah"
@@ -9347,6 +9568,9 @@
 ],
 "peteorana": [
 "horon"
+],
+"petepeoro": [
+"peor"
 ],
 "peter": [
 "peter"
@@ -9491,29 +9715,21 @@
 "pologa": [
 "bondage"
 ],
-"polopologa": [
-"mildew",
-"blasting"
-],
 "pona": [
-"knop",
-"blemish"
+"knop"
 ],
 "ponatia": [
 "hinder"
 ],
 "pono": [
-"pontus"
+"pontus",
+"cappadocia"
 ],
 "ponotio": [
 "pontius"
 ],
 "ponā": [
-"spotless",
 "blameless"
-],
-"popo": [
-"smote"
 ],
 "popoto": [
 "wise"
@@ -9540,7 +9756,7 @@
 "together",
 "gathered"
 ],
-"potopotogamati": [
+"potopotogāmati": [
 "fig"
 ],
 "potu": [
@@ -9564,8 +9780,7 @@
 "kind"
 ],
 "pratt": [
-"pratt",
-"parley"
+"pratt"
 ],
 "pua": [
 "tola"
@@ -9598,8 +9813,11 @@
 "puapuagatia": [
 "afflicted"
 ],
+"pue": [
+"lay"
+],
 "puea": [
-"taken"
+"caught"
 ],
 "puipuia": [
 "shut"
@@ -9656,15 +9874,18 @@
 "punavai": [
 "fountain"
 ],
+"puni": [
+"bunni"
+],
 "punipu": [
 "kidneys",
 "liver",
 "caul"
 ],
-"punipù": [
+"punipū": [
+"flanks",
 "kidneys",
-"liver",
-"caul"
+"liver"
 ],
 "punitia": [
 "shut"
@@ -9675,6 +9896,9 @@
 ],
 "punou": [
 "bow"
+],
+"punāvai": [
+"fountain"
 ],
 "pupula": [
 "glory"
@@ -9689,8 +9913,7 @@
 "riches"
 ],
 "puro": [
-"purim",
-"pur"
+"purim"
 ],
 "pusa": [
 "smoke"
@@ -9705,7 +9928,15 @@
 "short"
 ],
 "pu’e": [
-"catch"
+"caught"
+],
+"pāti": [
+"clap"
+],
+"pāuli": [
+"purple",
+"blue",
+"scarlet"
 ],
 "pōnā": [
 "blameless"
@@ -9714,17 +9945,20 @@
 "rahab"
 ],
 "rafa": [
-"rephaim",
 "giants"
+],
+"rafā": [
+"giants",
+"rephaim"
 ],
 "ragama": [
 "raamah"
 ],
-"raja": [
-"preach"
-],
 "rakapa": [
 "rechab"
+],
+"rakapā": [
+"rechabites"
 ],
 "rama": [
 "ramah"
@@ -9733,6 +9967,9 @@
 "rameses"
 ],
 "ramota": [
+"ramoth"
+],
+"ramota-": [
 "ramoth"
 ],
 "ramota-kiliata": [
@@ -9774,6 +10011,9 @@
 "rekema": [
 "rekem"
 ],
+"rekuma": [
+"rehum"
+],
 "rekumu": [
 "shimshai",
 "rehum",
@@ -9791,7 +10031,7 @@
 "rehob"
 ],
 "reopo": [
-"rehoboth"
+"rehob"
 ],
 "reopoamo": [
 "rehoboam"
@@ -9803,8 +10043,7 @@
 "rezin"
 ],
 "reu": [
-"reu",
-"peleg"
+"reu"
 ],
 "reuelu": [
 "reuel",
@@ -9814,14 +10053,15 @@
 "reupena": [
 "reuben"
 ],
+"reupenā": [
+"reubenites",
+"gadites"
+],
 "reynolds": [
-"reynolds",
-"cahoon"
+"reynolds"
 ],
 "richards": [
-"willard",
-"richards",
-"taylor"
+"richards"
 ],
 "rikitone": [
 "rigdon",
@@ -9840,6 +10080,9 @@
 "risepa": [
 "rizpah",
 "aiah"
+],
+"rnatou": [
+"our"
 ],
 "roma": [
 "romans",
@@ -9862,10 +10105,12 @@
 "flay"
 ],
 "saei": [
-"rent"
+"rent",
+"clothes"
 ],
 "saeia": [
-"rent"
+"rent",
+"lion"
 ],
 "saeluaina": [
 "veil"
@@ -9886,8 +10131,7 @@
 "seek"
 ],
 "sailia": [
-"seek",
-"sought"
+"seek"
 ],
 "sailiili": [
 "seek"
@@ -9906,12 +10150,20 @@
 "prison",
 "bound"
 ],
+"saisaitia": [
+"bound"
+],
 "saitoma": [
 "sidom"
 ],
 "saitonu": [
 "sidon",
 "zidon"
+],
+"saitonū": [
+"zidonians",
+"milcom",
+"ashtoreth"
 ],
 "sakaio": [
 "zacchaeus"
@@ -9944,9 +10196,6 @@
 "abroad"
 ],
 "salamo": [
-"repent"
-],
-"salamò": [
 "repent"
 ],
 "salatielu": [
@@ -9985,10 +10234,14 @@
 "shelomith"
 ],
 "salu": [
-"quails"
+"quails",
+"sallu"
 ],
 "saluma": [
 "shallum"
+],
+"salāmo": [
+"psalms"
 ],
 "sama": [
 "sam",
@@ -10023,16 +10276,15 @@
 "shammua"
 ],
 "samuel": [
-"hyde",
-"johnson",
-"orson"
+"samuel"
 ],
 "samuelu": [
 "samuel"
 ],
 "sanepalata": [
 "sanballat",
-"tobiah"
+"horonite",
+"geshem"
 ],
 "sanerivi": [
 "sennacherib"
@@ -10103,12 +10355,14 @@
 "sarona": [
 "sharon"
 ],
+"sasa": [
+"rod"
+],
 "sasaa": [
 "poured"
 ],
 "sasaaina": [
-"poured",
-"fury"
+"poured"
 ],
 "sasae": [
 "east"
@@ -10219,7 +10473,9 @@
 "liberty"
 ],
 "sea": [
-"measured"
+"measured",
+"barley",
+"flour"
 ],
 "seanoa": [
 "must"
@@ -10228,10 +10484,15 @@
 "jershon"
 ],
 "see": [
-"feet"
+"shoes",
+"joints"
 ],
 "seepa": [
 "sheba"
+],
+"seeva": [
+"zeeb",
+"oreb"
 ],
 "seevae": [
 "shoes",
@@ -10316,14 +10577,16 @@
 "heshbon"
 ],
 "sela": [
-"selah"
+"zillah",
+"adah"
 ],
 "selaa": [
 "salah",
-"arphaxad"
+"arphaxad",
+"eber"
 ],
 "selah": [
-"griffin"
+"selah"
 ],
 "selau": [
 "hundred"
@@ -10335,11 +10598,7 @@
 "cut"
 ],
 "selelamepa": [
-"snuffers",
-"snuffdishes"
-],
-"selemamaina": [
-"baldness"
+"snuffers"
 ],
 "selemia": [
 "shelemiah"
@@ -10356,7 +10615,7 @@
 "seleselega": [
 "harvest"
 ],
-"seleselegasaito": [
+"seleselegāsaito": [
 "harvest"
 ],
 "seleseleina": [
@@ -10384,6 +10643,9 @@
 "zurishaddai",
 "shelumiel"
 ],
+"selā": [
+"selah"
+],
 "sema": [
 "brethren"
 ],
@@ -10410,6 +10672,9 @@
 "seminaraea": [
 "zemnarihah"
 ],
+"semiramota": [
+"shemiramoth"
+],
 "semu": [
 "shem",
 "japheth"
@@ -10425,9 +10690,6 @@
 ],
 "senine": [
 "senine"
-],
-"senira": [
-"hermon"
 ],
 "senoka": [
 "zenock"
@@ -10448,11 +10710,11 @@
 "sihor"
 ],
 "sepa": [
-"bichri"
+"bichri",
+"seba"
 ],
 "sepania": [
-"shebaniah",
-"kadmiel"
+"shebaniah"
 ],
 "sepatia": [
 "zebadiah"
@@ -10512,7 +10774,6 @@
 ],
 "serepeia": [
 "sherebiah",
-"hodijah",
 "shebaniah"
 ],
 "seresa": [
@@ -10530,6 +10791,9 @@
 "serupapelu": [
 "zerubbabel",
 "shealtiel"
+],
+"serā": [
+"zarhites"
 ],
 "sesa": [
 "shiz",
@@ -10574,6 +10838,9 @@
 "boznai",
 "shethar"
 ],
+"setatio": [
+"furlongs"
+],
 "setefana": [
 "stephanas"
 ],
@@ -10604,6 +10871,9 @@
 "setusetu": [
 "halt"
 ],
+"seu": [
+"jupiter"
+],
 "seva": [
 "zebah",
 "zalmunna"
@@ -10622,7 +10892,8 @@
 "sebus"
 ],
 "siakisone": [
-"jackson"
+"jackson",
+"county"
 ],
 "siaosi": [
 "george"
@@ -10650,6 +10921,12 @@
 "silailalo": [
 "emerods",
 "mice"
+],
+"silasila": [
+"look"
+],
+"sili": [
+"than"
 ],
 "silika": [
 "silk"
@@ -10688,6 +10965,9 @@
 "sinu": [
 "hin"
 ],
+"sinā": [
+"gray"
+],
 "sio": [
 "compass"
 ],
@@ -10706,7 +10986,7 @@
 "about"
 ],
 "siosiomia": [
-"about"
+"compass"
 ],
 "sipa": [
 "ziba"
@@ -10757,8 +11037,7 @@
 "breastwork"
 ],
 "snider": [
-"snider",
-"george"
+"snider"
 ],
 "soa": [
 "companions"
@@ -10775,11 +11054,8 @@
 "soaro": [
 "zohar"
 ],
-"soatau": [
-"armourbearer"
-],
 "sofaia": [
-"break"
+"broken"
 ],
 "sofara": [
 "zophar",
@@ -10795,9 +11071,11 @@
 "lives",
 "living"
 ],
+"soisoi": [
+"laugh"
+],
 "sola": [
-"fled",
-"flee"
+"fled"
 ],
 "solaaga": [
 "flight"
@@ -10808,6 +11086,9 @@
 "sole": [
 "friends"
 ],
+"solia": [
+"trodden"
+],
 "soliga": [
 "transgression"
 ],
@@ -10815,6 +11096,9 @@
 "transgression"
 ],
 "soligavine": [
+"press"
+],
+"soligāvine": [
 "winepress"
 ],
 "solisolia": [
@@ -10828,7 +11112,7 @@
 ],
 "soloai": [
 "stead",
-"slept",
+"sleep",
 "buried"
 ],
 "solofanua": [
@@ -10837,11 +11121,11 @@
 "horsemen"
 ],
 "soloia": [
-"wall"
+"thrown"
 ],
 "soloiesea": [
-"blotted",
-"blot"
+"blot",
+"blotted"
 ],
 "solomona": [
 "solomon"
@@ -10887,8 +11171,7 @@
 "near"
 ],
 "sosola": [
-"fled",
-"flee"
+"fled"
 ],
 "sosolo": [
 "spread",
@@ -10906,11 +11189,14 @@
 "gomorrah"
 ],
 "sousou": [
-"sea"
+"raging"
 ],
 "sovala": [
 "shobal",
 "zibeon"
+],
+"soātau": [
+"armourbearer"
 ],
 "suamalie": [
 "sweet"
@@ -10919,26 +11205,11 @@
 "zuar",
 "nethaneel"
 ],
-"suasami": [
-"sea",
-"water"
-],
-"suasusu": [
-"milk"
-],
 "suatia": [
 "plow"
 ],
 "suauu": [
 "oil"
-],
-"suavai": [
-"melt"
-],
-"suavine": [
-"sweet",
-"wine",
-"new"
 ],
 "suega": [
 "question"
@@ -10979,12 +11250,19 @@
 "suli": [
 "heirs"
 ],
+"sulu": [
+"graft"
+],
 "sulufaiga": [
 "refuge",
 "slayer"
 ],
 "sulugatiti": [
+"loins"
+],
+"sulugātiti": [
 "loins",
+"girdle",
 "gird"
 ],
 "suluina": [
@@ -11002,16 +11280,16 @@
 "cymbals"
 ],
 "sunako": [
-"synagogues",
-"synagogue"
+"synagogue",
+"synagogues"
 ],
 "sunema": [
 "shunammite",
-"abishag",
-"shunem"
+"abishag"
 ],
 "sunua": [
-"burn"
+"burnt",
+"fire"
 ],
 "suo": [
 "shovels",
@@ -11046,26 +11324,67 @@
 "breasts"
 ],
 "susue": [
-"skirt"
+"skirt",
+"uncover"
 ],
 "susuga": [
 "york"
 ],
 "susulu": [
-"light",
-"darkness"
+"shine",
+"light"
 ],
 "susunu": [
-"burn"
+"burnt",
+"fire"
 ],
 "susunuina": [
-"burn"
+"burnt",
+"fire"
 ],
 "sutelu": [
 "shuthelah"
 ],
+"suāsami": [
+"sea",
+"water"
+],
+"suāsusu": [
+"milk",
+"honey"
+],
+"suāuu": [
+"oil"
+],
+"suāvai": [
+"melt"
+],
+"suāvine": [
+"wine",
+"new"
+],
 "sylvester": [
 "sylvester"
+],
+"sāvali": [
+"messengers"
+],
+"sōloi": [
+"wiped",
+"wipe"
+],
+"sōloia": [
+"blotted"
+],
+"sōloiesea": [
+"blotted",
+"blot"
+],
+"sūsū": [
+"wet"
+],
+"ta4u": [
+"told"
 ],
 "taaalo": [
 "play"
@@ -11085,6 +11404,9 @@
 "taalili": [
 "noise"
 ],
+"taalise": [
+"speedily"
+],
 "taalo": [
 "asps",
 "sucking",
@@ -11102,7 +11424,8 @@
 "lion"
 ],
 "taapeape": [
-"scattered"
+"scattered",
+"abroad"
 ],
 "taata": [
 "tahath"
@@ -11114,11 +11437,13 @@
 "common"
 ],
 "taatia": [
-"slain"
+"slain",
+"lay"
 ],
 "taatitia": [
-"fallen",
-"lie"
+"lay",
+"slain",
+"sword"
 ],
 "taavale": [
 "wheels"
@@ -11129,9 +11454,6 @@
 ],
 "taavavale": [
 "wheels"
-],
-"tacao": [
-"morning"
 ],
 "taeao": [
 "morning",
@@ -11160,11 +11482,6 @@
 "river",
 "water"
 ],
-"tafea": [
-"captive",
-"carried",
-"captivity"
-],
 "tafeaga": [
 "captivity"
 ],
@@ -11174,8 +11491,14 @@
 "tafi": [
 "shave"
 ],
+"tafia": [
+"swept"
+],
 "tafitafi": [
-"find"
+"swept"
+],
+"tafitafiina": [
+"led"
 ],
 "tafola": [
 "water"
@@ -11201,11 +11524,14 @@
 "freemen"
 ],
 "tagatanuu": [
-"greatest",
-"least"
+"citizens"
 ],
 "tagatavāai": [
 "seer"
+],
+"tagatānuu": [
+"greatest",
+"least"
 ],
 "tagavai": [
 "standard"
@@ -11213,16 +11539,14 @@
 "taga’i": [
 "look"
 ],
-"tagi": [
-"cry"
-],
 "tagiaue": [
 "gnashing",
 "wailing"
 ],
 "tagiauē": [
 "gnashing",
-"lamentation"
+"lamentation",
+"teeth"
 ],
 "tagitagi": [
 "bells",
@@ -11249,7 +11573,7 @@
 "smite"
 ],
 "taiaina": [
-"smitten"
+"smite"
 ],
 "taie": [
 "vultures"
@@ -11278,10 +11602,8 @@
 "lamanites"
 ],
 "taiono": [
+"sixty",
 "six"
-],
-"taisautuaselau": [
-"hundredfold"
 ],
 "taisefulu": [
 "ten"
@@ -11290,11 +11612,11 @@
 "hundredfold"
 ],
 "taitai": [
+"leader",
 "led"
 ],
 "taitaia": [
-"led",
-"lead"
+"led"
 ],
 "taitaiau": [
 "commander"
@@ -11312,29 +11634,19 @@
 "hundreds"
 ],
 "taitoalimagafulu": [
-"hundreds"
+"fifties"
 ],
 "taitoalua": [
 "two"
 ],
 "taitoasefulu": [
-"hundreds"
+"fifties"
 ],
 "taitoaselau": [
 "hundreds"
 ],
 "taitolu": [
 "three"
-],
-"taitolugafulu": [
-"ground",
-"fruit"
-],
-"taja": [
-"proclaim"
-],
-"tak": [
-"sickness"
 ],
 "takesa": [
 "badgers'"
@@ -11359,7 +11671,7 @@
 "preaching"
 ],
 "talaina": [
-"law"
+"told"
 ],
 "talalelei": [
 "gospel"
@@ -11374,8 +11686,8 @@
 "sackcloth"
 ],
 "talatalaina": [
-"told",
-"old"
+"old",
+"told"
 ],
 "talavou": [
 "youth",
@@ -11433,8 +11745,7 @@
 "accepted"
 ],
 "talipupuni": [
-"buckler",
-"shield"
+"buckler"
 ],
 "talisuaga": [
 "supper"
@@ -11478,9 +11789,6 @@
 "talotaloga": [
 "prayer"
 ],
-"talu": [
-"since"
-],
 "tamaalii": [
 "princes"
 ],
@@ -11495,8 +11803,7 @@
 "lamb"
 ],
 "tamaiti": [
-"woman",
-"little"
+"woman"
 ],
 "tamaitiiti": [
 "child"
@@ -11523,14 +11830,11 @@
 "tamatamailima": [
 "finger"
 ],
-"tamà": [
-"fathers"
+"tamoe": [
+"run"
 ],
 "tamā": [
 "fathers"
-],
-"tana": [
-"war"
 ],
 "tanaka": [
 "taanach",
@@ -11556,6 +11860,9 @@
 "dan",
 "buried"
 ],
+"tanua": [
+"buried"
+],
 "tanuga": [
 "burial"
 ],
@@ -11565,11 +11872,21 @@
 "tanumia": [
 "buried"
 ],
+"tanū": [
+"dan"
+],
 "tao": [
 "spear"
 ],
+"taofimauina": [
+"hold"
+],
 "taooto": [
-"lie"
+"sat",
+"lay"
+],
+"taoto": [
+"sleep"
 ],
 "tapapa": [
 "cieled"
@@ -11615,7 +11932,7 @@
 "shut"
 ],
 "tapuvae": [
-"clay"
+"feet"
 ],
 "tara": [
 "terah"
@@ -11629,16 +11946,14 @@
 "tariu": [
 "darius"
 ],
+"tarnā": [
+"fathers"
+],
 "tasesa": [
-"tarshish",
-"beryl"
+"tarshish"
 ],
 "taso": [
 "tarsus"
-],
-"tasura": [
-"pine",
-"box"
 ],
 "tataa": [
 "fowls"
@@ -11658,7 +11973,8 @@
 "abiram"
 ],
 "tatanu": [
-"stopped"
+"stopped",
+"bury"
 ],
 "tatao": [
 "snare"
@@ -11668,22 +11984,16 @@
 ],
 "tatatuli": [
 "please",
-"awake",
-"stir"
+"stir",
+"awake"
 ],
 "tatenai": [
 "tatnai",
 "boznai",
 "shethar"
 ],
-"tatu": [
-"told"
-],
-"tatuamiotonuina": [
-"justified"
-],
 "tatupu": [
-"branches"
+"stem"
 ],
 "tatuu": [
 "hewn"
@@ -11691,14 +12001,14 @@
 "tatuuina": [
 "choice",
 "hewn",
-"cedar"
+"forest"
 ],
 "taua": [
 "war"
 ],
 "tauagavale": [
-"left",
-"right"
+"right",
+"left"
 ],
 "taualo": [
 "sea"
@@ -11713,7 +12023,7 @@
 "blind"
 ],
 "tauau": [
-"about"
+"shoulder"
 ],
 "tauave": [
 "bear"
@@ -11725,7 +12035,8 @@
 "mocked"
 ],
 "tauemuga": [
-"derision"
+"derision",
+"byword"
 ],
 "taufaaiuiuga": [
 "latter"
@@ -11739,8 +12050,10 @@
 "taufaifai": [
 "revilings"
 ],
+"taufaimamā": [
+"shame"
+],
 "taufaiofo": [
-"amazed",
 "astonished"
 ],
 "taufaitagi": [
@@ -11748,7 +12061,6 @@
 "weeping"
 ],
 "taufaitagiaue": [
-"outer",
 "gnashing"
 ],
 "taufaitagitu’i": [
@@ -11758,8 +12070,7 @@
 "kissed"
 ],
 "taufetuli": [
-"run",
-"ran"
+"run"
 ],
 "taufulufulu": [
 "hairy",
@@ -11769,7 +12080,7 @@
 "costly",
 "apparel"
 ],
-"taugavine": [
+"taugāvine": [
 "vintage"
 ],
 "taui": [
@@ -11795,11 +12106,6 @@
 "taulai": [
 "forward"
 ],
-"taulaitu": [
-"magicians",
-"wizards",
-"familiar"
-],
 "taulalo": [
 "ahab"
 ],
@@ -11807,6 +12113,7 @@
 "condemned"
 ],
 "taulealea": [
+"youth",
 "young"
 ],
 "taulelea": [
@@ -11833,6 +12140,11 @@
 ],
 "tauluulu": [
 "top"
+],
+"taulāitu": [
+"magicians",
+"wizards",
+"familiar"
 ],
 "taumafa": [
 "meat",
@@ -11882,7 +12194,6 @@
 "counsel"
 ],
 "taupulepulega": [
-"hide",
 "counsel",
 "secret"
 ],
@@ -11907,7 +12218,6 @@
 "commandments"
 ],
 "tausia": [
-"kept",
 "keep"
 ],
 "tausiga": [
@@ -11956,11 +12266,17 @@
 "tautiga": [
 "labour"
 ],
+"tautigaina": [
+"labour"
+],
 "tautino": [
 "declare"
 ],
 "tautinoga": [
 "appointed"
+],
+"tauto": [
+"sware"
 ],
 "tautoga": [
 "oath"
@@ -11978,42 +12294,53 @@
 "drop"
 ],
 "tautuu": [
-"carry",
-"wall"
+"digged",
+"carry"
 ],
 "tauvae": [
 "tinkling"
 ],
+"tauāu": [
+"another"
+],
 "tau’au": [
 "shoulder"
+],
+"tau’ole’ole": [
+"deceit"
 ],
 "tavita": [
 "david"
 ],
-"taw": [
-"recompense"
-],
-"tawada": [
-"lamb",
-"offering",
-"burnt"
-],
 "taylor": [
 "taylor"
 ],
+"taā": [
+"eminent"
+],
 "ta’i": [
-"times",
-"ten"
+"times"
+],
+"ta’ita’i": [
+"led"
 ],
 "ta’ita’ia": [
 "led"
 ],
+"ta’ita’ieseina": [
+"led"
+],
+"ta’ita’iina": [
+"led"
+],
 "ta’u": [
-"told",
-"tell"
+"told"
 ],
 "ta’ua": [
 "called"
+],
+"ta’uamiotonu": [
+"justified"
 ],
 "ta’uamiotonuina": [
 "justified"
@@ -12037,8 +12364,8 @@
 "ta’uleleia": [
 "report"
 ],
-"ta’umamaina": [
-"cleansed"
+"ta’umamāina": [
+"pronounce"
 ],
 "ta’usalaga": [
 "condemnation"
@@ -12058,8 +12385,9 @@
 "ta’uvaleina": [
 "profaned"
 ],
-"te3u": [
-"jesus"
+"tea": [
+"gone",
+"high"
 ],
 "teanekuma": [
 "teancum"
@@ -12086,6 +12414,9 @@
 "tekapoli": [
 "decapolis"
 ],
+"telegese": [
+"longsuffering"
+],
 "telenoa": [
 "uncover",
 "nakedness"
@@ -12093,9 +12424,14 @@
 "telesitila": [
 "telestial"
 ],
+"televave": [
+"march"
+],
+"telona": [
+"publicans"
+],
 "tema": [
-"tema",
-"demas"
+"tema"
 ],
 "temetiu": [
 "demetrius"
@@ -12116,7 +12452,8 @@
 "eyes"
 ],
 "tepora": [
-"deborah"
+"deborah",
+"barak"
 ],
 "terasitila": [
 "terrestrial"
@@ -12124,18 +12461,12 @@
 "teroa": [
 "troas"
 ],
-"terusalema": [
-"jerusalem"
-],
 "tesalonia": [
 "thessalonica",
 "thessalonians"
 ],
 "tesema": [
 "december"
-],
-"tesu": [
-"jesus"
 ],
 "tetemu": [
 "trembling"
@@ -12146,7 +12477,6 @@
 "lifted"
 ],
 "teua": [
-"laid",
 "lay"
 ],
 "teuga": [
@@ -12154,8 +12484,7 @@
 "jewels"
 ],
 "teuina": [
-"vineyard",
-"lay"
+"vineyard"
 ],
 "teuoloa": [
 "treasurer"
@@ -12174,8 +12503,7 @@
 "departed"
 ],
 "thayre": [
-"thayre",
-"marsh"
+"thayre"
 ],
 "thomas": [
 "thomas"
@@ -12195,7 +12523,8 @@
 ],
 "tietie": [
 "horsemen",
-"chariots"
+"throne",
+"sat"
 ],
 "tigā": [
 "pain"
@@ -12219,8 +12548,8 @@
 "admonished"
 ],
 "timena": [
-"timnah",
-"timna"
+"timna",
+"timnah"
 ],
 "timenata": [
 "timnath"
@@ -12234,6 +12563,9 @@
 ],
 "timuga": [
 "showers"
+],
+"tina": [
+"dinah"
 ],
 "tinei": [
 "quenched"
@@ -12255,19 +12587,19 @@
 "tiberias"
 ],
 "tipiesea": [
-"drew",
 "smote",
-"ears"
+"ears",
+"drew"
 ],
 "tipona": [
-"dibon"
+"dibon",
+"medeba"
 ],
 "tiresa": [
 "tirzah"
 ],
 "tisano": [
-"dishan",
-"dishon"
+"dishan"
 ],
 "tisepi": [
 "tishbite"
@@ -12324,8 +12656,18 @@
 "toafitugafulu": [
 "seventy"
 ],
+"toafā": [
+"families",
+"four"
+],
 "toagalauapi": [
 "camp"
+],
+"toagālauapi": [
+"camp"
+],
+"toai": [
+"lives"
 ],
 "toaitiiti": [
 "number"
@@ -12369,10 +12711,8 @@
 "centurion"
 ],
 "toatamai": [
-"indignation"
-],
-"toatasi": [
-"only"
+"indignation",
+"anger"
 ],
 "toatinoagafulu": [
 "twelve",
@@ -12449,8 +12789,7 @@
 "swallowed"
 ],
 "tofe": [
-"steep",
-"violently"
+"steep"
 ],
 "tofeta": [
 "tophet"
@@ -12467,12 +12806,21 @@
 "tofiga": [
 "office"
 ],
+"tofimo": [
+"trophimus"
+],
 "tofitofi": [
-"brake"
+"bread",
+"broken",
+"disciples"
 ],
 "tofo": [
 "tasted",
 "taste"
+],
+"tofotofo": [
+"tempted",
+"prove"
 ],
 "tofotofoga": [
 "trial",
@@ -12484,9 +12832,8 @@
 "tofusia": [
 "partakers"
 ],
-"tofì": [
-"families",
-"tribe"
+"tofutofusia": [
+"partakers"
 ],
 "toga": [
 "south"
@@ -12517,10 +12864,16 @@
 "togitogiina": [
 "carved"
 ],
+"togālauapi": [
+"camp"
+],
 "togāolive": [
 "vineyard",
 "natural",
 "nourished"
+],
+"toi": [
+"water"
 ],
 "toilalo": [
 "subdued"
@@ -12533,7 +12886,6 @@
 "gomer"
 ],
 "tolauapi": [
-"march",
 "camp"
 ],
 "tolauapiga": [
@@ -12586,9 +12938,8 @@
 "kneeled"
 ],
 "topa": [
-"tabret",
 "timbrel",
-"harp"
+"tabret"
 ],
 "topasi": [
 "topaz",
@@ -12611,8 +12962,10 @@
 "cheweth"
 ],
 "tosina": [
-"drawn",
-"draw"
+"drew"
+],
+"toso": [
+"drew"
 ],
 "toto": [
 "blood"
@@ -12625,10 +12978,6 @@
 ],
 "totofi": [
 "appointed"
-],
-"totoga": [
-"legs",
-"inward"
 ],
 "totogo": [
 "beginneth",
@@ -12655,16 +13004,14 @@
 "toto’a": [
 "rest"
 ],
-"totò": [
-"plant"
-],
 "totō": [
 "plant"
 ],
+"totōina": [
+"plant"
+],
 "toulu": [
-"flower",
-"withered",
-"grass"
+"withered"
 ],
 "tovia": [
 "tobiah"
@@ -12681,29 +13028,23 @@
 "to’atama’i": [
 "anger"
 ],
-"tu3a": [
-"law"
-],
 "tua": [
 "back"
 ],
 "tuafafine": [
 "sister"
 ],
-"tuafafo": [
-"chambers"
-],
 "tuafanua": [
 "suburbs"
+],
+"tuafāfine": [
+"sister"
 ],
 "tuagane": [
 "brethren"
 ],
 "tuai": [
 "old"
-],
-"tuanai": [
-"passed"
 ],
 "tuaoi": [
 "border"
@@ -12725,13 +13066,19 @@
 "flesh"
 ],
 "tufatufaina": [
-"divided",
-"spoil"
+"divided"
+],
+"tufimomomoina": [
+"pieces"
 ],
 "tufuga": [
 "work"
 ],
+"tuga": [
+"worm"
+],
 "tugia": [
+"burnt",
 "fire"
 ],
 "tugā": [
@@ -12745,6 +13092,9 @@
 ],
 "tuinanau": [
 "lusts"
+],
+"tuipalaina": [
+"images"
 ],
 "tuitui": [
 "thorns",
@@ -12762,15 +13112,16 @@
 "tulaga": [
 "state"
 ],
-"tulagavae": [
+"tulagāvae": [
 "steps"
+],
+"tulai": [
+"arose",
+"rise"
 ],
 "tula’i": [
 "arose",
-"stood"
-],
-"tulei": [
-"voice"
+"stand"
 ],
 "tuleia": [
 "driven"
@@ -12782,7 +13133,7 @@
 "cast"
 ],
 "tulia": [
-"cast"
+"driven"
 ],
 "tulieseina": [
 "chased"
@@ -12795,8 +13146,8 @@
 "return"
 ],
 "tuliloaina": [
-"pursue",
-"pursued"
+"pursued",
+"pursue"
 ],
 "tulimanu": [
 "corners"
@@ -12811,7 +13162,9 @@
 "philistines"
 ],
 "tulituli": [
-"drive"
+"driven",
+"back",
+"flocks"
 ],
 "tulituliloa": [
 "pursued",
@@ -12836,8 +13189,7 @@
 "prolong"
 ],
 "tulu’iga": [
-"end",
-"earth"
+"end"
 ],
 "tuma": [
 "dumah"
@@ -12883,9 +13235,6 @@
 "tupulaga": [
 "generation"
 ],
-"tupuo": [
-"assyria"
-],
 "tupuolaola": [
 "flourish"
 ],
@@ -12897,7 +13246,8 @@
 "tyrus"
 ],
 "tusi": [
-"book"
+"book",
+"written"
 ],
 "tusia": [
 "written"
@@ -12910,6 +13260,10 @@
 "record",
 "book"
 ],
+"tusigafaina": [
+"reckoned",
+"genealogy"
+],
 "tusilima": [
 "province"
 ],
@@ -12920,8 +13274,7 @@
 "recorder"
 ],
 "tusitusi": [
-"writing",
-"write"
+"writing"
 ],
 "tusitusiga": [
 "scriptures"
@@ -12930,20 +13283,14 @@
 "scribes",
 "scribe"
 ],
-"tuta": [
-"judah"
-],
 "tutaima": [
 "mandrakes"
-],
-"tutii": [
-"stood"
 ],
 "tutonu": [
 "noon"
 ],
 "tutu": [
-"stood"
+"stand"
 ],
 "tutulai": [
 "stand"
@@ -12952,7 +13299,7 @@
 "stand"
 ],
 "tutuli": [
-"cast"
+"driven"
 ],
 "tutulia": [
 "driven"
@@ -12960,8 +13307,10 @@
 "tutuliesea": [
 "driven"
 ],
+"tutulieseina": [
+"driven"
+],
 "tutulu": [
-"weep",
 "wept",
 "enoch"
 ],
@@ -12971,18 +13320,16 @@
 "tutumu": [
 "full"
 ],
+"tutupu": [
+"grow"
+],
 "tutusa": [
 "equal"
 ],
 "tutu’i": [
 "thrust"
 ],
-"tutù": [
-"stood",
-"stand"
-],
 "tutū": [
-"stood",
 "stand"
 ],
 "tuua": [
@@ -12990,6 +13337,12 @@
 ],
 "tuuaao": [
 "footstool"
+],
+"tuuautapu": [
+"sware"
+],
+"tuua’i": [
+"accuse"
 ],
 "tuua’ia": [
 "accused"
@@ -13020,26 +13373,31 @@
 "tuugalamepa": [
 "candlestick"
 ],
-"tuugamaa": [
-"row"
-],
 "tuugamau": [
 "grave",
 "sepulchre"
 ],
-"tuugamoli": [
-"candlestick",
-"bushel",
-"candle"
-],
 "tuugatanoa": [
 "bases"
 ],
-"tuugauaina": [
+"tuugālamepa": [
+"candlestick"
+],
+"tuugāmatapa’u": [
+"snuffdishes"
+],
+"tuugātanoa": [
+"bases",
+"laver"
+],
+"tuugāuaina": [
 "winepress"
 ],
 "tuulafoai": [
-"forsake"
+"forsaken"
+],
+"tuulafoaia": [
+"forsaken"
 ],
 "tuulafoaiina": [
 "forsaken"
@@ -13054,6 +13412,9 @@
 ],
 "tuumuli": [
 "backward"
+],
+"tuuna": [
+"forsaken"
 ],
 "tuupao": [
 "garments",
@@ -13081,11 +13442,13 @@
 "tuuvaa": [
 "launched"
 ],
+"tuāfanua": [
+"suburbs"
+],
 "tu’i": [
 "beat"
 ],
 "tu’ia": [
-"block",
 "stumbling"
 ],
 "tu’iga": [
@@ -13093,15 +13456,13 @@
 ],
 "tu’imomoia": [
 "images",
-"brake",
 "pieces"
 ],
 "tu’imomomo": [
 "pieces"
 ],
 "tu’imomomoina": [
-"pieces",
-"break"
+"pieces"
 ],
 "tu’inanau": [
 "lusts"
@@ -13115,17 +13476,49 @@
 "tu’itu’i": [
 "knock"
 ],
-"tàua": [
-"precious"
+"tu’ua": [
+"left"
 ],
-"tùlei": [
-"voice"
+"tāfea": [
+"captive",
+"carried",
+"captivity"
+],
+"tālaina": [
+"persians",
+"medes"
+],
+"tālo": [
+"stand"
 ],
 "tālā": [
 "dollars"
 ],
-"tăpapa": [
+"tāpapa": [
 "cedar"
+],
+"tātupu": [
+"branches"
+],
+"tāua": [
+"precious"
+],
+"tā’ita’i": [
+"principal"
+],
+"tōtōga": [
+"legs"
+],
+"tūlei": [
+"voice"
+],
+"tūtū": [
+"shake",
+"dust"
+],
+"tŭlei": [
+"voice",
+"heaven"
 ],
 "uaga": [
 "rain"
@@ -13144,7 +13537,7 @@
 "uamea": [
 "iron"
 ],
-"uatoa": [
+"uato4a": [
 "hail"
 ],
 "uatogi": [
@@ -13191,7 +13584,7 @@
 "concerning"
 ],
 "uii": [
-"youngest"
+"younger"
 ],
 "uila": [
 "lightnings"
@@ -13229,11 +13622,12 @@
 ],
 "uli": [
 "blue",
-"dogs",
-"purple"
+"purple",
+"dogs"
 ],
 "uliuli": [
-"black"
+"black",
+"thick"
 ],
 "ulo": [
 "pot",
@@ -13246,6 +13640,7 @@
 "first"
 ],
 "ulua’i": [
+"parents",
 "resurrection"
 ],
 "ulufale": [
@@ -13253,8 +13648,7 @@
 ],
 "uluga": [
 "pigeons",
-"turtledoves",
-"turtles"
+"turtledoves"
 ],
 "uluitino": [
 "swine"
@@ -13268,18 +13662,14 @@
 "firstborn"
 ],
 "uluola": [
-"fruitful"
+"multiply"
 ],
 "ulupoo": [
 "skull",
 "golgotha"
 ],
-"ulusina": [
-"grayheaded",
-"hoar"
-],
-"ulusinà": [
-"old"
+"ulusinā": [
+"grayheaded"
 ],
 "uluuluola": [
 "multiply"
@@ -13294,7 +13684,6 @@
 ],
 "umia": [
 "keys",
-"hold",
 "priesthood"
 ],
 "umu": [
@@ -13302,7 +13691,11 @@
 "furnace"
 ],
 "una": [
-"scales"
+"scales",
+"fins"
+],
+"uni": [
+"unni"
 ],
 "uogo": [
 "poisonous",
@@ -13315,7 +13708,7 @@
 "revile"
 ],
 "upuleagaina": [
-"blasphemed"
+"reproach"
 ],
 "upumoni": [
 "truth"
@@ -13339,12 +13732,11 @@
 ],
 "uro": [
 "chaldees",
-"haran",
-"terah"
+"terah",
+"haran"
 ],
 "urosa": [
-"lion",
-"bear"
+"lion"
 ],
 "usa": [
 "uzza"
@@ -13379,8 +13771,10 @@
 "early"
 ],
 "usuusu": [
-"early",
-"rose"
+"early"
+],
+"usā": [
+"hushathite"
 ],
 "uta": [
 "ship"
@@ -13389,7 +13783,7 @@
 "bitten"
 ],
 "utu": [
-"water"
+"drew"
 ],
 "utufia": [
 "bottles"
@@ -13438,8 +13832,8 @@
 "view"
 ],
 "vaapiapi": [
-"strait",
-"narrow"
+"narrow",
+"strait"
 ],
 "vaavaai": [
 "look"
@@ -13454,12 +13848,12 @@
 "vaefa": [
 "fowls",
 "beasts",
-"air"
+"cattle"
 ],
 "vaega": [
 "part"
 ],
-"vaegamea": [
+"vaegāmea": [
 "israel's"
 ],
 "vaeloto": [
@@ -13496,10 +13890,6 @@
 "vagaia": [
 "besieged"
 ],
-"vagana": [
-"except",
-"save"
-],
 "vaganā": [
 "except"
 ],
@@ -13508,8 +13898,8 @@
 "about"
 ],
 "vagavagaia": [
-"round",
 "statutes",
+"round",
 "about"
 ],
 "vai": [
@@ -13529,9 +13919,6 @@
 ],
 "vailepa": [
 "pool"
-],
-"vaio": [
-"water"
 ],
 "vaipuna": [
 "fountain"
@@ -13562,14 +13949,17 @@
 "weak"
 ],
 "vaivaiga": [
-"weakness",
-"infirmities"
+"infirmities",
+"weakness"
 ],
 "valaau": [
 "called"
 ],
 "valaauga": [
 "calling"
+],
+"valaauia": [
+"called"
 ],
 "valaauina": [
 "called"
@@ -13629,7 +14019,7 @@
 "stubborn"
 ],
 "vaomatua": [
-"forest"
+"wilderness"
 ],
 "vasa": [
 "ship",
@@ -13646,10 +14036,12 @@
 ],
 "vatele": [
 "wide",
+"leads",
 "broad"
 ],
 "vava": [
-"far"
+"far",
+"nigh"
 ],
 "vavae": [
 "cut",
@@ -13660,6 +14052,7 @@
 "off"
 ],
 "vavaeina": [
+"cut",
 "water"
 ],
 "vavalo": [
@@ -13671,9 +14064,6 @@
 ],
 "vavave": [
 "swift"
-],
-"vavaò": [
-"noise"
 ],
 "vavega": [
 "miracles",
@@ -13694,8 +14084,7 @@
 "prey"
 ],
 "vetea": [
-"spoil",
-"prey"
+"spoil"
 ],
 "vetega": [
 "plundering"
@@ -13706,8 +14095,8 @@
 "vevela": [
 "heat"
 ],
-"viia": [
-"praise"
+"via": [
+"offering"
 ],
 "viiga": [
 "praise",
@@ -13723,10 +14112,6 @@
 "vine": [
 "vine"
 ],
-"vineka": [
-"spunge",
-"vinegar"
-],
 "vineta": [
 "vinegar"
 ],
@@ -13736,68 +14121,86 @@
 "vivini": [
 "cock",
 "crow",
-"thrice"
+"crew"
 ],
-"vyao": [
-"wilderness"
+"vāai": [
+"look"
+],
+"vālea": [
+"foolish"
+],
+"vāvāo": [
+"noise"
 ],
 "vāvāō": [
-"excitement"
+"noise"
 ],
 "warren": [
 "warren"
 ],
 "whitney": [
-"whitney",
-"newel"
+"whitney"
 ],
 "wight": [
-"wight",
-"lyman"
+"wight"
 ],
 "wilford": [
-"woodruff",
-"wilford",
-"taylor"
+"wilford"
 ],
 "willard": [
-"willard",
-"richards",
-"taylor"
+"willard"
 ],
 "william": [
 "william"
 ],
 "williams": [
-"frederick"
+"williams"
 ],
 "woodruff": [
-"woodruff",
-"wilford",
-"taylor"
-],
-"yanu": [
-"valley"
-],
-"yao": [
-"wilderness"
+"woodruff"
 ],
 "young": [
-"brigham"
+"young"
+],
+"āga": [
+"span"
+],
+"āina": [
+"inhabited"
 ],
 "āiā": [
 "claim"
 ],
+"ālagālima": [
+"wave",
+"heave",
+"shoulder"
+],
+"ātu": [
+"troubled"
+],
+"āumatuā": [
+"fatherless",
+"levite",
+"widow"
+],
+"āumau": [
+"sojourn",
+"stranger"
+],
+"ōna": [
+"earth"
+],
 "’ai": [
-"eat",
-"meat"
+"meat",
+"eat"
 ],
 "’aia": [
 "tree",
 "eat"
 ],
 "’aiga": [
-"feast"
+"fragments"
 ],
 "’aina": [
 "eat"
@@ -13815,6 +14218,7 @@
 "wild"
 ],
 "’alo": [
+"hid",
 "face"
 ],
 "’alofaga": [
@@ -13825,8 +14229,7 @@
 "dregs"
 ],
 "’apa": [
-"brass",
-"brasen"
+"brass"
 ],
 "’apa’apa": [
 "fins",
@@ -13835,12 +14238,16 @@
 "’aso’aso": [
 "rib"
 ],
+"’ata": [
+"laugh"
+],
 "’ata’ata": [
-"laugh",
-"sarah"
+"laughter",
+"laugh"
 ],
 "’ato": [
-"scrip"
+"scrip",
+"purse"
 ],
 "’au": [
 "hosts"
@@ -13857,8 +14264,14 @@
 "’ea": [
 "air"
 ],
-"’ili": [
-"axes"
+"’ino-": [
+"hated"
+],
+"’inofino": [
+"abhorred"
+],
+"’ino’ino": [
+"hate"
 ],
 "’oa": [
 "riches"
@@ -13880,10 +14293,10 @@
 "lice"
 ],
 "’u’u": [
-"held"
+"hold"
 ],
 "’’ino’ino": [
-"hate"
+"hated"
 ]
 }
 }
