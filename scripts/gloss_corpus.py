@@ -5773,6 +5773,41 @@ def main(argv: list[str] | None = None) -> int:
                 out[e1]["en"] = alt_ + cw_.group(2)
                 used_[alt_] += 1; used_[x_] -= 1
                 stats["unit: a word the verse says once is glossed once"] += 1
+        # A UNIT NEVER RUNS THROUGH A COORDINATING `ma` (user, 2026-09-30: "why are
+        # you keeping Laman and Lemuelu as a unit though? it makes no sense"). The
+        # curation joined two names, two nouns, into one cell -- `o Lamana ma
+        # Lemuelu` "Laman and Lemuel", `o taua ma finauga` "wars and contentions" --
+        # where the corpus's own rule sets `ma` apart (before a name 392 times to
+        # 20). Each side is its own unit and `ma` says "and", when the gloss says
+        # "and" as often as the unit says `ma`. Not a frame whose word selects `ma`
+        # (`e tusa ma` "according to", `faatasi ma` "with", `avea ma`, `aunoa ma`,
+        # `fai ma`), not the dual pronoun after a marker (`sa ma vaai` "we saw"),
+        # not a compound numeral (`sefulu ma le tasi`), not a doubled idiom (`afe ma
+        # afe` "thousands", `faavavau ma faavavau`).
+        _MA_FRAMES = {"tusa", "faatasi", "avea", "aunoa", "fai", "faia", "e", "o", "ua", "sa", "na", "te", "ia", "ina", "a", "ma"}
+        s_ = 0
+        for e_ in range(len(out)):
+            if out[e_]["en"] == CONT:
+                continue
+            if out[e_]["en"] == "":
+                s_ = e_ + 1
+                continue
+            idx_ = [m_ for m_ in range(s_ + 1, e_) if _bare(toks[m_]) == "ma"
+                    and not re.search(r"[,;:.?!—][”’\"')]*$", toks[m_ - 1])
+                    and _bare(toks[m_ - 1]) not in _MA_FRAMES
+                    and not any(_bare(t_) in ("avea", "tusa", "faatasi", "aunoa") for t_ in toks[max(0, m_ - 3):m_])   # `ia avea oe ma a'u auauna` "that you be my servant" (1 Nephi 21:6)
+                    and _bare(toks[m_ - 1]) not in SG.NUMERAL_TENS
+                    and _bare(toks[m_ - 1]) != _bare(toks[m_ + 1])]
+            g_ = out[e_]["en"]
+            parts_ = re.split(r"\s+and\s+", g_)
+            if idx_ and len(parts_) == len(idx_) + 1 and all(p_.strip(" ,;.") for p_ in parts_):
+                bounds_ = [s_] + [m_ + 1 for m_ in idx_]
+                for n_, m_ in enumerate(idx_):
+                    out[m_ - 1]["en"] = parts_[n_]          # the side before `ma` closes its own unit
+                    out[m_]["en"] = "and"                   # `ma` is its own
+                out[e_]["en"] = parts_[-1]
+                stats["unit: a coordinating ma stands alone"] += len(idx_)
+            s_ = e_ + 1
         # THE COPULA AGREES WITH ITS SUBJECT. The verse's "is" set beside a
         # plural pronoun printed "they is" (D&C 104:51): a plural subject takes
         # "are" / "were", a singular "is" / "was" -- the tense the copula had.

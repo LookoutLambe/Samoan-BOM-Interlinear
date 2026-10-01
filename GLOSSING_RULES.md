@@ -1183,6 +1183,17 @@ z/sh into s, b into p, d into t, writes no h or y, and writes J as the vowel I �
   vetoes gives way to its parts; the clitic `ia` after `sa`/`na`/`ua`/`e`; the non-past
   marker takes no "did" (`ou te | apoapoai atu` "I | would exhort", Moroni 10:4).
 
+- **A unit never runs through a coordinating `ma`** (user: "why are you keeping Laman
+  and Lemuelu as a unit though? it makes no sense"). The curation joined two names or two
+  nouns into one cell — `o Lamana ma Lemuelu` "Laman and Lemuel", `Alema ma Amoleka`,
+  `o taua ma finauga` "wars and contentions", `atalii ma afafine` — where the corpus's
+  own rule sets `ma` apart (before a name 392 times to 20). Each side is its own unit and
+  `ma` says "and", when the gloss says "and" as often as the unit says `ma`. Not a frame
+  whose word selects `ma` (`e tusa ma` "according to", `faatasi ma` "with", `avea … ma`
+  "be … as", even across a pronoun, `aunoa ma`, `fai ma`), not the dual pronoun after a
+  marker (`sa ma vaai` "we saw"), not a compound numeral (`sefulu ma le tasi`), not a
+  doubled idiom (`afe ma afe` "thousands", `faavavau ma faavavau`).
+
 Measured, the three volumes against the committed state: tokens carrying text
 529,554 → 531,227 of 533,832; blank open-class words 3,406 → 1,756 (the fill reached
 1,080 before the guesses were taken out: a blank is better than a wrong word);
