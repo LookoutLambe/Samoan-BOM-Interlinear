@@ -1217,3 +1217,38 @@ Still open: the words the fill no longer guesses stay blank (1,756) until a hand
 sense or the verse reaches them; the existential `sa i ai` reads "was" where the
 verse's copula is "was" and its "there" belongs elsewhere (33 in the Bible); `tuli
 esea` "drive | great" (Mormon 4:15); fused tokens (`Harisi.Ina`).
+
+### 22bb. Rules the 1 Nephi 10:8 read added (2026-10-01)
+
+The user, on the rendered verse: *"wow that is so wrong"*, *"ona ua i ai? for their
+stands?"*, *"silisili atu is greater its a comparison thats in grammar rules"*, *"the
+atu is making the er sound in Samoan ... but not all the time"*, *"its one TAM ua
+malosi silisili atu....is mightier"*, *"malosi is stregnth right? so when you put the
+description of silisili atu its bigger that greatest... its mightier"*.
+
+- **The existential says the existence; the verb says the standing.** `ona ua i ai se
+  tasi ua tu mai ia te outou` was curated `ona ua i ai` "for there standeth" + `ua tu
+  mai ia te outou` "among you": the existential had taken the verb, and `ua tu mai`
+  — a marker and a verb — said nothing of its own, against "no word is left silent"
+  (22aa). It is `ona` "for" | `ua i ai` "there" | `se tasi` "one" | `ua tu mai`
+  "stands" | `ia te outou` "among you". The same unit is read correctly elsewhere in
+  the curation (`ona ua i ai` "for there is"), so this was one verse's slip, not the
+  frame's: measured over the whole curation, units on a hard marker (`ua`, `sa`, `na`,
+  `o loo`) whose English carries no verb are 61, and the rest are the plural personal
+  article `sa Lamanā` "of the Lamanites" or a locative `sa i tuaoi` "in the borders".
+- **The comparative is one TAM phrase, and `atu` makes it.** `ua malosi silisili atu`
+  is "is mightier": `malosi` is the strength, `silisili` the superlative, and `atu`
+  carries the "-er" past it. Three stages were cutting it up, and each is fixed where
+  it stood, not in the verse:
+  - `cuts_the_comparative` (`legal`): no span ends between the quality and `sili` /
+    `silisili`, nor before the `atu` that follows them, wherever the span began.
+  - `swallows_a_term`: `Malosi Silisili` is the title "Most Mighty", but followed by
+    `atu` it is a degree, not a name, so the term no longer claims the span.
+  - `eats_a_name`: a directional opens its own phrase, but the comparative `atu` after
+    `sili` / `silisili` belongs to the quality in front of it.
+  `atu` alone is untouched — it stays the directional "forth, away" (the user: "but
+  not all the time"), which is why nothing was added to `DEGREE`.
+
+Measured: 226 verses carry `sili` / `silisili` + `atu` (the comparative), 480 carry
+`sili` / `silisili` otherwise (the superlative and the divine title). Spot-checked
+both: `le atua silisili` "the great God" and `ua silisili atu` "is the most" stand.

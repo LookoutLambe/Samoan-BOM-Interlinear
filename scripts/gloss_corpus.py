@@ -410,6 +410,12 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
             if (prev in names or SG.transliterated(prev)
                     or prev in SG.DIRECTIONALS):
                 continue
+            # THE COMPARATIVE `atu` OPENS NOTHING. After `sili` / `silisili` the
+            # directional is the degree -- the "-er" of "mightier" -- and belongs
+            # to the quality in front of it, not to a phrase of its own
+            # (user, 2026-10-01: "its one TAM ua malosi silisili atu").
+            if n(k) == "atu" and prev in ("sili", "silisili"):
+                continue
             # A PARTICLE BELONGS WITH THE NAME. `O Nifae` is one phrase, and
             # the curation says so 1,011 times -- `o` + name glossed "Nephi"
             # bare 95 times, "of Israel" 118, "of Nephi" 54. So do `e` + name
@@ -516,9 +522,36 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
                 if k + L > len(toks):
                     break
                 key = n(k, k + L)   # inside the span, or running past its end (`ua maliu` | `mai`)
+                # `Malosi Silisili` is the title "Most Mighty", but `malosi
+                # silisili atu` is the comparison "mightier" -- the `atu` that
+                # follows says this is a degree, not a name, so the term does
+                # not claim the span (1 Nephi 10:8)
+                parts = key.split()
+                if parts and parts[-1] in ("sili", "silisili") and k + L < len(toks) and n(k + L) == "atu":
+                    continue
                 if term_of(key) or SG.transliterated(key) or key in NEG_UNITS:
                     return True
         return False
+
+    def cuts_the_comparative(a, b):
+        """THE COMPARATIVE STAYS IN ITS PREDICATE (user, 2026-10-01: "its one
+        TAM ua malosi silisili atu....is mightier").
+
+        Dunn: the predicate is the marker, the quality, and the degree that
+        follows it -- `ua malosi silisili atu` is one TAM phrase, "is mightier",
+        with `malosi` and `silisili` both description and `atu` making the "-er".
+        A remembered `ua malosi` ended on the quality and left the degree to be
+        glossed on its own ("great", "forth"), so the unit said the comparison
+        twice and the English of the degree was invented.
+        """
+        if b >= len(toks) or b <= a:
+            return False
+        nxt = n(b)
+        # never cut between the quality and its degree, nor before the `atu`
+        # that makes the degree comparative -- wherever the span began
+        if nxt in ("sili", "silisili"):
+            return not any(n(k) in ("sili", "silisili") for k in range(a, b))
+        return nxt == "atu" and n(b - 1) in ("sili", "silisili")
 
     def spans_predicate_and_subject(a, b):
         """`Sa ia te ia le ola` was one remembered unit ("the life"): a span that
@@ -585,7 +618,7 @@ def frame_at(toks, i, inv, maxlen, lex=None, names=frozenset(), seq=False):
         # 1 Nephi 2:7), opens on the negator, or runs predicate into subject
         if spans_predicate_and_subject(i, i + span) or swallows_an_agent(i, i + span) \
                 or ends_on_agent_head(i, i + span) or starts_on_negator(i, i + span) \
-                or ends_on_marker(i, i + span):
+                or ends_on_marker(i, i + span) or cuts_the_comparative(i, i + span):
             return False
         # the narrative formula `sa oo ina` closes at `ina`: a remembered `sa oo
         # ina poloaiina` "it came to pass was commanded" is two units (1 Nephi 2:2)
