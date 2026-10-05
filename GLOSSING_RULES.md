@@ -1252,3 +1252,27 @@ description of silisili atu its bigger that greatest... its mightier"*.
 Measured: 226 verses carry `sili` / `silisili` + `atu` (the comparative), 480 carry
 `sili` / `silisili` otherwise (the superlative and the divine title). Spot-checked
 both: `le atua silisili` "the great God" and `ua silisili atu` "is the most" stand.
+
+### 22cc. Glued tokens and compound numerals (2026-10-05)
+
+The user: *"you have a dash thats keeping God from being glossed"*, *"no it should not
+be one"*, *"stop with the hand curated issue. we fixed this due to the grammar rules
+and the samoan for missionaries"*, *"you put hand glossed over the grammar rules"*.
+
+- **A dash between two words is a word boundary.** `Atua—ma` was one token and printed
+  blank (1 Nephi 10:17). `GLUE_RE` had split these in the D&C and the Pearl of Great
+  Price; the Book of Mormon's 37 were held back by the curated specs' indices.
+  `split_glued_tokens.py` splits them and moves the indices with the text: `o le
+  Atua—` "of God" | `ma` "and". None is left in the three volumes.
+- **The hyphen of a compound stays**: it is how the text writes one word
+  (`nofoa-faamasino` judgment-seat, `Aneti-Nifae-Liae`). 326 tokens, 132 forms.
+- **The compound numeral is read by the grammar, never by memory**
+  (`SG.numeral_alternatives`, `grammar/compound-numeral`): tens and units under a
+  hyphen are their sum, in the form the verse writes — "sixty-five", "sixty and
+  five", the date's "twenty-third", the teen under `sefulu` (`sefulu-valu` eighteen),
+  under `toa` when persons are counted. 36 in the three volumes: 26 had been blank and
+  the rest carried a neighbour's word ("in the width", "sit,", "the twenty"); all 36
+  now read as their number.
+
+Still open: 56 hyphenated compounds that are not numerals carry no gloss
+(`amio-atua`, `molimau-vaaitino`, `pulou-tau`, `soliga-vine` …).

@@ -760,6 +760,41 @@ _NUMERAL_PREFIXED = {
 }
 
 
+_TEENS = {'one': 'eleven', 'two': 'twelve', 'three': 'thirteen', 'four': 'fourteen',
+          'five': 'fifteen', 'six': 'sixteen', 'seven': 'seventeen', 'eight': 'eighteen',
+          'nine': 'nineteen'}
+_UNIT_ORDINAL = {'one': 'first', 'two': 'second', 'three': 'third', 'four': 'fourth',
+                 'five': 'fifth', 'six': 'sixth', 'seven': 'seventh', 'eight': 'eighth',
+                 'nine': 'ninth'}
+
+
+def compound_numeral(tens, unit):
+    """Every way the scripture English writes tens + units, the plain one first:
+    "sixty-five", "sixty and five" (the Book of Mormon's), the ordinal
+    "twenty-third" of a date, and the teen when the ten is `sefulu` itself
+    (`sefulu-valu` eighteen)."""
+    t, u = NUMERALS[tens], NUMERALS[unit]
+    if tens == 'sefulu' and u in _TEENS:
+        return [_TEENS[u], _TEENS[u] + 'th']
+    out = [t + '-' + u, t + ' and ' + u]
+    if u in _UNIT_ORDINAL:
+        out.append(t + '-' + _UNIT_ORDINAL[u])
+    return out
+
+
+def numeral_alternatives(form):
+    """The readings of a hyphenated compound numeral, or [] (see compound_numeral)."""
+    f = (form or '').strip().lower()
+    tens, sep, unit = f.partition('-')
+    if not sep:
+        return []
+    if tens.startswith('toa') and tens[3:] in NUMERALS:
+        tens = tens[3:]
+    if tens in NUMERALS and unit in NUMERALS and tens.endswith(('sefulu', 'selau', 'afe')):
+        return compound_numeral(tens, unit)
+    return []
+
+
 def numeral_derived(form):
     """The English of a number under one of its prefixes, or None.
 
@@ -769,6 +804,16 @@ def numeral_derived(form):
     f = (form or '').strip().lower()
     if f in _NUMERAL_PREFIXED:
         return _NUMERAL_PREFIXED[f]
+    # THE COMPOUND NUMERAL (Dunn, unit eight): the text writes tens and units
+    # with a hyphen, `onosefulu-lima` sixty-five, and the scripture English says
+    # "sixty and five". It is the sum of its two numerals, each read by the
+    # table -- under `toa` when persons are counted (`toafasefulu-tolu`).
+    if '-' in f:
+        tens, _, unit = f.partition('-')
+        if tens.startswith('toa') and tens[3:] in NUMERALS:
+            tens = tens[3:]
+        if tens in NUMERALS and unit in NUMERALS and tens.endswith(('sefulu', 'selau', 'afe')):
+            return compound_numeral(tens, unit)[0]
     for pre in ('fa’a', 'faʻa', 'faa'):
         if f.startswith(pre) and f[len(pre):] in NUMERALS:
             n = f[len(pre):]

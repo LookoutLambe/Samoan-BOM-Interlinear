@@ -5056,6 +5056,18 @@ def main(argv: list[str] | None = None) -> int:
                 #
                 # These are glossed by POSITION or not at all.
                 gloss, why = "", "ambiguous/" + src
+            elif hit == 1 and SG.numeral_alternatives(key_sm):
+                # THE COMPOUND NUMERAL IS READ BY THE GRAMMAR, never by memory
+                # (user, 2026-10-05: "you put hand glossed over the grammar
+                # rules"): `onosefulu-lima` is sixty-five whatever a remembered
+                # unit or a leftover pairing set on it ("in the width", "sit,",
+                # or nothing, D&C 94:4, 107:89). The verse chooses the form it
+                # writes -- "sixty-five", "sixty and five", the date's
+                # "twenty-third" -- and the plain one stands where it writes none.
+                alts_ = SG.numeral_alternatives(key_sm)
+                low_ = (en_text or "").lower()
+                gloss = next((a_ for a_ in alts_ if re.search(r"\b" + re.escape(a_) + r"\b", low_)), alts_[0])
+                why = "grammar/compound-numeral"
             elif hit == 1 and key_sm == "sau" and i > 0 and norm(toks[i - 1]).strip(",;.:!?") == "leai":
                 # `sau` AFTER `leai` IS THE POSSESSIVE, not the verb: `se` + `lau`,
                 # "any ... of yours" -- `e leai sau pule` "you have no power"
